@@ -57,14 +57,16 @@ import cadquery
 import cqparts
 import cqparts_mylib
 import cqparts_towerpro_servos
-
-from Helpers import show
+from math import pi
 
 servo_motor = cqparts.find(
     category='servo',
     make='Tower Pro',
     model='MG90S',
+)(
+    rotate=((0, 0, 0), (0, 0, 1), pi / 2),
+    translate=(0, 0, 10),
 )
 
-show(servo_motor)
+cqparts.display(servo_motor)
 ```
