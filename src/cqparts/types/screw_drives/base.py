@@ -10,7 +10,7 @@ class ScrewDrive(object):
         for (k, v) in kwargs.items():
             setattr(self, k, v)
 
-    def apply(self, workplane):
+    def apply(self, workplane, offset):
         """
         Application of screwdrive indentation into a workplane (centred around it's origin)
         """
@@ -20,7 +20,7 @@ class ScrewDrive(object):
 screw_drive_map = {}
 
 def screw_drive(*names):
-    assert all(n for n in names isinstance(n, six.string_types)), "bad screw drive name"
+    assert all(isinstance(n, six.string_types) for n in names), "bad screw drive name"
     def inner(cls):
         """
         Add screw drive class to mapping
