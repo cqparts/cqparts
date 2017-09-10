@@ -48,6 +48,44 @@ class HexScrewDrive(ScrewDrive):
         return workplane.cut(tool.translate(offset))
 
 
-@screw_drive('double_hex')
+@screw_drive('double_hex', '2hex')
 class DoubleHexScrewDrive(HexScrewDrive):
     count = 2
+
+
+@screw_drive('hexalobular')
+class HexalobularScrewDrive(ScrewDrive):
+    count = 6
+    gap = None  # gap beetween circles at diameter (defaults to diameter / 8)
+    fillet = None  # defaults to gap / 2
+
+    def apply(self, workplane, offset=(0, 0, 0)):
+        # Start with a circle with self.diameter
+        tool = cadquery.Workplane("XY") \
+            .circle(self.diameter / 2).extrude(-self.depth)
+
+        # Cut cylinders from circumference
+        gap = self.gap
+        if gap is None:
+            gap = self.diameter / 8
+        wedge_angle = (2 * pi) / self.count
+        outer_radius = (self.diameter / 2.) / cos(wedge_angle / 2)
+        cut_radius = (outer_radius * sin(wedge_angle / 2)) - (gap / 2)
+
+        cylinder_template = cadquery.Workplane("XY") \
+            .center(0, outer_radius) \
+            .circle(cut_radius) \
+            .extrude(-self.depth)
+
+        for i in range(self.count):
+            angle = (360. / self.count) * i
+            tool = tool.cut(cylinder_template.rotate((0, 0, 0), (0, 0, 1), angle))
+
+        # Fillet the edges before cutting
+        fillet = self.fillet
+        if fillet is None:
+            fillet = gap / 2
+        if fillet:
+            tool = tool.edges("|Z").fillet(fillet)
+
+        return workplane.cut(tool.translate(offset))

@@ -7,8 +7,24 @@ class ScrewDrive(object):
     depth = 3.0
 
     def __init__(self, **kwargs):
-        for (k, v) in kwargs.items():
-            setattr(self, k, v)
+        for (key, value) in kwargs.items():
+            if not hasattr(self, key):
+                raise ValueError("screw drive class {cls} does not accept a '{key}' parameter".format(
+                    cls=repr(type(self)), key=key
+                ))
+
+            # Default value given to class
+            default_value = getattr(self, key)
+
+            # Cast value to the same type as the class default
+            #   (mainly designed to turn ints to floats, or visa versa)
+            if default_value is None:
+                cast_value = value
+            else:
+                cast_value = type(default_value)(value)
+
+            # Set given value
+            setattr(self, key, cast_value)
 
     def apply(self, workplane, offset):
         """
@@ -16,6 +32,22 @@ class ScrewDrive(object):
         """
         raise NotImplementedError("apply function not overridden in %r" % self)
 
+
+# Screw Drive register
+#   Create your own screw drive like so...
+#
+#       @screw_drive('some_name')
+#       class MyScrewDrive(ScrewDrive):
+#           my_param = 1.2
+#
+#           def apply(self, workplane, offset):
+#               tool = cadquery.Workplane("XY") \
+#                   .rect(self.diameter, self.diameter) \
+#                   .extrude(-self.depth) \
+#                   .faces(">Z") \
+#                   .rect(self.my_param, self.diameter / 2) \
+#                   .extrude(-self.depth)
+#               return workplane.cut(tool.translate(offset))
 
 screw_drive_map = {}
 
