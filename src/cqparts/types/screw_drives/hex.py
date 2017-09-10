@@ -10,6 +10,11 @@ class HexScrewDrive(ScrewDrive):
     width = ScrewDrive.diameter * cos(pi / 6)
     count = 1
 
+    # Tamper resistance pin
+    pin = False  # if True, a pin is placed in the center
+    pin_height = None  # defaults to depth
+    pin_diameter = None # defaults to diameter / 3
+
     def get_diameter(self):
         if self.diameter is None:
             return self.width / cos(pi / 6)
@@ -45,6 +50,12 @@ class HexScrewDrive(ScrewDrive):
                 copy(tool_template).rotate((0, 0, 0), (0, 0, 1), angle)
             )
 
+        # Tamper Resistance Pin
+        if self.pin:
+            pin_height = self.depth if self.pin_height is None else self.pin_height
+            pin_diameter = diameter / 3 if self.pin_diameter is None else self.pin_diameter
+            tool.faces("<Z").circle(pin_diameter / 2.).cutBlind(pin_height)
+
         return workplane.cut(tool.translate(offset))
 
 
@@ -58,6 +69,11 @@ class HexalobularScrewDrive(ScrewDrive):
     count = 6
     gap = None  # gap beetween circles at diameter (defaults to diameter / 8)
     fillet = None  # defaults to gap / 2
+
+    # Tamper resistance pin
+    pin = False  # if True, a pin is placed in the center
+    pin_height = None  # defaults to depth
+    pin_diameter = None # defaults to diameter / 3
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Start with a circle with self.diameter
@@ -87,5 +103,11 @@ class HexalobularScrewDrive(ScrewDrive):
             fillet = gap / 2
         if fillet:
             tool = tool.edges("|Z").fillet(fillet)
+
+        # Tamper Resistance Pin
+        if self.pin:
+            pin_height = self.depth if self.pin_height is None else self.pin_height
+            pin_diameter = self.diameter / 3 if self.pin_diameter is None else self.pin_diameter
+            tool.faces("<Z").circle(pin_diameter / 2.).cutBlind(pin_height)
 
         return workplane.cut(tool.translate(offset))

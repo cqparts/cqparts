@@ -31,7 +31,7 @@ class FrearsonScrewDrive(ScrewDrive):
 @screw_drive('phillips')
 class PhillipsScrewDrive(ScrewDrive):
     width = 0.5
-    chamfer = 0.2
+    chamfer = None  # chamfer at top of cross section, defaults to width
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Frearson style cross from center
@@ -50,7 +50,8 @@ class PhillipsScrewDrive(ScrewDrive):
 
         # Trapezoidal pyramid 45deg rotated cutout of center
         # alternative: lofting 2 squares, but that was taking ~7 times longer to process
-        tz_top = (sqrt(2) * self.width) + ((self.chamfer / sqrt(2)) * 2)
+        chamfer = self.width if self.chamfer is None else self.chamfer
+        tz_top = (sqrt(2) * self.width) + ((chamfer / sqrt(2)) * 2)
         tz_base = self.width / sqrt(2)  # to fit inside square at base
         points = [
             (tz_top / 2., 0),
