@@ -51,8 +51,16 @@ def intersect(wp1, wp2):
     neg1 = cp(wp1).cut(wp2)
     neg2 = cp(wp2).cut(wp1)
     neg = neg1.union(neg2)
-    return wp1.union(wp2).cut(neg)
+    return cp(wp1).union(wp2).cut(neg)
 
 
 def copy(wp):
     return wp.translate((0, 0, 0))
+
+
+def fc_print(text):
+    try:
+        import FreeCAD
+        FreeCAD.Console.PrintMessage(text)
+    except Exception as e:
+        print(text)
