@@ -57,6 +57,37 @@ class RoundFastenerHead(CylindricalFastenerHead):
     domed = True
     dome_ratio = 1.0
 
+    # Coach Head
+    coach_head = False
+    coach_width = None  # default = diameter / 2
+    coach_height = None  # default = height
+    coach_chamfer = None  # default = coach_width / 6
+
+    def make(self, offset=(0, 0, 0)):
+        head = super(RoundFastenerHead, self).make(offset=offset)
+
+        # Add chamfered square block beneath fastener head
+        if self.coach_head:
+            coach_width = self.diameter / 2. if self.coach_width is None else self.coach_width
+            coach_height = self.height if self.coach_height is None else self.coach_height
+            coach_chamfer = coach_width / 6. if self.coach_chamfer is None else self.coach_chamfer
+            cone_radius = ((coach_width / 2.) + coach_height) - coach_chamfer
+            cone_height = cone_radius
+
+            box = cadquery.Workplane("XY").rect(coach_width, coach_width).extrude(-coach_height)
+            cone = cadquery.Workplane("XY").union(
+                cadquery.CQ(cadquery.Solid.makeCone(0, cone_radius, cone_height)) \
+                    .translate((0, 0, -cone_height))
+            )
+            head = head.union(intersect(box, cone))
+
+        return head
+
+
+@fastener_head('round_coach')
+class RoundCoachFastenerHead(RoundFastenerHead):
+    coach_head = True
+
 
 @fastener_head('trapezoidal')
 class TrapezoidalFastenerHead(FastenerHead):
