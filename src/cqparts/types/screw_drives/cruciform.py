@@ -3,7 +3,7 @@ from cadquery import BoxSelector
 from math import pi, cos, sqrt
 
 from .base import ScrewDrive, screw_drive
-from cqparts.utils import intersect
+from cqparts.utils import intersect  # FIXME: fix is in master
 
 
 @screw_drive('frearson')
@@ -65,6 +65,8 @@ class PhillipsScrewDrive(ScrewDrive):
         tool_tzpy2 = cadquery.Workplane("YZ").workplane(offset=-tz_top / 2.) \
             .moveTo(*points[0]).polyline(points[1:]).close() \
             .extrude(tz_top)
+        #tool_tzpy = tool_tzpy1.intersect(tool_tzpy2) \  # FIXME: fix is in master
+        #    .rotate((0, 0, 0), (0, 0, 1), 45)
         tool_tzpy = intersect(tool_tzpy1, tool_tzpy2) \
             .rotate((0, 0, 0), (0, 0, 1), 45)
 
@@ -114,6 +116,7 @@ class MortorqScrewDrive(ScrewDrive):
             .center(self.width - (self.diameter / 2.), self.width / 2.) \
             .circle(self.width).extrude(-self.depth)
 
+        #blade = rect.intersect(cylinder)  # FIXME: fix is in master
         blade = intersect(rect, cylinder)
 
         tool = cadquery.Workplane("XY").rect(self.width, self.width).extrude(-self.depth)
@@ -169,6 +172,7 @@ class PozidrivScrewDrive(ScrewDrive):
         tool_tzpy2 = cadquery.Workplane("YZ").workplane(offset=-tz_top / 2.) \
             .moveTo(*points[0]).polyline(points[1:]).close() \
             .extrude(tz_top)
+        #tool_tzpy = tool_tzpy1.intersect(tool_tzpy2)  # FIXME: fix is in master
         tool_tzpy = intersect(tool_tzpy1, tool_tzpy2)
 
         tool = cadquery.Workplane("XY") \

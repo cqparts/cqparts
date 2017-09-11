@@ -26,7 +26,7 @@ class ScrewDrive(object):
             # Set given value
             setattr(self, key, cast_value)
 
-    def apply(self, workplane, offset):
+    def apply(self, workplane, offset=(0, 0, 0)):
         """
         Application of screwdrive indentation into a workplane (centred around it's origin)
         """

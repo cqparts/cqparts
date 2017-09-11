@@ -1,13 +1,10 @@
 __all__ = [
-    'base',
     'cruciform',
     'hex',
     'slotted',
     'square',
     'tamper_resistant',
 ]
-
-import base
 
 import cruciform
 import hex
