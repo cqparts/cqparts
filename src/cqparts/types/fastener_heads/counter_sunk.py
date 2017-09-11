@@ -15,6 +15,11 @@ class CounterSunkFastenerHead(FastenerHead):
     bugle = False
     bugle_ratio = 0.5 # radians, must be < pi / 4 (45 deg)
 
+    def get_raised(self):
+        if self.raised is None:
+            return self.diameter / 10.
+        return self.raised
+
     def make(self, offset=(0, 0, 0)):
         chamfer = self.diameter / 20 if self.chamfer is None else self.chamfer
         cone_radius = self.diameter / 2
@@ -35,8 +40,8 @@ class CounterSunkFastenerHead(FastenerHead):
         head = intersect(cone, cylinder)
 
         # Raised bubble (if given)
-        if self.raised or (self.raised is None):
-            raised = self.diameter / 10 if self.raised is None else self.raised
+        raised = self.get_raised()
+        if raised:
             sphere_radius = ((raised ** 2) + (cylinder_radius ** 2)) / (2 * raised)
 
             sphere = cadquery.Workplane("XY").workplane(offset=-(sphere_radius - raised)) \
@@ -70,6 +75,9 @@ class CounterSunkFastenerHead(FastenerHead):
             head = head.cut(torus)
 
         return head.translate(offset)
+
+    def get_face_offset(self):
+        return (0, 0, self.get_raised())
 
 
 @fastener_head('countersunk_raised')

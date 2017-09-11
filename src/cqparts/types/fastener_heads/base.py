@@ -32,6 +32,12 @@ class FastenerHead(object):
         """
         raise NotImplementedError("make function not overridden in %r" % self)
 
+    def get_face_offset(self):
+        """
+        Returns the screw drive origin offset relative to bolt's origin
+        """
+        return (0, 0, -self.height)
+
 
 # Fastener Head register
 #   Create your own fastener head like so...
