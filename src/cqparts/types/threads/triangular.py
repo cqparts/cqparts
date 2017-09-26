@@ -1,39 +1,68 @@
 import cadquery
-from math import pi, sin, cos
+from math import pi, sin, cos, ceil
 
 from .base import Thread
 
 class TriangularThread(Thread):
     radius_inner = 2.5
 
-    def get_cross_section(self, *largs, style='linear', **kwargs):
+    def get_cross_section(self, style='linear'):
         if style == 'linear':
-            return self._get_cross_section_linear(*largs, **kwargs)
-        elif style == 'arcs':
-            return self._get_cross_section_arcs(*largs, **kwargs)
+            return self._get_cross_section_linear()
+        if style == 'spline':
+            return self._get_crsos_section_splines()
+        #elif style == 'true':
+        #    return self._get_cross_section_true()
         raise ValueError("cross-section style '%s' not supported" % style)
 
     def _get_cross_section_linear(self):
         points = []
-        segments = 3
-        for i in range(segments):
-            angle = i * ((2 * pi) / segments)
-            points.append((
-                self.radius * cos(angle),
-                self.radius * sin(angle)
-            ))
+        angle_per_thread = (2 * pi) / self.start_count
+
+        for i in range(self.start_count):
+            angle = i * angle_per_thread
+            points += self.spiral_points(
+                start_angle=angle,
+                start_radius=self.radius,
+                end_angle=angle + (angle_per_thread / 2),
+                end_radius=self.radius_inner,
+            )
+            points += self.spiral_points(
+                start_angle=angle + (angle_per_thread / 2),
+                start_radius=self.radius_inner,
+                end_angle=angle + angle_per_thread,
+                end_radius=self.radius,
+            )
+
         return cadquery.Workplane("XY") \
             .moveTo(*points[0]).polyline(points[1:]).close()
 
-    def helical_path(self, pitch, length, radius, angle=0):
-        wire = cadquery.Wire.makeHelix(pitch, length, radius, angle=angle)
-        shape = cadquery.Wire.combine([wire])
-        path = cadquery.Workplane("XY").newObject([shape])
-        return path
+    def _get_crsos_section_splines(self):
+        angle_per_thread = (2 * pi) / self.start_count
+
+        cross_section = cadquery.Workplane("XY").moveTo(self.radius, 0)
+        for i in range(self.start_count):
+            angle = i * angle_per_thread
+            cross_section = cross_section.spline(self.spiral_points(
+                start_angle=angle,
+                start_radius=self.radius,
+                end_angle=angle + (angle_per_thread / 2),
+                end_radius=self.radius_inner,
+                endpoint=True,
+            )[1:])
+            cross_section = cross_section.spline(self.spiral_points(
+                start_angle=angle + (angle_per_thread / 2),
+                start_radius=self.radius_inner,
+                end_angle=angle + angle_per_thread,
+                end_radius=self.radius,
+                endpoint=True,
+            )[1:])
+
+        return cross_section.close()
 
     def make(self):
         # --- Cross Section
-        cross_section = self.get_cross_section('linear')
+        cross_section = self.get_cross_section('spline')
 
         # --- Sweep cross-section
         path = self.helical_path(self.pitch, self.length, self.radius)

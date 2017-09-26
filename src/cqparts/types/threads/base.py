@@ -1,4 +1,9 @@
 
+from math import ceil, sin, cos, pi
+
+import cadquery
+import FreeCAD
+import Part as FreeCADPart
 
 # Creating a thread can be done in a number of ways:
 #   - cross-section helical sweep
@@ -42,3 +47,32 @@ class Thread(object):
         Creation of thread (crated at world origin)
         """
         raise NotImplementedError("make function not overridden in %r" % self)
+
+    # ---- Common tools for threads
+    def helical_path(self, pitch, length, radius, angle=0):
+        wire = cadquery.Wire.makeHelix(pitch, length, radius, angle=angle)
+        shape = cadquery.Wire.combine([wire])
+        path = cadquery.Workplane("XY").newObject([shape])
+        return path
+
+    def spiral_points(self, start_angle, start_radius, end_angle, end_radius,
+                      max_angle_step=(pi/8), endpoint=False):
+        """
+        Plot out a series of coordinates along a spiral (on a 2d plane)
+        :return: list of tuples: [(x1, y1), (x2, y2), ... ]
+        """
+        # FIXME: this isn't good... needs to be a true spiral
+        #        better yet; convert a profile to it's polar plot
+        # Spiral range (angle & radius)
+        angle_diff = end_angle - start_angle
+        radius_diff = end_radius - start_radius
+
+        # Iterate through points
+        points = []
+        steps = int(ceil(angle_diff / max_angle_step))
+        range_steps = (steps + 1) if endpoint else steps
+        for i in range(range_steps):
+            angle = start_angle + (i * (angle_diff / steps))
+            radius = start_radius + (i * (radius_diff / steps))
+            points.append((radius * cos(angle), radius * sin(angle)))
+        return points
