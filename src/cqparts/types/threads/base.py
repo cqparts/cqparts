@@ -76,3 +76,153 @@ class Thread(object):
             radius = start_radius + (i * (radius_diff / steps))
             points.append((radius * cos(angle), radius * sin(angle)))
         return points
+
+    def _profile_to_cross_section(self, profile, min_vertices=10):
+        """
+        Converts a thread profile to it's equivalent cross-section.
+
+        Profile:
+            The thread profile contains a single wire along the XZ plane
+            (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
+            The profile is expected to be of 1 thread rotation, so it's height
+            (along the Z-axis) is the thread's "lead".
+            note: If there are multiple starts to a thread, then the profile
+            will show the repetition.
+
+        Method:
+            Each edge of the profile is converted to a bezier spline, aproximating
+            it's polar plot equivalent.
+
+        Resolution: (via `min_vertices` parameter)
+            Increasing the number of vertices used to define the bezier will
+            increase the resulting thread's accuracy, but cost more to render.
+
+            min_vertices may also be expressed as a list to set the number of
+            vertices to set for each wire.
+            where: len(min_vertices) == number of edges in profile
+
+        Example:
+            import cadquery
+            from Helpers import show
+            profile = cadquery.Workplane("XZ") \
+                .moveTo(1, 0) \
+                .lineTo(2, 1).lineTo(1, 2) \
+                .wire()
+            thread = Thread()
+            cross_section = thread._profile_to_cross_section(
+                profile, min_vertices=20  # increase default resolution
+            )
+            show(profile)
+            show(cross_section)
+
+        :param profile: cadquery.Workplane wire of thread profile
+        :param min_vertices: int or tuple of the desired resolution
+        :return: cadquery.Workplane ready to be swept into a thread
+        """
+        # verify parameter(s)
+        if not isinstance(profile, cadquery.Workplane):
+            raise TypeError("profile %r must be a %s instance" % (profile, cadquery.Workplane))
+        if not isinstance(min_vertices, (int, list, tuple)):
+            raise TypeError("min_vertices %r must be an int, list, or tuple" % (min_vertices))
+
+        # get wire from Workplane
+        wire = profile.val()  # cadquery.Wire
+        if not isinstance(wire, cadquery.Wire):
+            raise TypeError("a valid profile Wire type could not be found in the given Workplane")
+
+        profile_bb = wire.BoundingBox()
+        lead = profile_bb.zmax - profile_bb.zmin
+
+        # determine vertices count per edge
+        edges = wire.Edges()
+        vertices_count = None
+        if isinstance(min_vertices, int):
+            # evenly spread vertices count along profile wire
+            # (weighted by the edge's length)
+            vertices_count = [
+                int(ceil(round(e.Length() / wire.Length(), 7) * min_vertices))
+                for e in edges
+            ]
+            # rounded for desired contrived results
+            # (trade-off: an error of 1 is of no great consequence)
+        else:
+            # min_vertices is defined per edge (already what we want)
+            if len(min_vertices) != len(edges):
+                raise ValueError("")
+            vertices_count = min_vertices
+
+        # Utilities for building cross-section
+        def get_xz(vertex):
+            if isinstance(vertex, cadquery.Vector):
+                vertex = vertex.wrapped  # TODO: remove this, it's messy
+            # where isinstance(vertex, FreeCAD.Base.Vector)
+            return (vertex.x, vertex.z)
+
+        def cart2polar(x, z):
+            """
+            Convert cartesian coordinates to polar coordinates.
+            Uses thread's lead height to give full 360deg translation.
+            """
+            radius = x
+            angle = (z / lead) * (2 * pi)  # radians
+            return (radius, -angle)
+
+        def transform(vertex):
+            # where isinstance(vertex, FreeCAD.Base.Vector)
+            """
+            Transform profile vertex on the XZ plane to it's equivalent on
+            the cross-section's XY plane
+            """
+            (radius, angle) = cart2polar(*get_xz(vertex))
+            return (radius * cos(angle), radius * sin(angle))
+
+        # Conversion methods
+        def apply_spline(wp, edge, vert_count):
+            """
+            Trace along edge and create a spline from the transformed verteces.
+            """
+            iter_dist = edge.Length() / vert_count
+            points = []
+            for j in range(vert_count):
+                dist = (j + 1) * iter_dist
+                vert = edge.wrapped.valueAt(dist)
+                points.append(transform(vert))
+            return wp.spline(points)
+
+        def apply_spline_to_circle(wp, edge, vert_count):
+            pass
+
+        def apply_arc(wp, edge):
+            """
+            Create an arc using edge's midpoint and endpoint.
+            Only intended for use for vertical lines on the given profile.
+            """
+            return wp.threePointArc(
+                point1=transform(edge.wrapped.valueAt(edge.Length() / 2)),
+                point2=transform(edge.wrapped.valueAt(edge.Length())),
+            )
+
+        def apply_radial_line(wp, edge):
+            """
+            Create a straight radial line
+            """
+            return wp.lineTo(*transform(edge.endPoint()))
+
+        # Build cross-section
+        start_v = edges[0].startPoint().wrapped
+        cross_section = cadquery.Workplane("XY") \
+            .moveTo(*transform(start_v))
+
+        for (i, edge) in enumerate(wire.Edges()):
+            # where: isinstance(edge, cadquery.Edge)
+            if (edge.geomType() == 'LINE') and (edge.startPoint().x == edge.endPoint().x):
+                # edge is a vertical line, plot a circular arc
+                cross_section = apply_arc(cross_section, edge)
+            elif (edge.geomType() == 'LINE') and (edge.startPoint().z == edge.endPoint().z):
+                # edge is a horizontal line, plot a radial line
+                cross_section = apply_radial_line(cross_section, edge)
+            else:
+                # create bezier spline along transformed points (default)
+                cross_section = apply_spline(cross_section, edge, vertices_count[i])
+
+        return cross_section.close()
