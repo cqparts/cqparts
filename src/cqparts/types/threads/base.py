@@ -189,9 +189,6 @@ class Thread(object):
                 points.append(transform(vert))
             return wp.spline(points)
 
-        def apply_spline_to_circle(wp, edge, vert_count):
-            pass
-
         def apply_arc(wp, edge):
             """
             Create an arc using edge's midpoint and endpoint.
