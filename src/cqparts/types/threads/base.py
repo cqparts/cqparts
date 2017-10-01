@@ -183,6 +183,8 @@ class Thread(object):
     pitch = 1.0
     start_count = 1
     radius = 3.0
+
+    inner = False  # if set, thread made is intended to be cut from a solid to form an inner thread
     lefthand = False
 
     def __init__(self, **kwargs):
@@ -233,5 +235,12 @@ class Thread(object):
 
         # Sweep into solid
         thread = cross_section.sweep(path, isFrenet=True)
+
+        # Making thread a valid solid
+        # FIXME: this should be implemented inside cadquery itself
+        thread_shape = thread.objects[0].wrapped
+        if not thread_shape.isValid():
+            thread_shape.sewShape()
+            thread.objects[0].wrapped = FreeCADPart.Solid(thread_shape)
 
         return thread

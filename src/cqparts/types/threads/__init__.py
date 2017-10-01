@@ -1,9 +1,9 @@
 __all__ = [
     'ball_screw',
-    'trapezoidal',
+    'iso_262',
     'triangular',
 ]
 
 import ball_screw
-import trapezoidal
+import iso_262
 import triangular

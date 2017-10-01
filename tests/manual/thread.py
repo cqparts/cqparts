@@ -12,7 +12,7 @@ import cadquery
 import cqparts
 from Helpers import show
 
-from cqparts.types.threads.ball_screw import BallScrewThread
+from cqparts.types.threads.iso_262 import ISO262Thread
 from cqparts.utils import fc_print
 
 # Timing tools
@@ -27,7 +27,7 @@ def measure_time(name):
 
 
 with measure_time('triangular'):
-    my_thread = BallScrewThread().make()
+    my_thread = ISO262Thread().make()
 
 # Display
 show(my_thread)
