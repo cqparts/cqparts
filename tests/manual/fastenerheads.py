@@ -13,7 +13,9 @@ import math
 from Helpers import show
 import cqparts
 from cqparts.types.fastener_heads.base import fastener_head_map
-from cqparts.utils import fc_print
+
+import logging
+log = logging.getLogger(__name__)
 
 # Timing tools
 from time import time
@@ -23,7 +25,7 @@ def measure_time(name):
     start_time = time()
     yield
     taken = time() - start_time
-    fc_print("    %-25s (took: %gs)\n" % (name, taken))
+    log.info("    %-25s (took: %gs)" % (name, taken))
 
 # Fastener Types
 gap = 2
@@ -59,7 +61,7 @@ with measure_time('TOTAL'):
             )), (204, 204, 204, 0.5))
 
         except Exception as e:
-            fc_print("    %-25s (%s)\n" % (head_type, str(e)))
+            log.info("    %-25s (%s)\n" % (head_type, str(e)))
             #raise  # comment this out to continue rendering
 
         i += 1

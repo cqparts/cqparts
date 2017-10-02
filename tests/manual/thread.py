@@ -15,6 +15,9 @@ from Helpers import show
 from cqparts.types.threads.iso_262 import ISO262Thread
 from cqparts.utils import fc_print
 
+import logging
+log = logging.getLogger(__name__)
+
 # Timing tools
 from time import time
 from contextlib import contextmanager
@@ -23,11 +26,11 @@ def measure_time(name):
     start_time = time()
     yield
     taken = time() - start_time
-    fc_print("    %-25s (took: %gs)\n" % (name, taken))
+    log.info("    %-25s (took: %gs)" % (name, taken))
 
 
 with measure_time('triangular'):
-    my_thread = ISO262Thread().make()
+    my_thread = ISO262Thread(radius=3).make(5)
 
 # Display
 show(my_thread)
