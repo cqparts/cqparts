@@ -5,6 +5,9 @@ import cadquery
 import FreeCAD
 import Part as FreeCADPart
 
+import logging
+log = logging.getLogger(__name__)
+
 # Creating a thread can be done in a number of ways:
 #   - cross-section helical sweep
 #       - can't be tapered
@@ -14,7 +17,7 @@ import Part as FreeCADPart
 #   - negative profile helical sweep cut from cylinder
 #       - expensive, helical sweept object is only used to do an expensive cut
 
-def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
+def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertices=20):
     """
     Converts a thread profile to it's equivalent cross-section.
 
@@ -22,9 +25,11 @@ def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
         The thread profile contains a single wire along the XZ plane
         (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
         The profile is expected to be of 1 thread rotation, so it's height
-        (along the Z-axis) is the thread's "lead".
-        note: If there are multiple starts to a thread, then the profile
-        will show the repetition.
+        (along the Z-axis) is the thread's "pitch".
+        If start_count > 1, then the profile will effectively be duplicated.
+        The resulting cross-section is designed to be swept along a helical path
+        with a pitch of the thread's "lead" (which is {the height of the given
+        profile} * start_count)
 
     Method:
         Each edge of the profile is converted to a bezier spline, aproximating
@@ -53,6 +58,8 @@ def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
         show(cross_section)
 
     :param profile: cadquery.Workplane wire of thread profile
+    :param lefthand: if True, cross-section is made backwards
+    :param start_count: profile is duplicated this many times
     :param min_vertices: int or tuple of the desired resolution
     :return: cadquery.Workplane ready to be swept into a thread
     """
@@ -68,7 +75,8 @@ def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
         raise TypeError("a valid profile Wire type could not be found in the given Workplane")
 
     profile_bb = wire.BoundingBox()
-    lead = profile_bb.zmax - profile_bb.zmin
+    pitch = profile_bb.zmax - profile_bb.zmin
+    lead = pitch * start_count
 
     # determine vertices count per edge
     edges = wire.Edges()
@@ -95,28 +103,28 @@ def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
         # where isinstance(vertex, FreeCAD.Base.Vector)
         return (vertex.x, vertex.z)
 
-    def cart2polar(x, z):
+    def cart2polar(x, z, z_offset=0):
         """
         Convert cartesian coordinates to polar coordinates.
         Uses thread's lead height to give full 360deg translation.
         """
         radius = x
-        angle = (z / lead) * (2 * pi)  # radians
+        angle = ((z + z_offset) / lead) * (2 * pi)  # radians
         if not lefthand:
             angle = -angle
         return (radius, angle)
 
-    def transform(vertex):
+    def transform(vertex, z_offset=0):
         # where isinstance(vertex, FreeCAD.Base.Vector)
         """
         Transform profile vertex on the XZ plane to it's equivalent on
         the cross-section's XY plane
         """
-        (radius, angle) = cart2polar(*get_xz(vertex))
+        (radius, angle) = cart2polar(*get_xz(vertex), z_offset=z_offset)
         return (radius * cos(angle), radius * sin(angle))
 
     # Conversion methods
-    def apply_spline(wp, edge, vert_count):
+    def apply_spline(wp, edge, vert_count, z_offset=0):
         """
         Trace along edge and create a spline from the transformed verteces.
         """
@@ -129,41 +137,43 @@ def profile_to_cross_section(profile, lefthand=False, min_vertices=20):
         for j in range(vert_count):
             dist = (j + 1) * iter_dist
             vert = curve.value(dist)
-            points.append(transform(vert))
+            points.append(transform(vert, z_offset))
         return wp.spline(points)
 
-    def apply_arc(wp, edge):
+    def apply_arc(wp, edge, z_offset=0):
         """
         Create an arc using edge's midpoint and endpoint.
         Only intended for use for vertical lines on the given profile.
         """
         return wp.threePointArc(
-            point1=transform(edge.wrapped.valueAt(edge.Length() / 2)),
-            point2=transform(edge.wrapped.valueAt(edge.Length())),
+            point1=transform(edge.wrapped.valueAt(edge.Length() / 2), z_offset),
+            point2=transform(edge.wrapped.valueAt(edge.Length()), z_offset),
         )
 
-    def apply_radial_line(wp, edge):
+    def apply_radial_line(wp, edge, z_offset=0):
         """
         Create a straight radial line
         """
-        return wp.lineTo(*transform(edge.endPoint()))
+        return wp.lineTo(*transform(edge.endPoint(), z_offset))
 
     # Build cross-section
     start_v = edges[0].startPoint().wrapped
     cross_section = cadquery.Workplane("XY") \
         .moveTo(*transform(start_v))
 
-    for (i, edge) in enumerate(wire.Edges()):
-        # where: isinstance(edge, cadquery.Edge)
-        if (edge.geomType() == 'LINE') and (edge.startPoint().x == edge.endPoint().x):
-            # edge is a vertical line, plot a circular arc
-            cross_section = apply_arc(cross_section, edge)
-        elif (edge.geomType() == 'LINE') and (edge.startPoint().z == edge.endPoint().z):
-            # edge is a horizontal line, plot a radial line
-            cross_section = apply_radial_line(cross_section, edge)
-        else:
-            # create bezier spline along transformed points (default)
-            cross_section = apply_spline(cross_section, edge, vertices_count[i])
+    for i in range(start_count):
+        z_offset = i * pitch
+        for (j, edge) in enumerate(wire.Edges()):
+            # where: isinstance(edge, cadquery.Edge)
+            if (edge.geomType() == 'LINE') and (edge.startPoint().x == edge.endPoint().x):
+                # edge is a vertical line, plot a circular arc
+                cross_section = apply_arc(cross_section, edge, z_offset)
+            elif (edge.geomType() == 'LINE') and (edge.startPoint().z == edge.endPoint().z):
+                # edge is a horizontal line, plot a radial line
+                cross_section = apply_radial_line(cross_section, edge, z_offset)
+            else:
+                # create bezier spline along transformed points (default)
+                cross_section = apply_spline(cross_section, edge, vertices_count[j], z_offset)
 
     return cross_section.close()
 
@@ -179,9 +189,9 @@ def helical_path(pitch, length, radius, angle=0, lefthand=False):
 
 class Thread(object):
     # Base parameters
-    length = 10.0
     pitch = 1.0
     start_count = 1
+    min_vertices = 20
     radius = 3.0
 
     inner = False  # if set, thread made is intended to be cut from a solid to form an inner thread
@@ -221,17 +231,21 @@ class Thread(object):
         """
         raise NotImplementedError("build_profile function not overridden in %s" % type(self))
 
-    def make(self):
+    def make(self, length):
         # Make cross-section
         profile = self.build_profile()
         cross_section = profile_to_cross_section(
-            self.build_profile(), lefthand=self.lefthand
+            self.build_profile(),
+            lefthand=self.lefthand,
+            start_count=self.start_count,
+            min_vertices=self.min_vertices,
         )
 
         # Make helical path
         profile_bb = profile.val().BoundingBox()
-        lead = profile_bb.zmax - profile_bb.zmin
-        path = helical_path(lead, self.length, 1, lefthand=self.lefthand)
+        #lead = (profile_bb.zmax - profile_bb.zmin) * self.start_count
+        lead = self.pitch * self.start_count
+        path = helical_path(lead, length, 1, lefthand=self.lefthand)
 
         # Sweep into solid
         thread = cross_section.sweep(path, isFrenet=True)
@@ -240,7 +254,15 @@ class Thread(object):
         # FIXME: this should be implemented inside cadquery itself
         thread_shape = thread.objects[0].wrapped
         if not thread_shape.isValid():
-            thread_shape.sewShape()
-            thread.objects[0].wrapped = FreeCADPart.Solid(thread_shape)
+            log.warning("thread shape not valid")
+            new_thread = thread_shape.copy()
+            new_thread.sewShape()
+            thread.objects[0].wrapped = FreeCADPart.Solid(new_thread)
+            if not thread.objects[0].wrapped.isValid():
+                log.error("new thread STILL not valid")
+
+        #solid = thread.val().wrapped
+        #face = App.ActiveDocument.Face.Shape.copy()
+
 
         return thread
