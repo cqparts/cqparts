@@ -1,6 +1,6 @@
 # This is a CadQuery script template
 # Add your script code below
-import cadquery as cq
+import cadquery
 from Helpers import show
 
 import sys

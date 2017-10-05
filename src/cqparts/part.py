@@ -1,22 +1,15 @@
 import cadquery
 import six
 
-from .parameter_types import t_pos_float
+from .params import ParametricObject
 from .utils import indicate_last
-from .errors import MakeError
-
-class CQPartsObject(object):
-
-    INDEX_CRITERIA = {}  # indexing criteria, used to search for parts.
+from .errors import MakeError, ParameterError
 
 
-class Part(CQPartsObject):
+class Part(ParametricObject):
 
-    def __init__(self, **kwargs):
-        # Set part parameters
-        for (k, v) in kwargs.items():
-            setattr(self, k, v)
-
+    def __init__(self, *largs, **kwargs):
+        super(Part, self).__init__(*largs, **kwargs)
         self._object = None
 
     def make(self):
@@ -47,12 +40,13 @@ class Part(CQPartsObject):
         return self.translate((0, 0, 0))
 
 
-class Assembly(CQPartsObject):
+class Assembly(ParametricObject):
     """
     An assembly is a group of parts, and other assemblies (called components)
     """
 
-    def __init__(self):
+    def __init__(self, *largs, **kwargs):
+        super(Assembly, self).__init__(*largs, **kwargs)
         self._components = None
 
     def make(self):
@@ -189,69 +183,3 @@ class Pulley(Part):
         )
 
         return pulley
-
-
-'''
-
-print(''.join(unichr(x) for x in [0x2500, 0x2514, 0x251c, 0x2502, 0x25cb]))
-─└├│○
-
-print(u'\u2502\n\u251c\u2500\u25cb thingy\n\u251c\u2500\u2500 foo\n\u2514\u2500\u25cb bar')
-│
-├─○ thingy
-├── foo
-└─○ bar
-
-
-servo
- ├─ enclosure
- │   ├○ shell
- │   ├○ end_cap
- │   └─ fasteners
- │       ├─ front_left
- │       │   ├─ bolt
- │       │   │   ├○ body
- │       │   │   └○ thread
- │       │   ├○ washer (?)
- │       │   └○ nut
- │       ├─ front_right
- │       │      ...
- │       ├─ back_left
- │       │      ...
- │       └─ back_right
- │              ...
- ├─ gearbox
- │   ├─ bearing
- │   │   ├○ outer_ring
- │   │   ├─ rolling_elements
- │   │   │   ├○ ball_1
- │   │   │   │  ...
- │   │   │   └○ ball_n
- │   │   ├○ retainer
- │   │   └○ inner_ring
- │   ├○ main_shaft
- │   ├○ middle_shaft
- │   └○ drive_shaft
- ├─ motor
- │   ├─ base_bearing ...
- │   ├─ drive_bearing ...
- │   ├─ rotor
- │   │   └○ shaft
- │   └○ stator
- └─ driver
-     └○ pcb
-
-
-servo = Servo(
-    width=12.0,
-    height=7.0,
-)
-
-display(
-    servo,
-    highlight=[
-        servo.find('gearbox.bearing'),   # assembly (branch)
-        servo.find('motor.rotor.shaft'), # part (leaf)
-    ],
-)
-'''

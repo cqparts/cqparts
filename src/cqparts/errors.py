@@ -1,7 +1,7 @@
 
 
 # Build Exceptions
-class ParameterTypeError(Exception):
+class ParameterError(Exception):
     """Raised when an invalid parameter is specified"""
 
 class MakeError(Exception):

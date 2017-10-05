@@ -50,10 +50,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
             .moveTo(1, 0) \
             .lineTo(2, 1).lineTo(1, 2) \
             .wire()
-        thread = Thread()
-        cross_section = thread._profile_to_cross_section(
-            profile, min_vertices=20  # increase default resolution
-        )
+        cross_section = profile_to_cross_section(profile)
         show(profile)
         show(cross_section)
 
@@ -225,9 +222,8 @@ class Thread(object):
                 (2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)
             ]
             profile = cadquery.Workplane("XZ") \
-                .moveTo(*points[0]).polyline(points[1:]) \
-                .wire()
-            return profile
+                .moveTo(*points[0]).polyline(points[1:])
+            return profile.wire()
         """
         raise NotImplementedError("build_profile function not overridden in %s" % type(self))
 
