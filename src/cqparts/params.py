@@ -1,5 +1,7 @@
 from .errors import ParameterError
 
+import logging
+log = logging.getLogger(__name__)
 
 class ParametricObject(object):
     """
@@ -30,16 +32,29 @@ class ParametricObject(object):
 
     """
     def __init__(self, **kwargs):
-        params = set(
-            k for (k, v) in type(self).__dict__.items()
-            if isinstance(v, Parameter)
-        )
+        # get all available parameters (recurse through inherited classes)
+        def get_class_params(cls):
+            params = set(
+                k for (k, v) in cls.__dict__.items()
+                if isinstance(v, Parameter)
+            )
+            for parent in cls.__bases__:
+                params |= get_class_params(parent)
+                # note: overridden class parameters will be duplicated here,
+                #       but the params set() naturally ignores duplicates.
+            return params
+
+        params = get_class_params(type(self))
+
+        # parameters explicitly defined during intantiation
         defined_params = set(kwargs.keys())
 
+        # only accept a subset of params
         invalid_params = defined_params - params
         if invalid_params:
-            raise ParameterError("{cls} does not accept any of the parameters: {keys!r}".format(
-                cls=repr(type(self)), keys=list(invalid_params),
+            raise ParameterError("{cls} does not accept any of the parameters: {keys}".format(
+                cls=repr(type(self)),
+                keys=', '.join(sorted(invalid_params)),
             ))
 
         for key in params:
@@ -99,12 +114,20 @@ class FloatRange(Float):
 
     def type(self, value):
         cast_value = super(FloatRange, self).type(value)
-        if not (self.min <= cast_value <= self.max):
-            raise ParameterError("value of %g outside the range {%g, %g}" % (
+
+        # Check range (min/max value of None is equivelant to -inf/inf)
+        inside_range = True
+        if (self.min is not None) and (cast_value < self.min):
+            inside_range = False
+        if (self.max is not None) and (cast_value > self.max):
+            inside_range = False
+
+        if not inside_range:
+            raise ParameterError("value of %g outside the range {%s, %s}" % (
                 cast_value, self.min, self.max
             ))
-        return cast_value
 
+        return cast_value
 
 # ------------ int types ---------------
 class Int(Parameter):
@@ -132,10 +155,28 @@ class IntRange(Int):
 
     def type(self, value):
         cast_value = super(IntRange, self).type(value)
-        if not (self.min <= cast_value <= self.max):
-            raise ParameterError("value of %g outside the range {%g, %g}" % (
+
+        # Check range (min/max value of None is equivelant to -inf/inf)
+        inside_range = True
+        if (self.min is not None) and (cast_value < self.min):
+            inside_range = False
+        if (self.max is not None) and (cast_value > self.max):
+            inside_range = False
+
+        if not inside_range:
+            raise ParameterError("value of %g outside the range {%s, %s}" % (
                 cast_value, self.min, self.max
             ))
+
+        return cast_value
+
+# ------------ boolean types ------------
+class Boolean(Parameter):
+    def type(self, value):
+        try:
+            cast_value = bool(value)
+        except ValueError:
+            raise ParameterError("value cannot be cast to bool: %r" % value)
         return cast_value
 
 

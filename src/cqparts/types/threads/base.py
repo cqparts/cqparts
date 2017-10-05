@@ -1,9 +1,12 @@
-
+import six
 from math import ceil, sin, cos, pi
 
 import cadquery
 import FreeCAD
 import Part as FreeCADPart
+
+# relative imports
+from ...params import *
 
 import logging
 log = logging.getLogger(__name__)
@@ -90,7 +93,10 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     else:
         # min_vertices is defined per edge (already what we want)
         if len(min_vertices) != len(edges):
-            raise ValueError("")
+            raise ValueError(
+                "min_vertices list size does not match number of profile edges: "
+                "len(%r) != %i" % (min_vertices, len(edges))
+            )
         vertices_count = min_vertices
 
     # Utilities for building cross-section
@@ -184,35 +190,31 @@ def helical_path(pitch, length, radius, angle=0, lefthand=False):
     return path
 
 
-class Thread(object):
+class MinVerticiesParam(Parameter):
+    def type(self, value):
+        if isinstance(value, int):
+            return max(2, value)
+        elif isinstance(value, list):
+            cast_value = []
+            for v in value:
+                if isinstance(v, int):
+                    cast_value.append(self.cast(v))
+                else:
+                    raise ParameterError("list contains at least one value that isn't an integer: %r" % v)
+            return cast_value
+        else:
+            raise ParameterError("min_vertices must be an integer, or a list of integers: %r" % value)
+
+
+class Thread(ParametricObject):
     # Base parameters
-    pitch = 1.0
-    start_count = 1
-    min_vertices = 20
-    radius = 3.0
+    pitch = PositiveFloat(1.0)
+    start_count = IntRange(1, None, 1)
+    min_vertices = MinVerticiesParam(20)
+    radius = PositiveFloat(3.0)
 
-    inner = False  # if set, thread made is intended to be cut from a solid to form an inner thread
-    lefthand = False
-
-    def __init__(self, **kwargs):
-        for (key, value) in kwargs.items():
-            if not hasattr(self, key):
-                raise ValueError("screw drive class {cls} does not accept a '{key}' parameter".format(
-                    cls=repr(type(self)), key=key
-                ))
-
-            # Default value given to class
-            default_value = getattr(self, key)
-
-            # Cast value to the same type as the class default
-            #   (mainly designed to turn ints to floats, or visa versa)
-            if default_value is None:
-                cast_value = value
-            else:
-                cast_value = type(default_value)(value)
-
-            # Set given value
-            setattr(self, key, cast_value)
+    inner = Boolean(False)  # if set, thread made is intended to be cut from a solid to form an inner thread
+    lefthand = Boolean(False)
 
     def build_profile(self):
         """
@@ -262,3 +264,50 @@ class Thread(object):
 
 
         return thread
+
+
+# Thread register
+#   Create your own custom thread like so...
+#
+#       import cadquery
+#       from Helpers import show
+#       from cqparts.params import *
+#       from cqparts.types.threads import Thread, thread
+#
+#       @thread('my_thread')  # registration is not mandatory, but recommended
+#       class MyThread(Thread):
+#           my_param = FloatRange(0, 5, 2.5)  # for example
+#
+#           def build_profile(self):
+#               points = [
+#                   (self.my_param, 0),
+#                   (self.radius, self.pitch/2),
+#                   (self.my_param, self.pitch),
+#               ]
+#               profile = cadquery.Workplane("XZ") \
+#                   .moveTo(*points[0]).polyline(points[1:])
+#               return profile.wire()
+#
+#       t = MyThread(radius=4, my_param=3.1).make(length=5)
+#       show(t)  # renders thread in FreeCAD
+
+thread_map = {}
+
+
+def thread(*names):
+    assert all(isinstance(n, six.string_types) for n in names), "bad thread name"
+    def inner(cls):
+        """
+        Add thread class to mapping
+        """
+        assert issubclass(cls, ScrewDrive), "class must inherit from ScrewDrive"
+        for name in names:
+            assert name not in thread_map, "more than one thread named '%s'" % name
+            thread_map[name] = cls
+        return cls
+
+    return inner
+
+
+def find(name):
+    return thread_map[name]

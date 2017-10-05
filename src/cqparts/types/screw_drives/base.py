@@ -51,6 +51,7 @@ class ScrewDrive(object):
 
 screw_drive_map = {}
 
+
 def screw_drive(*names):
     assert all(isinstance(n, six.string_types) for n in names), "bad screw drive name"
     def inner(cls):
@@ -64,3 +65,7 @@ def screw_drive(*names):
         return cls
 
     return inner
+
+
+def find(name):
+    return screw_drive_map[name]

@@ -3,8 +3,8 @@ import cadquery
 
 
 class FastenerHead(object):
-    diameter = 5.0
-    height = 2
+    diameter = 5.2
+    height = 2.0
 
     def __init__(self, **kwargs):
         for (key, value) in kwargs.items():
@@ -36,7 +36,7 @@ class FastenerHead(object):
         """
         Returns the screw drive origin offset relative to bolt's origin
         """
-        return (0, 0, -self.height)
+        return (0, 0, self.height)
 
 
 # Fastener Head register
@@ -56,6 +56,7 @@ class FastenerHead(object):
 
 fastener_head_map = {}
 
+
 def fastener_head(*names):
     assert all(isinstance(n, six.string_types) for n in names), "bad fastener head name"
     def inner(cls):
@@ -69,3 +70,7 @@ def fastener_head(*names):
         return cls
 
     return inner
+
+
+def find(name):
+    return fastener_head_map[name]
