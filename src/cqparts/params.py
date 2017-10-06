@@ -68,6 +68,16 @@ class ParametricObject(object):
             # assign value to this instance
             setattr(self, key, value)
 
+        self.initialize_parameters()
+
+    def initialize_parameters(self):
+        """
+        A palce to set default parameters more intelegently than just a
+        simple default value.
+        Executed just prior to exiting the __init__ function.
+        Consider calling super.
+        """
+        pass
 
 # ========================  Parameter Types  ========================
 class Parameter(object):
