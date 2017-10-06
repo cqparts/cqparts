@@ -4,11 +4,18 @@ from math import pi, cos, sqrt
 
 from .base import ScrewDrive, screw_drive
 
+from ...params import *
+
 
 class AcentricWedgesScrewDrive(ScrewDrive):
-    count = 4
-    width = 0.5
-    acentric_radius = None  # defaults to width / 2
+    count = IntRange(1, None, 4)
+    width = PositiveFloat(0.5)
+    acentric_radius = PositiveFloat(None)  # defaults to width / 2
+
+    def initialize_parameters(self):
+        super(AcentricWedgesScrewDrive, self).initialize_parameters()
+        if self.acentric_radius is None:
+            self.acentric_radius = self.width / 2
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Start with a cylindrical pin down the center
@@ -16,14 +23,13 @@ class AcentricWedgesScrewDrive(ScrewDrive):
             .circle(self.width / 2).extrude(-self.depth)
 
         # Create a single blade
-        acentric_radius = self.width / 2 if self.acentric_radius is None else self.acentric_radius
         points = [
             (0, 0),
             (0, -self.depth),
             (-self.width / 2, -self.depth),
             (-self.diameter / 2, 0),
         ]
-        blade = cadquery.Workplane("XZ").workplane(offset=acentric_radius - (self.width / 2)) \
+        blade = cadquery.Workplane("XZ").workplane(offset=self.acentric_radius - (self.width / 2)) \
             .moveTo(*points[0]).polyline(points[1:]).close() \
             .extrude(self.width)
 
@@ -39,10 +45,10 @@ class AcentricWedgesScrewDrive(ScrewDrive):
 
 @screw_drive('tri_point')
 class TripointScrewDrive(AcentricWedgesScrewDrive):
-    count = 3
-    acentric_radius = 0.0  # yeah, not my best class design, but it works
+    count = IntRange(1, None, 3)
+    acentric_radius = PositiveFloat(0.0)  # yeah, not my best class design, but it works
 
 
 @screw_drive('torq_set')
 class TorqsetScrewDrive(AcentricWedgesScrewDrive):
-    count = 4
+    count = IntRange(1, None, 4)

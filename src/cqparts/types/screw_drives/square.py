@@ -3,23 +3,28 @@ from math import sqrt, pi, sin, cos
 from .base import ScrewDrive, screw_drive
 from cqparts.utils import copy
 
+from ...params import *
+
+
 @screw_drive('square', 'robertson')
 class SquareScrewDrive(ScrewDrive):
-    width = None
-    count = 1
+    width = PositiveFloat(None)
+    count = IntRange(1, None, 1)
 
-    def get_width(self):
+    def initialize_parameters(self):
+        super(SquareScrewDrive, self).initialize_parameters()
         if self.width is None:
-            return self.diameter / sqrt(2)
-        return self.width
+            self.width = self.diameter / sqrt(2)
+        else:
+            # Set diameter from square's width (ignore given diameter)
+            self.diameter = self.width / cos(pi / 6)
 
     def apply(self, workplane, offset=(0, 0, 0)):
         (dX, dY, dZ) = offset
-        width = self.get_width()
 
         # Single square as template
         tool_template = cadquery.Workplane("XY") \
-            .rect(width, width).extrude(-self.depth)
+            .rect(self.width, self.width).extrude(-self.depth)
 
         # Create tool (rotate & duplicate template)
         tool = copy(tool_template)
@@ -34,9 +39,9 @@ class SquareScrewDrive(ScrewDrive):
 
 @screw_drive('double_square', '2square')
 class DoubleSquareScrewDrive(SquareScrewDrive):
-    count = 2
+    count = IntRange(1, None, 2)
 
 
 @screw_drive('tripple_square', '3square')
 class TrippleSquareScrewDrive(SquareScrewDrive):
-    count = 3
+    count = IntRange(1, None, 3)

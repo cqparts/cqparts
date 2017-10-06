@@ -14,6 +14,7 @@ class CylindricalFastenerHead(FastenerHead):
     dome_ratio = PositiveFloat(0.25)  # ratio of head's height
 
     def initialize_parameters(self):
+        super(CylindricalFastenerHead, self).initialize_parameters()
         if self.fillet is None:
             self.fillet = self.diameter / 10
 

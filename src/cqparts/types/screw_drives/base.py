@@ -1,30 +1,11 @@
 import six
 import cadquery
 
+from ...params import *
 
-class ScrewDrive(object):
-    diameter = 3.0
-    depth = 3.0
-
-    def __init__(self, **kwargs):
-        for (key, value) in kwargs.items():
-            if not hasattr(self, key):
-                raise ValueError("screw drive class {cls} does not accept a '{key}' parameter".format(
-                    cls=repr(type(self)), key=key
-                ))
-
-            # Default value given to class
-            default_value = getattr(self, key)
-
-            # Cast value to the same type as the class default
-            #   (mainly designed to turn ints to floats, or visa versa)
-            if default_value is None:
-                cast_value = value
-            else:
-                cast_value = type(default_value)(value)
-
-            # Set given value
-            setattr(self, key, cast_value)
+class ScrewDrive(ParametricObject):
+    diameter = PositiveFloat(3.0)
+    depth = PositiveFloat(3.0)
 
     def apply(self, workplane, offset=(0, 0, 0)):
         """

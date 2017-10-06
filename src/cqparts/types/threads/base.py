@@ -191,14 +191,19 @@ def helical_path(pitch, length, radius, angle=0, lefthand=False):
 
 
 class MinVerticiesParam(Parameter):
+    """
+    Can be either:
+        - an an integer, or
+        - a list of integers
+    """
     def type(self, value):
         if isinstance(value, int):
             return max(2, value)
-        elif isinstance(value, list):
+        elif isinstance(value, (tuple, list)):
             cast_value = []
             for v in value:
                 if isinstance(v, int):
-                    cast_value.append(self.cast(v))
+                    cast_value.append(self.type(v))
                 else:
                     raise ParameterError("list contains at least one value that isn't an integer: %r" % v)
             return cast_value
@@ -261,7 +266,6 @@ class Thread(ParametricObject):
 
         #solid = thread.val().wrapped
         #face = App.ActiveDocument.Face.Shape.copy()
-
 
         return thread
 

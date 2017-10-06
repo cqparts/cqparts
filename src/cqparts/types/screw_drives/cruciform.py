@@ -5,10 +5,12 @@ from math import pi, cos, sqrt
 from .base import ScrewDrive, screw_drive
 from cqparts.utils import intersect  # FIXME: fix is in master
 
+from ...params import *
+
 
 @screw_drive('frearson')
 class FrearsonScrewDrive(ScrewDrive):
-    width = 0.5
+    width = PositiveFloat(0.5)
 
     def apply(self, workplane, offset=(0, 0, 0)):
         points = [
@@ -30,8 +32,13 @@ class FrearsonScrewDrive(ScrewDrive):
 
 @screw_drive('phillips')
 class PhillipsScrewDrive(ScrewDrive):
-    width = 0.5
-    chamfer = None  # chamfer at top of cross section, defaults to width
+    width = PositiveFloat(0.5)
+    chamfer = PositiveFloat(None)  # chamfer at top of cross section, defaults to width
+
+    def initialize_parameters(self):
+        super(PhillipsScrewDrive, self).initialize_parameters()
+        if self.chamfer is None:
+            self.chamfer = self.width
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Frearson style cross from center
@@ -50,8 +57,7 @@ class PhillipsScrewDrive(ScrewDrive):
 
         # Trapezoidal pyramid 45deg rotated cutout of center
         # alternative: lofting 2 squares, but that was taking ~7 times longer to process
-        chamfer = self.width if self.chamfer is None else self.chamfer
-        tz_top = (sqrt(2) * self.width) + ((chamfer / sqrt(2)) * 2)
+        tz_top = (sqrt(2) * self.width) + ((self.chamfer / sqrt(2)) * 2)
         tz_base = self.width / sqrt(2)  # to fit inside square at base
         points = [
             (tz_top / 2., 0),
@@ -79,12 +85,18 @@ class PhillipsScrewDrive(ScrewDrive):
 
 @screw_drive('french_recess')
 class FrenchRecessScrewDrive(ScrewDrive):
-    width = 0.5
-    step_depth = 1.5
-    step_diameter = 2.0
+    width = PositiveFloat(0.5)
+    step_depth = PositiveFloat(None)  # default to depth / 2
+    step_diameter = PositiveFloat(None) # default to 2/3 diameter
+
+    def initialize_parameters(self):
+        super(FrenchRecessScrewDrive, self).initialize_parameters()
+        if self.step_depth is None:
+            self.step_depth = self.depth / 2
+        if self.step_diameter is None:
+            self.step_diameter = self.diameter * (2./3)
 
     def apply(self, workplane, offset=(0, 0, 0)):
-
         tool = cadquery.Workplane("XY") \
             .rect(self.width, self.diameter).extrude(-self.step_depth) \
             .faces(">Z") \
@@ -98,9 +110,9 @@ class FrenchRecessScrewDrive(ScrewDrive):
 
 @screw_drive('mortorq')
 class MortorqScrewDrive(ScrewDrive):
-    width = 1.0
-    count = 4
-    fillet = 0.3
+    width = PositiveFloat(1.0)
+    count = PositiveInt(4)
+    fillet = PositiveFloat(0.3)
 
     def apply(self, workplane, offset=(0, 0, 0)):
         points = [
@@ -132,13 +144,18 @@ class MortorqScrewDrive(ScrewDrive):
 
 @screw_drive('pozidriv')
 class PozidrivScrewDrive(ScrewDrive):
-    width = 0.5
-    inset_cut = None  # if undefined = width / 2
+    width = PositiveFloat(0.5)
+    inset_cut = PositiveFloat(None)  # defaults to width / 2
 
     # cross-shaped marking to indicate "Posidriv" screw drive
-    markings = True  # if false, marking is not shown
-    marking_width = 0.1
-    marking_depth = 0.1
+    markings = Boolean(True)  # if false, marking is not shown
+    marking_width = PositiveFloat(0.1)
+    marking_depth = PositiveFloat(0.1)
+
+    def initialize_parameters(self):
+        super(PozidrivScrewDrive, self).initialize_parameters()
+        if self.inset_cut is None:
+            self.inset_cut = self.width / 2
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Frearson style cross from center
@@ -157,8 +174,7 @@ class PozidrivScrewDrive(ScrewDrive):
 
         # Trapezoidal pyramid inset
         # alternative: lofting 2 squares, but that was taking ~7 times longer to process
-        inset_cut = (self.width / 2.0) if self.inset_cut is None else self.inset_cut
-        tz_top = self.width + (2 * inset_cut)
+        tz_top = self.width + (2 * self.inset_cut)
         tz_base = self.width
         points = [
             (tz_top / 2., 0),
