@@ -1,30 +1,16 @@
 import six
 import cadquery
 
+# relative imports
+from ...params import *
 
-class FastenerHead(object):
-    diameter = 5.2
-    height = 2.0
+import logging
+log = logging.getLogger(__name__)
 
-    def __init__(self, **kwargs):
-        for (key, value) in kwargs.items():
-            if not hasattr(self, key):
-                raise ValueError("screw drive class {cls} does not accept a '{key}' parameter".format(
-                    cls=repr(type(self)), key=key
-                ))
 
-            # Default value given to class
-            default_value = getattr(self, key)
-
-            # Cast value to the same type as the class default
-            #   (mainly designed to turn ints to floats, or visa versa)
-            if default_value is None:
-                cast_value = value
-            else:
-                cast_value = type(default_value)(value)
-
-            # Set given value
-            setattr(self, key, cast_value)
+class FastenerHead(ParametricObject):
+    diameter = PositiveFloat(5.2)
+    height = PositiveFloat(2.0)
 
     def make(self, offset=(0, 0, 0)):
         """

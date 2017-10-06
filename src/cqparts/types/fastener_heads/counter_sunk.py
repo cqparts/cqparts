@@ -4,16 +4,18 @@ from math import pi, cos, sin, sqrt
 from .base import FastenerHead, fastener_head
 from cqparts.utils import intersect  # FIXME: fix is in master
 
+from ...params import *
+
 # pull FreeCAD module from cadquery (workaround for torus)
 FreeCAD = cadquery.freecad_impl.FreeCAD
 
 
 @fastener_head('countersunk')
 class CounterSunkFastenerHead(FastenerHead):
-    chamfer = None  # default to diameter / 20
-    raised = 0.0  # if None, defaults to diameter / 10
-    bugle = False
-    bugle_ratio = 0.5 # radians, must be < pi / 4 (45 deg)
+    chamfer = PositiveFloat(None)  # default to diameter / 20
+    raised = PositiveFloat(0.0)  # if None, defaults to diameter / 10
+    bugle = Boolean(False)
+    bugle_ratio = FloatRange(0, 1, 0.5)
 
     def get_raised(self):
         if self.raised is None:
@@ -82,9 +84,9 @@ class CounterSunkFastenerHead(FastenerHead):
 
 @fastener_head('countersunk_raised')
 class CounterSunkRaisedFastenerHead(CounterSunkFastenerHead):
-    raised = None  # defaults to diameter / 10
+    raised = PositiveFloat(None)  # defaults to diameter / 10
 
 
 @fastener_head('countersunk_bugle')
 class CounterSunkBugleFastenerHead(CounterSunkFastenerHead):
-    bugle = True
+    bugle = Boolean(True)

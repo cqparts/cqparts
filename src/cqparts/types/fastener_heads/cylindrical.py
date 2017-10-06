@@ -4,13 +4,18 @@ from math import pi, cos, sin, sqrt
 from .base import FastenerHead, fastener_head
 from cqparts.utils import intersect  # FIXME: fix is in master
 
+from ...params import *
 
 class CylindricalFastenerHead(FastenerHead):
-    fillet = None  # defaults to diameter / 10
+    fillet = PositiveFloat(None)  # defaults to diameter / 10
 
     # Dome on top ?
-    domed = False
-    dome_ratio = 0.25  # ratio of head's height
+    domed = Boolean(False)
+    dome_ratio = PositiveFloat(0.25)  # ratio of head's height
+
+    def initialize_parameters(self):
+        if self.fillet is None:
+            self.fillet = self.diameter / 10
 
     def make(self, offset=(0, 0, 0)):
         head = cadquery.Workplane("XY") \
@@ -29,52 +34,57 @@ class CylindricalFastenerHead(FastenerHead):
 
         else:
             # Fillet top face
-            fillet = self.diameter / 10 if self.fillet is None else self.fillet
-            if fillet:
-                head = head.faces(">Z").edges().fillet(fillet)
+            if self.fillet:
+                head = head.faces(">Z").edges().fillet(self.fillet)
 
         return head.translate(offset)
 
 
 @fastener_head('cheese')
 class CheeseFastenerHead(CylindricalFastenerHead):
-    fillet = 0.0
-    domed = False
+    fillet = PositiveFloat(0.0)
+    domed = Boolean(False)
 
 
 @fastener_head('pan')
 class PanFastenerHead(CylindricalFastenerHead):
-    domed = False
+    domed = Boolean(False)
 
 
 @fastener_head('dome')
 class DomeFastenerHead(CylindricalFastenerHead):
-    domed = True
+    domed = Boolean(True)
 
 
 @fastener_head('round')
 class RoundFastenerHead(CylindricalFastenerHead):
-    domed = True
-    dome_ratio = 1.0
+    domed = Boolean(True)
+    dome_ratio = PositiveFloat(1)
 
     # Coach Head
-    coach_head = False
-    coach_width = None  # default = diameter / 2
-    coach_height = None  # default = height
-    coach_chamfer = None  # default = coach_width / 6
+    coach_head = Boolean(False)
+    coach_width = PositiveFloat(None)  # default = diameter / 2
+    coach_height = PositiveFloat(None)  # default = height
+    coach_chamfer = PositiveFloat(None)  # default = coach_width / 6
+
+    def initialize_parameters(self):
+        super(RoundFastenerHead, self).initialize_parameters()
+        if self.coach_width is None:
+            self.coach_width = self.diameter / 2
+        if self.coach_height is None:
+            self.coach_height = self.height
+        if self.coach_chamfer is None:
+            self.coach_chamfer = self.coach_width / 6
 
     def make(self, offset=(0, 0, 0)):
         head = super(RoundFastenerHead, self).make(offset=offset)
 
         # Add chamfered square block beneath fastener head
         if self.coach_head:
-            coach_width = self.diameter / 2. if self.coach_width is None else self.coach_width
-            coach_height = self.height if self.coach_height is None else self.coach_height
-            coach_chamfer = coach_width / 6. if self.coach_chamfer is None else self.coach_chamfer
-            cone_radius = ((coach_width / 2.) + coach_height) - coach_chamfer
+            cone_radius = ((self.coach_width / 2.) + self.coach_height) - self.coach_chamfer
             cone_height = cone_radius
 
-            box = cadquery.Workplane("XY").rect(coach_width, coach_width).extrude(-coach_height)
+            box = cadquery.Workplane("XY").rect(self.coach_width, self.coach_width).extrude(-self.coach_height)
             cone = cadquery.Workplane("XY").union(
                 cadquery.CQ(cadquery.Solid.makeCone(0, cone_radius, cone_height)) \
                     .translate((0, 0, -cone_height))
@@ -86,17 +96,21 @@ class RoundFastenerHead(CylindricalFastenerHead):
 
 @fastener_head('round_coach')
 class RoundCoachFastenerHead(RoundFastenerHead):
-    coach_head = True
+    coach_head = Boolean(True)
 
 
 @fastener_head('trapezoidal')
 class TrapezoidalFastenerHead(FastenerHead):
-    diameter_top = None  # default to diameter * 0.75
+    diameter_top = PositiveFloat(None)  # default to diameter * 0.75
+
+    def initialize_parameters(self):
+        super(TrapezoidalFastenerHead, self).initialize_parameters()
+        if self.diameter_top is None:
+            self.diameter_top = self.diameter * 0.75
 
     def make(self, offset=(0, 0, 0)):
-        diameter_top = self.diameter * 0.75 if self.diameter_top is None else self.diameter_top
         r1 = self.diameter / 2.
-        r2 = diameter_top / 2.
+        r2 = self.diameter_top / 2.
         head = cadquery.Workplane("XY").union(
             cadquery.CQ(cadquery.Solid.makeCone(r1, r2, self.height))
         )
