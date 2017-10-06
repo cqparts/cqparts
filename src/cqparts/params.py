@@ -180,6 +180,7 @@ class IntRange(Int):
 
         return cast_value
 
+
 # ------------ boolean types ------------
 class Boolean(Parameter):
     def type(self, value):
