@@ -1,3 +1,5 @@
+from copy import copy
+
 from .errors import ParameterError
 
 import logging
@@ -33,18 +35,7 @@ class ParametricObject(object):
     """
     def __init__(self, **kwargs):
         # get all available parameters (recurse through inherited classes)
-        def get_class_params(cls):
-            params = set(
-                k for (k, v) in cls.__dict__.items()
-                if isinstance(v, Parameter)
-            )
-            for parent in cls.__bases__:
-                params |= get_class_params(parent)
-                # note: overridden class parameters will be duplicated here,
-                #       but the params set() naturally ignores duplicates.
-            return params
-
-        params = get_class_params(type(self))
+        params = ParametricObject._get_class_params(type(self))
 
         # parameters explicitly defined during intantiation
         defined_params = set(kwargs.keys())
@@ -70,6 +61,28 @@ class ParametricObject(object):
 
         self.initialize_parameters()
 
+    @staticmethod
+    def _get_class_params(cls):
+        params = set(
+            k for (k, v) in cls.__dict__.items()
+            if isinstance(v, Parameter)
+        )
+        for parent in cls.__bases__:
+            params |= ParametricObject._get_class_params(parent)
+            # note: overridden class parameters will be duplicated here,
+            #       but the params set() naturally ignores duplicates.
+        return params
+
+    def _params_iter(self):
+        params = ParametricObject._get_class_params(type(self))
+        for name in params:
+            yield (name, getattr(self, name))
+
+    def __copy__(self):
+        params = ParametricObject._get_class_params(type(self))
+        params_copy = dict((k, copy(v)) for (k, v) in self._params_iter())
+        return type(self)(**params_copy)
+
     def initialize_parameters(self):
         """
         A palce to set default parameters more intelegently than just a
@@ -81,7 +94,7 @@ class ParametricObject(object):
 
 # ========================  Parameter Types  ========================
 class Parameter(object):
-    def __init__(self, default):
+    def __init__(self, default=None):
         self.default = self.cast(default)
 
     def type(self, value):

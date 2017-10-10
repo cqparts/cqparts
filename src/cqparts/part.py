@@ -33,11 +33,15 @@ class Part(ParametricObject):
         """
         Clear internal object reference; forces object to be re-made when
         self.object is next referenced.
+        calling clear() is unnecessary if the object is acquired with make().
         """
         self._object = None
 
     def __copy__(self):
-        return self.translate((0, 0, 0))
+        new_obj = super(Part, self).__copy__()
+        if new_obj._object is not None:
+            new_obj._object = self._object.translate((0, 0, 0))
+        return new_obj
 
 
 class Assembly(ParametricObject):
