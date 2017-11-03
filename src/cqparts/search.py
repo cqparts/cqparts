@@ -22,7 +22,7 @@ def register_class(**criteria):
             import cqparts
             @cqparts.register_class(
                 type='motor',
-                class='dc',
+                current_class='dc',
                 part_number='ABC123X',
             )
             class SomeMotor(cqparts.Assembly):
