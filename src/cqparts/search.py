@@ -12,6 +12,7 @@ from copy import copy
 #       }
 index = defaultdict(lambda: defaultdict(set))
 class_list = set()
+class_criteria = {}
 
 def register_class(**criteria):
 
@@ -42,6 +43,9 @@ def register_class(**criteria):
         class_list.add(cls)
         for (category, value) in criteria.items():
             index[category][value].add(cls)
+
+        # Retain search criteria
+        class_criteria[cls] = criteria
 
         # Return class
         return cls
