@@ -5,7 +5,7 @@ from .errors import ParameterError
 import logging
 log = logging.getLogger(__name__)
 
-class ParametricOb ject(object):
+class ParametricObject(object):
     """
     Parametric objects may be defined like so:
 
