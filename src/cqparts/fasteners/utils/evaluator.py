@@ -10,7 +10,6 @@ class Effect(object):
     a single solid.
     Effects are sortable (based on proximity to evaluation origin)
     """
-
     def __init__(self, origin, direction, part, result):
         """
         Constructor

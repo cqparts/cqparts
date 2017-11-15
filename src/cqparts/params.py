@@ -5,7 +5,7 @@ from .errors import ParameterError
 import logging
 log = logging.getLogger(__name__)
 
-class ParametricObject(object):
+class ParametricOb ject(object):
     """
     Parametric objects may be defined like so:
 
@@ -25,7 +25,7 @@ class ParametricObject(object):
         >>> a = Foo(z=1)  # raises exception
         ParameterError: <class '__main__.Foo'> does not accept any of the parameters: ['z']
         >>> a = Foo(x='123')  # a.x=123.0, a.i=3
-        >>> a = Foo(blah=200)  # raises exception, parameters be Parameter types
+        >>> a = Foo(blah=200)  # raises exception, parameters must be Parameter types
         ParameterError: <class '__main__.Foo'> does not accept any of the parameters: ['blah']
         >>> a = Foo(x=None)  # a.x is None, a.i=3  # any parameter can be set to None
 
