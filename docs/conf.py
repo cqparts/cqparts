@@ -91,7 +91,7 @@ todo_include_todos = False
 # a list of builtin themes.
 #
 #html_theme = 'classic'
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_rtd_theme'  # same as cadquery
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -178,3 +178,8 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+
+def setup(app):
+    # Custom Style-sheet (effectively inherits from theme, andn overrides it)
+    app.add_stylesheet('css/custom.css')
