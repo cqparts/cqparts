@@ -8,16 +8,20 @@ class Effect(object):
     """
     An evaluator effect is the conclusion to an evaluation with regard to
     a single solid.
+
     Effects are sortable (based on proximity to evaluation origin)
+
+    :param origin: origin of evaluation
+    :param direction: direction of evaluation
+    :param part: effected solid
+    :param result: result of evaluation
+
+    :type origin: cadquery.Vector
+    :type direction: cadquery.Vector
+    :type part: cadquery.Workplane
+    :type result: cadquery.Workplane
     """
     def __init__(self, origin, direction, part, result):
-        """
-        Constructor
-        :param origin: origin of evaluation (cadquery.Vector)
-        :param direction: direction of evaluation (cadquery.Vector)
-        :param part: effected solid (cadquery.Workplane)
-        :param result: result of evaluation (cadquery.Workplane)
-        """
         self.origin = origin
         self.direction = direction.normalized()  # force unit vector
         self.part = part
@@ -25,6 +29,12 @@ class Effect(object):
 
     @property
     def start_point(self):
+        """
+        Start vertex of effect
+
+        :return: vertex
+        :rtype: cadquery.Vertex
+        """
         edge = self.result.wire().val().Edges()[0]
         return edge.Vertices()[0].Center()
 

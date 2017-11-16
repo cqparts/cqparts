@@ -10,7 +10,12 @@ Welcome to cqparts's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. automodule:: cqparts
 
+.. autoclass:: cqparts.fasteners.utils.Evaluator
+
+.. autoclass:: cqparts.fasteners.utils.evaluator.Effect
+   :members:
 
 Indices and tables
 ==================
