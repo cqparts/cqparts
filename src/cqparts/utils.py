@@ -1,19 +1,23 @@
 import cadquery
 
-class buffered_property(object):
+class property_buffered(object):
     """
     Buffer the result of a method on the class instance
     usage:
-        >>> class A(x):
-        ...     @buffered_property
+        >>> class A(object):
+        ...     @property_buffered
         ...     def x(self):
-        ...         print("x() called")
+        ...         print("x called")
         ...         return 100
         >>> a = A()
-        >>> a.x()
-        x() called
+        >>> a.x
+        x called
         100
-        >>> a.x()
+        >>> a.x
+        100
+        >>> del a.x
+        >>> a.x
+        x called
         100
     """
     # source: https://github.com/funkybob/antfarm/blob/40a7cc450eba09a280b7bc8f7c68a807b0177c62/antfarm/utils/functional.py
