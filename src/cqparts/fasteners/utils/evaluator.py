@@ -1,7 +1,7 @@
 import cadquery
-from cqparts.utils import intersect, copy
 
-import _casting
+from ...utils import intersect, copy
+from . import _casting
 
 
 class Effect(object):
@@ -47,6 +47,7 @@ class Effect(object):
 
     @property
     def _wire_wp(self):
+        """Put self.wire in it's own workplane for display purposes"""
         return cadquery.Workplane('XY').newObject([self.wire])
 
     # bool
@@ -96,8 +97,12 @@ class Evaluator(object):
     @property
     def max_effect_length(self):
         """
-        Find longest possible effect vector length
+        Find longest possible effect vector length.
         """
+        # In other words, the radius of a sphere:
+        #   - who's center is at self.start.
+        #   - all self.parts are contained within the sphere.
+        #
         # Method: using each solid's bounding box:
         #   - get vector from start to bounding box center
         #   - get vector from bounding box center to any corner

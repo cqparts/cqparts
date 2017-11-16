@@ -1,5 +1,13 @@
 # Applying a Fastener
 
+This `fasteners` collection has some utilities to automatically apply and select
+an apropriate fastener. What they do, and how to use them is documented below.
+
+Using these tools is **not mandatory**; you'll always have the option to
+explicitly select your fastener with the placement and orientation of your
+choosing.
+
+
 ## Evaluation
 
 An evaluation is an assessment of the workpieces intended to be fastened along
@@ -19,11 +27,23 @@ A successful evaluation will yield:
 
 There are 2 methods of evaluation
 - vector : faster, but may miss something
-- cylindrical : slower, but more accurate
+- cylindrical : slower, but will find all interfacing solids
+
 
 ```python
 # TODO: sample eval code
 ```
+
+
+## Fastener Selector
+
+An evaluation can be used to determine which fastener you need.
+Or simply, how long the thread on your chosen fastener needs to be.
+
+```python
+# TODO: sample selector code
+```
+
 
 ## Fastener Application
 
@@ -37,13 +57,4 @@ screw = find('10g_30mm_CS_PHIL')()
 box = Box()  # FIXME
 plate = Plate()  # FIXME
 screw.apply()
-```
-
-## Fastener Selector
-the fastener need
-An evaluation can be used to determine which fastener you need.
-Or simply, how long the thread on your chosen fastener needs to be.
-
-```python
-# TODO: sample selector code
 ```

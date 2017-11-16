@@ -3,8 +3,7 @@ from cadquery import BoxSelector
 from math import pi, cos, sqrt
 
 from .base import ScrewDrive, screw_drive
-from cqparts.utils import intersect  # FIXME: fix is in master
-
+from ...utils import intersect  # FIXME: fix is in master
 from ...params import *
 
 
