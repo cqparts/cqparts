@@ -93,6 +93,9 @@ todo_include_todos = False
 #html_theme = 'classic'
 html_theme = 'sphinx_rtd_theme'  # same as cadquery
 
+# Logo
+html_logo = "_static/logos/cqparts-200x60.png"
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -179,6 +182,8 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
 
+# If true, links to the reST sources are added to the pages.
+html_show_sourcelink = False
 
 def setup(app):
     # Custom Style-sheet (effectively inherits from theme, andn overrides it)
