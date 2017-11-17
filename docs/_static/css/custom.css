@@ -1,11 +1,26 @@
+/*
+ * Custom theme tweaks:
+ *
+ * Theme is intended to be very similar to that of the cadquery docs, but with
+ * a different colour theme.
+ * It's intended to make the difference between the two clear,
+ * without being distracting.
+ *
+ */
 
 /* Navigation Bar : Left */
 .wy-side-nav-search {
     background-color: #af1616;
 }
 
-
 /* Navigation Bar : Top */
 .wy-nav-top {
     background-color: #af1616;
-}    
+}
+
+/* Headings */
+.rst-content dl:not(.docutils) dt {
+    background: #fae7e7;
+    color: #b92929;
+    border-top-color: #de6a6a;
+}
