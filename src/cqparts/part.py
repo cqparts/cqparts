@@ -2,45 +2,100 @@ import cadquery
 import six
 
 from .params import ParametricObject
-from .utils import indicate_last
+from .utils import indicate_last, property_buffered
 from .errors import MakeError, ParameterError
 
 
 class Part(ParametricObject):
 
-    def __init__(self, *largs, **kwargs):
-        super(Part, self).__init__(*largs, **kwargs)
-        self._object = None
-
     def make(self):
         """
-        Create and return solid part (must be overridden in inheriting class)
-        :return: cadquery.CQ (or inheriting) instance
+        Create and return solid part
+
+        :return: cadquery.Workplane of the part in question
+        :rtype: subclass of :class:`cadquery.CQ`, usually a :class:`cadquery.Workplane`
+
+        .. important::
+            This must be overridden in your ``Part``
+
+        The outcome of this function should be accessed via cqparts.Part.object
         """
         raise NotImplementedError("make function not implemented")
 
-    @property
-    def object(self):
-        # Cached
-        if self._object is None:
-            self._object = self.make()
-            # verify
-            if not isinstance(self._object, cadquery.CQ):
-                raise MakeError("invalid object type returned by make(): %r" % self._object)
-        return self._object
+    def make_primative(self):
+        """
+        Create and return *simplified* solid part.
 
-    def clear(self):
+        The primative representation of a ``Part`` is to lower the export quality
+        of an ``Assembly`` or ``Part`` for rendering.
+
+        Overriding this is optional, but highly recommended.
+
+        The default behaviour returns the full complexity object's bounding box.
+        But to do this, theh full complexity object must be generated first.
+
+        There are 2 main problems with this:
+
+        #. building the full complexity part is not efficient.
+        #. a bounding box may not be a good representation of the part.
+
+        **Bolts**
+
+        A good example of this is a bolt.
+
+        * building a bolt's thread is not a trivial task;
+          it can take some time to generate.
+        * a box is not a good visual representation of a bolt
+
+        So for the ``Fastener`` parts, all ``make_primative`` methods are overridden
+        to provide 2 cylinders, one for the bolt's head, and another for the thread.
         """
-        Clear internal object reference; forces object to be re-made when
-        self.object is next referenced.
-        calling clear() is unnecessary if the object is acquired with make().
+        bb = self.bounding_box
+        primative = cadquery.Workplane('XY', origin=(bb.xmin, bb.ymin, bb.zmin)) \
+            .box(bb.xlen, bb.ylen, bb.zlen, centered=(False, False, False))
+        return primative
+
+    @property_buffered
+    def object(self):
         """
-        self._object = None
+        Buffered result of :meth:`cqparts.Part.make` which is (probably) a
+        :class:`cadquery.Workplane` instance.
+
+        .. note::
+            This is usually the correct way to get your part's object
+            for rendering, exporting, or measuring.
+
+            Only call :meth:`cqparts.Part.make` directly if you explicitly intend
+            to re-generate the model from scratch.
+        """
+        value = self.make()
+        if not isinstance(value, cadquery.CQ):
+            raise MakeError("invalid object type returned by make(): %r" % value)
+        return value
+
+    @property_buffered
+    def object_primative(self):
+        value = self.make_primative()
+        if not isinstance(value, cadquery.CQ):
+            raise MakeError("invalid object type returned by make_primative(): %r" % value)
+        return value
+
+    @property
+    def bounding_box(self):
+        """
+        Generate a bounding box based on the full complexity part.
+
+        :return: bounding box of part
+        :rtype: cadquery.BoundBox
+        """
+        return self.object.findSolid().BoundingBox()
 
     def __copy__(self):
         new_obj = super(Part, self).__copy__()
-        if new_obj._object is not None:
-            new_obj._object = self._object.translate((0, 0, 0))
+
+        if 'object' in self.__dict__:  # set by property_buffered
+            new_obj.__dict__['object'] = self.__dict__['object'].translate((0, 0, 0))
+
         return new_obj
 
 

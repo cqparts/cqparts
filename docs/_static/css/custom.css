@@ -10,17 +10,19 @@
 
 /* Navigation Bar : Left */
 .wy-side-nav-search {
-    background-color: #af1616;
+    background-color: #585858;
 }
 
 /* Navigation Bar : Top */
 .wy-nav-top {
-    background-color: #af1616;
+    background-color: #585858;
 }
 
 /* Headings */
+/*
 .rst-content dl:not(.docutils) dt {
-    background: #fae7e7;
-    color: #b92929;
-    border-top-color: #de6a6a;
+    background: #eafae7;
+    color: #358228;
+    border-top-color: #6ade91;
 }
+*/

@@ -1,6 +1,6 @@
 import cadquery
 
-from ...utils import intersect, copy
+from ...utils import intersect, copy, property_buffered
 from . import _casting
 
 
@@ -104,7 +104,7 @@ class Evaluator(object):
 
         self._evaluation = None
 
-    @property
+    @property_buffered
     def max_effect_length(self):
         """
         Find longest possible effect vector length.
@@ -131,13 +131,12 @@ class Evaluator(object):
 
     def perform_evaluation(self):
         # Create effect vector (with max length)
-        max_effect_length = self.max_effect_length
-        if not max_effect_length:
+        if not self.max_effect_length:
             # no effect is possible, return an empty list
             return []
         edge = cadquery.Edge.makeLine(
             self.start,
-            self.dir.normalized().multiply(max_effect_length)
+            self.dir.normalized().multiply(self.max_effect_length)
         )
         wire = cadquery.Wire.assembleEdges([edge])
         wp = cadquery.Workplane('XY').newObject([wire])

@@ -14,6 +14,11 @@ __all__ = [
     'part',
     'search',
     'utils',
+
+    # Sub-modules
+    # bringing scope closer to cqparts for commonly used classes
+    'Part',
+    'Assembly',
 ]
 
 import bearings
@@ -31,3 +36,7 @@ import params
 import part
 import search
 import utils
+
+# Sub-modules
+from part import Part
+from part import Assembly

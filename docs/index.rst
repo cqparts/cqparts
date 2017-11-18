@@ -15,6 +15,11 @@ Welcome to cqparts's documentation!
 .. autoclass:: cqparts.fasteners.utils.evaluator.Effect
    :members:
 
+.. autoclass:: cqparts.Part
+   :members:
+
+.. autoclass:: cqparts.utils.property_buffered
+
 Indices and tables
 ==================
 

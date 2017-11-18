@@ -2,8 +2,12 @@ import cadquery
 
 class property_buffered(object):
     """
-    Buffer the result of a method on the class instance
-    usage:
+    Buffer the result of a method on the class instance, similar to python builtin
+    ``@property``, but the result is kept in memory until it's explicitly deleted.
+
+    .. doctest::
+
+        >>> from cqparts.utils import property_buffered
         >>> class A(object):
         ...     @property_buffered
         ...     def x(self):
@@ -19,12 +23,14 @@ class property_buffered(object):
         >>> a.x
         x called
         100
+
+    Basis of class was sourced from the `funkybob/antfarm <https://github.com/funkybob/antfarm/blob/40a7cc450eba09a280b7bc8f7c68a807b0177c62/antfarm/utils/functional.py>`_ project.
+    thanks to `@funkybob <https://github.com/funkybob>`_.
     """
-    # source: https://github.com/funkybob/antfarm/blob/40a7cc450eba09a280b7bc8f7c68a807b0177c62/antfarm/utils/functional.py
-    # thanks funkybob
     def __init__(self, getter, name=None):
         self.name = name or getter.__name__
         self.getter = getter
+        self.__doc__ = getter.__doc__  # preserve sphinx autodoc docstring
 
     def __get__(self, instance, owner):
         if instance is None:  # pragma: no cover
