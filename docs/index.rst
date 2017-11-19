@@ -13,6 +13,7 @@ Welcome to cqparts's documentation!
    parts/index
    tutorials/index
    examples/index
+   api/index
 
 .. autoclass:: cqparts.fasteners.utils.Evaluator
    :members:
