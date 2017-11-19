@@ -94,8 +94,8 @@ todo_include_todos = False
 html_theme = 'sphinx_rtd_theme'  # same as cadquery
 
 # Logo
-#html_logo = "_static/logos/cqparts-200x60.png"
-html_logo = "_static/logos/cqparts.svg"
+#html_logo = "_static/logos/cqparts/light.svg"
+html_logo = "_static/logos/cqparts/dark.svg"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -189,6 +189,16 @@ intersphinx_mapping = {
 # If true, links to the reST sources are added to the pages.
 html_show_sourcelink = False
 
+
+def skip(app, what, name, obj, skip, options):
+    if name == "__init__" and obj.__doc__:
+        return False
+    return skip
+
+
 def setup(app):
     # Custom Style-sheet (effectively inherits from theme, andn overrides it)
     app.add_stylesheet('css/custom.css')
+
+    # Custom skip mapping
+    app.connect("autodoc-skip-member", skip)

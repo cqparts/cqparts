@@ -7,10 +7,14 @@ Welcome to cqparts's documentation!
 ===================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
+   parts/index
+   examples/index
+
 .. autoclass:: cqparts.fasteners.utils.Evaluator
+   :members:
 
 .. autoclass:: cqparts.fasteners.utils.evaluator.Effect
    :members:
@@ -19,6 +23,7 @@ Welcome to cqparts's documentation!
    :members:
 
 .. autoclass:: cqparts.utils.property_buffered
+
 
 Indices and tables
 ==================
