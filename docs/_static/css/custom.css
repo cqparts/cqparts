@@ -19,10 +19,15 @@
 }
 
 /* Headings */
-/*
+/* keepin' it blue for now
 .rst-content dl:not(.docutils) dt {
     background: #eafae7;
     color: #358228;
     border-top-color: #6ade91;
 }
 */
+
+/* Search Results */
+.rst-content .highlighted {
+    padding: 0 0px; /* fix messed up highlight spacing */
+}
