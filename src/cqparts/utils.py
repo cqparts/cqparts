@@ -35,7 +35,8 @@ class property_buffered(object):
     def __get__(self, instance, owner):
         if instance is None:  # pragma: no cover
             return self
-        instance.__dict__[self.name] = value = self.getter(instance)
+        value = self.getter(instance)
+        instance.__dict__[self.name] = value
         return value
 
 
