@@ -21,22 +21,22 @@ __all__ = [
     'Assembly',
 ]
 
-import bearings
-import fasteners
-import gears
-import motors
-import servos
-import torque_limiters
+from . import bearings
+from . import fasteners
+from . import gears
+from . import motors
+from . import servos
+from . import torque_limiters
 
-import types
+from . import types
 
-import display
-import errors
-import params
-import part
-import search
-import utils
+from . import display
+from . import errors
+from . import params
+from . import part
+from . import search
+from . import utils
 
 # Sub-modules
-from part import Part
-from part import Assembly
+from .part import Part
+from .part import Assembly

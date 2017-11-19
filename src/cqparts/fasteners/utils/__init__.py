@@ -11,11 +11,11 @@ __all__ = [
 ]
 
 # Evaluators
-from evaluator import Evaluator
-from evaluator import VectorEvaluator, CylinderEvaluator
+from .evaluator import Evaluator
+from .evaluator import VectorEvaluator, CylinderEvaluator
 
 # Selectors
-from selector import Selector
+from .selector import Selector
 
 # Applicators
-from applicator import Applicator
+from .applicator import Applicator
