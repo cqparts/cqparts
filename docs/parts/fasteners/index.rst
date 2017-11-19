@@ -5,7 +5,8 @@ Fasteners
 .. toctree::
    :caption: Contents:
 
-   types
+   builtin
+   using
    heads
    screw-drives
    threads
