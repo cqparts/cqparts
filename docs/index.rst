@@ -11,6 +11,7 @@ Welcome to cqparts's documentation!
    :caption: Contents:
 
    parts/index
+   tutorials/index
    examples/index
 
 .. autoclass:: cqparts.fasteners.utils.Evaluator
