@@ -3,6 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
 Welcome to cqparts's documentation!
 ===================================
 
@@ -13,18 +14,7 @@ Welcome to cqparts's documentation!
    parts/index
    tutorials/index
    examples/index
-   api/index
-
-.. autoclass:: cqparts.fasteners.utils.Evaluator
-   :members:
-
-.. autoclass:: cqparts.fasteners.utils.evaluator.Effect
-   :members:
-
-.. autoclass:: cqparts.Part
-   :members:
-
-.. autoclass:: cqparts.utils.property_buffered
+   api/modules
 
 
 Indices and tables
