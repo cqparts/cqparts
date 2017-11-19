@@ -80,3 +80,21 @@ Where:
 
 The idea being that following branches should always end in a :class:`Part`
 (so the ``○`` is a leaf)
+
+
+Display
+------------
+
+::
+
+    from cqparts import display
+    # TODO: import Servo
+    servo = Servo()  # use default values
+
+    display(
+        servo,
+        highlight=[
+            servo.find('gearbox.bearing'),   # assembly (branch)
+            servo.find('motor.rotor.shaft'), # part (leaf)
+        ],
+    )
