@@ -10,18 +10,18 @@ class Effect(object):
     a single solid.
 
     Effects are sortable (based on proximity to evaluation origin)
-
-    :param origin: origin of evaluation
-    :param direction: direction of evaluation
-    :param part: effected solid
-    :param result: result of evaluation
-
-    :type origin: cadquery.Vector
-    :type direction: cadquery.Vector
-    :type part: cadquery.Workplane
-    :type result: cadquery.Workplane
     """
     def __init__(self, origin, direction, part, result):
+        """
+        :param origin: origin of evaluation
+        :type  origin: cadquery.Vector
+        :param direction: direction of evaluation
+        :type  direction: cadquery.Vector
+        :param part: effected solid
+        :type  part: cadquery.Workplane
+        :param result: result of evaluation
+        :type  result: cadquery.Workplane
+        """
         self.origin = origin
         self.direction = direction.normalized()  # force unit vector
         self.part = part
@@ -84,11 +84,15 @@ class Effect(object):
 
 class Evaluator(object):
     """
-    Given a list of parts, and a linear edge, which parts will be affected?
-    Determines:
+    Given a list of parts, and a linear edge, this determines which parts
+    may be effected by a fastener, and how.
+
+    Determines
+
         - effected parts (in order)
         - effect vectors (per affected part)
-    Can be inherited and modi to perform custom evaluations for
+
+    Can be inherited and modified to perform custom evaluations for
     different fastener types.
     """
 
@@ -96,6 +100,14 @@ class Evaluator(object):
 
     # Constructor
     def __init__(self, parts, start, dir):
+        """
+        :param parts: parts involved in fastening
+        :type parts: list of :class:`cqparts.Part`
+        :param start: fastener starting vertex
+        :type start: :class:`cadquery.Vector`
+        :param dir: direction fastener is pointing
+        :type dir: :class:`cadquery.Vector`
+        """
         # cast parameters
         # FIXME: 'solids' should be 'parts' with Part classes
         self.parts = parts
@@ -107,12 +119,14 @@ class Evaluator(object):
     @property_buffered
     def max_effect_length(self):
         """
-        Find longest possible effect vector length.
+        :return: The longest possible effect vector length.
+        :rtype: float
+
+        In other words, the *radius* of a sphere:
+
+            - who's center is at ``self.start``.
+            - all ``self.parts`` are contained within the sphere.
         """
-        # In other words, the radius of a sphere:
-        #   - who's center is at self.start.
-        #   - all self.parts are contained within the sphere.
-        #
         # Method: using each solid's bounding box:
         #   - get vector from start to bounding box center
         #   - get vector from bounding box center to any corner
@@ -136,7 +150,7 @@ class Evaluator(object):
             return []
         edge = cadquery.Edge.makeLine(
             self.start,
-            self.dir.normalized().multiply(self.max_effect_length)
+            self.dir.normalized().multiply(self.max_effect_length + 1)  # +1 to avoid rounding errors
         )
         wire = cadquery.Wire.assembleEdges([edge])
         wp = cadquery.Workplane('XY').newObject([wire])

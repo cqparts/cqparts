@@ -110,7 +110,7 @@ class Fastener(Part):
     thread = ThreadType((
         threads.iso_262.ISO262Thread, {
             'radius': 3.0 / 2,
-            #'pitch': 0.35,
+            #'pitch': 0.35,  # FIXME: causes invalid thread (see issue #1)
             'pitch': 0.7,
         }
     ))
@@ -134,3 +134,5 @@ class Fastener(Part):
             )
 
         return obj
+
+    #def make_cutting_tool(

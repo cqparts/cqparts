@@ -9,6 +9,8 @@ class ParametricObject(object):
     """
     Parametric objects may be defined like so:
 
+    .. doctest::
+
         >>> from cqparts.paramtypes import (
         ...     ParametricObject,
         ...     PositiveFloat, IntRange,
