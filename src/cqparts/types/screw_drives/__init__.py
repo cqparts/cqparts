@@ -9,11 +9,11 @@ __all__ = [
     'tamper_resistant',
 ]
 
-from base import ScrewDrive, screw_drive, find
+from .base import ScrewDrive, screw_drive, find
 
 # Screw Drive types
-import cruciform
-import hex
-import slotted
-import square
-import tamper_resistant
+from . import cruciform
+from . import hex
+from . import slotted
+from . import square
+from . import tamper_resistant

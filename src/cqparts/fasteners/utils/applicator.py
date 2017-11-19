@@ -1,4 +1,4 @@
-from evaluator import VectorEvaluator, CylinderEvaluator
+from .evaluator import VectorEvaluator, CylinderEvaluator
 
 class Applicator(object):
     """
@@ -8,4 +8,4 @@ class Applicator(object):
     compatible_eval_classes = (VectorEvaluator, CylinderEvaluator)
 
     #def __init__(self, evaluator):
-    #    self.evaluator = 
+    #    self.evaluator =

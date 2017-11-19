@@ -7,9 +7,9 @@ __all__ = [
     'triangular',
 ]
 
-from base import Thread, thread, find
+from .base import Thread, thread, find
 
 # Thread Types
-import ball_screw
-import iso_262
-import triangular
+from . import ball_screw
+from . import iso_262
+from . import triangular
