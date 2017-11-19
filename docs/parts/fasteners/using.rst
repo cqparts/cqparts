@@ -1,4 +1,6 @@
 
+.. currentmodule:: cqparts.fasteners.utils
+
 Using Fasteners
 ===============
 
@@ -13,17 +15,14 @@ choosing.
 Evaluation
 ----------
 
-An :class:`Evaluator <cqparts.fasteners.utils.Evaluator>` instance is an
-assessment of the workpieces intended to be fastened along a given vector.
+An :class:`Evaluator` instance is an assessment of the workpieces intended to
+be fastened along a given vector.
 
-An :class:`Evaluator <cqparts.fasteners.utils.Evaluator>` instance is required for a
-:class:`Selector <cqparts.fasteners.utils.Selector>`, and an
-:class:`Applicator <cqparts.fasteners.utils.Applicator>`.
+An :class:`Evaluator` instance is required for a
+:class:`Selector`, and an :class:`Applicator`.
 
-If a fastener :class:`Selector <cqparts.fasteners.utils.Selector>`
-is used to find an appropriate fastener, that same
-:class:`Evaluator <cqparts.fasteners.utils.Evaluator>` instance
-can be passed to the :class:`Applicator <cqparts.fasteners.utils.Applicator>`.
+If a fastener :class:`Selector` is used to find an appropriate fastener, that
+same :class:`Evaluator` instance can be passed to the :class:`Applicator`.
 
 Evaluations are given, the *what*, and the *where*:
 
@@ -47,28 +46,28 @@ There are 2 methods of evaluation
     # TODO: sample eval code
 
 
-## Fastener ``Selector``
-------------------------
+Selection
+---------
 
 An evaluation can be used to determine which fastener you need.
 Or simply, how long the thread on your chosen fastener needs to be.
 
-```python
-# TODO: sample selector code
-```
+::
+
+  # TODO: sample selector code
 
 
-Fastener ``Application``
-------------------------
+Application
+-----------
 
 So you have the fastener to apply, and the workpieces to attach, the workpieces
 just need holes.
 
-```python
-from cqparts.search import find
-screw = find('10g_30mm_CS_PHIL')()
-# TODO:
-box = Box()  # FIXME
-plate = Plate()  # FIXME
-screw.apply()
-```
+::
+
+    from cqparts.search import find
+    screw = find('10g_30mm_CS_PHIL')()
+    # TODO:
+    box = Box()  # FIXME
+    plate = Plate()  # FIXME
+    screw.apply()
