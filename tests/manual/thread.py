@@ -13,7 +13,6 @@ import cqparts
 from Helpers import show
 
 from cqparts.types.threads.iso_262 import ISO262Thread
-from cqparts.utils import fc_print
 
 import logging
 log = logging.getLogger(__name__)

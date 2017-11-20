@@ -196,9 +196,14 @@ def skip(app, what, name, obj, skip, options):
     return skip
 
 
+from cqparts.utils.sphinx import add_parametric_object_params
+
 def setup(app):
     # Custom Style-sheet (effectively inherits from theme, andn overrides it)
     app.add_stylesheet('css/custom.css')
 
     # Custom skip mapping
     app.connect("autodoc-skip-member", skip)
+
+    # Parameter Mapping
+    app.connect("autodoc-process-docstring", add_parametric_object_params(prepend=True))

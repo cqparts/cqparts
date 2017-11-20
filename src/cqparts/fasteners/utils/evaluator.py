@@ -1,6 +1,7 @@
 import cadquery
 
-from ...utils import intersect, copy, property_buffered
+from ...utils.geometry import intersect, copy
+from ...utils.misc import property_buffered
 from . import _casting
 
 
@@ -84,13 +85,10 @@ class Effect(object):
 
 class Evaluator(object):
     """
-    Given a list of parts, and a linear edge, this determines which parts
-    may be effected by a fastener, and how.
+    An evaluator determines which parts may be effected by a fastener, and how.
 
-    Determines
-
-        - effected parts (in order)
-        - effect vectors (per affected part)
+    :return: effect on parts (in the order effected)
+    :rtype: list of :class:`Effect`
 
     Can be inherited and modified to perform custom evaluations for
     different fastener types.
@@ -124,8 +122,8 @@ class Evaluator(object):
 
         In other words, the *radius* of a sphere:
 
-            - who's center is at ``self.start``.
-            - all ``self.parts`` are contained within the sphere.
+            - who's center is at ``start``.
+            - all ``parts`` are contained within the sphere.
         """
         # Method: using each solid's bounding box:
         #   - get vector from start to bounding box center

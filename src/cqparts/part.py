@@ -2,7 +2,7 @@ import cadquery
 import six
 
 from .params import ParametricObject
-from .utils import indicate_last, property_buffered
+from .utils.misc import indicate_last, property_buffered
 from .errors import MakeError, ParameterError
 
 
@@ -111,7 +111,10 @@ class Assembly(ParametricObject):
     def make(self):
         """
         Create and return components dict (must be overridden in inheriting class)
-        :return: dict of the form: {<name>: <Part or Assembly instance>, ...}
+
+        :return: {<name>: <Part or Assembly instance>, ...}
+        :rtype: dict
+
         """
         raise NotImplementedError("make function not implemented")
 
@@ -145,14 +148,25 @@ class Assembly(ParametricObject):
         """
         Find a nested Assembly or Part by a '.' separated list of names.
         for example:
+
+        ::
+
             >>> motor.find('bearing.outer_ring')
+
         would return the Part instance of the motor bearing's outer ring.
         whereas:
+
+        ::
+
             >>> bearing = motor.find('bearing')
             >>> ring = bearing.find('inner_ring')  # equivalent of 'bearing.inner_ring'
+
         does much the same thing, bearing is an Assembly, and ring is a Part
-        :param keys: str or list of key hierarchy. 'a.b' is equivalent to ['a', 'b']
-        :param index: int index of keys list (used internally)
+
+        :param keys: key hierarchy. ``'a.b'`` is equivalent to ``['a', 'b']``
+        :type keys: str or list
+        :param index: index of keys list (used internally)
+        :type index: int
         """
 
         if isinstance(keys, six.string_types):

@@ -2,7 +2,7 @@ import cadquery
 from math import pi, cos, sin, sqrt
 
 from .base import FastenerHead, fastener_head
-from ...utils import intersect
+from ...utils.geometry import intersect
 from ...params import *
 
 # pull FreeCAD module from cadquery (workaround for torus)

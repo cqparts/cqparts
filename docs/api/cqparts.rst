@@ -13,6 +13,7 @@ Subpackages
     cqparts.servos
     cqparts.torque_limiters
     cqparts.types
+    cqparts.utils
 
 Submodules
 ----------
@@ -53,14 +54,6 @@ cqparts\.search module
 ----------------------
 
 .. automodule:: cqparts.search
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-cqparts\.utils module
----------------------
-
-.. automodule:: cqparts.utils
     :members:
     :undoc-members:
     :show-inheritance:

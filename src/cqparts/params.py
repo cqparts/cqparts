@@ -11,7 +11,7 @@ class ParametricObject(object):
 
     .. doctest::
 
-        >>> from cqparts.paramtypes import (
+        >>> from cqparts.params import (
         ...     ParametricObject,
         ...     PositiveFloat, IntRange,
         ... )
@@ -65,6 +65,15 @@ class ParametricObject(object):
 
     @staticmethod
     def _get_class_params(cls):
+        """
+        Get all parameters for a given :class:`ParametricObject`.
+        Including those inherited by base classes
+
+        :param cls: child class of :class:`ParametricObject`
+        :type cls: type
+        :return: names of all settable parameters for the given class
+        :rtype: set
+        """
         params = set(
             k for (k, v) in cls.__dict__.items()
             if isinstance(v, Parameter)
@@ -96,8 +105,9 @@ class ParametricObject(object):
 
 # ========================  Parameter Types  ========================
 class Parameter(object):
-    def __init__(self, default=None):
+    def __init__(self, default=None, doc="[no description]"):
         self.default = self.cast(default)
+        self.doc = doc
 
     def type(self, value):
         """Define's parameter's value class, to be overridden"""
@@ -112,9 +122,24 @@ class Parameter(object):
             return None
         return self.type(value)
 
+    # sphinx documentation helpers
+    def _param(self):
+        # for a sphinx line:
+        #   :param some_param: <return is published here>
+        return self.doc
+
+    _doc_type = '[unknown]'
+
+    def _type(self):
+        # for a sphinx line:
+        #   :type some_param: <return is published here>
+        return self._doc_type
+
 
 # ------------ float types ---------------
 class Float(Parameter):
+    _doc_type = 'float'
+
     def type(self, value):
         try:
             cast_value = float(value)
@@ -156,6 +181,8 @@ class FloatRange(Float):
 
 # ------------ int types ---------------
 class Int(Parameter):
+    _doc_type = 'int'
+
     def type(self, value):
         try:
             cast_value = int(value)
@@ -198,6 +225,8 @@ class IntRange(Int):
 
 # ------------ boolean types ------------
 class Boolean(Parameter):
+    _doc_type = 'bool'
+
     def type(self, value):
         try:
             cast_value = bool(value)
@@ -208,6 +237,8 @@ class Boolean(Parameter):
 
 # ------------ string types ------------
 class String(Parameter):
+    _doc_type = 'str'
+
     def type(self, value):
         try:
             cast_value = str(value)

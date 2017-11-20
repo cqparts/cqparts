@@ -2,7 +2,7 @@ import cadquery
 from math import pi, cos, sin, sqrt
 
 from .base import FastenerHead, fastener_head
-from ...utils import intersect  # FIXME: fix is in master
+from ...utils.geometry import intersect  # FIXME: fix is in master
 from ...params import *
 
 class CylindricalFastenerHead(FastenerHead):

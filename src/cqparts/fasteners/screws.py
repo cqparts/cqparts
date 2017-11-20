@@ -1,6 +1,6 @@
 
 from ..part import Part
-from ..paramtypes import (
+from ..params import (
     Float, PositiveFloat,
     LowerCaseString,
 )

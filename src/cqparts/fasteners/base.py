@@ -66,54 +66,93 @@ class FastenerComponentParam(Parameter):
 class HeadType(FastenerComponentParam):
     """
     Fastener's head can be set as any of:
-        - FastenerHead instance
-        - tuple: (<head type>, <parameters>) where:
-            <head type> is one of
-                - str: name of fastener head (registered with fastener_heads.fastener_head)
-                - FastenerHead subclass
-            <parameters> is a dict
+
+    - :class:`FastenerHead <cqparts.types.fastener_heads.FastenerHead>` instance
+    - :class:`tuple` of (``head type``, ``parameters``) where:
+        - ``head type`` is one of
+            - :class:`str` name of fastener head (registered with :meth:`fastener_head <cqparts.types.fastener_heads.fastener_head>`)
+            - :class:`FastenerHead <cqparts.types.fastener_heads.FastenerHead>` subclass
+        ``parameters`` is a :class:`dict`
     """
     name = 'head'
     finder_callback = staticmethod(fastener_heads.find)
     component_base = fastener_heads.FastenerHead
 
+    _doc_type = ":class:`details <cqparts.fasteners.base.HeadType>`"
+
 
 class DriveType(FastenerComponentParam):
+    """
+    Fastener's screw-drive type can be set as one of:
+
+    - :class:`ScrewDrive <cqparts.types.screw_drives.ScrewDrive>` instance
+    - :class:`tuple` of (``drive type``, ``parameters``) where:
+        - ``drive type`` is one of
+            - ``str``: name of screw-drive (registered with :meth:`screw_drive <cqparts.types.screw_drives.screw_drive>`)
+            - :class:`ScrewDrive <cqparts.types.screw_drives.ScrewDrive>` subclass
+        - ``parameters`` is a :class:`dict`
+    """
     name = 'drive'
     finder_callback = staticmethod(screw_drives.find)
     component_base = screw_drives.ScrewDrive
 
+    _doc_type = ":class:`details <cqparts.fasteners.base.DriveType>`"
+
 
 class ThreadType(FastenerComponentParam):
+    """
+    Fastener's thread type can be set as one of:
+
+    - :class:`Thread <cqparts.types.threads.Thread>` instance
+    - :class:`tuple` of (``thread type``, ``parameters``) where:
+        - ``thread type`` is one of
+            - ``str``: name of thread type (registered with :meth:`thread <cqparts.types.threads.thread>`)
+            - :class:`Thread <cqparts.types.threads.Thread>` subclass
+        - ``parameters`` is a :class:`dict`
+    """
     name = 'thread'
     finder_callback = staticmethod(threads.find)
     component_base = threads.Thread
+
+    _doc_type = ":class:`details <cqparts.fasteners.base.ThreadType>`"
 
 
 # ----------------- Fastener Base ---------------
 
 class Fastener(Part):
-    head = HeadType((
-        'pan', {
-            'diameter': 5.2,
-            'height': 2.0,
-            'fillet': 1.0,
-        }
-    ))
-    drive = DriveType((
-        'phillips', {
-            'diameter': 3,
-            'depth': 2.0,
-            'width': 0.6,
-        }
-    ))
-    thread = ThreadType((
-        threads.iso_262.ISO262Thread, {
-            'radius': 3.0 / 2,
-            #'pitch': 0.35,  # FIXME: causes invalid thread (see issue #1)
-            'pitch': 0.7,
-        }
-    ))
+    """
+    This is the base class for all fasteners
+    """
+    head = HeadType(
+        default=(
+            'pan', {
+                'diameter': 5.2,
+                'height': 2.0,
+                'fillet': 1.0,
+            }
+        ),
+        doc="head type and parameters"
+    )
+    drive = DriveType(
+        default=(
+            'phillips', {
+                'diameter': 3,
+                'depth': 2.0,
+                'width': 0.6,
+            }
+        ),
+        doc="screw drive type and parameters"
+    )
+    thread = ThreadType(
+        default=(
+            threads.iso_262.ISO262Thread, {
+                'radius': 3.0 / 2,
+                #'pitch': 0.35,  # FIXME: causes invalid thread (see issue #1)
+                'pitch': 0.7,
+            }
+        ),
+        doc="thread type and parameters",
+    )
     length = PositiveFloat(4.5)
 
     def make(self):
