@@ -1,4 +1,6 @@
 
+.. _parts_fasteners_using:
+
 .. currentmodule:: cqparts.fasteners.utils
 
 Using Fasteners

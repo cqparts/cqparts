@@ -67,7 +67,7 @@ with :class:`Part` objects.
 
 **Exceptions to the rule**
 
-There are some things that will brake this rule
+Just like any other *rule*, there are exceptions:
 
 For example, an *SD Card* has many components inside it, but since it can be
 assumed that it won't be pulled apart, or need to be constructed, an *SD Card*

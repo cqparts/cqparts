@@ -1,6 +1,7 @@
 
 from ..params import ParametricObject
 
+
 def _add_lines(lines, new_lines, prepend=False, separator=True):
     # Adding / Removing Lines:
     #   sphinx callbacks require the passed ``lines`` parameter to have it's

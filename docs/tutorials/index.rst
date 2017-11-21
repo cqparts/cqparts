@@ -7,3 +7,4 @@ Tutorials
 
    assembly
    part
+   fastener-easy-install
