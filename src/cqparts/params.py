@@ -138,7 +138,7 @@ class Parameter(object):
 
 # ------------ float types ---------------
 class Float(Parameter):
-    _doc_type = 'float'
+    _doc_type = ':class:`float`'
 
     def type(self, value):
         try:

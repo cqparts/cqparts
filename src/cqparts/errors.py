@@ -17,7 +17,7 @@ class SearchError(Exception):
     """Raised by cqparts.find()"""
 
 class SearchNoneFoundError(SearchError):
-    """Raised when no results are found by cqparts.find()"""
+    """Raised when no results are found by :meth:`cqparts.search.find`"""
 
 class SearchMultipleFoundError(SearchError):
-    """Raised when multiple results are found by cqparts.find()"""
+    """Raised when multiple results are found by :meth:`cqparts.search.find`"""
