@@ -10,7 +10,7 @@ This example is based on the first servo I grabbed from my shelf
     TowerPro MG90S Micro servo
     (`TowerPro site <http://www.towerpro.com.tw/product/mg90s-3/>`_)
 
-.. image:: media/TowerPro_MG90S.jpg
+.. image:: img/TowerPro_MG90S.jpg
 
 
 Accuracy
