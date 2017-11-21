@@ -27,6 +27,14 @@ cqparts\.fasteners\.bolts module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.fasteners\.params module
+---------------------------------
+
+.. automodule:: cqparts.fasteners.params
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cqparts\.fasteners\.screws module
 ---------------------------------
 
