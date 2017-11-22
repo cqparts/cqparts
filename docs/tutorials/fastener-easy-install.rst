@@ -1,4 +1,6 @@
 
+.. _tutorials_fastener-easy-install:
+
 Fastener : Easy Install
 =======================
 
@@ -9,8 +11,11 @@ furniature fastener for wood panels connected at right angels.
 
     Example of the instructions you may find in a manual.
 
-Components
-----------
+Component Parts
+---------------
+
+The composition of this fastener is relatively simple; we smiply have 2 parts
+grouped into a single mechanical fastener.
 
 ::
 
@@ -18,8 +23,97 @@ Components
        ├─○ wood_screw
        └─○ anchor
 
+Wood Screw
+^^^^^^^^^^
+
+The wood screw will be a simplified version of the one shown in the diagram:
+
+* **head** : 'cheese' fastener head (:class:`CheeseFastenerHead <cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead>`)
+* **screw drive** : 'phillips' screw drive (:class:`PhillipsScrewDrive <cqparts.types.screw_drives.cruciform.PhillipsScrewDrive>`)
+* **shaft** : mostly a thick cylindrical shaft, same diameter as the *head*, which
+  thins to ~1/2 the size closer to the *head*.
+
+::
+
+    from cqparts import Part
+    from cqparts.params import PositiveFloat
+    #from cqparts.fasteners.params import HeadType, DriveType, ThreadType
+
+    class WoodScrew(Part):
+        diameter = PositiveFloat(default=3, doc="bore hole diameter")
+        thread_length = PositiveFloat(default=5, doc="distance the screw bores into part")
+        # TODO: more parameters
+
+        def make(self):
+            TODO: code for wood screw make()
+
+So to illustrate what we've just made::
+
+    from cqparts_mylib.easyinstall import WoodScrew  # pretending it's there
+
+    screw = WoodScrew(thread_length=4)
+    # with a thread length just to show we
+    # can change any of the parameters
+
+    from cqparts.display import display
+    display(screw)
+
+
+.. figure:: img/easy-install-woodscrew.png
+
+    TODO: placeholder graphic, put a screenshot here.
+
+Anchor
+^^^^^^
+
+Similarly, the anchor will be simplified
+
+* **main body** : the anchor will be cut from a large cylindrical block.
+* **screw drive** : 'phillips' screw drive (:class:`PhillipsScrewDrive <cqparts.types.screw_drives.cruciform.PhillipsScrewDrive>`)
+* **initial slot** : a rectangle the width of the woodscrew's diameter will be cut
+  from the *main body*
+* **rotary slot** : 270 degrees of a coin shape will be subtracted from the center
+  of the *main body* (to accomodate the *wood screw* shaft just below it's *head*)
+* **circular wedge** : an eccentric cylinder is cut from the *main body*
+
+::
+
+    from cqparts import Part
+    from cqparts.params import PositiveFloat, Boolean
+
+    class Anchor(Part):
+        diameter = PositiveFloat(default=10, doc="bore diameter for anchor")
+        reversed = Boolean(default=False, doc="if True, screw drive is put on the reverse side")
+        # TODO more parameters
+
+        def make(self):
+            # TODO: code to build anchor
+
+
+So to illustrate what we've just made::
+
+    from cqparts_mylib.easyinstall import Anchor  # pretending it's there
+
+    anchor = Anchor(diameter=11)
+    # with a changed diameter just to show we
+    # can change any of the parameters
+
+    from cqparts.display import display
+    display(anchor)
+
+
+.. figure:: img/easy-install-anchor.png
+
+    TODO: placeholder graphic, put a screenshot here.
+
+
 Evaluation / Selection / Application
 ------------------------------------
+
+.. currentmodule:: cqparts.fasteners.utils
+
+Now we need to assess the logic behind the application of this
+fastening mechanism.
 
 .. tip::
 
@@ -27,20 +121,29 @@ Evaluation / Selection / Application
     using fasteners as more than just floating objects, read
     :ref:`parts_fasteners_using` to learn more.
 
-cqparts.fasteners.utils
+To do this manually, we'd have to:
 
-**Evaluator**
+* **evaluate** (or measure) the diameter and depth of the woodscrew's pilot hole, as well
+  as the location and size of the anchor's cylindrical bore on the other workpiece.
+* **select** an apropriately sized wood-screw and anchor (based on the
+  evaluation we've made).
+* **apply** the pilot hole, and anchor's bore. Then screw in the wood-screw,
+  insert the anchor, and then put it all together.
+
+
+Evaluator
+^^^^^^^^^
 
 We don't need anything special for the fastener evaluation; we can use the
-standard :class:`VectorEvaluator <cqparts.fasteners.utils.VectorEvaluator>`.
+standard :class:`VectorEvaluator`.
 
-Although the
+.. warning::
 
-::
+    TODO: insert image for an evaluation
 
-    TODO: code for evaluator (if any)
 
-**Selection**
+Selection
+^^^^^^^^^
 
 To illustrate the selection mechanic, we'll register 2 types of *wood screw*
 for this fastener:
@@ -53,16 +156,76 @@ that taps into <= 80% of the adjoining piece.
 
 ::
 
-    TODO: code for selector
+    from cqparts.fasteners.utils.selector import Selector
 
-**Application**
+    class EasyInstallSelector(Selector):
+        #TODO: code for selector
+        # note: selector must return a wood-screw and anchor
+        #       does it return a Fastener instance?
+        pass
+
+        def get_selection(self):
+            # TODO: returns single Fastener instance
+            # if there are multiple viable choices, it's up to the selector
+            # to narrow it down to a single selection.
+            pass
+
+Application
+^^^^^^^^^^^
 
 The evaluation should result in 2
-:class:`Effect <cqparts.fasteners.utils.evaluator.Effect>` instances:
+:class:`VectorEffect <evaluator.VectorEffect>` instances, one for
+each part.
 
-#. longways through the middle of the vertical chipboard being fastened
-#. perpendicular to the adjoining
 
 ::
 
     TODO: code for applicator
+
+
+Fastener Assembly
+-----------------
+
+So now we have the 2 components, we can combine these into a
+:class:`Fastener <cqparts.fasteners.base.Fastener>`.
+
+::
+
+    from cqparts.fasteners import Fastener
+
+    class EasyInstallFastener(Fastener):
+        EVALUATOR_CLASS = VectorEvaluator
+        SELECTOR_CLASS =
+
+
+Using the Fastener
+------------------
+
+Now that we've made it, this is how it can be imported and used.
+
+First let's make some parts to join together::
+
+    # fixme: pretending it's there
+    import cadquery
+    from cqparts import Part
+
+    class Panel1(Part):
+        def make(self):
+            return cadquery.Workplane('XY', origin=(0, -50, -10)) \
+                .box(100, 100, 10, centered=(False, False, False))
+
+    class Panel2(Part):
+        def make(self):
+            return cadquery.Workplane('XY', origin=(0, -50, 0)) \
+                .box(10, 100, 100, centered=(False, False, False))
+
+Now we import and use the ``EasyinstallFastener`` we've created::
+
+    from cqparts_mylib.easyinstall import EasyInstallFastener
+
+    # TODO: 2 instances of the same panel, different orientation
+    panel1 = Panel1()
+    panel2 = Panel2()
+
+    evaluation = EasyInstallFastener.evaluate(
+        parts

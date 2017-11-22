@@ -41,14 +41,12 @@ Which seems like an unnecessary layer, but programatically it serves very well
 to distinguish between parts that constitute a fastener, and which don't.
 
 
-Composition of a Fastener
--------------------------
+Creating a Fastener
+-------------------
 
-In the above example of a `nut` & `bolt`, the bolt is a single :class:`Part`, even
-though conceptually it's got a number of components.
+There are many ways to create a fastener, too many to document here, but
+I'll try to cover the basics
 
-This is because the `bolt` itself is atomic; it cannot be dissassembled.
 
-.. note::
-   If you're about to go into your shed and get a hacksaw to proove me wrong,
-   please have a read of :ref:`part_vs_assembly`.
+Making your own Fastener
+------------------------
