@@ -28,6 +28,14 @@ cqparts\.utils\.sphinx module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.utils\.wrappers module
+-------------------------------
+
+.. automodule:: cqparts.utils.wrappers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
