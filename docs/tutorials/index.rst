@@ -5,6 +5,7 @@ Tutorials
 .. toctree::
    :caption: Contents:
 
-   assembly
    part
+   assembly
+   fastener-biscuit
    fastener-easy-install
