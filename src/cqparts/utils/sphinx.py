@@ -1,3 +1,9 @@
+"""
+This module is only to be referenced from your project's sphinx autodoc
+configuration.
+
+http://www.sphinx-doc.org/en/stable/ext/autodoc.html
+"""
 
 from ..params import ParametricObject
 
@@ -49,7 +55,8 @@ def add_parametric_object_params(prepend=False):
         def setup(app):
             app.connect("autodoc-process-docstring", add_parametric_object_params())
 
-    Then, when documenting your :class:`cqparts.Assembly` the
+    Then, when documenting your :class:`Part <cqparts.part.Part>` or
+    :class:`Assembly <cqparts.part.Assembly>` the
     :class:`ParametricObject <cqparts.params.ParametricObject>` parameters
     will also be documented in the output.
 
