@@ -4,8 +4,11 @@ from ...utils.geometry import intersect, copy
 from ...utils.misc import property_buffered
 from . import _casting
 
-
+# --------------------- Effect ----------------------
 class Effect(object):
+    pass
+
+class VectorEffect(Effect):
     """
     An evaluator effect is the conclusion to an evaluation with regard to
     a single solid.
@@ -83,36 +86,78 @@ class Effect(object):
         return self.origin_displacement >= other.origin_displacement
 
 
+# --------------------- Evaluator ----------------------
 class Evaluator(object):
     """
     An evaluator determines which parts may be effected by a fastener, and how.
-
-    :return: effect on parts (in the order effected)
-    :rtype: list of :class:`Effect`
-
-    Can be inherited and modified to perform custom evaluations for
-    different fastener types.
     """
 
-    effect_class = Effect
+    effect_class = None
 
     # Constructor
-    def __init__(self, parts, start, dir):
+    def __init__(self, parts, *args, **kwargs):
         """
         :param parts: parts involved in fastening
         :type parts: list of :class:`cqparts.Part`
+        """
+        # All evaluators will take a list of parts
+        self.parts = parts
+        # an evaluator's input & method is specific to the type of fastener
+        # being evaluated, so everything else is overridable in init()...
+        self.init(*args, **kwargs)
+
+    def init(self):
+        """
+        :meth:`Evaluator.__init__` takes a list of ``parts``, but any other
+        parameters are passed to this function and evaluated here.
+
+        .. note::
+
+            Override this funciton in your *evaluator* class to take
+            additional parameters.
+
+        Default behaviour takes no parameters, and does nothing.
+        """
+        pass
+
+    def perform_evaluation(self):
+        """
+        Evaluate the given parts using any additional parameters passed
+        to this instance.
+
+        Return a list of :class:`Effect` instances.
+
+        .. note::
+
+            Override this funciton in your *evaluator* class to assess what
+            parts are effected, and how.
+
+        Default behaviour, does nothing, returns empty list
+
+        :return: empty list
+        :rtype: :class:`list`
+        """
+        return []
+
+    @property_buffered
+    def eval(self):
+        return self.perform_evaluation()
+
+
+class VectorEvaluator(Evaluator):
+
+    effect_class = VectorEffect
+
+    def init(self, start, dir):
+        """
         :param start: fastener starting vertex
         :type start: :class:`cadquery.Vector`
         :param dir: direction fastener is pointing
         :type dir: :class:`cadquery.Vector`
         """
         # cast parameters
-        # FIXME: 'solids' should be 'parts' with Part classes
-        self.parts = parts
         self.start = _casting.vector(start)
         self.dir = _casting.vector(dir)
-
-        self._evaluation = None
 
     @property_buffered
     def max_effect_length(self):
@@ -142,6 +187,13 @@ class Evaluator(object):
             return 0
 
     def perform_evaluation(self):
+        """
+        Determine which parts lie along the given vector, and what length
+
+        :return: effects on the given parts (in order of the distance from
+                 the start point)
+        :rtype: list(:class:`VectorEffect`)
+        """
         # Create effect vector (with max length)
         if not self.max_effect_length:
             # no effect is possible, return an empty list
@@ -156,7 +208,7 @@ class Evaluator(object):
         effect_list = []  # list of self.effect_class instances
         for part in self.parts:
             solid = part.object.translate((0, 0, 0))
-            #intersection = solid.intersect(copy(wp))  # FIXME: fix is in cadquery masteria
+            #intersection = solid.intersect(copy(wp))  # FIXME: fix is in cadquery master
             intersection = intersect(solid, copy(wp))
             effect = self.effect_class(
                 origin=self.start,
@@ -169,22 +221,7 @@ class Evaluator(object):
 
         return sorted(effect_list)
 
-    @property
-    def eval(self):
-        if self._evaluation is None:
-            # return buffered evaluation
-            self._evaluation = self.perform_evaluation()
-        return self._evaluation
-
-    def clear(self):
-        self._evaluation = None
-
-
-class VectorEvaluator(Evaluator):
-    # TODO: move vector-specific code from Evaluator into this class
-    #       when?, once CylinderEvaluator is complete
-    pass
-
 
 class CylinderEvaluator(Evaluator):
-    pass
+
+    effect_class = VectorEffect
