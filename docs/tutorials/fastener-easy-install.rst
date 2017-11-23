@@ -69,7 +69,7 @@ Anchor
 Similarly, the anchor will be simplified
 
 * **main body** : the anchor will be cut from a large cylindrical block.
-* **screw drive** : 'phillips' screw drive (:class:`PhillipsScrewDrive <cqparts.types.screw_drives.cruciform.PhillipsScrewDrive>`)
+* **screw drive** : 'cross' screw drive (:class:`CrossScrewDrive <cqparts.types.screw_drives.slotted.CrossScrewDrive>`)
 * **initial slot** : a rectangle the width of the woodscrew's diameter will be cut
   from the *main body*
 * **rotary slot** : 270 degrees of a coin shape will be subtracted from the center
@@ -148,8 +148,13 @@ Selection
 To illustrate the selection mechanic, we'll register 2 types of *wood screw*
 for this fastener:
 
-#. short shaft, and short thread
-#. longer shaft, and a longer thread
+#. 20mm shaft, 10mm thread
+#. 40mm shaft, 15mm thread
+
+and 2 types of *anchor*:
+
+#. 15mm diameter
+#. 20mm diameter
 
 The selector will choose a *wood screw* with the longest shaft, with a thread
 that taps into <= 80% of the adjoining piece.
@@ -177,10 +182,13 @@ The evaluation should result in 2
 :class:`VectorEffect <evaluator.VectorEffect>` instances, one for
 each part.
 
-
 ::
 
-    TODO: code for applicator
+    from cqparts.fasteners.utils.applicator import Applicator
+
+    class EasyInstallApplicator(Applicator):
+        # TODO: code for applicator
+        pass
 
 
 Fastener Assembly
@@ -195,7 +203,20 @@ So now we have the 2 components, we can combine these into a
 
     class EasyInstallFastener(Fastener):
         EVALUATOR_CLASS = VectorEvaluator
-        SELECTOR_CLASS =
+        SELECTOR_CLASS = EasyInstallSelector
+        APPLICATOR_CLASS = EasyInstallApplicator
+
+
+
+        def make(self):
+            screw = WoodScrew()  # TODO: parameters + mate
+
+            anchor = Anchor()  # TODO: parameters + mate
+
+            return {
+                'wood_screw': screw,
+                'anchor': anchor,
+            }
 
 
 Using the Fastener
