@@ -6,7 +6,7 @@ from ...params import *
 
 @screw_drive('slot')
 class SlotScrewDrive(ScrewDrive):
-    width = PositiveFloat(0.5)
+    width = PositiveFloat(0.5, doc="slot width")
 
     def apply(self, workplane, offset=(0, 0, 0)):
         tool = cadquery.Workplane("XY") \
@@ -16,7 +16,7 @@ class SlotScrewDrive(ScrewDrive):
 
 @screw_drive('cross')
 class CrossScrewDrive(ScrewDrive):
-    width = PositiveFloat(0.5)
+    width = PositiveFloat(0.5, doc="slot width")
 
     def apply(self, workplane, offset=(0, 0, 0)):
         tool = cadquery.Workplane("XY") \

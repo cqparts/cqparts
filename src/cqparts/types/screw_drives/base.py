@@ -4,8 +4,8 @@ import cadquery
 from ...params import *
 
 class ScrewDrive(ParametricObject):
-    diameter = PositiveFloat(3.0)
-    depth = PositiveFloat(3.0)
+    diameter = PositiveFloat(3.0, doc="screw drive's diameter")
+    depth = PositiveFloat(3.0, doc="depth of recess into driven body")
 
     def apply(self, workplane, offset=(0, 0, 0)):
         """

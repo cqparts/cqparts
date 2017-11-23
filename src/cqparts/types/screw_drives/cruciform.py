@@ -31,8 +31,8 @@ class FrearsonScrewDrive(ScrewDrive):
 
 @screw_drive('phillips')
 class PhillipsScrewDrive(ScrewDrive):
-    width = PositiveFloat(0.5)
-    chamfer = PositiveFloat(None)  # chamfer at top of cross section, defaults to width
+    width = PositiveFloat(0.5, doc="blade width")
+    chamfer = PositiveFloat(None, "chamfer at top of cross section")  # defaults to width
 
     def initialize_parameters(self):
         super(PhillipsScrewDrive, self).initialize_parameters()
@@ -84,9 +84,9 @@ class PhillipsScrewDrive(ScrewDrive):
 
 @screw_drive('french_recess')
 class FrenchRecessScrewDrive(ScrewDrive):
-    width = PositiveFloat(0.5)
-    step_depth = PositiveFloat(None)  # default to depth / 2
-    step_diameter = PositiveFloat(None) # default to 2/3 diameter
+    width = PositiveFloat(0.5, doc="blade width")
+    step_depth = PositiveFloat(None, doc="depth the step diameter takes effect")  # default to depth / 2
+    step_diameter = PositiveFloat(None, doc="diameter at depth")  # default to 2/3 diameter
 
     def initialize_parameters(self):
         super(FrenchRecessScrewDrive, self).initialize_parameters()
