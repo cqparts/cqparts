@@ -20,15 +20,14 @@ class ParametricObject(object):
         ...     i = IntRange(1, 10, 3)  # between 1 and 10, defaults to 3
         ...     blah = 100
 
-        >>> a = Foo(x=3)  # a.x=3.0, a.i=3
         >>> a = Foo(i=8)  # a.x=5.0, a.i=8
-        >>> a = Foo(i=11) # raises exception
+        >>> a = Foo(i=11) # raises exception # doctest: +SKIP
         ParameterError: value of 11 outside the range {1, 10}
-        >>> a = Foo(z=1)  # raises exception
-        ParameterError: <class '__main__.Foo'> does not accept any of the parameters: ['z']
-        >>> a = Foo(x='123')  # a.x=123.0, a.i=3
-        >>> a = Foo(blah=200)  # raises exception, parameters must be Parameter types
-        ParameterError: <class '__main__.Foo'> does not accept any of the parameters: ['blah']
+        >>> a = Foo(z=1)  # raises exception # doctest: +SKIP
+        ParameterError: <class 'Foo'> does not accept any of the parameters: z
+        >>> a = Foo(x='123', i='2')  # a.x=123.0, a.i=2
+        >>> a = Foo(blah=200)  # raises exception, parameters must be Parameter types # doctest: +SKIP
+        ParameterError: <class 'Foo'> does not accept any of the parameters: blah
         >>> a = Foo(x=None)  # a.x is None, a.i=3  # any parameter can be set to None
 
     Internally to the object, parameters may be accessed simply with self.x, self.i
@@ -105,6 +104,13 @@ class ParametricObject(object):
 
 # ========================  Parameter Types  ========================
 class Parameter(object):
+    """
+    Used to set parameters of a :class:`ParametricObject`.
+
+    All instances of this class defined in a class' ``__dict__`` will be
+    valid input to the object's constructor.
+    """
+
     def __init__(self, default=None, doc="[no description]"):
         self.default = self.cast(default)
         self.doc = doc
@@ -125,19 +131,23 @@ class Parameter(object):
     # sphinx documentation helpers
     def _param(self):
         # for a sphinx line:
-        #   :param some_param: <return is published here>
+        #   :param my_param: <return is published here>
         return self.doc
 
     _doc_type = '[unknown]'
 
     def _type(self):
         # for a sphinx line:
-        #   :type some_param: <return is published here>
+        #   :type my_param: <return is published here>
         return self._doc_type
 
 
 # ------------ float types ---------------
 class Float(Parameter):
+    """
+    Floating point
+    """
+
     _doc_type = ':class:`float`'
 
     def type(self, value):
@@ -149,6 +159,9 @@ class Float(Parameter):
 
 
 class PositiveFloat(Float):
+    """
+    Floating point >= 0
+    """
     def type(self, value):
         cast_value = super(PositiveFloat, self).type(value)
         if cast_value < 0:
@@ -157,7 +170,18 @@ class PositiveFloat(Float):
 
 
 class FloatRange(Float):
+    """
+    Floating point in the given range (inclusive)
+    """
     def __init__(self, min, max, default):
+        """
+        {``min`` <= value <= ``max``}
+
+        :param min: minimum value
+        :type min: float
+        :param max: maximum value
+        :type max: float
+        """
         self.min = min
         self.max = max
         super(FloatRange, self).__init__(default)
@@ -181,6 +205,9 @@ class FloatRange(Float):
 
 # ------------ int types ---------------
 class Int(Parameter):
+    """
+    Integer value
+    """
     _doc_type = 'int'
 
     def type(self, value):
@@ -192,6 +219,9 @@ class Int(Parameter):
 
 
 class PositiveInt(Int):
+    """
+    Integer >= 0
+    """
     def type(self, value):
         cast_value = super(PositiveInt, self).type(value)
         if cast_value < 0:
@@ -200,7 +230,18 @@ class PositiveInt(Int):
 
 
 class IntRange(Int):
+    """
+    Integer in the given range (inclusive)
+    """
     def __init__(self, min, max, default):
+        """
+        {``min`` <= value <= ``max``}
+
+        :param min: minimum value
+        :type min: int
+        :param max: maximum value
+        :type max: int
+        """
         self.min = min
         self.max = max
         super(IntRange, self).__init__(default)
@@ -225,6 +266,10 @@ class IntRange(Int):
 
 # ------------ boolean types ------------
 class Boolean(Parameter):
+    """
+    Boolean value
+    """
+
     _doc_type = 'bool'
 
     def type(self, value):
@@ -237,6 +282,10 @@ class Boolean(Parameter):
 
 # ------------ string types ------------
 class String(Parameter):
+    """
+    String value
+    """
+
     _doc_type = 'str'
 
     def type(self, value):
@@ -248,12 +297,18 @@ class String(Parameter):
 
 
 class LowerCaseString(String):
+    """
+    Lower case string
+    """
     def type(self, value):
         cast_value = super(LowerCaseString, self).type(value)
         return cast_value.lower()
 
 
 class UpperCaseString(String):
+    """
+    Upper case string
+    """
     def type(self, value):
         cast_value = super(UpperCaseString, self).type(value)
         return cast_value.upper()
@@ -261,6 +316,9 @@ class UpperCaseString(String):
 
 # ------------ others ---------------
 class NonNull(Parameter):
+    """
+    Non-nullable parameter
+    """
     def cast(self, value):
         if value is None:
             raise ParameterError("value cannot be None")
