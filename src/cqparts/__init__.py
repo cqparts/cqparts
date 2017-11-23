@@ -3,7 +3,6 @@ __all__ = [
     'fasteners',
     'gears',
     'motors',
-    'servos',
     'torque_limiters',
 
     'types',
@@ -25,7 +24,6 @@ from . import bearings
 from . import fasteners
 from . import gears
 from . import motors
-from . import servos
 from . import torque_limiters
 
 from . import types

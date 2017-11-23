@@ -10,7 +10,6 @@ Subpackages
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
-    cqparts.servos
     cqparts.torque_limiters
     cqparts.types
     cqparts.utils
