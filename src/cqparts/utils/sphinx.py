@@ -80,7 +80,7 @@ def add_parametric_object_params(prepend=False):
             ]
 
         # Add parameters
-        for key in params:
+        for key in sorted(params):
             param_def = getattr(obj, key)
             doc_lines.append(':param {name}: {doc}'.format(
                 name=key, doc=param_def._param(),
