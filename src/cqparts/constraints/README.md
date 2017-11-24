@@ -12,6 +12,7 @@ https://cad.onshape.com/help/Content/mate.htm
 ## Basics Explanations
 
 * https://www.tutorialspoint.com/computer_graphics/3d_transformation.htm
+* http://planning.cs.uiuc.edu/node100.html
 
 ## Implementations
 
