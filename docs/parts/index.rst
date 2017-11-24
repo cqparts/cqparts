@@ -6,6 +6,7 @@ Parts
    :caption: Contents:
 
    fasteners/index
+   constraints/index
 
 
 .. _part_vs_assembly:

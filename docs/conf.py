@@ -38,6 +38,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
+    'sphinx.ext.mathjax',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -184,6 +185,7 @@ texinfo_documents = [
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
     'cadquery': ('http://dcowden.github.io/cadquery/', None),
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
 }
 
 # If true, links to the reST sources are added to the pages.

@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     cqparts.bearings
+    cqparts.constraints
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
