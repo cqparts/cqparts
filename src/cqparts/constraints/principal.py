@@ -71,7 +71,11 @@ class LockConstraint(Constraint):
             h & = cos(\beta) sin(\gamma) \\
             i & = cos(\beta) cos(\gamma) \\
 
-        But generally you shouldn't have to worry about the complexities,
-        you can use a 3rd party
+        But generally you shouldn't have to worry about the complexities; you can
+        use the tools...
+
+        .. warning::
+
+            TODO: what **are** these "tools"?
 
         """

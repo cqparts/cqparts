@@ -17,3 +17,4 @@ https://cad.onshape.com/help/Content/mate.htm
 ## Implementations
 
 * https://www.lfd.uci.edu/~gohlke/code/transformations.py.html
+* https://afni.nimh.nih.gov/pub/dist/src/pkundu/meica.libs/nibabel/eulerangles.py
