@@ -1,0 +1,8 @@
+
+Basic Assembly
+--------------
+
+This example is the simplest practical example of an assembly that I could
+think of.
+
+A stacked block archway... think stonehenge.

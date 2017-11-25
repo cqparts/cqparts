@@ -1,0 +1,1117 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts" href="modules.html"/>
+        <link rel="next" title="cqparts.bearings package" href="cqparts.bearings.html"/>
+        <link rel="prev" title="cqparts" href="modules.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cqparts package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+      <li>cqparts package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-package">
+<h1>cqparts package<a class="headerlink" href="#cqparts-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.bearings.html#module-cqparts.bearings">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.base">cqparts.constraints.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.principal">cqparts.constraints.principal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.solver">cqparts.constraints.solver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.fasteners.utils.html">cqparts.fasteners.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.applicator">cqparts.fasteners.utils.applicator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.evaluator">cqparts.fasteners.utils.evaluator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.selector">cqparts.fasteners.utils.selector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#module-cqparts.fasteners.base">cqparts.fasteners.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#module-cqparts.fasteners.bolts">cqparts.fasteners.bolts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#module-cqparts.fasteners.params">cqparts.fasteners.params module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#module-cqparts.fasteners.screws">cqparts.fasteners.screws module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.html#module-cqparts.fasteners">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.gears.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.gears.html#module-cqparts.gears.base">cqparts.gears.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.gears.html#module-cqparts.gears">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.motors.html#module-cqparts.motors">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.torque_limiters.html#module-cqparts.torque_limiters">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.types.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.types.fastener_heads.html">cqparts.types.fastener_heads package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#module-cqparts.types.fastener_heads.base">cqparts.types.fastener_heads.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#module-cqparts.types.fastener_heads.counter_sunk">cqparts.types.fastener_heads.counter_sunk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#module-cqparts.types.fastener_heads.cylindrical">cqparts.types.fastener_heads.cylindrical module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#module-cqparts.types.fastener_heads.driven">cqparts.types.fastener_heads.driven module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.fastener_heads.html#module-cqparts.types.fastener_heads">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.types.screw_drives.html">cqparts.types.screw_drives package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.base">cqparts.types.screw_drives.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.cruciform">cqparts.types.screw_drives.cruciform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.hex">cqparts.types.screw_drives.hex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.slotted">cqparts.types.screw_drives.slotted module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.square">cqparts.types.screw_drives.square module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives.tamper_resistant">cqparts.types.screw_drives.tamper_resistant module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.screw_drives.html#module-cqparts.types.screw_drives">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.types.threads.html">cqparts.types.threads package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#module-cqparts.types.threads.ball_screw">cqparts.types.threads.ball_screw module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#module-cqparts.types.threads.base">cqparts.types.threads.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#module-cqparts.types.threads.iso_262">cqparts.types.threads.iso_262 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#module-cqparts.types.threads.triangular">cqparts.types.threads.triangular module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.threads.html#module-cqparts.types.threads">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.types.html#module-cqparts.types">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.geometry">cqparts.utils.geometry module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.misc">cqparts.utils.misc module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.sphinx">cqparts.utils.sphinx module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.wrappers">cqparts.utils.wrappers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.display">
+<span id="cqparts-display-module"></span><h2>cqparts.display module<a class="headerlink" href="#module-cqparts.display" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.errors">
+<span id="cqparts-errors-module"></span><h2>cqparts.errors module<a class="headerlink" href="#module-cqparts.errors" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="cqparts.errors.AssemblyFindError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">AssemblyFindError</code><a class="headerlink" href="#cqparts.errors.AssemblyFindError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Raised</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cqparts.errors.MakeError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">MakeError</code><a class="headerlink" href="#cqparts.errors.MakeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Raised when there are issues during the make() process of a Part or Assembly</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cqparts.errors.ParameterError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">ParameterError</code><a class="headerlink" href="#cqparts.errors.ParameterError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Raised when an invalid parameter is specified</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cqparts.errors.SearchError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">SearchError</code><a class="headerlink" href="#cqparts.errors.SearchError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
+<p>Raised by cqparts.find()</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cqparts.errors.SearchMultipleFoundError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">SearchMultipleFoundError</code><a class="headerlink" href="#cqparts.errors.SearchMultipleFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.errors.SearchError" title="cqparts.errors.SearchError"><code class="xref py py-class docutils literal"><span class="pre">cqparts.errors.SearchError</span></code></a></p>
+<p>Raised when multiple results are found by <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.search.find()</span></code></a></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cqparts.errors.SearchNoneFoundError">
+<em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">SearchNoneFoundError</code><a class="headerlink" href="#cqparts.errors.SearchNoneFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.errors.SearchError" title="cqparts.errors.SearchError"><code class="xref py py-class docutils literal"><span class="pre">cqparts.errors.SearchError</span></code></a></p>
+<p>Raised when no results are found by <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.search.find()</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.params">
+<span id="cqparts-params-module"></span><h2>cqparts.params module<a class="headerlink" href="#module-cqparts.params" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.params.Boolean">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Boolean</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>Boolean value</p>
+<dl class="method">
+<dt id="cqparts.params.Boolean.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.Float">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Float</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>Floating point</p>
+<dl class="method">
+<dt id="cqparts.params.Float.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Float.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.FloatRange">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">FloatRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Float</span></code></a></p>
+<p>Floating point in the given range (inclusive)</p>
+<dl class="method">
+<dt id="cqparts.params.FloatRange.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>{<code class="docutils literal"><span class="pre">min</span></code> &lt;= value &lt;= <code class="docutils literal"><span class="pre">max</span></code>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>min</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – minimum value</li>
+<li><strong>max</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – maximum value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.params.FloatRange.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.Int">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Int</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>Integer value</p>
+<dl class="method">
+<dt id="cqparts.params.Int.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Int.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.IntRange">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">IntRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Int</span></code></a></p>
+<p>Integer in the given range (inclusive)</p>
+<dl class="method">
+<dt id="cqparts.params.IntRange.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>{<code class="docutils literal"><span class="pre">min</span></code> &lt;= value &lt;= <code class="docutils literal"><span class="pre">max</span></code>}</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>min</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – minimum value</li>
+<li><strong>max</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – maximum value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.params.IntRange.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.LowerCaseString">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">LowerCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.LowerCaseString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.String" title="cqparts.params.String"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.String</span></code></a></p>
+<p>Lower case string</p>
+<dl class="method">
+<dt id="cqparts.params.LowerCaseString.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.LowerCaseString.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.NonNull">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">NonNull</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>Non-nullable parameter</p>
+<dl class="method">
+<dt id="cqparts.params.NonNull.cast">
+<code class="descname">cast</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNull.cast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.Parameter">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Used to set parameters of a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
+<p>All instances of this class defined in a class’ <code class="docutils literal"><span class="pre">__dict__</span></code> will be
+valid input to the object’s constructor.</p>
+<dl class="method">
+<dt id="cqparts.params.Parameter.cast">
+<code class="descname">cast</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter.cast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cast given value to the type dictated by this parameter type.
+(can be overridden to force non-nullable field)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.params.Parameter.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define’s parameter’s value class, to be overridden</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.ParametricObject">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">ParametricObject</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ParametricObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Parametric objects may be defined like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">ParametricObject</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">PositiveFloat</span><span class="p">,</span> <span class="n">IntRange</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">i</span> <span class="o">=</span> <span class="n">IntRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># between 1 and 10, defaults to 3</span>
+<span class="gp">... </span>    <span class="n">blah</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># a.x=5.0, a.i=8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span> <span class="c1"># raises exception </span>
+<span class="go">ParameterError: value of 11 outside the range {1, 10}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># raises exception </span>
+<span class="go">ParameterError: &lt;class &#39;Foo&#39;&gt; does not accept any of the parameters: z</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;123&#39;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>  <span class="c1"># a.x=123.0, a.i=2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">blah</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>  <span class="c1"># raises exception, parameters must be Parameter types </span>
+<span class="go">ParameterError: &lt;class &#39;Foo&#39;&gt; does not accept any of the parameters: blah</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># a.x is None, a.i=3  # any parameter can be set to None</span>
+</pre></div>
+</div>
+<p>Internally to the object, parameters may be accessed simply with self.x, self.i
+These will always return the type defined</p>
+<dl class="method">
+<dt id="cqparts.params.ParametricObject.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ParametricObject.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>A palce to set default parameters more intelegently than just a
+simple default value.
+Executed just prior to exiting the __init__ function.
+Consider calling super.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.PositiveFloat">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveFloat</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Float</span></code></a></p>
+<p>Floating point &gt;= 0</p>
+<dl class="method">
+<dt id="cqparts.params.PositiveFloat.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveFloat.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.PositiveInt">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveInt</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Int</span></code></a></p>
+<p>Integer &gt;= 0</p>
+<dl class="method">
+<dt id="cqparts.params.PositiveInt.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveInt.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.String">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">String</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.String" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>String value</p>
+<dl class="method">
+<dt id="cqparts.params.String.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.String.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.UpperCaseString">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">UpperCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.UpperCaseString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.String" title="cqparts.params.String"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.String</span></code></a></p>
+<p>Upper case string</p>
+<dl class="method">
+<dt id="cqparts.params.UpperCaseString.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.UpperCaseString.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.part">
+<span id="cqparts-part-module"></span><h2>cqparts.part module<a class="headerlink" href="#module-cqparts.part" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.part.Assembly">
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<p>An assembly is a group of parts, and other assemblies (called components)</p>
+<dl class="method">
+<dt id="cqparts.part.Assembly.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear internal object reference; forces object to be re-made when
+self.object is next referenced.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Assembly.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts.part.Assembly.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>keys</em>, <em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a nested Assembly or Part by a ‘.’ separated list of names.
+for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would return the Part instance of the motor bearing’s outer ring.
+whereas:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span> <span class="o">=</span> <span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">bearing</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;inner_ring&#39;</span><span class="p">)</span>  <span class="c1"># equivalent of &#39;bearing.inner_ring&#39;</span>
+</pre></div>
+</div>
+<p>does much the same thing, bearing is an Assembly, and ring is a Part</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>list</em>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – index of keys list (used internally)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return components dict (must be overridden in inheriting class)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Part or Assembly instance&gt;, …}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.print_tree">
+<code class="descname">print_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.print_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.tree_str">
+<code class="descname">tree_str</code><span class="sig-paren">(</span><em>prefix_str=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.tree_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string listing recursively the assembly hierarchy</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.part.Component">
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.part.Part">
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.part.Part.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.part.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a bounding box based on the full complexity part.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.0)">cadquery.BoundBox</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return solid part</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This must be overridden in your <code class="docutils literal"><span class="pre">Part</span></code></p>
+</div>
+<p>The outcome of this function should be accessed via cqparts.Part.object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.make_primative">
+<code class="descname">make_primative</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.make_primative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <em>simplified</em> solid part.</p>
+<p>The primative representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export quality
+of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
+<p>Overriding this is optional, but highly recommended.</p>
+<p>The default behaviour returns the full complexity object’s bounding box.
+But to do this, theh full complexity object must be generated first.</p>
+<p>There are 2 main problems with this:</p>
+<ol class="arabic simple">
+<li>building the full complexity part is not efficient.</li>
+<li>a bounding box may not be a good representation of the part.</li>
+</ol>
+<p><strong>Bolts</strong></p>
+<p>A good example of this is a bolt.</p>
+<ul class="simple">
+<li>building a bolt’s thread is not a trivial task;
+it can take some time to generate.</li>
+<li>a box is not a good visual representation of a bolt</li>
+</ul>
+<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_primative</span></code> methods are overridden
+to provide 2 cylinders, one for the bolt’s head, and another for the thread.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Part.object">
+<code class="descname">object</code><a class="headerlink" href="#cqparts.part.Part.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is usually the correct way to get your part’s object
+for rendering, exporting, or measuring.</p>
+<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
+to re-generate the model from scratch.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Part.object_primative">
+<code class="descname">object_primative</code><a class="headerlink" href="#cqparts.part.Part.object_primative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.part.Pulley">
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Pulley</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Pulley" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.hole_radius">
+<code class="descname">hole_radius</code><em class="property"> = 3.175</em><a class="headerlink" href="#cqparts.part.Pulley.hole_radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.key_intrusion">
+<code class="descname">key_intrusion</code><em class="property"> = 0.92</em><a class="headerlink" href="#cqparts.part.Pulley.key_intrusion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Pulley.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Pulley.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.radius">
+<code class="descname">radius</code><em class="property"> = 20.0</em><a class="headerlink" href="#cqparts.part.Pulley.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.wall_height">
+<code class="descname">wall_height</code><em class="property"> = 1</em><a class="headerlink" href="#cqparts.part.Pulley.wall_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.wall_width">
+<code class="descname">wall_width</code><em class="property"> = 1</em><a class="headerlink" href="#cqparts.part.Pulley.wall_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Pulley.width">
+<code class="descname">width</code><em class="property"> = 3.0</em><a class="headerlink" href="#cqparts.part.Pulley.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.search">
+<span id="cqparts-search-module"></span><h2>cqparts.search module<a class="headerlink" href="#module-cqparts.search" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.search.find">
+<code class="descclassname">cqparts.search.</code><code class="descname">find</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a single part class with the given criteria:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="#cqparts.errors.SearchMultipleFoundError" title="cqparts.errors.SearchMultipleFoundError"><strong>SearchMultipleFoundError</strong></a> – if more than one result found</li>
+<li><a class="reference internal" href="#cqparts.errors.SearchNoneFoundError" title="cqparts.errors.SearchNoneFoundError"><strong>SearchNoneFoundError</strong></a> – if nothing found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">find</span>
+<span class="kn">import</span> <span class="nn">cqparts_motors</span>  <span class="c1"># example of a 3rd party lib</span>
+
+<span class="c1"># get a specific motor class</span>
+<span class="n">motor_class</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;motor&#39;</span><span class="p">,</span> <span class="n">part_number</span><span class="o">=</span><span class="s1">&#39;ABC123X&#39;</span><span class="p">)</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">motor_class</span><span class="p">(</span><span class="n">shaft_diameter</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.search.register">
+<code class="descclassname">cqparts.search.</code><code class="descname">register</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>class decorator to add <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code> to qcparts</p>
+<p>usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+
+<span class="c1"># Created Part or Assembly</span>
+<span class="nd">@cqparts</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;motor&#39;</span><span class="p">,</span>
+    <span class="n">current_class</span><span class="o">=</span><span class="s1">&#39;dc&#39;</span><span class="p">,</span>
+    <span class="n">part_number</span><span class="o">=</span><span class="s1">&#39;ABC123X&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">class</span> <span class="nc">SomeMotor</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>  <span class="c1"># build assembly content</span>
+
+<span class="n">motor_class</span> <span class="o">=</span> <span class="n">cqparts</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">part_number</span><span class="o">=</span><span class="s1">&#39;ABC123X&#39;</span><span class="p">)</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">motor_class</span><span class="p">(</span><span class="n">shaft_diameter</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Multiple classes <em>can</em> be registered with identical criteria, but
+should be avoided.</p>
+<p>If multiple classes share the same criteria, <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> will never
+yield the part you want.</p>
+<p class="last">Try adding unique criteria, such as <em>make</em>, <em>model</em>, <em>part number</em>,
+<em>library name</em>, &amp;/or <em>author</em>.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.search.search">
+<code class="descclassname">cqparts.search.</code><code class="descname">search</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search registered part classes matching the given criteria.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>criteria</strong> – search criteria of the form: <code class="docutils literal"><span class="pre">a='1',</span> <span class="pre">b='x'</span></code></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">parts registered with the given criteria</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#set" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">set</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Will return an empty <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#set" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">set</span></code></a> if nothing is found.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">search</span>
+<span class="kn">import</span> <span class="nn">cqparts_motors</span>  <span class="c1"># example of a 3rd party lib</span>
+
+<span class="c1"># Get all DC motor classes</span>
+<span class="n">dc_motors</span> <span class="o">=</span> <span class="n">search</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;motor&#39;</span><span class="p">,</span> <span class="n">current_class</span><span class="o">=</span><span class="s1">&#39;dc&#39;</span><span class="p">)</span>
+
+<span class="c1"># For more complex queries:</span>
+<span class="n">air_cooled</span> <span class="o">=</span> <span class="n">search</span><span class="p">(</span><span class="n">cooling</span><span class="o">=</span><span class="s1">&#39;air&#39;</span><span class="p">)</span>
+<span class="n">non_aircooled_dcmotors</span> <span class="o">=</span> <span class="n">dc_motors</span> <span class="o">-</span> <span class="n">air_cooled</span>
+<span class="c1"># will be all DC motors that aren&#39;t air-cooled</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.Part">
+<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.Part.bounding_box">
+<code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a bounding box based on the full complexity part.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.0)">cadquery.BoundBox</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return solid part</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This must be overridden in your <code class="docutils literal"><span class="pre">Part</span></code></p>
+</div>
+<p>The outcome of this function should be accessed via cqparts.Part.object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.make_primative">
+<code class="descname">make_primative</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.make_primative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <em>simplified</em> solid part.</p>
+<p>The primative representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export quality
+of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
+<p>Overriding this is optional, but highly recommended.</p>
+<p>The default behaviour returns the full complexity object’s bounding box.
+But to do this, theh full complexity object must be generated first.</p>
+<p>There are 2 main problems with this:</p>
+<ol class="arabic simple">
+<li>building the full complexity part is not efficient.</li>
+<li>a bounding box may not be a good representation of the part.</li>
+</ol>
+<p><strong>Bolts</strong></p>
+<p>A good example of this is a bolt.</p>
+<ul class="simple">
+<li>building a bolt’s thread is not a trivial task;
+it can take some time to generate.</li>
+<li>a box is not a good visual representation of a bolt</li>
+</ul>
+<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_primative</span></code> methods are overridden
+to provide 2 cylinders, one for the bolt’s head, and another for the thread.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Part.object">
+<code class="descname">object</code><a class="headerlink" href="#cqparts.Part.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is usually the correct way to get your part’s object
+for rendering, exporting, or measuring.</p>
+<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
+to re-generate the model from scratch.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Part.object_primative">
+<code class="descname">object_primative</code><a class="headerlink" href="#cqparts.Part.object_primative" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.Assembly">
+<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<p>An assembly is a group of parts, and other assemblies (called components)</p>
+<dl class="method">
+<dt id="cqparts.Assembly.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear internal object reference; forces object to be re-made when
+self.object is next referenced.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Assembly.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts.Assembly.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>keys</em>, <em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a nested Assembly or Part by a ‘.’ separated list of names.
+for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would return the Part instance of the motor bearing’s outer ring.
+whereas:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span> <span class="o">=</span> <span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">bearing</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;inner_ring&#39;</span><span class="p">)</span>  <span class="c1"># equivalent of &#39;bearing.inner_ring&#39;</span>
+</pre></div>
+</div>
+<p>does much the same thing, bearing is an Assembly, and ring is a Part</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>list</em>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – index of keys list (used internally)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return components dict (must be overridden in inheriting class)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Part or Assembly instance&gt;, …}</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.print_tree">
+<code class="descname">print_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.print_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.tree_str">
+<code class="descname">tree_str</code><span class="sig-paren">(</span><em>prefix_str=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.tree_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string listing recursively the assembly hierarchy</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.bearings.html" class="btn btn-neutral float-right" title="cqparts.bearings package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="cqparts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

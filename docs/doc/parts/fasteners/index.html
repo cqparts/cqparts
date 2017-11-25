@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Fasteners &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Parts" href="../index.html"/>
+        <link rel="next" title="Built-in Fasteners" href="builtin.html"/>
+        <link rel="prev" title="Parts" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Parts</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Fasteners</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="builtin.html">Built-in Fasteners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using.html">Using Fasteners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="heads.html">Types : Fastener Head</a></li>
+<li class="toctree-l3"><a class="reference internal" href="screw-drives.html">Types : Screw Drive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="threads.html">Types : Thread</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">Create Your Own Fastener</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#definition">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-fastener">Creating a Fastener</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#making-your-own-fastener">Making your own Fastener</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../constraints/index.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#part-vs-assembly">Part vs Assembly</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">cqparts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Parts</a> &raquo;</li>
+        
+      <li>Fasteners</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fasteners">
+<h1>Fasteners<a class="headerlink" href="#fasteners" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="builtin.html">Built-in Fasteners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using.html">Using Fasteners</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using.html#evaluation">Evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#selection">Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#application">Application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="heads.html">Types : Fastener Head</a></li>
+<li class="toctree-l1"><a class="reference internal" href="screw-drives.html">Types : Screw Drive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threads.html">Types : Thread</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom.html">Create Your Own Fastener</a></li>
+</ul>
+</div>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>A fastener is something that mechanically connects 2 or more <em>things</em> together,
+such as a screw, bolt, or nail.
+For us, a <a class="reference internal" href="../../api/cqparts.fasteners.html#cqparts.fasteners.Fastener" title="cqparts.fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.Fastener</span></code></a> is an <code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code>
+containing 1 or more <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> objects.</p>
+<p>For example, nut and bolt with washers either side would be a single fastener
+assembly with a hierarchy of:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>my_bolt_fastener
+   ├─○ bolt
+   ├─○ washer_head
+   ├─○ washer_nut
+   └─○ nut
+</pre></div>
+</div>
+<p>where all of <code class="docutils literal"><span class="pre">nut</span></code>, <code class="docutils literal"><span class="pre">washer_head</span></code>, <code class="docutils literal"><span class="pre">washer_nut</span></code> &amp; <code class="docutils literal"><span class="pre">bolt</span></code> are <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> instances.</p>
+<p>Whereas something like a screw would just have:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>my_screw_fastener
+   └─○ screw
+</pre></div>
+</div>
+<p>Which seems like an unnecessary layer, but programatically it serves very well
+to distinguish between parts that constitute a fastener, and which don’t.</p>
+</div>
+<div class="section" id="creating-a-fastener">
+<h2>Creating a Fastener<a class="headerlink" href="#creating-a-fastener" title="Permalink to this headline">¶</a></h2>
+<p>There are many ways to create a fastener, too many to document here, but
+I’ll try to cover the basics</p>
+</div>
+<div class="section" id="making-your-own-fastener">
+<h2>Making your own Fastener<a class="headerlink" href="#making-your-own-fastener" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="builtin.html" class="btn btn-neutral float-right" title="Built-in Fasteners" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Parts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

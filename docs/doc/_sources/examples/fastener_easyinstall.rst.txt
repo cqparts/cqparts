@@ -1,0 +1,7 @@
+fastener\_easyinstall module
+============================
+
+.. automodule:: fastener_easyinstall
+    :members:
+    :undoc-members:
+    :show-inheritance:

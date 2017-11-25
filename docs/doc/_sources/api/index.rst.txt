@@ -1,0 +1,7 @@
+
+API
+===
+
+.. automodule:: cqparts
+   :members:
+   :show-inheritance:

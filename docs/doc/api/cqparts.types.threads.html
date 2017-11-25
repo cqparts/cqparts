@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.types.threads package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts.types package" href="cqparts.types.html"/>
+        <link rel="next" title="cqparts.utils package" href="cqparts.utils.html"/>
+        <link rel="prev" title="cqparts.types.screw_drives package" href="cqparts.types.screw_drives.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+          <li><a href="cqparts.types.html">cqparts.types package</a> &raquo;</li>
+        
+      <li>cqparts.types.threads package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-types-threads-package">
+<h1>cqparts.types.threads package<a class="headerlink" href="#cqparts-types-threads-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.types.threads.ball_screw">
+<span id="cqparts-types-threads-ball-screw-module"></span><h2>cqparts.types.threads.ball_screw module<a class="headerlink" href="#module-cqparts.types.threads.ball_screw" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.threads.ball_screw.BallScrewThread">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.ball_screw.</code><code class="descname">BallScrewThread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.ball_screw.BallScrewThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.threads.base.Thread" title="cqparts.types.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.threads.base.Thread</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.threads.ball_screw.BallScrewThread.ball_radius">
+<code class="descname">ball_radius</code><em class="property"> = 0.25</em><a class="headerlink" href="#cqparts.types.threads.ball_screw.BallScrewThread.ball_radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.threads.ball_screw.BallScrewThread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.ball_screw.BallScrewThread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.threads.base">
+<span id="cqparts-types-threads-base-module"></span><h2>cqparts.types.threads.base module<a class="headerlink" href="#module-cqparts.types.threads.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.threads.base.MinVerticiesParam">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.base.</code><code class="descname">MinVerticiesParam</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.MinVerticiesParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<dl class="docutils">
+<dt>Can be either:</dt>
+<dd><ul class="first last simple">
+<li>an an integer, or</li>
+<li>a list of integers</li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="cqparts.types.threads.base.MinVerticiesParam.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.MinVerticiesParam.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.threads.base.Thread">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.base.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.types.threads.base.Thread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
+example:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>points = [</dt>
+<dd>(2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)</dd>
+</dl>
+<p>]
+profile = cadquery.Workplane(“XZ”)                 .moveTo(<a href="#id1"><span class="problematic" id="id2">*</span></a>points[0]).polyline(points[1:])
+return profile.wire()</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.inner">
+<code class="descname">inner</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.inner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.lefthand">
+<code class="descname">lefthand</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.lefthand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.threads.base.Thread.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.Thread.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.min_vertices">
+<code class="descname">min_vertices</code><em class="property"> = &lt;cqparts.types.threads.base.MinVerticiesParam object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.min_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.pitch">
+<code class="descname">pitch</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.pitch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.radius">
+<code class="descname">radius</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.base.Thread.start_count">
+<code class="descname">start_count</code><em class="property"> = &lt;cqparts.params.IntRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.start_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.base.find">
+<code class="descclassname">cqparts.types.threads.base.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.base.helical_path">
+<code class="descclassname">cqparts.types.threads.base.</code><code class="descname">helical_path</code><span class="sig-paren">(</span><em>pitch</em>, <em>length</em>, <em>radius</em>, <em>angle=0</em>, <em>lefthand=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.helical_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.base.profile_to_cross_section">
+<code class="descclassname">cqparts.types.threads.base.</code><code class="descname">profile_to_cross_section</code><span class="sig-paren">(</span><em>profile</em>, <em>lefthand=False</em>, <em>start_count=1</em>, <em>min_vertices=20</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.profile_to_cross_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a thread profile to it’s equivalent cross-section.</p>
+<dl class="docutils">
+<dt>Profile:</dt>
+<dd>The thread profile contains a single wire along the XZ plane
+(note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
+The profile is expected to be of 1 thread rotation, so it’s height
+(along the Z-axis) is the thread’s “pitch”.
+If start_count &gt; 1, then the profile will effectively be duplicated.
+The resulting cross-section is designed to be swept along a helical path
+with a pitch of the thread’s “lead” (which is {the height of the given
+profile} * start_count)</dd>
+<dt>Method:</dt>
+<dd>Each edge of the profile is converted to a bezier spline, aproximating
+it’s polar plot equivalent.</dd>
+<dt>Resolution: (via <cite>min_vertices</cite> parameter)</dt>
+<dd><p class="first">Increasing the number of vertices used to define the bezier will
+increase the resulting thread’s accuracy, but cost more to render.</p>
+<p class="last">min_vertices may also be expressed as a list to set the number of
+vertices to set for each wire.
+where: len(min_vertices) == number of edges in profile</p>
+</dd>
+<dt>Example:</dt>
+<dd>import cadquery
+from Helpers import show
+profile = cadquery.Workplane(“XZ”)             .moveTo(1, 0)             .lineTo(2, 1).lineTo(1, 2)             .wire()
+cross_section = profile_to_cross_section(profile)
+show(profile)
+show(cross_section)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>profile</strong> – cadquery.Workplane wire of thread profile</li>
+<li><strong>lefthand</strong> – if True, cross-section is made backwards</li>
+<li><strong>start_count</strong> – profile is duplicated this many times</li>
+<li><strong>min_vertices</strong> – int or tuple of the desired resolution</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cadquery.Workplane ready to be swept into a thread</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.base.thread">
+<code class="descclassname">cqparts.types.threads.base.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.threads.iso_262">
+<span id="cqparts-types-threads-iso-262-module"></span><h2>cqparts.types.threads.iso_262 module<a class="headerlink" href="#module-cqparts.types.threads.iso_262" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.threads.iso_262.ISO262Thread">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.iso_262.</code><code class="descname">ISO262Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.iso_262.ISO262Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.threads.base.Thread" title="cqparts.types.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.threads.base.Thread</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>rounding_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.types.threads.iso_262.ISO262Thread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.iso_262.ISO262Thread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a thread profile in specified by ISO 262</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.iso_262.ISO262Thread.rounding_ratio">
+<code class="descname">rounding_ratio</code><em class="property"> = &lt;cqparts.params.FloatRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.iso_262.ISO262Thread.rounding_ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.threads.triangular">
+<span id="cqparts-types-threads-triangular-module"></span><h2>cqparts.types.threads.triangular module<a class="headerlink" href="#module-cqparts.types.threads.triangular" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.threads.triangular.TriangularThread">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.triangular.</code><code class="descname">TriangularThread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.triangular.TriangularThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.threads.base.Thread" title="cqparts.types.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.threads.base.Thread</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.types.threads.triangular.TriangularThread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.triangular.TriangularThread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.triangular.TriangularThread.radius_core">
+<code class="descname">radius_core</code><em class="property"> = 2.5</em><a class="headerlink" href="#cqparts.types.threads.triangular.TriangularThread.radius_core" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.threads">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.types.threads" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.threads.Thread">
+<em class="property">class </em><code class="descclassname">cqparts.types.threads.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.types.threads.Thread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
+example:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>points = [</dt>
+<dd>(2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)</dd>
+</dl>
+<p>]
+profile = cadquery.Workplane(“XZ”)                 .moveTo(<a href="#id3"><span class="problematic" id="id4">*</span></a>points[0]).polyline(points[1:])
+return profile.wire()</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.inner">
+<code class="descname">inner</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.inner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.lefthand">
+<code class="descname">lefthand</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.lefthand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.threads.Thread.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.Thread.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.min_vertices">
+<code class="descname">min_vertices</code><em class="property"> = &lt;cqparts.types.threads.base.MinVerticiesParam object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.min_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.pitch">
+<code class="descname">pitch</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.pitch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.radius">
+<code class="descname">radius</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.threads.Thread.start_count">
+<code class="descname">start_count</code><em class="property"> = &lt;cqparts.params.IntRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.start_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.thread">
+<code class="descclassname">cqparts.types.threads.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.threads.find">
+<code class="descclassname">cqparts.types.threads.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.utils.html" class="btn btn-neutral float-right" title="cqparts.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.types.screw_drives.html" class="btn btn-neutral" title="cqparts.types.screw_drives package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Sphinx
+sphinx
+sphinx-autobuild
+
+# Sphinx theme(s)
+sphinx_rtd_theme

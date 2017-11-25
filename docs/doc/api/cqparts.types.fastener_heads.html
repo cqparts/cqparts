@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.types.fastener_heads package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts.types package" href="cqparts.types.html"/>
+        <link rel="next" title="cqparts.types.screw_drives package" href="cqparts.types.screw_drives.html"/>
+        <link rel="prev" title="cqparts.types package" href="cqparts.types.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+          <li><a href="cqparts.types.html">cqparts.types package</a> &raquo;</li>
+        
+      <li>cqparts.types.fastener_heads package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-types-fastener-heads-package">
+<h1>cqparts.types.fastener_heads package<a class="headerlink" href="#cqparts-types-fastener-heads-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.types.fastener_heads.base">
+<span id="cqparts-types-fastener-heads-base-module"></span><h2>cqparts.types.fastener_heads.base module<a class="headerlink" href="#module-cqparts.types.fastener_heads.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.base.FastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.base.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.base.FastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.base.FastenerHead.diameter">
+<code class="descname">diameter</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.base.FastenerHead.diameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.base.FastenerHead.get_face_offset">
+<code class="descname">get_face_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.base.FastenerHead.get_face_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the screw drive origin offset relative to bolt’s origin</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.base.FastenerHead.height">
+<code class="descname">height</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.base.FastenerHead.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.base.FastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.base.FastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create fastener head solid and return it</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.fastener_heads.base.fastener_head">
+<code class="descclassname">cqparts.types.fastener_heads.base.</code><code class="descname">fastener_head</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.base.fastener_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.fastener_heads.base.find">
+<code class="descclassname">cqparts.types.fastener_heads.base.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.base.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.fastener_heads.counter_sunk">
+<span id="cqparts-types-fastener-heads-counter-sunk-module"></span><h2>cqparts.types.fastener_heads.counter_sunk module<a class="headerlink" href="#module-cqparts.types.fastener_heads.counter_sunk" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkBugleFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead.bugle">
+<code class="descname">bugle</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead.bugle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.base.FastenerHead" title="cqparts.types.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.base.FastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle">
+<code class="descname">bugle</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle_ratio">
+<code class="descname">bugle_ratio</code><em class="property"> = &lt;cqparts.params.FloatRange object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle_ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.chamfer">
+<code class="descname">chamfer</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.chamfer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_face_offset">
+<code class="descname">get_face_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_face_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_raised">
+<code class="descname">get_raised</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_raised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.raised">
+<code class="descname">raised</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.raised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkRaisedFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead.raised">
+<code class="descname">raised</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead.raised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.fastener_heads.cylindrical">
+<span id="cqparts-types-fastener-heads-cylindrical-module"></span><h2>cqparts.types.fastener_heads.cylindrical module<a class="headerlink" href="#module-cqparts.types.fastener_heads.cylindrical" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">CheeseFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead.domed">
+<code class="descname">domed</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead.domed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead.fillet">
+<code class="descname">fillet</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CheeseFastenerHead.fillet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">CylindricalFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.base.FastenerHead" title="cqparts.types.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.base.FastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.dome_ratio">
+<code class="descname">dome_ratio</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.dome_ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.domed">
+<code class="descname">domed</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.domed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.fillet">
+<code class="descname">fillet</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.fillet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.DomeFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">DomeFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.DomeFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.DomeFastenerHead.domed">
+<code class="descname">domed</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.DomeFastenerHead.domed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.PanFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">PanFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.PanFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.PanFastenerHead.domed">
+<code class="descname">domed</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.PanFastenerHead.domed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">RoundCoachFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead" title="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.cylindrical.RoundFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>coach_chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>coach_head</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>coach_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>coach_width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead.coach_head">
+<code class="descname">coach_head</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead.coach_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">RoundFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>coach_chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>coach_head</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>coach_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>coach_width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_chamfer">
+<code class="descname">coach_chamfer</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_chamfer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_head">
+<code class="descname">coach_head</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_height">
+<code class="descname">coach_height</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_width">
+<code class="descname">coach_width</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.coach_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.dome_ratio">
+<code class="descname">dome_ratio</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.dome_ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.domed">
+<code class="descname">domed</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.domed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.cylindrical.</code><code class="descname">TrapezoidalFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.base.FastenerHead" title="cqparts.types.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.base.FastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.diameter_top">
+<code class="descname">diameter_top</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.diameter_top" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.fastener_heads.driven">
+<span id="cqparts-types-fastener-heads-driven-module"></span><h2>cqparts.types.fastener_heads.driven module<a class="headerlink" href="#module-cqparts.types.fastener_heads.driven" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.driven.</code><code class="descname">DrivenFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.base.FastenerHead" title="cqparts.types.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.base.FastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.chamfer">
+<code class="descname">chamfer</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.chamfer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.edges">
+<code class="descname">edges</code><em class="property"> = &lt;cqparts.params.PositiveInt object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.get_cross_section_points">
+<code class="descname">get_cross_section_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.get_cross_section_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer">
+<code class="descname">washer</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer_diameter">
+<code class="descname">washer_diameter</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer_diameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer_height">
+<code class="descname">washer_height</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.washer_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.DrivenFastenerHead.width">
+<code class="descname">width</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.driven.HexFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.driven.</code><code class="descname">HexFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.HexFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead" title="cqparts.types.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.HexFastenerHead.edges">
+<code class="descname">edges</code><em class="property"> = &lt;cqparts.params.PositiveInt object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.HexFastenerHead.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.driven.HexFlangeFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.driven.</code><code class="descname">HexFlangeFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.HexFlangeFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead" title="cqparts.types.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.HexFlangeFastenerHead.edges">
+<code class="descname">edges</code><em class="property"> = &lt;cqparts.params.PositiveInt object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.HexFlangeFastenerHead.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.HexFlangeFastenerHead.washer">
+<code class="descname">washer</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.HexFlangeFastenerHead.washer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.driven.SquareFastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.driven.</code><code class="descname">SquareFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.driven.SquareFastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.types.fastener_heads.driven.DrivenFastenerHead" title="cqparts.types.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.types.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.driven.SquareFastenerHead.edges">
+<code class="descname">edges</code><em class="property"> = &lt;cqparts.params.PositiveInt object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.driven.SquareFastenerHead.edges" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.types.fastener_heads">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.types.fastener_heads" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.types.fastener_heads.FastenerHead">
+<em class="property">class </em><code class="descclassname">cqparts.types.fastener_heads.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.FastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.FastenerHead.diameter">
+<code class="descname">diameter</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.FastenerHead.diameter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.FastenerHead.get_face_offset">
+<code class="descname">get_face_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.FastenerHead.get_face_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the screw drive origin offset relative to bolt’s origin</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.types.fastener_heads.FastenerHead.height">
+<code class="descname">height</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.fastener_heads.FastenerHead.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.types.fastener_heads.FastenerHead.make">
+<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.FastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create fastener head solid and return it</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.fastener_heads.fastener_head">
+<code class="descclassname">cqparts.types.fastener_heads.</code><code class="descname">fastener_head</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.fastener_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.types.fastener_heads.find">
+<code class="descclassname">cqparts.types.fastener_heads.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.fastener_heads.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.types.screw_drives.html" class="btn btn-neutral float-right" title="cqparts.types.screw_drives package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.types.html" class="btn btn-neutral" title="cqparts.types package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

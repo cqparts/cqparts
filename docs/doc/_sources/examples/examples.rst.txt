@@ -1,0 +1,46 @@
+examples package
+================
+
+Submodules
+----------
+
+examples\.basic module
+----------------------
+
+.. automodule:: examples.basic
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+examples\.fastener\_easyinstall module
+--------------------------------------
+
+.. automodule:: examples.fastener_easyinstall
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+examples\.logo module
+---------------------
+
+.. automodule:: examples.logo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+examples\.servo module
+----------------------
+
+.. automodule:: examples.servo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: examples
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.constraints package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts package" href="cqparts.html"/>
+        <link rel="next" title="cqparts.fasteners package" href="cqparts.fasteners.html"/>
+        <link rel="prev" title="cqparts.bearings package" href="cqparts.bearings.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.constraints package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+      <li>cqparts.constraints package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-constraints-package">
+<h1>cqparts.constraints package<a class="headerlink" href="#cqparts-constraints-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.constraints.base">
+<span id="cqparts-constraints-base-module"></span><h2>cqparts.constraints.base module<a class="headerlink" href="#module-cqparts.constraints.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.constraints.base.Constraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.base.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraints.base.Constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>A means to limit the relative position &amp;/or motion of 2 components.</p>
+<p>Constraints are combined and solved to set absolute positions of the
+components within an assembly.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.mates</span> <span class="k">import</span> <span class="n">Constraint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">constraint</span> <span class="o">=</span> <span class="n">Constraint</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.constraints.principal">
+<span id="cqparts-constraints-principal-module"></span><h2>cqparts.constraints.principal module<a class="headerlink" href="#module-cqparts.constraints.principal" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.constraints.principal.LockConstraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.principal.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>transform</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<p>Locks an object to a coordinate system offset.</p>
+<p>There is only 1 possible solution.</p>
+<p>Essentially</p>
+<dl class="method">
+<dt id="cqparts.constraints.principal.LockConstraint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>transform</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicitly locks a part’s coordinate system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transform</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>) – 4x4 array of coordinate system lock</td>
+</tr>
+</tbody>
+</table>
+<p>Individual rotation &amp; translation matricies are:</p>
+<div class="math">
+\[\begin{split}R_z &amp; = \begin{bmatrix}
+    cos(\alpha) &amp; -sin(\alpha) &amp; 0 &amp; 0 \\
+    sin(\alpha) &amp; cos(\alpha) &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix} \qquad &amp; R_y &amp; = \begin{bmatrix}
+    cos(\beta) &amp; 0 &amp; sin(\beta) &amp; 0 \\
+    0 &amp; 1 &amp; 0 &amp; 0 \\
+    -sin(\beta) &amp; 0 &amp; cos(\beta) &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix} \\
+\\
+R_x &amp; = \begin{bmatrix}
+    1 &amp; 0 &amp; 0 &amp; 0 \\
+    0 &amp; cos(\gamma) &amp; -sin(\gamma) &amp; 0 \\
+    0 &amp; sin(\gamma) &amp; cos(\gamma) &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix} \qquad &amp; T_{\text{xyz}} &amp; = \begin{bmatrix}
+    1 &amp; 0 &amp; 0 &amp; \delta x \\
+    0 &amp; 1 &amp; 0 &amp; \delta y \\
+    0 &amp; 0 &amp; 1 &amp; \delta z \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>The <code class="docutils literal"><span class="pre">transform</span></code> is the combination of these:</p>
+<div class="math">
+\[\begin{split}transform = T_{\text{xyz}} \cdot R_z \cdot R_y \cdot R_x = \begin{bmatrix}
+    a &amp; b &amp; c &amp; \delta x \\
+    d &amp; e &amp; f &amp; \delta y \\
+    g &amp; h &amp; i &amp; \delta z \\
+    0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}\end{split}\]</div>
+<p>Where:</p>
+<div class="math">
+\[\begin{split}a &amp; = cos(\alpha) cos(\beta) \\
+b &amp; = cos(\alpha) sin(\beta) sin(\gamma) - sin(\alpha) cos(\gamma) \\
+c &amp; = cos(\alpha) sin(\beta) cos(\gamma) + sin(\alpha) sin(\gamma) \\
+d &amp; = sin(\alpha) cos(\beta) \\
+e &amp; = sin(\alpha) sin(\beta) sin(\gamma) + cos(\alpha) cos(\gamma) \\
+f &amp; = sin(\alpha) sin(\beta) cos(\gamma) - cos(\alpha) sin(\gamma) \\
+g &amp; = -sin(\beta) \\
+h &amp; = cos(\beta) sin(\gamma) \\
+i &amp; = cos(\beta) cos(\gamma) \\\end{split}\]</div>
+<p>But generally you shouldn’t have to worry about the complexities; you can
+use the tools…</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: what <strong>are</strong> these “tools”?</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.constraints.solver">
+<span id="cqparts-constraints-solver-module"></span><h2>cqparts.constraints.solver module<a class="headerlink" href="#module-cqparts.constraints.solver" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.constraints.solver.solver">
+<code class="descclassname">cqparts.constraints.solver.</code><code class="descname">solver</code><span class="sig-paren">(</span><em>constraints</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.solver.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve for valid part transform matrices for the given list of mates</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>constraints</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – constraints</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.constraints">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.constraints" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.fasteners.html" class="btn btn-neutral float-right" title="cqparts.fasteners package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.bearings.html" class="btn btn-neutral" title="cqparts.bearings package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

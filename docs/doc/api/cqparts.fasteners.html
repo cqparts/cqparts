@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.fasteners package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts package" href="cqparts.html"/>
+        <link rel="next" title="cqparts.fasteners.utils package" href="cqparts.fasteners.utils.html"/>
+        <link rel="prev" title="cqparts.constraints package" href="cqparts.constraints.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+      <li>cqparts.fasteners package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-fasteners-package">
+<h1>cqparts.fasteners package<a class="headerlink" href="#cqparts-fasteners-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.fasteners.utils.html">cqparts.fasteners.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.applicator">cqparts.fasteners.utils.applicator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.evaluator">cqparts.fasteners.utils.evaluator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils.selector">cqparts.fasteners.utils.selector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.fasteners.utils.html#module-cqparts.fasteners.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.fasteners.base">
+<span id="cqparts-fasteners-base-module"></span><h2>cqparts.fasteners.base module<a class="headerlink" href="#module-cqparts.fasteners.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.base.Fastener">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">Fastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Assembly</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.base.FastenerFemale">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">FastenerFemale</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerFemale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<p>Female fastener part; with an internal thread</p>
+<p>For a <em>nut</em> and <em>bolt</em>:</p>
+<ul class="simple">
+<li><em>nut</em> : female</li>
+<li><em>bolt</em> : male</li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.base.FastenerMalePart">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">FastenerMalePart</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
+<li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Male fastener part; with an external thread</p>
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.FastenerMalePart.drive">
+<code class="descname">drive</code><em class="property"> = &lt;cqparts.fasteners.params.DriveType object&gt;</em><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.drive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.FastenerMalePart.head">
+<code class="descname">head</code><em class="property"> = &lt;cqparts.fasteners.params.HeadType object&gt;</em><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.FastenerMalePart.length">
+<code class="descname">length</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.FastenerMalePart.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.FastenerMalePart.thread">
+<code class="descname">thread</code><em class="property"> = &lt;cqparts.fasteners.params.ThreadType object&gt;</em><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.bolts">
+<span id="cqparts-fasteners-bolts-module"></span><h2>cqparts.fasteners.bolts module<a class="headerlink" href="#module-cqparts.fasteners.bolts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.bolts.Bolt">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">Bolt</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.Bolt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.bolts.UBolt">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">UBolt</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.UBolt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.params">
+<span id="cqparts-fasteners-params-module"></span><h2>cqparts.fasteners.params module<a class="headerlink" href="#module-cqparts.fasteners.params" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.params.DriveType">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.params.</code><code class="descname">DriveType</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.DriveType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.params.FastenerComponentParam" title="cqparts.fasteners.params.FastenerComponentParam"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.params.FastenerComponentParam</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.DriveType.component_base">
+<code class="descname">component_base</code><a class="headerlink" href="#cqparts.fasteners.params.DriveType.component_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">ScrewDrive</span></code></p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cqparts.fasteners.params.DriveType.finder_callback">
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.DriveType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.DriveType.name">
+<code class="descname">name</code><em class="property"> = 'drive'</em><a class="headerlink" href="#cqparts.fasteners.params.DriveType.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.params.DriveType.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.DriveType.type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>see below</em>) – defined type of screw-drive</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">value</span></code> can be any of:</p>
+<ul class="simple">
+<li><a class="reference internal" href="cqparts.types.screw_drives.html#cqparts.types.screw_drives.ScrewDrive" title="cqparts.types.screw_drives.ScrewDrive"><code class="xref py py-class docutils literal"><span class="pre">ScrewDrive</span></code></a> instance</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">drive</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where<ul>
+<li><code class="docutils literal"><span class="pre">drive</span> <span class="pre">type</span></code> is one of<ul>
+<li><code class="docutils literal"><span class="pre">str</span></code>: name of screw-drive (registered with <a class="reference internal" href="cqparts.types.screw_drives.html#cqparts.types.screw_drives.screw_drive" title="cqparts.types.screw_drives.screw_drive"><code class="xref py py-meth docutils literal"><span class="pre">screw_drive</span></code></a>)</li>
+<li><a class="reference internal" href="cqparts.types.screw_drives.html#cqparts.types.screw_drives.ScrewDrive" title="cqparts.types.screw_drives.ScrewDrive"><code class="xref py py-class docutils literal"><span class="pre">ScrewDrive</span></code></a> subclass</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">parameters</span></code> is a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.params.FastenerComponentParam">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.params.</code><code class="descname">FastenerComponentParam</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.FastenerComponentParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
+<p>Custom fastener component as a parameter.
+(not to be confused with a <em>Part</em>)</p>
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.FastenerComponentParam.component_base">
+<code class="descname">component_base</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.fasteners.params.FastenerComponentParam.component_base" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.FastenerComponentParam.finder_callback">
+<code class="descname">finder_callback</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.fasteners.params.FastenerComponentParam.finder_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.FastenerComponentParam.name">
+<code class="descname">name</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.fasteners.params.FastenerComponentParam.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.params.FastenerComponentParam.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.FastenerComponentParam.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.params.HeadType">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.params.</code><code class="descname">HeadType</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.HeadType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.params.FastenerComponentParam" title="cqparts.fasteners.params.FastenerComponentParam"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.params.FastenerComponentParam</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.HeadType.component_base">
+<code class="descname">component_base</code><a class="headerlink" href="#cqparts.fasteners.params.HeadType.component_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">FastenerHead</span></code></p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cqparts.fasteners.params.HeadType.finder_callback">
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.HeadType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.HeadType.name">
+<code class="descname">name</code><em class="property"> = 'head'</em><a class="headerlink" href="#cqparts.fasteners.params.HeadType.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.params.HeadType.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.HeadType.type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>see below</em>) – defined type of male fastener head</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">value</span></code> can be any of:</p>
+<ul class="simple">
+<li><a class="reference internal" href="cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.FastenerHead" title="cqparts.types.fastener_heads.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">FastenerHead</span></code></a> instance</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">head</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where:<ul>
+<li><code class="docutils literal"><span class="pre">head</span> <span class="pre">type</span></code> is one of<ul>
+<li><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> name of fastener head (registered with <a class="reference internal" href="cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.fastener_head" title="cqparts.types.fastener_heads.fastener_head"><code class="xref py py-meth docutils literal"><span class="pre">fastener_head</span></code></a>)</li>
+<li><a class="reference internal" href="cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.FastenerHead" title="cqparts.types.fastener_heads.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">FastenerHead</span></code></a> subclass</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">parameters</span></code> is a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.params.ThreadType">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.params.</code><code class="descname">ThreadType</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.params.FastenerComponentParam" title="cqparts.fasteners.params.FastenerComponentParam"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.params.FastenerComponentParam</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.ThreadType.component_base">
+<code class="descname">component_base</code><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.component_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cqparts.fasteners.params.ThreadType.finder_callback">
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.params.ThreadType.name">
+<code class="descname">name</code><em class="property"> = 'thread'</em><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.params.ThreadType.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>see below</em>) – defined type of thread</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">value</span></code> can be any of:</p>
+<ul class="simple">
+<li><a class="reference internal" href="cqparts.types.threads.html#cqparts.types.threads.Thread" title="cqparts.types.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> instance</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">thread</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where:<ul>
+<li><code class="docutils literal"><span class="pre">thread</span> <span class="pre">type</span></code> is one of<ul>
+<li><code class="docutils literal"><span class="pre">str</span></code>: name of thread type (registered with <a class="reference internal" href="cqparts.types.threads.html#cqparts.types.threads.thread" title="cqparts.types.threads.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a>)</li>
+<li><a class="reference internal" href="cqparts.types.threads.html#cqparts.types.threads.Thread" title="cqparts.types.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> subclass</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">parameters</span></code> is a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></li>
+</ul>
+</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.screws">
+<span id="cqparts-fasteners-screws-module"></span><h2>cqparts.fasteners.screws module<a class="headerlink" href="#module-cqparts.fasteners.screws" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.screws.Screw">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.screws.</code><code class="descname">Screw</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.Screw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>screw_drive</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – [no description]</li>
+<li><strong>thread</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cqparts.fasteners.screws.Screw.screw_drive">
+<code class="descname">screw_drive</code><em class="property"> = &lt;cqparts.params.LowerCaseString object&gt;</em><a class="headerlink" href="#cqparts.fasteners.screws.Screw.screw_drive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.screws.Screw.thread">
+<code class="descname">thread</code><em class="property"> = &lt;cqparts.params.LowerCaseString object&gt;</em><a class="headerlink" href="#cqparts.fasteners.screws.Screw.thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.fasteners" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.Fastener">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.</code><code class="descname">Fastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Assembly</span></code></a></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.fasteners.utils.html" class="btn btn-neutral float-right" title="cqparts.fasteners.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.constraints.html" class="btn btn-neutral" title="cqparts.constraints package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
