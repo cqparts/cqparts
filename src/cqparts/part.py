@@ -6,7 +6,11 @@ from .utils.misc import indicate_last, property_buffered
 from .errors import MakeError, ParameterError
 
 
-class Part(ParametricObject):
+class Component(ParametricObject):
+    pass
+
+
+class Part(Component):
 
     def make(self):
         """
@@ -99,7 +103,7 @@ class Part(ParametricObject):
         return new_obj
 
 
-class Assembly(ParametricObject):
+class Assembly(Component):
     """
     An assembly is a group of parts, and other assemblies (called components)
     """
