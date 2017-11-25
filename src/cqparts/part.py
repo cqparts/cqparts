@@ -133,10 +133,10 @@ class Assembly(Component):
                 )
             else:
                 for (name, component) in self._components.items():
-                    if not isinstance(name, six.string_types) or not isinstance(component, (Part, Assembly)):
+                    if not isinstance(name, six.string_types) or not isinstance(component, Component):
                         raise MakeError((
                             "invalid component returned by make(): (%r, %r) "
-                            "(must be a (str, Part|Assembly))"
+                            "(must be a (str, Component))"
                         ) % (name, component))
 
         return self._components

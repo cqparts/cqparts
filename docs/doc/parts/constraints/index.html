@@ -100,7 +100,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Parts</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../fasteners/index.html">Fasteners</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Constraints</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#types-of-constraints">Types of Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lock">Lock</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#part-vs-assembly">Part vs Assembly</a></li>
 </ul>
 </li>
@@ -171,13 +177,58 @@
            <div itemprop="articleBody">
             
   <div class="section" id="constraints">
-<h1>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h1>
-<p>blah blah <span class="math">\(a^2 + b^2 = c^2\)</span> and stuff</p>
-<div class="math">
-\begin{eqnarray}
-   y    &amp; = &amp; ax^2 + bx + c \\
-   f(x) &amp; = &amp; x^2 + 2xy + y^2
-\end{eqnarray}</div></div>
+<span id="parts-constraints"></span><h1>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h1>
+<p>Constraints limit the location &amp; orientation of a <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>
+relative to it’s parent <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<p>A completely unconstrained <em>component</em> could be anywhere, and with any rotation.
+Conversely, a fully constrained <em>component</em> can only be at one specific location
+&amp; orientation.</p>
+<p>Constraints consist of, at a minimum:</p>
+<ul class="simple">
+<li>the <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> being constrained.</li>
+<li>one or more <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.base.Mate" title="cqparts.constraints.base.Mate"><code class="xref py py-class docutils literal"><span class="pre">base.Mate</span></code></a> instances.</li>
+<li>constraint specific parameters (if any)</li>
+</ul>
+<div class="section" id="types-of-constraints">
+<h2>Types of Constraints<a class="headerlink" href="#types-of-constraints" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lock">
+<h3>Lock<a class="headerlink" href="#lock" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.principal.LockConstraint" title="cqparts.constraints.principal.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">principal.LockConstraint</span></code></a> explicitly sets a <em>component’s</em> location
+and orientation relative to it’s parent’s origin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
+
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">():</span>
+        <span class="c1"># a unit cube centered on 0,0,0</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">():</span>
+        <span class="n">box1</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+        <span class="n">box2</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="c1"># box1 10mm up, no change to rotation</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">Mate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span>
+            <span class="c1"># box2 at origin, rotate around z 45deg ccw</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">box2</span><span class="p">,</span> <span class="n">Mate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">box1</span><span class="p">,</span>
+            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">box2</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: document the different types of constraints</p>
+</div>
+</div>
+</div>
+</div>
 
 
            </div>

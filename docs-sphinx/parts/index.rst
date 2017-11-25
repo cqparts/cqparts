@@ -14,12 +14,17 @@ Parts
 Part vs Assembly
 ----------------
 
-A :class:`Part` is an `atomic` component; it cannot be disassembled, and it
+.. currentmodule:: cqparts.part
+
+A :class:`Part` is a :class:`Component`, and an :class:`Assembly` is a :class:`Component`.
+
+A :class:`Part` is an *atomic* component; it cannot be disassembled, and it
 is typically made of a single material.
 
-An :class:`Assembly` is a collection of :class:`Part` instances &/or
-nested :class:`Assembly` instances. An :class:`Assembly` would typically hold
-itself together, as an intermedite step of construction.
+An :class:`Assembly` is a collection of :class:`Components <Component>`.
+
+An :class:`Assembly` would typically hold itself together, as an intermedite
+step of construction.
 
 .. tip::
 

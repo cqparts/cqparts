@@ -210,25 +210,27 @@ components within an assembly.</p>
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="module-cqparts.constraints.principal">
-<span id="cqparts-constraints-principal-module"></span><h2>cqparts.constraints.principal module<a class="headerlink" href="#module-cqparts.constraints.principal" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.constraints.principal.LockConstraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.principal.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>transform</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
-<p>Locks an object to a coordinate system offset.</p>
-<p>There is only 1 possible solution.</p>
-<p>Essentially</p>
-<dl class="method">
-<dt id="cqparts.constraints.principal.LockConstraint.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>transform</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Explicitly locks a part’s coordinate system.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dt id="cqparts.constraints.base.Mate">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.base.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>origin</em>, <em>xDir</em>, <em>normal</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.base.Mate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cadquery.freecad_impl.geom.Plane</span></code></p>
+<dl class="attribute">
+<dt id="cqparts.constraints.base.Mate.local_to_world_transform">
+<code class="descname">local_to_world_transform</code><a class="headerlink" href="#cqparts.constraints.base.Mate.local_to_world_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>3d affine transform to convert local coordinates to world.</p>
+<p>(see <a class="reference internal" href="#cqparts.constraints.base.Mate.world_to_local_transform" title="cqparts.constraints.base.Mate.world_to_local_transform"><code class="xref py py-meth docutils literal"><span class="pre">Mate.world_to_local_transform()</span></code></a> for details)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.constraints.base.Mate.world_to_local_transform">
+<code class="descname">world_to_local_transform</code><a class="headerlink" href="#cqparts.constraints.base.Mate.world_to_local_transform" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transform</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.13)"><code class="xref py py-class docutils literal"><span class="pre">numpy.ndarray</span></code></a>) – 4x4 array of coordinate system lock</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -282,6 +284,34 @@ use the tools…</p>
 <p class="first admonition-title">Warning</p>
 <p class="last">TODO: what <strong>are</strong> these “tools”?</p>
 </div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.constraints.principal">
+<span id="cqparts-constraints-principal-module"></span><h2>cqparts.constraints.principal module<a class="headerlink" href="#module-cqparts.constraints.principal" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.constraints.principal.LockConstraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.principal.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<p>Locks an object to a coordinate system offset.</p>
+<p>There is only 1 possible solution.</p>
+<dl class="method">
+<dt id="cqparts.constraints.principal.LockConstraint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.principal.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component being constrained</li>
+<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraints.base.Mate" title="cqparts.constraints.base.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock component’s coordinate system to</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
