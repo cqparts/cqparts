@@ -43,9 +43,11 @@ and orientation relative to it's parent's origin::
             box1 = Box()
             box2 = Box()
 
-            self.constraints.append(
+            self.add_constraint(
                 # box1 10mm up, no change to rotation
-                LockConstraint(box1, Mate(0,0,10, (1,0,0), (0,0,1))),
+                LockConstraint(box1, Mate(0,0,10, (1,0,0), (0,0,1)))
+            )
+            self.add_constraint(
                 # box2 at origin, rotate around z 45deg ccw
                 LockConstraint(box2, Mate(0,0,0, (1,1,0), (0,0,1)))
             )
