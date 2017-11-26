@@ -16,6 +16,6 @@ Design Considerations
 If you're making a motor, consider that others may want to:
 
 * change output shaft *diameter*, &/or *length*
-* change mounting points may be in a different position, or scale.
-* change output shaft *coupling* may be changed.
+* change mounting points
+* change output shaft *coupling* type
 * align output shaft with another.

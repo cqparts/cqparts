@@ -80,7 +80,7 @@ assumed that it won't be pulled apart, or need to be constructed, an *SD Card*
 will most likely be represented by a single :class:`Part`.
 
 Conversely, a *sticker* (like a branding sticker) cannot be disassembled.
-But visually you may want it's orientation to be recognisable, or
+But visually you may want its orientation to be recognisable, or
 you just want it to render properly. This is where a :class:`Part` is limited,
 because it can only be one color. So the *sticker* may be 2 :class:`Part`
 instances in an :class:`Assembly`, one for the backing, and one for the text,

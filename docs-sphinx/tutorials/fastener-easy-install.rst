@@ -35,11 +35,11 @@ The wood screw will be a simplified version of the one shown in the diagram:
 
 ::
 
-    from cqparts import Part
+    import cqparts
     from cqparts.params import PositiveFloat
     #from cqparts.fasteners.params import HeadType, DriveType, ThreadType
 
-    class WoodScrew(Part):
+    class WoodScrew(cqparts.Part):
         diameter = PositiveFloat(default=3, doc="bore hole diameter")
         thread_length = PositiveFloat(default=5, doc="distance the screw bores into part")
         # TODO: more parameters
@@ -78,10 +78,10 @@ Similarly, the anchor will be simplified
 
 ::
 
-    from cqparts import Part
+    import cqparts
     from cqparts.params import PositiveFloat, Boolean
 
-    class Anchor(Part):
+    class Anchor(cqparts.Part):
         diameter = PositiveFloat(default=10, doc="bore diameter for anchor")
         reversed = Boolean(default=False, doc="if True, screw drive is put on the reverse side")
         # TODO more parameters
@@ -228,14 +228,14 @@ First let's make some parts to join together::
 
     # fixme: pretending it's there
     import cadquery
-    from cqparts import Part
+    import cqparts
 
-    class Panel1(Part):
+    class Panel1(cqparts.Part):
         def make(self):
             return cadquery.Workplane('XY', origin=(0, -50, -10)) \
                 .box(100, 100, 10, centered=(False, False, False))
 
-    class Panel2(Part):
+    class Panel2(cqparts.Part):
         def make(self):
             return cadquery.Workplane('XY', origin=(0, -50, 0)) \
                 .box(10, 100, 100, centered=(False, False, False))

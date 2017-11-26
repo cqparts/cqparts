@@ -7,7 +7,7 @@ Constraints
 ===========
 
 Constraints limit the location & orientation of a :class:`Component <cqparts.part.Component>`
-relative to it's parent :class:`Assembly <cqparts.part.Assembly>`.
+relative to its parent :class:`Assembly <cqparts.part.Assembly>`.
 
 A completely unconstrained *component* could be anywhere, and with any rotation.
 Conversely, a fully constrained *component* can only be at one specific location
@@ -27,7 +27,7 @@ Lock
 ^^^^
 
 The :class:`principal.LockConstraint` explicitly sets a *component's* location
-and orientation relative to it's parent's origin::
+and orientation relative to its parent's origin::
 
     import cadquery
     from cqparts import Assembly, Part
