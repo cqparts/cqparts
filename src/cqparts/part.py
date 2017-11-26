@@ -99,6 +99,8 @@ class Part(Component):
 
         if 'object' in self.__dict__:  # set by property_buffered
             new_obj.__dict__['object'] = self.__dict__['object'].translate((0, 0, 0))
+        if 'object_primative' in self.__dict__:  # set by property_buffered
+            new_obj.__dict__['object_primative'] = self.__dict__['object_primative'].translate((0, 0, 0))
 
         return new_obj
 
