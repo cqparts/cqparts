@@ -1,5 +1,6 @@
 
 from .base import Constraint
+from .mate import Mate
 
 
 class LockConstraint(Constraint):
