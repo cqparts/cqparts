@@ -21,47 +21,65 @@ log = logging.getLogger(__name__)
 #       - expensive, helical sweept object is only used to do an expensive cut
 
 def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertices=20):
-    """
+    r"""
     Converts a thread profile to it's equivalent cross-section.
 
-    Profile:
-        The thread profile contains a single wire along the XZ plane
-        (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
-        The profile is expected to be of 1 thread rotation, so it's height
-        (along the Z-axis) is the thread's "pitch".
-        If start_count > 1, then the profile will effectively be duplicated.
-        The resulting cross-section is designed to be swept along a helical path
-        with a pitch of the thread's "lead" (which is {the height of the given
-        profile} * start_count)
+    **Profile:**
 
-    Method:
-        Each edge of the profile is converted to a bezier spline, aproximating
-        it's polar plot equivalent.
+    The thread profile contains a single wire along the XZ plane
+    (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
+    The profile is expected to be of 1 thread rotation, so it's height
+    (along the Z-axis) is the thread's "pitch".
+    If start_count > 1, then the profile will effectively be duplicated.
+    The resulting cross-section is designed to be swept along a helical path
+    with a pitch of the thread's "lead" (which is {the height of the given
+    profile} * start_count)
 
-    Resolution: (via `min_vertices` parameter)
-        Increasing the number of vertices used to define the bezier will
-        increase the resulting thread's accuracy, but cost more to render.
+    **Method:**
 
-        min_vertices may also be expressed as a list to set the number of
-        vertices to set for each wire.
-        where: len(min_vertices) == number of edges in profile
+    Each edge of the profile is converted to a bezier spline, aproximating
+    it's polar plot equivalent.
 
-    Example:
+    **Resolution:** (via `min_vertices` parameter)
+
+    Increasing the number of vertices used to define the bezier will
+    increase the resulting thread's accuracy, but cost more to render.
+
+    min_vertices may also be expressed as a list to set the number of
+    vertices to set for each wire.
+    where: len(min_vertices) == number of edges in profile
+
+    **Example**::
+
         import cadquery
+        from cqparts.types.threads.base import profile_to_cross_section
         from Helpers import show
+
         profile = cadquery.Workplane("XZ") \
             .moveTo(1, 0) \
             .lineTo(2, 1).lineTo(1, 2) \
             .wire()
         cross_section = profile_to_cross_section(profile)
+
         show(profile)
         show(cross_section)
 
-    :param profile: cadquery.Workplane wire of thread profile
-    :param lefthand: if True, cross-section is made backwards
-    :param start_count: profile is duplicated this many times
-    :param min_vertices: int or tuple of the desired resolution
-    :return: cadquery.Workplane ready to be swept into a thread
+    Will result in:
+
+    .. image:: /_static/img/types.threads.base.profile_to_cross_section.01.png
+
+    :param profile: workplane containing wire of thread profile.
+    :type profile: :class:`cadquery.Workplane`
+    :param lefthand: if True, cross-section is made backwards.
+    :type lefthand: :class:`bool`
+    :param start_count: profile is duplicated this many times.
+    :type start_count: :class:`int`
+    :param min_vertices: int or tuple of the desired resolution.
+    :type min_vertices: :class:`int` or :class:`tuple`
+    :return: workplane with a face ready to be swept into a thread.
+    :rtype: :class:`cadquery.Workplane`
+    :raises TypeError: if a problem is found with the given parameters.
+    :raises ValueError: if ``min_vertices`` is a list with elements not equal to the numbmer of wire edges.
     """
     # verify parameter(s)
     if not isinstance(profile, cadquery.Workplane):
@@ -191,11 +209,8 @@ def helical_path(pitch, length, radius, angle=0, lefthand=False):
 
 
 class MinVerticiesParam(Parameter):
-    """
-    Can be either:
-        - an an integer, or
-        - a list of integers
-    """
+    _doc_type = ":class:`int` or list(:class:`int`)"
+
     def type(self, value):
         if isinstance(value, int):
             return max(2, value)
@@ -213,24 +228,39 @@ class MinVerticiesParam(Parameter):
 
 class Thread(ParametricObject):
     # Base parameters
-    pitch = PositiveFloat(1.0)
-    start_count = IntRange(1, None, 1)
-    min_vertices = MinVerticiesParam(20)
-    radius = PositiveFloat(3.0)
+    pitch = PositiveFloat(1.0, doc="thread's pitch")
+    start_count = IntRange(1, None, 1, doc="number of thread starts")
+    min_vertices = MinVerticiesParam(20, doc="minimum vertices used cross-section's wire")
+    radius = PositiveFloat(3.0, doc="thread radius")
 
-    inner = Boolean(False)  # if set, thread made is intended to be cut from a solid to form an inner thread
-    lefthand = Boolean(False)
+    inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
+    lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")
 
     def build_profile(self):
-        """
+        r"""
         Build the thread's profile in a cadquery.Workplace as a wire
-        example:
-            points = [
-                (2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)
-            ]
-            profile = cadquery.Workplane("XZ") \
-                .moveTo(*points[0]).polyline(points[1:])
-            return profile.wire()
+
+        .. note::
+
+            This function must be overridden by the inheriting class in order
+            to construct a thread.
+
+            Without overriding, this function rases a
+            :class:`NotImplementedError` exception.
+
+        example implementation::
+
+            import cadquery
+            from cqparts.types.threads.base import Thread
+
+            class MyThread(Thread):
+                def build_profile(self):
+                    points = [
+                        (2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)
+                    ]
+                    profile = cadquery.Workplane("XZ") \
+                        .moveTo(*points[0]).polyline(points[1:])
+                    return profile.wire()
         """
         raise NotImplementedError("build_profile function not overridden in %s" % type(self))
 
