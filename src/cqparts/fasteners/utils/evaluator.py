@@ -102,23 +102,6 @@ class Evaluator(object):
         """
         # All evaluators will take a list of parts
         self.parts = parts
-        # an evaluator's input & method is specific to the type of fastener
-        # being evaluated, so everything else is overridable in init()...
-        self.init(*args, **kwargs)
-
-    def init(self):
-        """
-        :meth:`Evaluator.__init__` takes a list of ``parts``, but any other
-        parameters are passed to this function and evaluated here.
-
-        .. note::
-
-            Override this funciton in your *evaluator* class to take
-            additional parameters.
-
-        Default behaviour takes no parameters, and does nothing.
-        """
-        pass
 
     def perform_evaluation(self):
         """
@@ -148,14 +131,16 @@ class VectorEvaluator(Evaluator):
 
     effect_class = VectorEffect
 
-    def init(self, start, dir):
+    def __init__(self, parts, start, dir):
         """
+        :param parts: parts involved in fastening
+        :type parts: list of :class:`cqparts.Part`
         :param start: fastener starting vertex
         :type start: :class:`cadquery.Vector`
         :param dir: direction fastener is pointing
         :type dir: :class:`cadquery.Vector`
         """
-        # cast parameters
+        super(VectorEvaluator, self).__init__(parts)
         self.start = _casting.vector(start)
         self.dir = _casting.vector(dir)
 
