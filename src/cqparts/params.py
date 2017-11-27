@@ -173,7 +173,7 @@ class FloatRange(Float):
     """
     Floating point in the given range (inclusive)
     """
-    def __init__(self, min, max, default):
+    def __init__(self, min, max, default, doc="[no description]"):
         """
         {``min`` <= value <= ``max``}
 
@@ -184,7 +184,7 @@ class FloatRange(Float):
         """
         self.min = min
         self.max = max
-        super(FloatRange, self).__init__(default)
+        super(FloatRange, self).__init__(default, doc=doc)
 
     def type(self, value):
         cast_value = super(FloatRange, self).type(value)
@@ -208,7 +208,7 @@ class Int(Parameter):
     """
     Integer value
     """
-    _doc_type = 'int'
+    _doc_type = ":class:`int`"
 
     def type(self, value):
         try:
@@ -233,7 +233,7 @@ class IntRange(Int):
     """
     Integer in the given range (inclusive)
     """
-    def __init__(self, min, max, default):
+    def __init__(self, min, max, default, doc="[no description]"):
         """
         {``min`` <= value <= ``max``}
 
@@ -244,7 +244,7 @@ class IntRange(Int):
         """
         self.min = min
         self.max = max
-        super(IntRange, self).__init__(default)
+        super(IntRange, self).__init__(default, doc=doc)
 
     def type(self, value):
         cast_value = super(IntRange, self).type(value)
@@ -270,7 +270,7 @@ class Boolean(Parameter):
     Boolean value
     """
 
-    _doc_type = 'bool'
+    _doc_type = ':class:`bool`'
 
     def type(self, value):
         try:
@@ -286,7 +286,7 @@ class String(Parameter):
     String value
     """
 
-    _doc_type = 'str'
+    _doc_type = ":class:`str`"
 
     def type(self, value):
         try:
