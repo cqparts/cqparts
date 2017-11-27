@@ -12,10 +12,18 @@ cqparts\.constraints\.base module
     :undoc-members:
     :show-inheritance:
 
-cqparts\.constraints\.principal module
---------------------------------------
+cqparts\.constraints\.lock module
+---------------------------------
 
-.. automodule:: cqparts.constraints.principal
+.. automodule:: cqparts.constraints.lock
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cqparts\.constraints\.mate module
+---------------------------------
+
+.. automodule:: cqparts.constraints.mate
     :members:
     :undoc-members:
     :show-inheritance:

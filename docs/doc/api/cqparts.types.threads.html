@@ -213,12 +213,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
-<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
 </tr>
@@ -243,14 +243,6 @@
 <dt id="cqparts.types.threads.base.MinVerticiesParam">
 <em class="property">class </em><code class="descclassname">cqparts.types.threads.base.</code><code class="descname">MinVerticiesParam</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.MinVerticiesParam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
-<dl class="docutils">
-<dt>Can be either:</dt>
-<dd><ul class="first last simple">
-<li>an an integer, or</li>
-<li>a list of integers</li>
-</ul>
-</dd>
-</dl>
 <dl class="method">
 <dt id="cqparts.types.threads.base.MinVerticiesParam.type">
 <code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.MinVerticiesParam.type" title="Permalink to this definition">¶</a></dt>
@@ -272,12 +264,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
-<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
 </tr>
@@ -286,17 +278,28 @@
 <dl class="method">
 <dt id="cqparts.types.threads.base.Thread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
-example:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>points = [</dt>
-<dd>(2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)</dd>
-</dl>
-<p>]
-profile = cadquery.Workplane(“XZ”)                 .moveTo(<a href="#id1"><span class="problematic" id="id2">*</span></a>points[0]).polyline(points[1:])
-return profile.wire()</p>
-</div></blockquote>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This function must be overridden by the inheriting class in order
+to construct a thread.</p>
+<p class="last">Without overriding, this function rases a
+<code class="xref py py-class docutils literal"><span class="pre">NotImplementedError</span></code> exception.</p>
+</div>
+<p>example implementation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.types.threads.base</span> <span class="k">import</span> <span class="n">Thread</span>
+
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -350,47 +353,63 @@ return profile.wire()</p>
 <dt id="cqparts.types.threads.base.profile_to_cross_section">
 <code class="descclassname">cqparts.types.threads.base.</code><code class="descname">profile_to_cross_section</code><span class="sig-paren">(</span><em>profile</em>, <em>lefthand=False</em>, <em>start_count=1</em>, <em>min_vertices=20</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.profile_to_cross_section" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts a thread profile to it’s equivalent cross-section.</p>
-<dl class="docutils">
-<dt>Profile:</dt>
-<dd>The thread profile contains a single wire along the XZ plane
+<p><strong>Profile:</strong></p>
+<p>The thread profile contains a single wire along the XZ plane
 (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
 The profile is expected to be of 1 thread rotation, so it’s height
 (along the Z-axis) is the thread’s “pitch”.
 If start_count &gt; 1, then the profile will effectively be duplicated.
 The resulting cross-section is designed to be swept along a helical path
 with a pitch of the thread’s “lead” (which is {the height of the given
-profile} * start_count)</dd>
-<dt>Method:</dt>
-<dd>Each edge of the profile is converted to a bezier spline, aproximating
-it’s polar plot equivalent.</dd>
-<dt>Resolution: (via <cite>min_vertices</cite> parameter)</dt>
-<dd><p class="first">Increasing the number of vertices used to define the bezier will
+profile} * start_count)</p>
+<p><strong>Method:</strong></p>
+<p>Each edge of the profile is converted to a bezier spline, aproximating
+it’s polar plot equivalent.</p>
+<p><strong>Resolution:</strong> (via <cite>min_vertices</cite> parameter)</p>
+<p>Increasing the number of vertices used to define the bezier will
 increase the resulting thread’s accuracy, but cost more to render.</p>
-<p class="last">min_vertices may also be expressed as a list to set the number of
+<p>min_vertices may also be expressed as a list to set the number of
 vertices to set for each wire.
 where: len(min_vertices) == number of edges in profile</p>
-</dd>
-<dt>Example:</dt>
-<dd>import cadquery
-from Helpers import show
-profile = cadquery.Workplane(“XZ”)             .moveTo(1, 0)             .lineTo(2, 1).lineTo(1, 2)             .wire()
-cross_section = profile_to_cross_section(profile)
-show(profile)
-show(cross_section)</dd>
-</dl>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.types.threads.base</span> <span class="k">import</span> <span class="n">profile_to_cross_section</span>
+<span class="kn">from</span> <span class="nn">Helpers</span> <span class="k">import</span> <span class="n">show</span>
+
+<span class="n">profile</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+<span class="n">cross_section</span> <span class="o">=</span> <span class="n">profile_to_cross_section</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+
+<span class="n">show</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
+<span class="n">show</span><span class="p">(</span><span class="n">cross_section</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will result in:</p>
+<img alt="../_images/types.threads.base.profile_to_cross_section.01.png" src="../_images/types.threads.base.profile_to_cross_section.01.png" />
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>profile</strong> – cadquery.Workplane wire of thread profile</li>
-<li><strong>lefthand</strong> – if True, cross-section is made backwards</li>
-<li><strong>start_count</strong> – profile is duplicated this many times</li>
-<li><strong>min_vertices</strong> – int or tuple of the desired resolution</li>
+<li><strong>profile</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>) – workplane containing wire of thread profile.</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, cross-section is made backwards.</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – profile is duplicated this many times.</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>) – int or tuple of the desired resolution.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cadquery.Workplane ready to be swept into a thread</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">workplane with a face ready to be swept into a thread.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>TypeError</strong> – if a problem is found with the given parameters.</li>
+<li><strong>ValueError</strong> – if <code class="docutils literal"><span class="pre">min_vertices</span></code> is a list with elements not equal to the numbmer of wire edges.</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -419,13 +438,13 @@ show(cross_section)</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
-<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
 <li><strong>rounding_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
 </tr>
@@ -461,12 +480,12 @@ show(cross_section)</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
-<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
 </tr>
@@ -501,12 +520,12 @@ show(cross_section)</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – [no description]</li>
-<li><strong>min_vertices</strong> (<em>[</em><em>unknown</em><em>]</em>) – [no description]</li>
-<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – [no description]</li>
+<li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
+<li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
+<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
+<li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
 </tr>
@@ -515,17 +534,28 @@ show(cross_section)</dd>
 <dl class="method">
 <dt id="cqparts.types.threads.Thread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
-example:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>points = [</dt>
-<dd>(2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)</dd>
-</dl>
-<p>]
-profile = cadquery.Workplane(“XZ”)                 .moveTo(<a href="#id3"><span class="problematic" id="id4">*</span></a>points[0]).polyline(points[1:])
-return profile.wire()</p>
-</div></blockquote>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This function must be overridden by the inheriting class in order
+to construct a thread.</p>
+<p class="last">Without overriding, this function rases a
+<code class="xref py py-class docutils literal"><span class="pre">NotImplementedError</span></code> exception.</p>
+</div>
+<p>example implementation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.types.threads.base</span> <span class="k">import</span> <span class="n">Thread</span>
+
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">

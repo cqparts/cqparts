@@ -201,7 +201,8 @@
 <li class="toctree-l1"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.base">cqparts.constraints.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.principal">cqparts.constraints.principal module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.lock">cqparts.constraints.lock module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.mate">cqparts.constraints.mate module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.solver">cqparts.constraints.solver module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints">Module contents</a></li>
 </ul>
@@ -293,6 +294,11 @@
 </div>
 <div class="section" id="module-cqparts.display">
 <span id="cqparts-display-module"></span><h2>cqparts.display module<a class="headerlink" href="#module-cqparts.display" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.display.display">
+<code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-cqparts.errors">
 <span id="cqparts-errors-module"></span><h2>cqparts.errors module<a class="headerlink" href="#module-cqparts.errors" title="Permalink to this headline">¶</a></h2>
@@ -367,12 +373,12 @@
 
 <dl class="class">
 <dt id="cqparts.params.FloatRange">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">FloatRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">FloatRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Float</span></code></a></p>
 <p>Floating point in the given range (inclusive)</p>
 <dl class="method">
 <dt id="cqparts.params.FloatRange.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.FloatRange.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>{<code class="docutils literal"><span class="pre">min</span></code> &lt;= value &lt;= <code class="docutils literal"><span class="pre">max</span></code>}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -409,12 +415,12 @@
 
 <dl class="class">
 <dt id="cqparts.params.IntRange">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">IntRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">IntRange</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Int</span></code></a></p>
 <p>Integer in the given range (inclusive)</p>
 <dl class="method">
 <dt id="cqparts.params.IntRange.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>min</em>, <em>max</em>, <em>default</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.IntRange.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>{<code class="docutils literal"><span class="pre">min</span></code> &lt;= value &lt;= <code class="docutils literal"><span class="pre">max</span></code>}</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -655,7 +661,7 @@ whereas:</p>
 
 <dl class="class">
 <dt id="cqparts.part.Part">
-<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <dl class="attribute">
 <dt id="cqparts.part.Part.bounding_box">
@@ -738,11 +744,26 @@ to re-generate the model from scratch.</p>
 <code class="descname">object_primative</code><a class="headerlink" href="#cqparts.part.Part.object_primative" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="cqparts.part.Part.world_coords">
+<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.part.Part.world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, None until placed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.part.Pulley">
-<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Pulley</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Pulley" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Pulley</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Pulley" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <dl class="attribute">
 <dt id="cqparts.part.Pulley.hole_radius">
@@ -878,7 +899,7 @@ yield the part you want.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.Part">
-<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <dl class="attribute">
 <dt id="cqparts.Part.bounding_box">
@@ -960,6 +981,21 @@ to re-generate the model from scratch.</p>
 <dt id="cqparts.Part.object_primative">
 <code class="descname">object_primative</code><a class="headerlink" href="#cqparts.Part.object_primative" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Part.world_coords">
+<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.Part.world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, None until placed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

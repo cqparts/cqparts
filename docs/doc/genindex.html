@@ -192,14 +192,20 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.principal.LockConstraint.__init__">__init__() (cqparts.constraints.principal.LockConstraint method)</a>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.LockConstraint.__init__">__init__() (cqparts.constraints.lock.LockConstraint method)</a>
 
       <ul>
+        <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.RelativeLockConstraint.__init__">(cqparts.constraints.lock.RelativeLockConstraint method)</a>
+</li>
         <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.Evaluator.__init__">(cqparts.fasteners.utils.Evaluator method)</a>
+</li>
+        <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.VectorEvaluator.__init__">(cqparts.fasteners.utils.VectorEvaluator method)</a>
 </li>
         <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.Evaluator.__init__">(cqparts.fasteners.utils.evaluator.Evaluator method)</a>
 </li>
         <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEffect.__init__">(cqparts.fasteners.utils.evaluator.VectorEffect method)</a>
+</li>
+        <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEvaluator.__init__">(cqparts.fasteners.utils.evaluator.VectorEvaluator method)</a>
 </li>
         <li><a href="api/cqparts.html#cqparts.params.FloatRange.__init__">(cqparts.params.FloatRange method)</a>
 </li>
@@ -414,14 +420,16 @@
 </li>
       <li><a href="api/cqparts.constraints.html#module-cqparts.constraints.base">cqparts.constraints.base (module)</a>
 </li>
-      <li><a href="api/cqparts.constraints.html#module-cqparts.constraints.principal">cqparts.constraints.principal (module)</a>
+      <li><a href="api/cqparts.constraints.html#module-cqparts.constraints.lock">cqparts.constraints.lock (module)</a>
+</li>
+      <li><a href="api/cqparts.constraints.html#module-cqparts.constraints.mate">cqparts.constraints.mate (module)</a>
 </li>
       <li><a href="api/cqparts.constraints.html#module-cqparts.constraints.solver">cqparts.constraints.solver (module)</a>
 </li>
-      <li><a href="api/cqparts.html#module-cqparts.display">cqparts.display (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/cqparts.html#module-cqparts.display">cqparts.display (module)</a>
+</li>
       <li><a href="api/cqparts.html#module-cqparts.errors">cqparts.errors (module)</a>
 </li>
       <li><a href="api/cqparts.fasteners.html#module-cqparts.fasteners">cqparts.fasteners (module)</a>
@@ -537,6 +545,8 @@
 </li>
       </ul></li>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead.diameter_top">diameter_top (cqparts.types.fastener_heads.cylindrical.TrapezoidalFastenerHead attribute)</a>
+</li>
+      <li><a href="api/cqparts.html#cqparts.display.display">display() (in module cqparts.display)</a>
 </li>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead.dome_ratio">dome_ratio (cqparts.types.fastener_heads.cylindrical.CylindricalFastenerHead attribute)</a>
 
@@ -762,16 +772,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.utils.html#cqparts.utils.misc.indicate_last">indicate_last() (in module cqparts.utils.misc)</a>
 </li>
-      <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.Evaluator.init">init() (cqparts.fasteners.utils.Evaluator method)</a>
-
-      <ul>
-        <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.VectorEvaluator.init">(cqparts.fasteners.utils.VectorEvaluator method)</a>
-</li>
-        <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.Evaluator.init">(cqparts.fasteners.utils.evaluator.Evaluator method)</a>
-</li>
-        <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEvaluator.init">(cqparts.fasteners.utils.evaluator.VectorEvaluator method)</a>
-</li>
-      </ul></li>
       <li><a href="api/cqparts.html#cqparts.params.ParametricObject.initialize_parameters">initialize_parameters() (cqparts.params.ParametricObject method)</a>
 
       <ul>
@@ -840,9 +840,9 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.base.Mate.local_to_world_transform">local_to_world_transform (cqparts.constraints.base.Mate attribute)</a>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.mate.Mate.local_to_world_transform">local_to_world_transform (cqparts.constraints.mate.Mate attribute)</a>
 </li>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.principal.LockConstraint">LockConstraint (class in cqparts.constraints.principal)</a>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.LockConstraint">LockConstraint (class in cqparts.constraints.lock)</a>
 </li>
       <li><a href="api/cqparts.html#cqparts.params.LowerCaseString">LowerCaseString (class in cqparts.params)</a>
 </li>
@@ -900,7 +900,7 @@
 </li>
       <li><a href="api/cqparts.types.screw_drives.html#cqparts.types.screw_drives.cruciform.PozidrivScrewDrive.markings">markings (cqparts.types.screw_drives.cruciform.PozidrivScrewDrive attribute)</a>
 </li>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.base.Mate">Mate (class in cqparts.constraints.base)</a>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.mate.Mate">Mate (class in cqparts.constraints.mate)</a>
 </li>
       <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEvaluator.max_effect_length">max_effect_length (cqparts.fasteners.utils.evaluator.VectorEvaluator attribute)</a>
 
@@ -1054,15 +1054,17 @@
       </ul></li>
       <li><a href="api/cqparts.types.threads.html#cqparts.types.threads.triangular.TriangularThread.radius_core">radius_core (cqparts.types.threads.triangular.TriangularThread attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.raised">raised (cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead attribute)</a>
 
       <ul>
         <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead.raised">(cqparts.types.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.html#cqparts.search.register">register() (in module cqparts.search)</a>
+</li>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.RelativeLockConstraint">RelativeLockConstraint (class in cqparts.constraints.lock)</a>
 </li>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead">RoundCoachFastenerHead (class in cqparts.types.fastener_heads.cylindrical)</a>
 </li>
@@ -1288,7 +1290,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEffect.wire">wire (cqparts.fasteners.utils.evaluator.VectorEffect attribute)</a>
 </li>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.base.Mate.world_to_local_transform">world_to_local_transform (cqparts.constraints.base.Mate attribute)</a>
+      <li><a href="api/cqparts.html#cqparts.Part.world_coords">world_coords (cqparts.Part attribute)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Part.world_coords">(cqparts.part.Part attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/cqparts.constraints.html#cqparts.constraints.mate.Mate.world_to_local_transform">world_to_local_transform (cqparts.constraints.mate.Mate attribute)</a>
 </li>
   </ul></td>
 </tr></table>

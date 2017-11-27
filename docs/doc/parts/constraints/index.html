@@ -179,22 +179,22 @@
   <div class="section" id="constraints">
 <span id="parts-constraints"></span><h1>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h1>
 <p>Constraints limit the location &amp; orientation of a <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>
-relative to it’s parent <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+relative to its parent <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 <p>A completely unconstrained <em>component</em> could be anywhere, and with any rotation.
 Conversely, a fully constrained <em>component</em> can only be at one specific location
 &amp; orientation.</p>
 <p>Constraints consist of, at a minimum:</p>
 <ul class="simple">
 <li>the <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> being constrained.</li>
-<li>one or more <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.base.Mate" title="cqparts.constraints.base.Mate"><code class="xref py py-class docutils literal"><span class="pre">base.Mate</span></code></a> instances.</li>
+<li>one or more <code class="xref py py-class docutils literal"><span class="pre">base.Mate</span></code> instances.</li>
 <li>constraint specific parameters (if any)</li>
 </ul>
 <div class="section" id="types-of-constraints">
 <h2>Types of Constraints<a class="headerlink" href="#types-of-constraints" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="lock">
 <h3>Lock<a class="headerlink" href="#lock" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.principal.LockConstraint" title="cqparts.constraints.principal.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">principal.LockConstraint</span></code></a> explicitly sets a <em>component’s</em> location
-and orientation relative to it’s parent’s origin:</p>
+<p>The <code class="xref py py-class docutils literal"><span class="pre">principal.LockConstraint</span></code> explicitly sets a <em>component’s</em> location
+and orientation relative to its parent’s origin:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
 <span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>

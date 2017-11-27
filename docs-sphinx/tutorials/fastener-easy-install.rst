@@ -124,7 +124,7 @@ fastening mechanism.
 To do this manually, we'd have to:
 
 * **evaluate** (or measure) the diameter and depth of the woodscrew's pilot hole, as well
-  as the location and size of the anchor's cylindrical bore on the other workpiece.
+  as the location and size of the anchor's cylindrical bore on the vertical workpiece.
 * **select** an apropriately sized wood-screw and anchor (based on the
   evaluation we've made).
 * **apply** the pilot hole, and anchor's bore. Then screw in the wood-screw,
@@ -134,8 +134,27 @@ To do this manually, we'd have to:
 Evaluator
 ^^^^^^^^^
 
-We don't need anything special for the fastener evaluation; we can use the
-standard :class:`VectorEvaluator`.
+We can use the :class:`VectorEvaluator` to do most of the work for us.
+
+If we give the :class:`VectorEvaluator` a vector through the middle of the
+vertical part, with a starting point at, or above, the anchor's desired location,
+then it will give us the maximum length of the screw (not including it's thread),
+and the available depth for the wood-screw's thread.
+
+However, what this *doesn't* give us is the orientation of the *anchor*.
+So we also need to give the evaluator a face through which the anchor's bore will
+be applied::
+
+
+    from cqparts.fasteners.utils.evaluator import VectorEvaluator
+    class EasyInstallEvaluator(VectorEvaluator):
+        def __init__(self, parts, start, dir, anchor_plane):
+            super(EasyInstallEvaluator, self).__init__(parts, start, dir)
+            self.anchor_plane = anchor_plane
+
+        @property
+        def anchor_norm(self):
+            return self.anchor_plane.zDir
 
 .. warning::
 
@@ -202,11 +221,9 @@ So now we have the 2 components, we can combine these into a
     from cqparts.fasteners import Fastener
 
     class EasyInstallFastener(Fastener):
-        EVALUATOR_CLASS = VectorEvaluator
+        EVALUATOR_CLASS = EasyInstallEvaluator
         SELECTOR_CLASS = EasyInstallSelector
         APPLICATOR_CLASS = EasyInstallApplicator
-
-
 
         def make(self):
             screw = WoodScrew()  # TODO: parameters + mate
