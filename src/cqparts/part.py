@@ -1,9 +1,11 @@
 import cadquery
 import six
 
-from .params import ParametricObject
+from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
 from .errors import MakeError, ParameterError
+
+from .utils.geometry import copy as copy_wp
 
 
 class Component(ParametricObject):
@@ -11,6 +13,14 @@ class Component(ParametricObject):
 
 
 class Part(Component):
+    simple = Boolean(False, doc="if set, simplified geometry is built")
+
+    def __init__(self, *largs, **kwargs):
+        super(Part, self).__init__(*largs, **kwargs)
+        # Initializing Instance State
+        self._local_obj = None
+        self._world_coords = None
+        self._world_obj = None
 
     def make(self):
         """
@@ -26,12 +36,12 @@ class Part(Component):
         """
         raise NotImplementedError("make function not implemented")
 
-    def make_primative(self):
+    def make_simple(self):
         """
         Create and return *simplified* solid part.
 
-        The primative representation of a ``Part`` is to lower the export quality
-        of an ``Assembly`` or ``Part`` for rendering.
+        The simplified representation of a ``Part`` is to lower the export
+        quality of an ``Assembly`` or ``Part`` for rendering.
 
         Overriding this is optional, but highly recommended.
 
@@ -54,13 +64,15 @@ class Part(Component):
         So for the ``Fastener`` parts, all ``make_primative`` methods are overridden
         to provide 2 cylinders, one for the bolt's head, and another for the thread.
         """
-        bb = self.bounding_box
-        primative = cadquery.Workplane('XY', origin=(bb.xmin, bb.ymin, bb.zmin)) \
+        complex_obj = self.make()
+        bb = complex_obj.findSolid().BoundingBox()
+        simple_obj = cadquery.Workplane('XY', origin=(bb.xmin, bb.ymin, bb.zmin)) \
             .box(bb.xlen, bb.ylen, bb.zlen, centered=(False, False, False))
-        return primative
+        return simple_obj
 
-    @property_buffered
-    def object(self):
+    # ----- Local Object
+    @property
+    def local_obj(self):
         """
         Buffered result of :meth:`cqparts.Part.make` which is (probably) a
         :class:`cadquery.Workplane` instance.
@@ -70,19 +82,49 @@ class Part(Component):
             for rendering, exporting, or measuring.
 
             Only call :meth:`cqparts.Part.make` directly if you explicitly intend
-            to re-generate the model from scratch.
+            to re-generate the model from scratch, then dispose of it.
         """
-        value = self.make()
-        if not isinstance(value, cadquery.CQ):
-            raise MakeError("invalid object type returned by make(): %r" % value)
-        return value
+        if self._local_obj is None:
+            # Simplified or Complex
+            if self.simple:
+                value = self.make_simple()
+            else:
+                value = self.make()
+            # Verify type
+            if not isinstance(value, cadquery.CQ):
+                raise MakeError("invalid object type returned by make(): %r" % value)
+            # Buffer object
+            self.local_obj = value
+        return self._local_obj
 
-    @property_buffered
-    def object_primative(self):
-        value = self.make_primative()
-        if not isinstance(value, cadquery.CQ):
-            raise MakeError("invalid object type returned by make_primative(): %r" % value)
-        return value
+    @local_obj.setter
+    def local_obj(self, value):
+        self._local_obj = value
+        self._world_obj = None
+
+    # ----- World Object
+    @property
+    def world_obj(self):
+        """
+        The :meth:`local_obj` object in the :meth:`world_coords` coordinate
+        system.
+
+        .. note:
+
+            This is automatically copied and moved when either :meth:`local_obj`
+            or :meth:`world_coords` are set, and neither are ``Null``.
+        """
+        if self._world_obj is None:
+            local_obj = self.local_obj
+            world_coords = self.world_coords
+            if all(x is not None for x in (local_obj, world_coords)):
+                # TODO: copy and move self.local_obj to use self.world_coords
+                self._world_obj = copy_wp(local_obj)
+        return self._world_obj
+
+    @world_obj.setter
+    def world_obj(self, value):
+        raise ValueError("can't set world_obj directly, set local_obj instead")
 
     @property
     def bounding_box(self):
@@ -92,7 +134,24 @@ class Part(Component):
         :return: bounding box of part
         :rtype: cadquery.BoundBox
         """
-        return self.object.findSolid().BoundingBox()
+        return self.local_obj.findSolid().BoundingBox()
+
+    # -------------- Part Placement --------------
+    @property
+    def world_coords(self):
+        """
+        :return: coordinate system in the world, None until placed
+        :rtype: :class:`cadquery.Plane`
+        """
+        return self._world_coords
+
+    @world_coords.setter
+    def world_coords(self, value):
+        """
+        Set part's placement in word coordinates (as a :class:`cadquery.Plane`)
+        """
+        self._world_coords = value
+        self._world_obj = None
 
     def __copy__(self):
         new_obj = super(Part, self).__copy__()

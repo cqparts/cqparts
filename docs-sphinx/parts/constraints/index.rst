@@ -1,5 +1,5 @@
 
-.. _parts_constraints:
+.. _parts.constraints:
 
 .. currentmodule:: cqparts.constraints
 
@@ -16,7 +16,7 @@ Conversely, a fully constrained *component* can only be at one specific location
 Constraints consist of, at a minimum:
 
 * the :class:`Component <cqparts.part.Component>` being constrained.
-* one or more :class:`base.Mate` instances.
+* one or more :class:`Mate <mate.Mate>` instances.
 * constraint specific parameters (if any)
 
 
@@ -26,8 +26,10 @@ Types of Constraints
 Lock
 ^^^^
 
-The :class:`principal.LockConstraint` explicitly sets a *component's* location
-and orientation relative to its parent's origin::
+The :class:`LockConstraint <lock.LockConstraint>` explicitly sets a *component's* location
+and orientation relative to its parent's origin:
+
+.. doctest::
 
     import cadquery
     from cqparts import Assembly, Part
@@ -57,6 +59,7 @@ and orientation relative to its parent's origin::
                 'box_b': box2,
             }
 
+    thing = Thing().components
 
 .. warning::
 
