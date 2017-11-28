@@ -1,6 +1,6 @@
 
 from .base import Constraint
-from .principal import LockConstraint
+from .principal import LockConstraint, RelativeLockConstraint
 
 def solver(constraints):
     """
@@ -12,6 +12,10 @@ def solver(constraints):
     for constraint in constraints:
         if isinstance(constraint, LockConstraint):
             yield (constraint.component, constraint.mate)
+        elif isinstance(constraint, RelativeLockConstraint):
+            relative_coords = constraint.relative_to.world_coords
+            if relative_coords:
+                yield (constraint.component, relative_coords + constraint.mate)
 
         # Error cases
         elif not isinstance(constraint, Comstraint):

@@ -8,18 +8,17 @@ class Constraint(object):
     components within an assembly.
     """
 
-    def conditions_met(self):
-        """
-        :return: True if a solution may be attempted
-        :rtype: :class:`bool`
-
-        .. note::
-
-            The ``Constraint`` class is a base class for all constriants.
-
-            It should never be used on its own. See :ref:`parts.constraints`
-            for details
-        """
-        raise NotImplementedError("conditions_met not implemented for %r" % type(self))
-
     # def solve(self): ??????
+    #   Qustion: how do grouped conditions get solved?
+    #
+    #   For Example:
+    #       Constraints:
+    #           - lock rotation
+    #           - vector
+    #           - vector (intersecting 1st vector constraint)
+    #       All constraints reference the same Component.
+    #       There's only 1 solution; at the intersection point.
+    #
+    #       A single constraint cannot provide a solution, they must
+    #       be combined... so a self.solve() won't work unless the
+    #       constraints are linked... I think that would be messy and confusing.
