@@ -47,6 +47,34 @@ class CoordSystem(cadquery.Plane):
     system.
     """
 
+    @classmethod
+    def from_plane(cls, plane):
+        """
+        :return: duplicate of the given plane, in this class
+        :rtype: :class:`CoordSystem`
+
+        usage example:
+
+        .. doctest::
+
+            >>> import cadquery
+            >>> from cqparts.utils.geometry import CoordSystem
+            >>> obj = cadquery.Workplane('XY').circle(1).extrude(5)
+            >>> plane = obj.faces(">Z").workplane().plane
+            >>> isinstance(plane, cadquery.Plane)
+            True
+            >>> coord_sys = CoordSystem.from_plane(plane)
+            >>> isinstance(coord_sys, CoordSystem)
+            True
+            >>> coord_sys.origin.z
+            5.0
+        """
+        return cls(
+            origin=plane.origin.toTuple(),
+            xDir=plane.xDir.toTuple(),
+            normal=plane.zDir.toTuple(),
+        )
+
     @property
     def world_to_local_transform(self):
         r"""
@@ -114,7 +142,7 @@ class CoordSystem(cadquery.Plane):
             TODO: what **are** these "tools"?
 
         """
-        return self.rG
+        return self.fG
 
     @property
     def local_to_world_transform(self):
@@ -123,7 +151,7 @@ class CoordSystem(cadquery.Plane):
 
         (see :meth:`Mate.world_to_local_transform` for details)
         """
-        return self.fG
+        return self.rG
 
     def __add__(self, other):
         """
