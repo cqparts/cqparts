@@ -117,13 +117,17 @@ class Part(Component):
         if self._world_obj is None:
             local_obj = self.local_obj
             world_coords = self.world_coords
-            if all(x is not None for x in (local_obj, world_coords)):
-                # TODO: copy and move self.local_obj to use self.world_coords
-                self._world_obj = copy_wp(local_obj)
+            if (local_obj is not None) and (world_coords is not None):
+                # Copy local object, apply transform to move to its new home.
+                self._world_obj = local_obj.newObject([
+                    obj.transformShape(world_coords.local_to_world_transform)
+                    for obj in local_obj.objects
+                ])
         return self._world_obj
 
     @world_obj.setter
     def world_obj(self, value):
+        # implemented just for this helpful message
         raise ValueError("can't set world_obj directly, set local_obj instead")
 
     @property

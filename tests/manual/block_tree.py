@@ -29,19 +29,21 @@ from cqparts.constraints.lock import LockConstraint, RelativeLockConstraint
 #
 #   This is a simple concept intended to test mating parts.
 #   There are 2 types of part:
-#       - a cylinder
-#       - a "house" shaped block (a rectangle with a triangle on top)
-#           like this...
-#                     /\
-#                    /  \
-#                   |    |
-#                   |____|
+#       - a branch; cylinder
+#       - a splitter; "house" shaped block (a rectangle with a triangle on top)
+#                like this:    /\
+#                             /  \
+#                            |    |
+#                            |____|
 #
 #   Mates are positioned in the Part instances, which are used by the Assembly.
 #   These building blocks are used to create a sort of wooden "tree".
 
 
-class Cylinder(cqparts.Part):
+class Branch(cqparts.Part):
+    """
+    cylindrical branch to between
+    """
     diameter = PositiveFloat(5, doc="diameter of cylinder")
     height = PositiveFloat(20, doc="cylinder's height")
     twist = Float(0, doc="twist angle of mount (degrees)")
@@ -53,19 +55,24 @@ class Cylinder(cqparts.Part):
 
     @property
     def mate_top(self):
+        # Mate point at the top of the cylinder, twist applied
         return Mate.from_plane(
             self.local_obj.faces(">Z").workplane().plane.rotated((0, 0, self.twist))
         )
 
 
-class House(cqparts.Part):
+class Splitter(cqparts.Part):
+    """
+    A house-shaped thingy to attach more branches to
+    """
     width = PositiveFloat(10, doc="base width")
     height = PositiveFloat(12, doc="total height")
     angle_left = PositiveFloat(30, doc="angle of roof left (degrees)")
     angle_right = PositiveFloat(30, doc="angle of roof right (degrees)")
 
     def __init__(self, *args, **kwargs):
-        super(House, self).__init__(*args, **kwargs)
+        super(Splitter, self).__init__(*args, **kwargs)
+        # Calculate wall heights, they're used for construction, and mates
         self.left_wall_height = self.height - ((self.width / 2) * tan(radians(self.angle_left)))
         self.right_wall_height = self.height - ((self.width / 2) * tan(radians(self.angle_right)))
         assert self.left_wall_height > 0, "bad left angle"
@@ -87,6 +94,7 @@ class House(cqparts.Part):
 
     @property
     def mate_left(self):
+        """Mate point in the center of the angled face on the left"""
         # TODO: query self.local_obj geometry to get center of face?
         return Mate(
             origin=(-self.width / 4, 0, (self.height + self.left_wall_height) / 2),
@@ -96,6 +104,7 @@ class House(cqparts.Part):
 
     @property
     def mate_right(self):
+        """Mate point in the center of the angled face on the right"""
         # TODO: query self.local_obj geometry to get center of face?
         return Mate(
             origin=(self.width / 4, 0, (self.height + self.right_wall_height) / 2),
@@ -110,13 +119,16 @@ class BlockTree(cqparts.Assembly):
     def make_components(self):
         cmp = {}
         # trunk
-        cmp['trunk'] = Cylinder(diameter=self.trunk_diam)
-        cmp['trunk_split'] = House(angle_left=45)
+        cmp['trunk'] = Branch(diameter=self.trunk_diam)
+        cmp['trunk_split'] = Splitter(angle_left=45)
+
         # branch L
-        cmp['branch_lb'] = Cylinder(diameter=4)
-        cmp['branch_ls'] = House(angle_right=45)
+        cmp['branch_lb'] = Branch(diameter=4)
+        cmp['branch_ls'] = Splitter(angle_right=45)
 
         # branch R
+        cmp['branch_lb'] = Branch(diameter=2, height=)
+
         return cmp
 
     def make_constraints(self):
@@ -135,7 +147,7 @@ class BlockTree(cqparts.Assembly):
         return cons
 
 
-house = House()
+house = Splitter()
 house.mate_left
 house.mate_right
 
