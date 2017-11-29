@@ -287,8 +287,8 @@ class Assembly(Component):
         """
         components = self.components
         if recursive:
-            for c in components:
-                c.build(recursive=recursive)
+            for (name, component) in components.items():
+                component.build(recursive=recursive)
 
     def clear(self):
         """

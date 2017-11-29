@@ -33,6 +33,8 @@ class RelativeLockConstraint(Constraint):
         on relative locks to place its components.
         This is because every component will be waiting for another component
         to be placed, a circular problem.
+
+        At least one of them must use the :class:`LockConstraint`
     """
     def __init__(self, component, mate, relative_to):
         """

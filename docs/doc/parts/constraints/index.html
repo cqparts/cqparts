@@ -103,6 +103,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Constraints</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#types-of-constraints">Types of Constraints</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lock">Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#relativelock">RelativeLock</a></li>
 </ul>
 </li>
 </ul>
@@ -195,37 +196,92 @@ Conversely, a fully constrained <em>component</em> can only be at one specific l
 <h3>Lock<a class="headerlink" href="#lock" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.lock.LockConstraint" title="cqparts.constraints.lock.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a> explicitly sets a <em>component’s</em> location
 and orientation relative to its parent’s origin:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
-<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
-<span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.lock</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
 
-<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># a unit cube centered on 0,0,0</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># a unit cube centered on 0,0,0</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
-            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
-        <span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">{</span>
+<span class="gp">... </span>            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+<span class="gp">... </span>            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+<span class="gp">... </span>        <span class="p">}</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">[</span>
+<span class="gp">... </span>            <span class="c1"># boxA 10mm up, no change to rotation</span>
+<span class="gp">... </span>            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span>
+<span class="gp">... </span>            <span class="c1"># boxA at origin, rotate around z 45deg ccw</span>
+<span class="gp">... </span>            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_b&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span>
+<span class="gp">... </span>        <span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="c1"># box1 10mm up, no change to rotation</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span>
-            <span class="c1"># box2 at origin, rotate around z 45deg ccw</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_b&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))),</span>
-        <span class="p">]</span>
-
-<span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
-<span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">TODO: document the different types of constraints</p>
+</div>
+</div>
+<div class="section" id="relativelock">
+<h3>RelativeLock<a class="headerlink" href="#relativelock" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.lock.RelativeLockConstraint" title="cqparts.constraints.lock.RelativeLockConstraint"><code class="xref py py-class docutils literal"><span class="pre">RelativeLockConstraint</span></code></a> sets a
+<em>component’s</em> coordinate system relative to another part’s world coordinate
+system.</p>
+<p>In order to solve a relative offset, the relative coordinates need to be
+solved first. So for the coordinates <code class="docutils literal"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">B</span> <span class="pre">=</span> <span class="pre">C</span></code>, where:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">A</span></code> is the <code class="docutils literal"><span class="pre">relative_to</span></code> object’s coordinate system.</li>
+<li><code class="docutils literal"><span class="pre">B</span></code> is the offset (explicitly set; always known)</li>
+<li><code class="docutils literal"><span class="pre">C</span></code> is the coordinate system being solved.</li>
+</ul>
+<p>We can only know what <code class="docutils literal"><span class="pre">C</span></code> is if we know the values of both <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.lock</span> <span class="k">import</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">RelativeLockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
+<span class="gp">... </span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># a unit cube placed on top of XY plane</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">centered</span><span class="o">=</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="nd">@property</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">Mate</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">workplane</span><span class="p">()</span><span class="o">.</span><span class="n">plane</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">{</span>
+<span class="gp">... </span>            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+<span class="gp">... </span>            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+<span class="gp">... </span>        <span class="p">}</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">[</span>
+<span class="gp">... </span>            <span class="c1"># boxA at zero, no rotation</span>
+<span class="gp">... </span>            <span class="n">LockConstraint</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>            <span class="c1"># boxB at on top of boxA, using boxA&#39;s</span>
+<span class="gp">... </span>            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+<span class="gp">... </span>                <span class="n">component</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_b&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                <span class="n">mate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_top</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="n">relative_to</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="p">),</span>
+<span class="gp">... </span>        <span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
+</pre></div>
 </div>
 </div>
 </div>

@@ -140,7 +140,7 @@ def render_props(**kwargs):
         >>> box._render.rgba
         (192, 192, 192, 0.8)
 
-    The tools in :module:`cqparts.display` will use this colour and alpha
+    The tools in :mod:`cqparts.display` will use this colour and alpha
     information to display the part.
     """
     # Pop named args
@@ -162,6 +162,20 @@ def render_props(**kwargs):
 
 # -------------------- Render helpers --------------------
 def display(*args, **kwargs):
+    """
+    This displays the given *component(s)* in whatever medium best suits the
+    environment.
+
+    For example, if it's called from a FreeCAD script, then the given *component(s)*
+    are displayed using FreeCAD's GUI.
+
+    .. warning::
+
+        TODO: document...
+
+        * parameters
+        * supported display environments
+    """
     from .part import Part, Assembly
     from Helpers import show
 

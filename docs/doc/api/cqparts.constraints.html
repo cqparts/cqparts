@@ -243,10 +243,11 @@ components within an assembly.</p>
 must be solvable.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
+<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
 on relative locks to place its components.
 This is because every component will be waiting for another component
 to be placed, a circular problem.</p>
+<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraints.lock.LockConstraint" title="cqparts.constraints.lock.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a></p>
 </div>
 <dl class="method">
 <dt id="cqparts.constraints.lock.RelativeLockConstraint.__init__">
