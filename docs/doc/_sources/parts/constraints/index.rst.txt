@@ -58,10 +58,6 @@ and orientation relative to its parent's origin:
     >>> thing = Thing()
     >>> thing.build()  # creates and places all components recursively
 
-.. warning::
-
-    TODO: document the different types of constraints
-
 
 RelativeLock
 ^^^^^^^^^^^^
@@ -120,3 +116,8 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
     >>> thing = Thing()
     >>> thing.build()  # creates and places all components recursively
+
+
+.. warning::
+
+    TODO: document the different types of constraints
