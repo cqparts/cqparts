@@ -294,6 +294,39 @@
 </div>
 <div class="section" id="module-cqparts.display">
 <span id="cqparts-display-module"></span><h2>cqparts.display module<a class="headerlink" href="#module-cqparts.display" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.display.RenderProperties">
+<em class="property">class </em><code class="descclassname">cqparts.display.</code><code class="descname">RenderProperties</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.RenderProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.NonNullParameter" title="cqparts.params.NonNullParameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.NonNullParameter</span></code></a></p>
+<p>Properties for rendering.</p>
+<p>This class provides a <a class="reference internal" href="#cqparts.display.RenderProperties" title="cqparts.display.RenderProperties"><code class="xref py py-class docutils literal"><span class="pre">RenderProperties</span></code></a> instance
+as a <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> for a
+<a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderProperties</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">COLOR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">_fc_render</span> <span class="o">=</span> <span class="n">RenderProperties</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;render params&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_fc_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(255, 0, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_fc_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">(</span><span class="n">_fc_render</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">COLOR</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_fc_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(0, 255, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_fc_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">TEMPLATE</span></code> and <code class="docutils literal"><span class="pre">COLOR</span></code> dictionaries provide named templates to
+display your creations quickly, but you can also provide custom properties.</p>
+<dl class="method">
+<dt id="cqparts.display.RenderProperties.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.RenderProperties.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="cqparts.display.display">
 <code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
@@ -322,14 +355,14 @@ child classes.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
-<li><strong>doc</strong> – wha</li>
+<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">render property instance</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">RenderProperties</span></code></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cqparts.display.RenderProperties" title="cqparts.display.RenderProperties"><code class="xref py py-class docutils literal"><span class="pre">RenderProperties</span></code></a></p>
 </td>
 </tr>
 </tbody>
@@ -631,13 +664,16 @@ Consider calling super.</p>
 <dd><p>Decorate a container class as a functional <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> class
 for a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">as_parameter</span><span class="p">,</span> <span class="n">ParametricObject</span>
+
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@as_parameter</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">Stuff</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
 <span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">foo</span> <span class="o">=</span> <span class="n">Stuff</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;controls stuff&quot;</span><span class="p">)</span>
+
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">a</span>
 <span class="go">20</span>
