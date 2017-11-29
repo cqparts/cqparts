@@ -89,6 +89,9 @@ class FreeCADRender(NonNullParameter):
     The ``TEMPLATE`` and ``COLOR`` dictionaries provide named templates to
     display your creations quickly, but you can also provide custom properties.
     """
+
+    _doc_type = ':class:`FreeCADRender <cqparts.utils.freecad_render.FreeCADRender>`'
+
     def type(self, value):
         return FreeCADRenderProperties(**value)
 
@@ -123,5 +126,6 @@ TEMPLATE = dict(
     for (k, v) in COLOR.items()
 )
 TEMPLATE.update({
+    'default': {'color': COLOR['aluminium'], 'alpha': 1.0},
     'glass': {'color': (200, 200, 255), 'alpha': 0.2},
 })

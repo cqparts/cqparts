@@ -3,6 +3,10 @@ import six
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
+from .utils.freecad_render import (
+    FreeCADRender,
+    TEMPLATE as FCRENDER_TEMPLATE,
+)
 from .errors import MakeError, ParameterError
 
 from .utils.geometry import copy as copy_wp
@@ -18,7 +22,10 @@ class Component(ParametricObject):
 
 
 class Part(Component):
+
+    # Parameters common to every Part
     _simple = Boolean(False, doc="if set, simplified geometry is built")
+    _render = FreeCADRender(FCRENDER_TEMPLATE['default'], doc="render properties")
 
     def __init__(self, *largs, **kwargs):
         super(Part, self).__init__(*largs, **kwargs)
