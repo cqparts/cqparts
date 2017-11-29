@@ -315,7 +315,7 @@ class UpperCaseString(String):
 
 
 # ------------ others ---------------
-class NonNull(Parameter):
+class NonNullParameter(Parameter):
     """
     Non-nullable parameter
     """

@@ -1,6 +1,6 @@
 
 from .base import Constraint
-from .principal import LockConstraint, RelativeLockConstraint
+from .lock import LockConstraint, RelativeLockConstraint
 
 def solver(constraints):
     """
