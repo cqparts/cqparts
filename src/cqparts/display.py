@@ -51,9 +51,9 @@ class RenderProperties(object):
     .. doctest::
 
         >>> from cqparts.params import ParametricObject
-        >>> from cqparts.display import Render, TEMPLATE, COLOR
+        >>> from cqparts.display import RenderProperties, TEMPLATE, COLOR
         >>> class Thing(ParametricObject):
-        ...     _fc_render = Render(TEMPLATE['red'], doc="render params")
+        ...     _fc_render = RenderProperties(TEMPLATE['red'], doc="render params")
         >>> thing = Thing()
         >>> thing._fc_render.color
         (255, 0, 0)
@@ -123,7 +123,8 @@ def render_props(**kwargs):
 
     :param template: name of template to use (any of ``TEMPLATE.keys()``)
     :type template: :class:`str`
-    :param doc: wha
+    :param doc: description of parameter for sphinx docs
+    :type doc: :class:`str`
 
     :return: render property instance
     :rtype: :class:`RenderProperties`

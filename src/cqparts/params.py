@@ -336,13 +336,16 @@ def as_parameter(nullable=True):
     .. doctest::
 
         >>> from cqparts.params import as_parameter, ParametricObject
+
         >>> @as_parameter(nullable=True)
         ... class Stuff(object):
         ...     def __init__(self, a=1, b=2):
         ...         self.a = a
         ...         self.b = b
+
         >>> class Thing(ParametricObject):
         ...     foo = Stuff({'a': 10, 'b': 100}, doc="controls stuff")
+
         >>> thing = Thing(foo={'a': 20})
         >>> thing.foo.a
         20
@@ -352,14 +355,18 @@ def as_parameter(nullable=True):
     def decorator(cls):
         base_class = Parameter if nullable else NonNullParameter
 
-        class WrappedParameter(base_class):
-            _doc_type = ":class:`{class_name} <{module}.{class_name}>`".format(
+        return type(cls.__name__, (base_class,), {
+            # Preserve text for documentation
+            '__name__': cls.__name__,
+            '__doc__': cls.__doc__,
+            '__module__': cls.__module__,
+            # Sphinx doc type string
+            '_doc_type': ":class:`{class_name} <{module}.{class_name}>`".format(
                 class_name=cls.__name__, module=__name__
-            )
+            ),
+            #
+            'type': lambda self, value: cls(**value)
+        })
 
-            def type(self, value):
-                return cls(**value)
-
-        return WrappedParameter
 
     return decorator
