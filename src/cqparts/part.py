@@ -9,7 +9,12 @@ from .utils.geometry import copy as copy_wp
 
 
 class Component(ParametricObject):
-    pass
+
+    def build(self, recursive=True):
+        """
+        :raises NotImplementedError: must be overridden by inheriting classes to function
+        """
+        raise NotImplementedError("build not implemented for %r" % type(self))
 
 
 class Part(Component):
@@ -61,7 +66,7 @@ class Part(Component):
           it can take some time to generate.
         * a box is not a good visual representation of a bolt
 
-        So for the ``Fastener`` parts, all ``make_primative`` methods are overridden
+        So for the ``Fastener`` parts, all ``make_simple`` methods are overridden
         to provide 2 cylinders, one for the bolt's head, and another for the thread.
         """
         complex_obj = self.make()
@@ -69,6 +74,17 @@ class Part(Component):
         simple_obj = cadquery.Workplane('XY', origin=(bb.xmin, bb.ymin, bb.zmin)) \
             .box(bb.xlen, bb.ylen, bb.zlen, centered=(False, False, False))
         return simple_obj
+
+    def build(self, recursive=False):
+        """
+        Building a part buffers the ``local_obj`` attribute.
+
+        Running ``.build()`` is optional, it's mostly used to test that
+        there aren't any critical runtime issues with it's construction.
+
+        :param recursive: (:class:`Part` has no children, parameter ignored)
+        """
+        self.local_obj  # force object's construction, but don't do anything with it
 
     # ----- Local Object
     @property
@@ -94,7 +110,7 @@ class Part(Component):
             if not isinstance(value, cadquery.CQ):
                 raise MakeError("invalid object type returned by make(): %r" % value)
             # Buffer object
-            self.local_obj = value
+            self._local_obj = value
         return self._local_obj
 
     @local_obj.setter
@@ -111,8 +127,9 @@ class Part(Component):
 
         .. note:
 
-            This is automatically copied and moved when either :meth:`local_obj`
-            or :meth:`world_coords` are set, and neither are ``Null``.
+            This is automatically re-generated when called, and either
+            :meth:`local_obj` or :meth:`world_coords` are set, and neither are
+            ``Null``.
         """
         if self._world_obj is None:
             local_obj = self.local_obj
@@ -176,35 +193,95 @@ class Assembly(Component):
     def __init__(self, *largs, **kwargs):
         super(Assembly, self).__init__(*largs, **kwargs)
         self._components = None
+        self._constraints = None
 
-    def make(self):
+    def make_components(self):
         """
-        Create and return components dict (must be overridden in inheriting class)
+        Create and return :class:`dict` of :class:`Component` instances.
 
-        :return: {<name>: <Part or Assembly instance>, ...}
-        :rtype: dict
+        .. tip::
 
+            This must be overridden in inheriting class.
+
+            See :ref:`tutorial_assembly` for a guide on how.
+
+        :return: {<name>: <Component>, ...}
+        :rtype: :class:`dict` of :class:`Component` instances
         """
         raise NotImplementedError("make function not implemented")
+
+    def make_constraints(self):
+        """
+        Create and return :class:`list` of
+        :class:`Constraint <cqparts.constraints.base.Constraint>` instances
+
+        .. tip::
+
+            This must be overridden in inheriting class.
+
+            See :ref:`tutorial_assembly` for a guide on how.
+
+        :return: constraints for assembly children's placement
+        :rtype: :class:`list` of :class:`Constraint <cqparts.constraints.base.Constraint>` instances
+
+        Default behaviour returns an empty list; assumes assembly is
+        entirely unconstrained.
+        """
+        return []
 
     @property
     def components(self):
         if self._components is None:
-            self._components = self.make()
-            # verify
-            if not isinstance(self._components, dict):
+            # ----- Get Component List
+            components = self.make_components()
+            # verify returned types
+            if not isinstance(components, dict):
                 raise MakeError(
-                    "invalid type returned by make(): %r (must be a dict)" % self._components
+                    "invalid type returned by make(): %r (must be a dict)" % components
                 )
             else:
-                for (name, component) in self._components.items():
+                # check types for (name, component) pairs in dict
+                for (name, component) in components.items():
                     if not isinstance(name, six.string_types) or not isinstance(component, Component):
                         raise MakeError((
-                            "invalid component returned by make(): (%r, %r) "
+                            "invalid component returned by make_components(): (%r, %r) "
                             "(must be a (str, Component))"
                         ) % (name, component))
+                    if '.' in name:
+                        raise MakeError("component names cannot contain a '.' (%s, %r)" % (name, component))
+
+            # ----- Run Solver
+
+
+            # ----- Buffer Attribute (only after all of the above has succeeded)
+            self._components = components
 
         return self._components
+
+    def _solve_constraints(self, components, constraints):
+        """
+        Run the solver and assign the solution's :class:`CoordSystem` instances
+        as the corresponding part's world coordinates.
+        """
+        raise NotImplementedError("TODO: do this, this is kinda important")
+
+    def build(self, recursive=True):
+        """
+        Building an assembly buffers the ``components`` attribute.
+        It also recursively iterates through nested components
+        and builds thos too (if ``recursive`` is set).
+
+        Running ``.build()`` is optional, it's mostly used to test that
+        there aren't any critical runtime issues with it's construction.
+
+        :param recursive: if set, iterates through child components and builds
+                          those as well.
+        :type recursive: :class:`bool`
+        """
+        components = self.components
+        if recursive:
+            for c in components:
+                c.build(recursive=recursive)
 
     def clear(self):
         """
@@ -215,17 +292,13 @@ class Assembly(Component):
 
     def find(self, keys, index=0):
         """
-        Find a nested Assembly or Part by a '.' separated list of names.
-        for example:
-
-        ::
+        Find a nested :class:`Component` by a "`.`" separated list of names.
+        for example::
 
             >>> motor.find('bearing.outer_ring')
 
         would return the Part instance of the motor bearing's outer ring.
-        whereas:
-
-        ::
+        whereas::
 
             >>> bearing = motor.find('bearing')
             >>> ring = bearing.find('inner_ring')  # equivalent of 'bearing.inner_ring'
@@ -233,9 +306,9 @@ class Assembly(Component):
         does much the same thing, bearing is an Assembly, and ring is a Part
 
         :param keys: key hierarchy. ``'a.b'`` is equivalent to ``['a', 'b']``
-        :type keys: str or list
+        :type keys: :class:`str` or :class:`list`
         :param index: index of keys list (used internally)
-        :type index: int
+        :type index: :class:`int`
         """
 
         if isinstance(keys, six.string_types):
