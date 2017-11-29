@@ -43,7 +43,7 @@ def _cls_name(cls):
     return "{}.{}".format(cls.__module__, cls.__name__)
 
 
-def add_parametric_object_params(prepend=False):
+def add_parametric_object_params(prepend=False, hide_private=True):
     """
     Add ParameticObject parameters in a table to the *docstring*
 
@@ -60,12 +60,17 @@ def add_parametric_object_params(prepend=False):
     :class:`ParametricObject <cqparts.params.ParametricObject>` parameters
     will also be documented in the output.
 
-    :param prepend: If truthy, parameters are added to the beginning of the *docstring*.
+    :param prepend: if True, parameters are added to the beginning of the *docstring*.
                     otherwise, they're appended at the end.
-    :type prepend: bool
+    :type prepend: :class:`bool`
+    :param hide_private: if True, parameters with a ``_`` prefix are not documented.
+    :type hide_private: :class:`bool`
     """
     def param_lines(app, obj):
         params = ParametricObject._get_class_params(obj)  # list of names
+        if hide_private:
+            # remove parameter names with a '_' prefix
+            params = [p for p in params if not p.startswith('_')]
 
         # Header
         doc_lines = []

@@ -18,7 +18,7 @@ class Component(ParametricObject):
 
 
 class Part(Component):
-    simple = Boolean(False, doc="if set, simplified geometry is built")
+    _simple = Boolean(False, doc="if set, simplified geometry is built")
 
     def __init__(self, *largs, **kwargs):
         super(Part, self).__init__(*largs, **kwargs)
@@ -102,7 +102,7 @@ class Part(Component):
         """
         if self._local_obj is None:
             # Simplified or Complex
-            if self.simple:
+            if self._simple:
                 value = self.make_simple()
             else:
                 value = self.make()
