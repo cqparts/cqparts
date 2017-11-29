@@ -279,6 +279,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.freecad_render">cqparts.utils.freecad_render module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.geometry">cqparts.utils.geometry module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.misc">cqparts.utils.misc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.sphinx">cqparts.utils.sphinx module</a></li>
@@ -456,13 +457,13 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.params.NonNull">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">NonNull</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNull" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.params.NonNullParameter">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">NonNullParameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNullParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>Non-nullable parameter</p>
 <dl class="method">
-<dt id="cqparts.params.NonNull.cast">
-<code class="descname">cast</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNull.cast" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.params.NonNullParameter.cast">
+<code class="descname">cast</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNullParameter.cast" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -584,6 +585,25 @@ Consider calling super.</p>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <p>An assembly is a group of parts, and other assemblies (called components)</p>
 <dl class="method">
+<dt id="cqparts.part.Assembly.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Building an assembly buffers the <code class="docutils literal"><span class="pre">components</span></code> attribute.
+It also recursively iterates through nested components
+and builds thos too (if <code class="docutils literal"><span class="pre">recursive</span></code> is set).</p>
+<p>Running <code class="docutils literal"><span class="pre">.build()</span></code> is optional, it’s mostly used to test that
+there aren’t any critical runtime issues with it’s construction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, iterates through child components and builds
+those as well.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.part.Assembly.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear internal object reference; forces object to be re-made when
@@ -598,7 +618,7 @@ self.object is next referenced.</p>
 <dl class="method">
 <dt id="cqparts.part.Assembly.find">
 <code class="descname">find</code><span class="sig-paren">(</span><em>keys</em>, <em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a nested Assembly or Part by a ‘.’ separated list of names.
+<dd><p>Find a nested <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> by a “<cite>.</cite>” separated list of names.
 for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
 </pre></div>
@@ -615,8 +635,8 @@ whereas:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>list</em>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
-<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – index of keys list (used internally)</li>
+<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – index of keys list (used internally)</li>
 </ul>
 </td>
 </tr>
@@ -625,19 +645,48 @@ whereas:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.part.Assembly.make">
-<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return components dict (must be overridden in inheriting class)</p>
+<dt id="cqparts.part.Assembly.make_components">
+<code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This must be overridden in inheriting class.</p>
+<p class="last">See <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> for a guide on how.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Part or Assembly instance&gt;, …}</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Component&gt;, …}</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.make_constraints">
+<code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
+<a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This must be overridden in inheriting class.</p>
+<p class="last">See <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> for a guide on how.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">constraints for assembly children’s placement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
+<p>Default behaviour returns an empty list; assumes assembly is
+entirely unconstrained.</p>
 </dd></dl>
 
 <dl class="method">
@@ -657,12 +706,38 @@ whereas:</p>
 <dt id="cqparts.part.Component">
 <em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.part.Component.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.build" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplementedError</strong> – must be overridden by inheriting classes to function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.part.Part">
 <em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simple</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, simplified geometry is built</td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
 <dt id="cqparts.part.Part.bounding_box">
 <code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.part.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
@@ -677,6 +752,36 @@ whereas:</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Building a part buffers the <code class="docutils literal"><span class="pre">local_obj</span></code> attribute.</p>
+<p>Running <code class="docutils literal"><span class="pre">.build()</span></code> is optional, it’s mostly used to test that
+there aren’t any critical runtime issues with it’s construction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recursive</strong> – (<a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> has no children, parameter ignored)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Part.local_obj">
+<code class="descname">local_obj</code><a class="headerlink" href="#cqparts.part.Part.local_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is usually the correct way to get your part’s object
+for rendering, exporting, or measuring.</p>
+<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
+to re-generate the model from scratch, then dispose of it.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -701,11 +806,11 @@ whereas:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.part.Part.make_primative">
-<code class="descname">make_primative</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.make_primative" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.part.Part.make_simple">
+<code class="descname">make_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.make_simple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return <em>simplified</em> solid part.</p>
-<p>The primative representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export quality
-of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
+<p>The simplified representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export
+quality of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
 <p>Overriding this is optional, but highly recommended.</p>
 <p>The default behaviour returns the full complexity object’s bounding box.
 But to do this, theh full complexity object must be generated first.</p>
@@ -721,27 +826,13 @@ But to do this, theh full complexity object must be generated first.</p>
 it can take some time to generate.</li>
 <li>a box is not a good visual representation of a bolt</li>
 </ul>
-<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_primative</span></code> methods are overridden
+<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_simple</span></code> methods are overridden
 to provide 2 cylinders, one for the bolt’s head, and another for the thread.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.part.Part.object">
-<code class="descname">object</code><a class="headerlink" href="#cqparts.part.Part.object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>This is usually the correct way to get your part’s object
-for rendering, exporting, or measuring.</p>
-<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
-to re-generate the model from scratch.</p>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.part.Part.object_primative">
-<code class="descname">object_primative</code><a class="headerlink" href="#cqparts.part.Part.object_primative" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.part.Part.simple">
+<code class="descname">simple</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.part.Part.simple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -759,12 +850,32 @@ to re-generate the model from scratch.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="cqparts.part.Part.world_obj">
+<code class="descname">world_obj</code><a class="headerlink" href="#cqparts.part.Part.world_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <a class="reference internal" href="#cqparts.part.Part.world_coords" title="cqparts.part.Part.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> coordinate
+system.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.part.Pulley">
 <em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Pulley</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Pulley" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simple</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, simplified geometry is built</td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
 <dt id="cqparts.part.Pulley.hole_radius">
 <code class="descname">hole_radius</code><em class="property"> = 3.175</em><a class="headerlink" href="#cqparts.part.Pulley.hole_radius" title="Permalink to this definition">¶</a></dt>
@@ -901,6 +1012,19 @@ yield the part you want.</p>
 <dt id="cqparts.Part">
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simple</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, simplified geometry is built</td>
+</tr>
+</tbody>
+</table>
 <dl class="attribute">
 <dt id="cqparts.Part.bounding_box">
 <code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
@@ -915,6 +1039,36 @@ yield the part you want.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Building a part buffers the <code class="docutils literal"><span class="pre">local_obj</span></code> attribute.</p>
+<p>Running <code class="docutils literal"><span class="pre">.build()</span></code> is optional, it’s mostly used to test that
+there aren’t any critical runtime issues with it’s construction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recursive</strong> – (<a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> has no children, parameter ignored)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Part.local_obj">
+<code class="descname">local_obj</code><a class="headerlink" href="#cqparts.Part.local_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is usually the correct way to get your part’s object
+for rendering, exporting, or measuring.</p>
+<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
+to re-generate the model from scratch, then dispose of it.</p>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -939,11 +1093,11 @@ yield the part you want.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.Part.make_primative">
-<code class="descname">make_primative</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.make_primative" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.Part.make_simple">
+<code class="descname">make_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.make_simple" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return <em>simplified</em> solid part.</p>
-<p>The primative representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export quality
-of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
+<p>The simplified representation of a <code class="docutils literal"><span class="pre">Part</span></code> is to lower the export
+quality of an <code class="docutils literal"><span class="pre">Assembly</span></code> or <code class="docutils literal"><span class="pre">Part</span></code> for rendering.</p>
 <p>Overriding this is optional, but highly recommended.</p>
 <p>The default behaviour returns the full complexity object’s bounding box.
 But to do this, theh full complexity object must be generated first.</p>
@@ -959,27 +1113,13 @@ But to do this, theh full complexity object must be generated first.</p>
 it can take some time to generate.</li>
 <li>a box is not a good visual representation of a bolt</li>
 </ul>
-<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_primative</span></code> methods are overridden
+<p>So for the <code class="docutils literal"><span class="pre">Fastener</span></code> parts, all <code class="docutils literal"><span class="pre">make_simple</span></code> methods are overridden
 to provide 2 cylinders, one for the bolt’s head, and another for the thread.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.Part.object">
-<code class="descname">object</code><a class="headerlink" href="#cqparts.Part.object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>This is usually the correct way to get your part’s object
-for rendering, exporting, or measuring.</p>
-<p class="last">Only call <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.Part.make()</span></code></a> directly if you explicitly intend
-to re-generate the model from scratch.</p>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.Part.object_primative">
-<code class="descname">object_primative</code><a class="headerlink" href="#cqparts.Part.object_primative" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.Part.simple">
+<code class="descname">simple</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.Part.simple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -997,6 +1137,13 @@ to re-generate the model from scratch.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="cqparts.Part.world_obj">
+<code class="descname">world_obj</code><a class="headerlink" href="#cqparts.Part.world_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <a class="reference internal" href="#cqparts.Part.world_coords" title="cqparts.Part.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> coordinate
+system.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -1004,6 +1151,25 @@ to re-generate the model from scratch.</p>
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <p>An assembly is a group of parts, and other assemblies (called components)</p>
+<dl class="method">
+<dt id="cqparts.Assembly.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Building an assembly buffers the <code class="docutils literal"><span class="pre">components</span></code> attribute.
+It also recursively iterates through nested components
+and builds thos too (if <code class="docutils literal"><span class="pre">recursive</span></code> is set).</p>
+<p>Running <code class="docutils literal"><span class="pre">.build()</span></code> is optional, it’s mostly used to test that
+there aren’t any critical runtime issues with it’s construction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, iterates through child components and builds
+those as well.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="cqparts.Assembly.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.clear" title="Permalink to this definition">¶</a></dt>
@@ -1019,7 +1185,7 @@ self.object is next referenced.</p>
 <dl class="method">
 <dt id="cqparts.Assembly.find">
 <code class="descname">find</code><span class="sig-paren">(</span><em>keys</em>, <em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a nested Assembly or Part by a ‘.’ separated list of names.
+<dd><p>Find a nested <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> by a “<cite>.</cite>” separated list of names.
 for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1036,8 +1202,8 @@ whereas:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em> or </em><em>list</em>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
-<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – index of keys list (used internally)</li>
+<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> or <code class="xref py py-class docutils literal"><span class="pre">list</span></code>) – key hierarchy. <code class="docutils literal"><span class="pre">'a.b'</span></code> is equivalent to <code class="docutils literal"><span class="pre">['a',</span> <span class="pre">'b']</span></code></li>
+<li><strong>index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – index of keys list (used internally)</li>
 </ul>
 </td>
 </tr>
@@ -1046,19 +1212,48 @@ whereas:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.Assembly.make">
-<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return components dict (must be overridden in inheriting class)</p>
+<dt id="cqparts.Assembly.make_components">
+<code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This must be overridden in inheriting class.</p>
+<p class="last">See <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> for a guide on how.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Part or Assembly instance&gt;, …}</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Component&gt;, …}</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.make_constraints">
+<code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
+<a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This must be overridden in inheriting class.</p>
+<p class="last">See <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> for a guide on how.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">constraints for assembly children’s placement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
+<p>Default behaviour returns an empty list; assumes assembly is
+entirely unconstrained.</p>
 </dd></dl>
 
 <dl class="method">

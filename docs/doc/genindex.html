@@ -300,10 +300,22 @@
         <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle">(cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead.bugle_ratio">bugle_ratio (cqparts.types.fastener_heads.counter_sunk.CounterSunkFastenerHead attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/cqparts.html#cqparts.Assembly.build">build() (cqparts.Assembly method)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.Part.build">(cqparts.Part method)</a>
+</li>
+        <li><a href="api/cqparts.html#cqparts.part.Assembly.build">(cqparts.part.Assembly method)</a>
+</li>
+        <li><a href="api/cqparts.html#cqparts.part.Component.build">(cqparts.part.Component method)</a>
+</li>
+        <li><a href="api/cqparts.html#cqparts.part.Part.build">(cqparts.part.Part method)</a>
+</li>
+      </ul></li>
       <li><a href="api/cqparts.types.threads.html#cqparts.types.threads.ball_screw.BallScrewThread.build_profile">build_profile() (cqparts.types.threads.ball_screw.BallScrewThread method)</a>
 
       <ul>
@@ -322,7 +334,7 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.params.NonNull.cast">cast() (cqparts.params.NonNull method)</a>
+      <li><a href="api/cqparts.html#cqparts.params.NonNullParameter.cast">cast() (cqparts.params.NonNullParameter method)</a>
 
       <ul>
         <li><a href="api/cqparts.html#cqparts.params.Parameter.cast">(cqparts.params.Parameter method)</a>
@@ -381,6 +393,8 @@
 </li>
       </ul></li>
       <li><a href="api/cqparts.constraints.html#cqparts.constraints.base.Constraint">Constraint (class in cqparts.constraints.base)</a>
+</li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.geometry.CoordSystem">CoordSystem (class in cqparts.utils.geometry)</a>
 </li>
       <li><a href="api/cqparts.utils.html#cqparts.utils.geometry.copy">copy() (in module cqparts.utils.geometry)</a>
 </li>
@@ -501,6 +515,8 @@
       <li><a href="api/cqparts.types.threads.html#module-cqparts.types.threads.triangular">cqparts.types.threads.triangular (module)</a>
 </li>
       <li><a href="api/cqparts.utils.html#module-cqparts.utils">cqparts.utils (module)</a>
+</li>
+      <li><a href="api/cqparts.utils.html#module-cqparts.utils.freecad_render">cqparts.utils.freecad_render (module)</a>
 </li>
       <li><a href="api/cqparts.utils.html#module-cqparts.utils.geometry">cqparts.utils.geometry (module)</a>
 </li>
@@ -706,7 +722,13 @@
 </li>
       <li><a href="api/cqparts.types.screw_drives.html#cqparts.types.screw_drives.cruciform.FrearsonScrewDrive">FrearsonScrewDrive (class in cqparts.types.screw_drives.cruciform)</a>
 </li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.freecad_render.FreeCADRender">FreeCADRender (class in cqparts.utils.freecad_render)</a>
+</li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.freecad_render.FreeCADRenderProperties">FreeCADRenderProperties (class in cqparts.utils.freecad_render)</a>
+</li>
       <li><a href="api/cqparts.types.screw_drives.html#cqparts.types.screw_drives.cruciform.FrenchRecessScrewDrive">FrenchRecessScrewDrive (class in cqparts.types.screw_drives.cruciform)</a>
+</li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.geometry.CoordSystem.from_plane">from_plane() (cqparts.utils.geometry.CoordSystem class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -838,9 +860,15 @@
       </ul></li>
       <li><a href="api/cqparts.fasteners.html#cqparts.fasteners.base.FastenerMalePart.length">length (cqparts.fasteners.base.FastenerMalePart attribute)</a>
 </li>
+      <li><a href="api/cqparts.html#cqparts.Part.local_obj">local_obj (cqparts.Part attribute)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Part.local_obj">(cqparts.part.Part attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.mate.Mate.local_to_world_transform">local_to_world_transform (cqparts.constraints.mate.Mate attribute)</a>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.geometry.CoordSystem.local_to_world_transform">local_to_world_transform (cqparts.utils.geometry.CoordSystem attribute)</a>
 </li>
       <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.LockConstraint">LockConstraint (class in cqparts.constraints.lock)</a>
 </li>
@@ -852,14 +880,10 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.Assembly.make">make() (cqparts.Assembly method)</a>
+      <li><a href="api/cqparts.fasteners.html#cqparts.fasteners.base.FastenerMalePart.make">make() (cqparts.fasteners.base.FastenerMalePart method)</a>
 
       <ul>
         <li><a href="api/cqparts.html#cqparts.Part.make">(cqparts.Part method)</a>
-</li>
-        <li><a href="api/cqparts.fasteners.html#cqparts.fasteners.base.FastenerMalePart.make">(cqparts.fasteners.base.FastenerMalePart method)</a>
-</li>
-        <li><a href="api/cqparts.html#cqparts.part.Assembly.make">(cqparts.part.Assembly method)</a>
 </li>
         <li><a href="api/cqparts.html#cqparts.part.Part.make">(cqparts.part.Part method)</a>
 </li>
@@ -884,12 +908,24 @@
         <li><a href="api/cqparts.types.threads.html#cqparts.types.threads.base.Thread.make">(cqparts.types.threads.base.Thread method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.Part.make_primative">make_primative() (cqparts.Part method)</a>
+      <li><a href="api/cqparts.html#cqparts.Assembly.make_components">make_components() (cqparts.Assembly method)</a>
 
       <ul>
-        <li><a href="api/cqparts.html#cqparts.part.Part.make_primative">(cqparts.part.Part method)</a>
+        <li><a href="api/cqparts.html#cqparts.part.Assembly.make_components">(cqparts.part.Assembly method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/cqparts.html#cqparts.Assembly.make_constraints">make_constraints() (cqparts.Assembly method)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Assembly.make_constraints">(cqparts.part.Assembly method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/cqparts.html#cqparts.Part.make_simple">make_simple() (cqparts.Part method)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Part.make_simple">(cqparts.part.Part method)</a>
 </li>
       </ul></li>
       <li><a href="api/cqparts.html#cqparts.errors.MakeError">MakeError</a>
@@ -936,7 +972,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.params.NonNull">NonNull (class in cqparts.params)</a>
+      <li><a href="api/cqparts.html#cqparts.params.NonNullParameter">NonNullParameter (class in cqparts.params)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -944,20 +980,6 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.Part.object">object (cqparts.Part attribute)</a>
-
-      <ul>
-        <li><a href="api/cqparts.html#cqparts.part.Part.object">(cqparts.part.Part attribute)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cqparts.html#cqparts.Part.object_primative">object_primative (cqparts.Part attribute)</a>
-
-      <ul>
-        <li><a href="api/cqparts.html#cqparts.part.Part.object_primative">(cqparts.part.Part attribute)</a>
-</li>
-      </ul></li>
       <li><a href="api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEffect.origin_displacement">origin_displacement (cqparts.fasteners.utils.evaluator.VectorEffect attribute)</a>
 </li>
   </ul></td>
@@ -1066,6 +1088,10 @@
 </li>
       <li><a href="api/cqparts.constraints.html#cqparts.constraints.lock.RelativeLockConstraint">RelativeLockConstraint (class in cqparts.constraints.lock)</a>
 </li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.freecad_render.FreeCADRenderProperties.rgba">rgba (cqparts.utils.freecad_render.FreeCADRenderProperties attribute)</a>
+</li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.freecad_render.FreeCADRenderProperties.rgbt">rgbt (cqparts.utils.freecad_render.FreeCADRenderProperties attribute)</a>
+</li>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.cylindrical.RoundCoachFastenerHead">RoundCoachFastenerHead (class in cqparts.types.fastener_heads.cylindrical)</a>
 </li>
       <li><a href="api/cqparts.types.fastener_heads.html#cqparts.types.fastener_heads.cylindrical.RoundFastenerHead">RoundFastenerHead (class in cqparts.types.fastener_heads.cylindrical)</a>
@@ -1110,6 +1136,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/cqparts.html#cqparts.Part.simple">simple (cqparts.Part attribute)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Part.simple">(cqparts.part.Part attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/cqparts.types.screw_drives.html#cqparts.types.screw_drives.slotted.SlotScrewDrive">SlotScrewDrive (class in cqparts.types.screw_drives.slotted)</a>
 </li>
       <li><a href="api/cqparts.constraints.html#cqparts.constraints.solver.solver">solver() (in module cqparts.constraints.solver)</a>
@@ -1176,8 +1208,6 @@
 </li>
       <li><a href="api/cqparts.types.screw_drives.html#cqparts.types.screw_drives.square.TrippleSquareScrewDrive">TrippleSquareScrewDrive (class in cqparts.types.screw_drives.square)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cqparts.fasteners.html#cqparts.fasteners.params.DriveType.type">type() (cqparts.fasteners.params.DriveType method)</a>
 
       <ul>
@@ -1210,6 +1240,8 @@
         <li><a href="api/cqparts.html#cqparts.params.UpperCaseString.type">(cqparts.params.UpperCaseString method)</a>
 </li>
         <li><a href="api/cqparts.types.threads.html#cqparts.types.threads.base.MinVerticiesParam.type">(cqparts.types.threads.base.MinVerticiesParam method)</a>
+</li>
+        <li><a href="api/cqparts.utils.html#cqparts.utils.freecad_render.FreeCADRender.type">(cqparts.utils.freecad_render.FreeCADRender method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1296,7 +1328,13 @@
         <li><a href="api/cqparts.html#cqparts.part.Part.world_coords">(cqparts.part.Part attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/cqparts.constraints.html#cqparts.constraints.mate.Mate.world_to_local_transform">world_to_local_transform (cqparts.constraints.mate.Mate attribute)</a>
+      <li><a href="api/cqparts.html#cqparts.Part.world_obj">world_obj (cqparts.Part attribute)</a>
+
+      <ul>
+        <li><a href="api/cqparts.html#cqparts.part.Part.world_obj">(cqparts.part.Part attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/cqparts.utils.html#cqparts.utils.geometry.CoordSystem.world_to_local_transform">world_to_local_transform (cqparts.utils.geometry.CoordSystem attribute)</a>
 </li>
   </ul></td>
 </tr></table>
