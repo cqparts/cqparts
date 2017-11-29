@@ -3,9 +3,9 @@ import six
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
-from .utils.freecad_render import (
-    FreeCADRender,
-    TEMPLATE as FCRENDER_TEMPLATE,
+from .display import (
+    RenderProperties,
+    TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError
 
@@ -25,7 +25,7 @@ class Part(Component):
 
     # Parameters common to every Part
     _simple = Boolean(False, doc="if set, simplified geometry is built")
-    _render = FreeCADRender(FCRENDER_TEMPLATE['default'], doc="render properties")
+    _render = RenderProperties(RENDER_TEMPLATE['default'], doc="render properties")
 
     def __init__(self, *largs, **kwargs):
         super(Part, self).__init__(*largs, **kwargs)
@@ -366,42 +366,3 @@ class Assembly(Component):
     def print_tree(self):
         print(repr(self))
         print(self.tree_str())
-
-
-class Pulley(Part):
-
-    # Parameter Defaults
-    radius = 20.0
-    width = 3.0  # contact area (not including wall thickness)
-    wall_height = 1
-    wall_width = 1
-    hole_radius = 3.175
-    key_intrusion = 0.92
-
-    def make(self):
-        # Pulley Base
-        pulley_half = cadquery.Workplane("XY") \
-            .circle(self.radius + self.wall_height).extrude(self.wall_width) \
-            .faces(">Z").workplane() \
-            .circle(self.radius).extrude(self.width / 2.0)
-
-        # Hole
-        pulley_half = pulley_half.faces(">Z").workplane() \
-            .moveTo(self.hole_radius - self.key_intrusion, self.hole_radius) \
-            .lineTo(0.0, self.hole_radius) \
-            .threePointArc(
-                (-self.hole_radius, 0.0), (0.0, -self.hole_radius)
-            ) \
-            .lineTo(self.hole_radius - self.key_intrusion, -self.hole_radius) \
-            .close() \
-            .cutThruAll()
-
-        # Mirror half to create full pulley
-        pulley = pulley_half.translate((0, 0, 0))  # copy
-        pulley = pulley.union(
-            pulley.translate((0, 0, 0)).mirror(
-                'XY', basePointVector=(0, 0, self.wall_width + (self.width / 2.0))
-            ),
-        )
-
-        return pulley

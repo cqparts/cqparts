@@ -5,6 +5,7 @@ from .errors import ParameterError
 import logging
 log = logging.getLogger(__name__)
 
+
 class ParametricObject(object):
     """
     Parametric objects may be defined like so:
@@ -323,3 +324,41 @@ class NonNullParameter(Parameter):
         if value is None:
             raise ParameterError("value cannot be None")
         return self.type(value)
+
+
+# ------------ decorator(s) ---------------
+def as_parameter(nullable=True, doc_type=None):
+    """
+    Decorate a container class as a functional :class:`Parameter` class
+    for a :class:`ParametricObject`.
+
+    .. doctest::
+
+        >>> from cqparts.params import as_parameter, ParametricObject
+        >>> @as_parameter(nullable=True)
+        ... class Stuff(object):
+        ...     def __init__(self, a=1, b=2):
+        ...         self.a = a
+        ...         self.b = b
+        >>> class Thing(ParametricObject):
+        ...     foo = Stuff({'a': 10, 'b': 100}, doc="controls stuff")
+        >>> thing = Thing(foo={'a': 20})
+        >>> thing.foo.a
+        20
+        >>> thing.foo.b
+        2
+    """
+    def decorator(cls):
+        base_class = Parameter if nullable else NonNullParameter
+
+        class WrappedParameter(base_class):
+            _doc_type = ":class:`{class_name} <{module}.{class_name}>`".format(
+                class_name=cls.__name__, module=__name__
+            )
+
+            def type(self, value):
+                return cls(**value)
+
+        return WrappedParameter
+
+    return decorator

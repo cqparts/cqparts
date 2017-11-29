@@ -4,14 +4,6 @@ cqparts\.utils package
 Submodules
 ----------
 
-cqparts\.utils\.freecad\_render module
---------------------------------------
-
-.. automodule:: cqparts.utils.freecad_render
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 cqparts\.utils\.geometry module
 -------------------------------
 
