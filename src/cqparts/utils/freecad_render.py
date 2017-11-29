@@ -16,12 +16,23 @@ class FreeCADRenderProperties(object):
 
     def __init__(self, color=(200, 200, 200), alpha=1):
         self.color = color
-        self.alpha = float(alpha)
+        self.alpha = max(0., min(float(alpha), 1.))
+
+    @property
+    def transparency(self):
+        """
+        :return: transparency value, 1 is invisible, 0 is opaque
+        :rtype: :class:`float`
+        """
+        return 1. - self.alpha
 
     @property
     def rgba(self):
         """
         Red, Green, Blue, Alpha
+
+        :return: red, green, blue, alpha values
+        :rtype: :class:`tuple`
 
         .. doctest::
 
@@ -37,6 +48,9 @@ class FreeCADRenderProperties(object):
         """
         Red, Green, Blue, Transparency
 
+        :return: red, green, blue, transparency values
+        :rtype: :class:`tuple`
+
         .. doctest::
 
             >>> from cadquery.utils.freecad_render import FreeCADRenderProperties
@@ -44,7 +58,7 @@ class FreeCADRenderProperties(object):
             >>> fcrp.rgbt
             (1, 2, 3, 0.8)
         """
-        return self.color + (1 - self.alpha,)
+        return self.color + (self.transparency,)
 
 
 class FreeCADRender(NonNullParameter):
