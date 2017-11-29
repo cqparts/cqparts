@@ -245,6 +245,16 @@ is invisible, and 1 is opaque.</li>
 <dt id="cqparts.utils.freecad_render.FreeCADRenderProperties.rgba">
 <code class="descname">rgba</code><a class="headerlink" href="#cqparts.utils.freecad_render.FreeCADRenderProperties.rgba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Red, Green, Blue, Alpha</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, alpha values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cadquery.utils.freecad_render</span> <span class="k">import</span> <span class="n">FreeCADRenderProperties</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fcrp</span> <span class="o">=</span> <span class="n">FreeCADRenderProperties</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fcrp</span><span class="o">.</span><span class="n">rgba</span>
@@ -257,12 +267,37 @@ is invisible, and 1 is opaque.</li>
 <dt id="cqparts.utils.freecad_render.FreeCADRenderProperties.rgbt">
 <code class="descname">rgbt</code><a class="headerlink" href="#cqparts.utils.freecad_render.FreeCADRenderProperties.rgbt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Red, Green, Blue, Transparency</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, transparency values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cadquery.utils.freecad_render</span> <span class="k">import</span> <span class="n">FreeCADRenderProperties</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fcrp</span> <span class="o">=</span> <span class="n">FreeCADRenderProperties</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fcrp</span><span class="o">.</span><span class="n">rgbt</span>
 <span class="go">(1, 2, 3, 0.8)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.utils.freecad_render.FreeCADRenderProperties.transparency">
+<code class="descname">transparency</code><a class="headerlink" href="#cqparts.utils.freecad_render.FreeCADRenderProperties.transparency" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">transparency value, 1 is invisible, 0 is opaque</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -448,7 +483,7 @@ configuration.</p>
 <p><a class="reference external" href="http://www.sphinx-doc.org/en/stable/ext/autodoc.html">http://www.sphinx-doc.org/en/stable/ext/autodoc.html</a></p>
 <dl class="function">
 <dt id="cqparts.utils.sphinx.add_parametric_object_params">
-<code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_parametric_object_params</code><span class="sig-paren">(</span><em>prepend=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_parametric_object_params" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_parametric_object_params</code><span class="sig-paren">(</span><em>prepend=False</em>, <em>hide_private=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_parametric_object_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add ParameticObject parameters in a table to the <em>docstring</em></p>
 <p>This is only intended to be used with <em>sphinx autodoc</em></p>
 <p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
@@ -465,8 +500,12 @@ will also be documented in the output.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If truthy, parameters are added to the beginning of the <em>docstring</em>.
-otherwise, they’re appended at the end.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters are added to the beginning of the <em>docstring</em>.
+otherwise, they’re appended at the end.</li>
+<li><strong>hide_private</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters with a <code class="docutils literal"><span class="pre">_</span></code> prefix are not documented.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
