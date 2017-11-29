@@ -24,6 +24,7 @@ from cqparts.params import *
 from cqparts.constraints.mate import Mate
 from cqparts.constraints.lock import LockConstraint, RelativeLockConstraint
 
+from cqparts.display import display, render_props
 
 # Block Tree?
 #
@@ -69,6 +70,8 @@ class Splitter(cqparts.Part):
     height = PositiveFloat(12, doc="total height")
     angle_left = PositiveFloat(30, doc="angle of roof left (degrees)")
     angle_right = PositiveFloat(30, doc="angle of roof right (degrees)")
+
+    _render = render_props(template='red')
 
     def __init__(self, *args, **kwargs):
         super(Splitter, self).__init__(*args, **kwargs)
@@ -123,16 +126,17 @@ class BlockTree(cqparts.Assembly):
         cmp['trunk_split'] = Splitter(angle_left=45)
 
         # branch L
-        cmp['branch_lb'] = Branch(diameter=4)
-        cmp['branch_ls'] = Splitter(angle_right=45)
+        #cmp['branch_lb'] = Branch(diameter=4)
+        #cmp['branch_ls'] = Splitter(angle_right=45)
 
         # branch R
-        cmp['branch_lb'] = Branch(diameter=2, height=)
+        #cmp['branch_lb'] = Branch(diameter=2, height=)
 
         return cmp
 
     def make_constraints(self):
         cons = []
+
         # trunk
         cons.append(LockConstraint(
             self.components['trunk'],  # lock this
@@ -144,11 +148,16 @@ class BlockTree(cqparts.Assembly):
             relataive_to=self.components['trunk'],  # relative to this
         ))
 
+        # branch L
+        # TODO
+
+        # branch R
+        # TODO
+
         return cons
 
 
 house = Splitter()
-house.mate_left
-house.mate_right
+display(house)
 
-show(house.local_obj)
+block_tree = BlockTree()

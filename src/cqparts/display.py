@@ -116,6 +116,50 @@ class RenderProperties(object):
         return self.color + (self.transparency,)
 
 
+def render_props(**kwargs):
+    """
+    Return a valid property for cleaner referencing in :class:`Part <cqparts.part.Part>`
+    child classes.
+
+    :param template: name of template to use (any of ``TEMPLATE.keys()``)
+    :type template: :class:`str`
+    :param doc: wha
+
+    :return: render property instance
+    :rtype: :class:`RenderProperties`
+
+    .. doctest::
+
+        >>> import cadquery
+        >>> from cqparts.display import render_props
+        >>> import cqparts
+        >>> class Box(cqparts.Part):
+        ...     # let's make semi-transparent aluminium (it's a thing!)
+        ...     _render = render_props(template='aluminium', alpha=0.8)
+        >>> box = Box()
+        >>> box._render.rgba
+        (192, 192, 192, 0.8)
+
+    The tools in :module:`cqparts.display` will use this colour and alpha
+    information to display the part.
+    """
+    # Pop named args
+    template = kwargs.pop('template', None)
+    doc = kwargs.pop('doc', "render properties")
+
+    params = {}
+
+    # Template parameters
+    if template in TEMPLATE:
+        params.update(TEMPLATE[template])
+
+    # override template with any additional params
+    params.update(kwargs)
+
+    # return parameter instance
+    return RenderProperties(params, doc=doc)
+
+
 # -------------------- Render helpers --------------------
 def display(*args, **kwargs):
     from .part import Part, Assembly
@@ -123,7 +167,8 @@ def display(*args, **kwargs):
 
     def inner(obj):
         if isinstance(obj, Part):
-            show(obj.object)
+            # FIXME: only shows local object
+            show(obj.local_obj, obj._render.rgbt)
         elif isinstance(obj, Assembly):
             for component in obj.components:
                 inner(component)

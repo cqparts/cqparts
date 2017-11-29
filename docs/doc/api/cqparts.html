@@ -299,6 +299,44 @@
 <code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt id="cqparts.display.render_props">
+<code class="descclassname">cqparts.display.</code><code class="descname">render_props</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.render_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid property for cleaner referencing in <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+child classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
+<li><strong>doc</strong> – wha</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">render property instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">RenderProperties</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># let&#39;s make semi-transparent aluminium (it&#39;s a thing!)</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;aluminium&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">rgba</span>
+<span class="go">(192, 192, 192, 0.8)</span>
+</pre></div>
+</div>
+<p>The tools in <a href="#id1"><span class="problematic" id="id2">:module:`cqparts.display`</span></a> will use this colour and alpha
+information to display the part.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cqparts.errors">
 <span id="cqparts-errors-module"></span><h2>cqparts.errors module<a class="headerlink" href="#module-cqparts.errors" title="Permalink to this headline">¶</a></h2>
@@ -349,7 +387,7 @@
 <span id="cqparts-params-module"></span><h2>cqparts.params module<a class="headerlink" href="#module-cqparts.params" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.params.Boolean">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Boolean</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Boolean</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>Boolean value</p>
 <dl class="method">
@@ -361,7 +399,7 @@
 
 <dl class="class">
 <dt id="cqparts.params.Float">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Float</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Float" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Float</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>Floating point</p>
 <dl class="method">
@@ -403,7 +441,7 @@
 
 <dl class="class">
 <dt id="cqparts.params.Int">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Int</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Int" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Int</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Int" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>Integer value</p>
 <dl class="method">
@@ -445,7 +483,7 @@
 
 <dl class="class">
 <dt id="cqparts.params.LowerCaseString">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">LowerCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.LowerCaseString" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">LowerCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.LowerCaseString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.String" title="cqparts.params.String"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.String</span></code></a></p>
 <p>Lower case string</p>
 <dl class="method">
@@ -457,7 +495,7 @@
 
 <dl class="class">
 <dt id="cqparts.params.NonNullParameter">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">NonNullParameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNullParameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">NonNullParameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.NonNullParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>Non-nullable parameter</p>
 <dl class="method">
@@ -469,7 +507,7 @@
 
 <dl class="class">
 <dt id="cqparts.params.Parameter">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Used to set parameters of a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
 <p>All instances of this class defined in a class’ <code class="docutils literal"><span class="pre">__dict__</span></code> will be
@@ -529,7 +567,7 @@ Consider calling super.</p>
 
 <dl class="class">
 <dt id="cqparts.params.PositiveFloat">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveFloat</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveFloat" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveFloat</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveFloat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Float</span></code></a></p>
 <p>Floating point &gt;= 0</p>
 <dl class="method">
@@ -541,7 +579,7 @@ Consider calling super.</p>
 
 <dl class="class">
 <dt id="cqparts.params.PositiveInt">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveInt</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveInt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">PositiveInt</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.PositiveInt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Int</span></code></a></p>
 <p>Integer &gt;= 0</p>
 <dl class="method">
@@ -553,7 +591,7 @@ Consider calling super.</p>
 
 <dl class="class">
 <dt id="cqparts.params.String">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">String</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.String" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">String</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.String" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.Parameter</span></code></a></p>
 <p>String value</p>
 <dl class="method">
@@ -565,7 +603,7 @@ Consider calling super.</p>
 
 <dl class="class">
 <dt id="cqparts.params.UpperCaseString">
-<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">UpperCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc='[no description]'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.UpperCaseString" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">UpperCaseString</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.UpperCaseString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.String" title="cqparts.params.String"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.String</span></code></a></p>
 <p>Upper case string</p>
 <dl class="method">
@@ -577,7 +615,7 @@ Consider calling super.</p>
 
 <dl class="function">
 <dt id="cqparts.params.as_parameter">
-<code class="descclassname">cqparts.params.</code><code class="descname">as_parameter</code><span class="sig-paren">(</span><em>nullable=True</em>, <em>doc_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.as_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cqparts.params.</code><code class="descname">as_parameter</code><span class="sig-paren">(</span><em>nullable=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.as_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorate a container class as a functional <a class="reference internal" href="#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> class
 for a <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">as_parameter</span><span class="p">,</span> <span class="n">ParametricObject</span>

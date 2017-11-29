@@ -103,6 +103,7 @@ class ParametricObject(object):
         """
         pass
 
+
 # ========================  Parameter Types  ========================
 class Parameter(object):
     """
@@ -112,9 +113,9 @@ class Parameter(object):
     valid input to the object's constructor.
     """
 
-    def __init__(self, default=None, doc="[no description]"):
+    def __init__(self, default=None, doc=None):
         self.default = self.cast(default)
-        self.doc = doc
+        self.doc = doc if doc is not None else "[no description]"
 
     def type(self, value):
         """Define's parameter's value class, to be overridden"""
@@ -327,7 +328,7 @@ class NonNullParameter(Parameter):
 
 
 # ------------ decorator(s) ---------------
-def as_parameter(nullable=True, doc_type=None):
+def as_parameter(nullable=True):
     """
     Decorate a container class as a functional :class:`Parameter` class
     for a :class:`ParametricObject`.
