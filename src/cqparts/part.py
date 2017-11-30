@@ -1,5 +1,6 @@
 import cadquery
 import six
+from copy import copy
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
@@ -8,17 +9,39 @@ from .display import (
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError
+from .constraints.solver import solver
 
 from .utils.geometry import copy as copy_wp
 
 
 class Component(ParametricObject):
 
+    def __init__(self, *largs, **kwargs):
+        super(Component, self).__init__(*largs, **kwargs)
+
+        # Initializing Instance State
+        self._world_coords = None
+
     def build(self, recursive=True):
         """
         :raises NotImplementedError: must be overridden by inheriting classes to function
         """
         raise NotImplementedError("build not implemented for %r" % type(self))
+
+    @property
+    def world_coords(self):
+        """
+        :return: coordinate system in the world, None until placed
+        :rtype: :class:`cadquery.Plane`
+        """
+        return self._world_coords
+
+    @world_coords.setter
+    def world_coords(self, value):
+        """
+        Set component's placement in word coordinates (as a :class:`cadquery.Plane`)
+        """
+        self._world_coords = value
 
 
 class Part(Component):
@@ -29,9 +52,9 @@ class Part(Component):
 
     def __init__(self, *largs, **kwargs):
         super(Part, self).__init__(*largs, **kwargs)
+
         # Initializing Instance State
         self._local_obj = None
-        self._world_coords = None
         self._world_obj = None
 
     def make(self):
@@ -143,10 +166,7 @@ class Part(Component):
             world_coords = self.world_coords
             if (local_obj is not None) and (world_coords is not None):
                 # Copy local object, apply transform to move to its new home.
-                self._world_obj = local_obj.newObject([
-                    obj.transformShape(world_coords.local_to_world_transform)
-                    for obj in local_obj.objects
-                ])
+                self._world_obj = world_coords + local_obj
         return self._world_obj
 
     @world_obj.setter
@@ -183,11 +203,10 @@ class Part(Component):
 
     def __copy__(self):
         new_obj = super(Part, self).__copy__()
-
-        if 'object' in self.__dict__:  # set by property_buffered
-            new_obj.__dict__['object'] = self.__dict__['object'].translate((0, 0, 0))
-        if 'object_primative' in self.__dict__:  # set by property_buffered
-            new_obj.__dict__['object_primative'] = self.__dict__['object_primative'].translate((0, 0, 0))
+        # copy private content
+        new_obj._local_obj = copy_wp(self._local_obj)
+        new_obj._world_coords = copy(self._world_coords)
+        new_obj._world_obj =  copy_wp(self._world_obj)
 
         return new_obj
 
@@ -258,7 +277,8 @@ class Assembly(Component):
                         raise MakeError("component names cannot contain a '.' (%s, %r)" % (name, component))
 
             # ----- Run Solver
-
+            for (component, world_coords) in solver(constraints):
+                component.world_coords = world_coords
 
             # ----- Buffer Attribute (only after all of the above has succeeded)
             self._components = components

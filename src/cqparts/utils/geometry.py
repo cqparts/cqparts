@@ -4,6 +4,8 @@ import cadquery
 #        right now I'm just trying to get it working.
 import FreeCAD
 
+from copy import copy as builtin_copy
+
 
 def intersect(wp1, wp2, combine=True, clean=True):
     """
@@ -34,15 +36,12 @@ def intersect(wp1, wp2, combine=True, clean=True):
 
     return wp1.newObject([newS])
 
-    #cp = lambda wp: wp.translate((0, 0, 0))
-    #neg1 = cp(wp1).cut(wp2)
-    #neg2 = cp(wp2).cut(wp1)
-    #neg = neg1.union(neg2)
-    #return cp(wp1).union(wp2).cut(neg)
 
-
-def copy(wp):
-    return wp.translate((0, 0, 0))
+def copy(obj):
+    # FIXME: remove when in cadquery
+    if isinstance(obj, cadquery.Workplane):
+        return obj.translate((0, 0, 0))
+    return builtin_copy(obj)
 
 
 class CoordSystem(cadquery.Plane):
@@ -186,13 +185,26 @@ class CoordSystem(cadquery.Plane):
 
     def __add__(self, other):
         """
-        :return: ``other`` transformed by this coordinate system
-        :rtype: that of ``other``
+        For ``A`` + ``B`` where ``A`` is
+
         :raises TypeError: if addition for the given type is not supported
 
-        :class:`CoordSystem` ``A`` + :class:`CoordSystem` ``B``:
-        returns world coordinates of ``B`` in ``A``'s coordinates
+        Supported types:
 
+        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`CoordSystem`):
+
+        :return: world coordinates of ``B`` in ``A``'s coordinates
+        :rtype: :class:`CoordSystem`
+
+        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`cadquery.Vector`):
+
+        :return: world coordinates of ``B`` represented in ``A``'s coordinate system
+        :rtype: :class:`cadquery.Vector`
+
+        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`cadquery.Workplane`):
+
+        :return: content of ``B`` moved to ``A``'s coordinate system
+        :rtype: :class:`cadquery.Workplane`
         """
         if isinstance(other, CoordSystem):
             self_transform = self.local_to_world_transform
@@ -200,6 +212,20 @@ class CoordSystem(cadquery.Plane):
             return self.from_transform(
                 self_transform.multiply(other_transform)
             )
+
+        elif isinstance(other, cadquery.Vector):
+            transform = self.local_to_world_transform
+            return type(other)(
+                transform.multiply(other.wrapped)
+            )
+
+        elif isinstance(other, cadquery.Workplane):
+            transform = self.local_to_world_transform
+            return other.newObject([
+                obj.transformShape(transform)
+                for obj in other.objects
+            ])
+
         else:
             raise TypeError("adding a {other_cls:r} to a {self_cls:r} is not supported".format(
                 self_cls=type(self),
