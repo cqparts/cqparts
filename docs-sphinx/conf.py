@@ -195,9 +195,20 @@ intersphinx_mapping = {
 html_show_sourcelink = False
 
 
-def skip(app, what, name, obj, skip, options):
-    if name == "__init__" and obj.__doc__:
-        return False
+def custom_noskip():
+    NOSKIP = {
+        'instancemethod': (
+            '__init__',
+            '__add__', '__sub__',
+            '__mul__', '__div__',
+        ),
+    }
+
+    def skip(app, what, name, obj, skip, options):
+        if name in NOSKIP.get(type(obj).__name__, []):
+            return False
+        return skip
+
     return skip
 
 
@@ -208,7 +219,7 @@ def setup(app):
     app.add_stylesheet('css/custom.css')
 
     # Custom skip mapping
-    app.connect("autodoc-skip-member", skip)
+    app.connect("autodoc-skip-member", custom_noskip())
 
     # Parameter Mapping
     app.connect("autodoc-process-docstring", add_parametric_object_params(prepend=True))
