@@ -13,6 +13,9 @@ from .constraints.solver import solver
 
 from .utils.geometry import copy as copy_wp
 
+import logging
+log = logging.getLogger(__name__)
+
 
 class Component(ParametricObject):
 
@@ -28,6 +31,12 @@ class Component(ParametricObject):
         """
         raise NotImplementedError("build not implemented for %r" % type(self))
 
+    def _placement_changed(self):
+        # called when:
+        #   - world_coords is set
+        # (intended to be overridden by inheriting classes)
+        pass
+
     @property
     def world_coords(self):
         """
@@ -42,6 +51,7 @@ class Component(ParametricObject):
         Set component's placement in word coordinates (as a :class:`cadquery.Plane`)
         """
         self._world_coords = value
+        self._placement_changed()
 
 
 class Part(Component):
@@ -184,21 +194,7 @@ class Part(Component):
         """
         return self.local_obj.findSolid().BoundingBox()
 
-    # -------------- Part Placement --------------
-    @property
-    def world_coords(self):
-        """
-        :return: coordinate system in the world, None until placed
-        :rtype: :class:`cadquery.Plane`
-        """
-        return self._world_coords
-
-    @world_coords.setter
-    def world_coords(self, value):
-        """
-        Set part's placement in word coordinates (as a :class:`cadquery.Plane`)
-        """
-        self._world_coords = value
+    def _placement_changed(self):
         self._world_obj = None
 
     def __copy__(self):
@@ -257,40 +253,62 @@ class Assembly(Component):
 
     @property
     def components(self):
+        """
+        .. warning::
+
+            TODO: document this... needs some 'splaining
+        """
         if self._components is None:
             # ----- Get Component List
             components = self.make_components()
-            # verify returned types
+            # verify returned type from user-defined function
             if not isinstance(components, dict):
                 raise MakeError(
-                    "invalid type returned by make(): %r (must be a dict)" % components
+                    "invalid type returned by make_components(): %r (must be a dict)" % components
                 )
-            else:
-                # check types for (name, component) pairs in dict
-                for (name, component) in components.items():
-                    if not isinstance(name, six.string_types) or not isinstance(component, Component):
-                        raise MakeError((
-                            "invalid component returned by make_components(): (%r, %r) "
-                            "(must be a (str, Component))"
-                        ) % (name, component))
-                    if '.' in name:
-                        raise MakeError("component names cannot contain a '.' (%s, %r)" % (name, component))
 
-            # ----- Run Solver
-            for (component, world_coords) in solver(constraints):
-                component.world_coords = world_coords
+            # check types for (name, component) pairs in dict
+            for (name, component) in components.items():
+                if not isinstance(name, six.string_types) or not isinstance(component, Component):
+                    raise MakeError((
+                        "invalid component returned by make_components(): (%r, %r) "
+                        "(must be a (str, Component))"
+                    ) % (name, component))
+                if '.' in name:
+                    raise MakeError("component names cannot contain a '.' (%s, %r)" % (name, component))
 
             # ----- Buffer Attribute (only after all of the above has succeeded)
             self._components = components
 
         return self._components
 
-    def _solve_constraints(self, components, constraints):
+    @property
+    def constraints(self):
+        """
+        .. warning::
+
+            TODO: document this... needs some 'splaining
+        """
+        if self._constraints is None:
+            constraints = self.make_constraints()
+            # Verify Return from user-defined function
+            if not isinstance(constraints, list):
+                raise MakeError(
+                    "invalid type returned by make_constraints: %r (must be a list)" % constraints
+                )
+
+            self._constraints = constraints
+
+        return self._constraints
+
+    def solve(self):
         """
         Run the solver and assign the solution's :class:`CoordSystem` instances
         as the corresponding part's world coordinates.
         """
-        raise NotImplementedError("TODO: do this, this is kinda important")
+        for (component, world_coords) in solver(self.constraints, self.world_coords):
+            log.info("solved: %r, %r" % (component, world_coords.local_to_world_transform))
+            component.world_coords = world_coords
 
     def build(self, recursive=True):
         """
@@ -310,12 +328,6 @@ class Assembly(Component):
             for (name, component) in components.items():
                 component.build(recursive=recursive)
 
-    def clear(self):
-        """
-        Clear internal object reference; forces object to be re-made when
-        self.object is next referenced.
-        """
-        self._components = None
 
     def find(self, keys, index=0):
         """

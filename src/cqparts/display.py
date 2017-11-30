@@ -2,6 +2,9 @@
 #from .part import Part, Assembly  # removed due to circular dependency
 from .params import as_parameter
 
+import logging
+log = logging.getLogger(__name__)
+
 
 # Templates (may be used optionally)
 COLOR = {
@@ -177,15 +180,19 @@ def display(*args, **kwargs):
         * parameters
         * supported display environments
     """
+
     from .part import Part, Assembly
     from Helpers import show
 
     def inner(obj):
+        log.warning("obj: %r", obj)  # TODO: remove logging
         if isinstance(obj, Part):
             # FIXME: only shows local object
-            show(obj.local_obj, obj._render.rgbt)
+            #show(obj.local_obj, obj._render.rgbt)
+            show(obj.world_obj, obj._render.rgbt)
         elif isinstance(obj, Assembly):
-            for component in obj.components:
+            obj.solve()
+            for (name, component) in obj.components.items():
                 inner(component)
 
     inner(*args, **kwargs)

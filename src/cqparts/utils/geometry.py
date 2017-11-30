@@ -50,6 +50,10 @@ class CoordSystem(cadquery.Plane):
     system.
     """
 
+    def __init__(self, origin=(0,0,0), xDir=(1,0,0), normal=(0,0,1)):
+        # impose a default to: XY plane, zero offset
+        super(CoordSystem, self).__init__(origin, xDir, normal)
+
     @classmethod
     def from_plane(cls, plane):
         """
@@ -185,7 +189,8 @@ class CoordSystem(cadquery.Plane):
 
     def __add__(self, other):
         """
-        For ``A`` + ``B`` where ``A`` is
+        For ``A`` + ``B``. Where ``A`` is this coordinate system,
+        and ``B`` is ``other``.
 
         :raises TypeError: if addition for the given type is not supported
 
@@ -201,12 +206,15 @@ class CoordSystem(cadquery.Plane):
         :return: world coordinates of ``B`` represented in ``A``'s coordinate system
         :rtype: :class:`cadquery.Vector`
 
-        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`cadquery.Workplane`):
+        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`cadquery.CQ`):
+
+        remember: :class:`cadquery.Workplane` inherits from :class:`cadquery.CQ`
 
         :return: content of ``B`` moved to ``A``'s coordinate system
         :rtype: :class:`cadquery.Workplane`
         """
         if isinstance(other, CoordSystem):
+            # CoordSystem + CoordSystem
             self_transform = self.local_to_world_transform
             other_transform = other.local_to_world_transform
             return self.from_transform(
@@ -214,12 +222,14 @@ class CoordSystem(cadquery.Plane):
             )
 
         elif isinstance(other, cadquery.Vector):
+            # CoordSystem + cadquery.Vector
             transform = self.local_to_world_transform
             return type(other)(
                 transform.multiply(other.wrapped)
             )
 
-        elif isinstance(other, cadquery.Workplane):
+        elif isinstance(other, cadquery.CQ):
+            # CoordSystem + cadquery.CQ
             transform = self.local_to_world_transform
             return other.newObject([
                 obj.transformShape(transform)
