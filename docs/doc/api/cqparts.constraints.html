@@ -274,7 +274,7 @@ to be placed, a circular problem.</p>
 <span id="cqparts-constraints-mate-module"></span><h2>cqparts.constraints.mate module<a class="headerlink" href="#module-cqparts.constraints.mate" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.constraints.mate.Mate">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.mate.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>origin</em>, <em>xDir</em>, <em>normal</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.mate.Mate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.constraints.mate.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.mate.Mate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">cqparts.utils.geometry.CoordSystem</span></code></a></p>
 </dd></dl>
 
@@ -283,13 +283,17 @@ to be placed, a circular problem.</p>
 <span id="cqparts-constraints-solver-module"></span><h2>cqparts.constraints.solver module<a class="headerlink" href="#module-cqparts.constraints.solver" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="cqparts.constraints.solver.solver">
-<code class="descclassname">cqparts.constraints.solver.</code><code class="descname">solver</code><span class="sig-paren">(</span><em>constraints</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.solver.solver" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cqparts.constraints.solver.</code><code class="descname">solver</code><span class="sig-paren">(</span><em>constraints</em>, <em>coord_sys=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.solver.solver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solve for valid part transform matrices for the given list of mates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>constraints</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – constraints to solve</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>constraints</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – constraints to solve</li>
+<li><strong>coord_sys</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – coordinate system to offset solutions</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>

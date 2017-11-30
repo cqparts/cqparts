@@ -3,10 +3,11 @@ Parts
 =====
 
 .. toctree::
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Contents:
 
-   fasteners/index
-   constraints/index
+    fasteners/index
+    constraints/index
 
 
 .. _part_vs_assembly:

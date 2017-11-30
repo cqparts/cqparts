@@ -558,6 +558,11 @@ information to display the part.</p>
 <p>All instances of this class defined in a class’ <code class="docutils literal"><span class="pre">__dict__</span></code> will be
 valid input to the object’s constructor.</p>
 <dl class="method">
+<dt id="cqparts.params.Parameter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="cqparts.params.Parameter.cast">
 <code class="descname">cast</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Parameter.cast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cast given value to the type dictated by this parameter type.
@@ -599,6 +604,11 @@ valid input to the object’s constructor.</p>
 </div>
 <p>Internally to the object, parameters may be accessed simply with self.x, self.i
 These will always return the type defined</p>
+<dl class="method">
+<dt id="cqparts.params.ParametricObject.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ParametricObject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="cqparts.params.ParametricObject.initialize_parameters">
 <code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ParametricObject.initialize_parameters" title="Permalink to this definition">¶</a></dt>
@@ -692,6 +702,11 @@ for a <a class="reference internal" href="#cqparts.params.ParametricObject" titl
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <p>An assembly is a group of parts, and other assemblies (called components)</p>
 <dl class="method">
+<dt id="cqparts.part.Assembly.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="cqparts.part.Assembly.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.build" title="Permalink to this definition">¶</a></dt>
 <dd><p>Building an assembly buffers the <code class="docutils literal"><span class="pre">components</span></code> attribute.
@@ -710,17 +725,23 @@ those as well.</td>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="cqparts.part.Assembly.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear internal object reference; forces object to be re-made when
-self.object is next referenced.</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="cqparts.part.Assembly.components">
 <code class="descname">components</code><a class="headerlink" href="#cqparts.part.Assembly.components" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: document this… needs some ‘splaining</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Assembly.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts.part.Assembly.constraints" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: document this… needs some ‘splaining</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="cqparts.part.Assembly.find">
@@ -802,6 +823,13 @@ entirely unconstrained.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="cqparts.part.Assembly.solve">
+<code class="descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the solver and assign the solution’s <code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code> instances
+as the corresponding part’s world coordinates.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.part.Assembly.tree_str">
 <code class="descname">tree_str</code><span class="sig-paren">(</span><em>prefix_str=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.tree_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return string listing recursively the assembly hierarchy</p>
@@ -811,8 +839,13 @@ entirely unconstrained.</p>
 
 <dl class="class">
 <dt id="cqparts.part.Component">
-<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.part.Component.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="cqparts.part.Component.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.build" title="Permalink to this definition">¶</a></dt>
@@ -826,12 +859,32 @@ entirely unconstrained.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="cqparts.part.Component.world_coords">
+<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.part.Component.world_coords" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, None until placed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.part.Part">
 <em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.part.Part.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="cqparts.part.Part.bounding_box">
 <code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.part.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
@@ -925,24 +978,9 @@ to provide 2 cylinders, one for the bolt’s head, and another for the thread.</
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.part.Part.world_coords">
-<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.part.Part.world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, None until placed</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="cqparts.part.Part.world_obj">
 <code class="descname">world_obj</code><a class="headerlink" href="#cqparts.part.Part.world_obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference internal" href="#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <a class="reference internal" href="#cqparts.part.Part.world_coords" title="cqparts.part.Part.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> coordinate
+<dd><p>The <a class="reference internal" href="#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code> coordinate
 system.</p>
 </dd></dl>
 
@@ -1047,6 +1085,11 @@ yield the part you want.</p>
 <dt id="cqparts.Part">
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.Part.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="cqparts.Part.bounding_box">
 <code class="descname">bounding_box</code><a class="headerlink" href="#cqparts.Part.bounding_box" title="Permalink to this definition">¶</a></dt>
@@ -1140,24 +1183,9 @@ to provide 2 cylinders, one for the bolt’s head, and another for the thread.</
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.Part.world_coords">
-<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.Part.world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, None until placed</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="cqparts.Part.world_obj">
 <code class="descname">world_obj</code><a class="headerlink" href="#cqparts.Part.world_obj" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference internal" href="#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <a class="reference internal" href="#cqparts.Part.world_coords" title="cqparts.Part.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> coordinate
+<dd><p>The <a class="reference internal" href="#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj()</span></code></a> object in the <code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code> coordinate
 system.</p>
 </dd></dl>
 
@@ -1168,6 +1196,11 @@ system.</p>
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
 <p>An assembly is a group of parts, and other assemblies (called components)</p>
+<dl class="method">
+<dt id="cqparts.Assembly.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="cqparts.Assembly.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.build" title="Permalink to this definition">¶</a></dt>
@@ -1187,17 +1220,23 @@ those as well.</td>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="cqparts.Assembly.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear internal object reference; forces object to be re-made when
-self.object is next referenced.</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="cqparts.Assembly.components">
 <code class="descname">components</code><a class="headerlink" href="#cqparts.Assembly.components" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: document this… needs some ‘splaining</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Assembly.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts.Assembly.constraints" title="Permalink to this definition">¶</a></dt>
+<dd><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO: document this… needs some ‘splaining</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="cqparts.Assembly.find">
@@ -1277,6 +1316,13 @@ entirely unconstrained.</p>
 <dt id="cqparts.Assembly.print_tree">
 <code class="descname">print_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.print_tree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.solve">
+<code class="descname">solve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the solver and assign the solution’s <code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code> instances
+as the corresponding part’s world coordinates.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="cqparts.Assembly.tree_str">

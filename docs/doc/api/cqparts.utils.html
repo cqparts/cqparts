@@ -198,10 +198,65 @@
 <span id="cqparts-utils-geometry-module"></span><h2>cqparts.utils.geometry module<a class="headerlink" href="#module-cqparts.utils.geometry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.utils.geometry.CoordSystem">
-<em class="property">class </em><code class="descclassname">cqparts.utils.geometry.</code><code class="descname">CoordSystem</code><span class="sig-paren">(</span><em>origin</em>, <em>xDir</em>, <em>normal</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.utils.geometry.</code><code class="descname">CoordSystem</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cadquery.freecad_impl.geom.Plane</span></code></p>
 <p>Defines the location, and rotation of an orthogonal 3 dimensional coordinate
 system.</p>
+<dl class="method">
+<dt id="cqparts.utils.geometry.CoordSystem.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>For <code class="docutils literal"><span class="pre">A</span></code> + <code class="docutils literal"><span class="pre">B</span></code>. Where <code class="docutils literal"><span class="pre">A</span></code> is this coordinate system,
+and <code class="docutils literal"><span class="pre">B</span></code> is <code class="docutils literal"><span class="pre">other</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if addition for the given type is not supported</td>
+</tr>
+</tbody>
+</table>
+<p>Supported types:</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>):</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> in <code class="docutils literal"><span class="pre">A</span></code>’s coordinates</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> represented in <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
+<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.geometry.CoordSystem.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="classmethod">
 <dt id="cqparts.utils.geometry.CoordSystem.from_plane">
 <em class="property">classmethod </em><code class="descname">from_plane</code><span class="sig-paren">(</span><em>plane</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.from_plane" title="Permalink to this definition">¶</a></dt>
@@ -209,9 +264,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -231,23 +288,18 @@ system.</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cqparts.utils.geometry.CoordSystem.local_to_world_transform">
-<code class="descname">local_to_world_transform</code><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.local_to_world_transform" title="Permalink to this definition">¶</a></dt>
-<dd><p>3d affine transform to convert local coordinates to world.</p>
-<p>(see <code class="xref py py-meth docutils literal"><span class="pre">Mate.world_to_local_transform()</span></code> for details)</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.utils.geometry.CoordSystem.world_to_local_transform">
-<code class="descname">world_to_local_transform</code><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.world_to_local_transform" title="Permalink to this definition">¶</a></dt>
+<dl class="classmethod">
+<dt id="cqparts.utils.geometry.CoordSystem.from_transform">
+<em class="property">classmethod </em><code class="descname">from_transform</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.from_transform" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>matrix</strong> (<code class="xref py py-class docutils literal"><span class="pre">FreeCAD.Matrix</span></code>) – 4x4 3d affine transform matrix</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a unit, zero offset coordinate system transformed by the given matrix</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -294,20 +346,46 @@ e &amp; = sin(\alpha) sin(\beta) sin(\gamma) + cos(\alpha) cos(\gamma) \\
 f &amp; = sin(\alpha) sin(\beta) cos(\gamma) - cos(\alpha) sin(\gamma) \\
 g &amp; = -sin(\beta) \\
 h &amp; = cos(\beta) sin(\gamma) \\
-i &amp; = cos(\beta) cos(\gamma) \\\end{split}\]</div>
-<p>But generally you shouldn’t have to worry about the complexities; you can
-use the tools…</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">TODO: what <strong>are</strong> these “tools”?</p>
-</div>
+i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.utils.geometry.CoordSystem.local_to_world_transform">
+<code class="descname">local_to_world_transform</code><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.local_to_world_transform" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coorinates.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>For matrix structure, see <a class="reference internal" href="#cqparts.utils.geometry.CoordSystem.from_transform" title="cqparts.utils.geometry.CoordSystem.from_transform"><code class="xref py py-meth docutils literal"><span class="pre">from_transform()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.utils.geometry.CoordSystem.world_to_local_transform">
+<code class="descname">world_to_local_transform</code><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.world_to_local_transform" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>For matrix structure, see <a class="reference internal" href="#cqparts.utils.geometry.CoordSystem.from_transform" title="cqparts.utils.geometry.CoordSystem.from_transform"><code class="xref py py-meth docutils literal"><span class="pre">from_transform()</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="cqparts.utils.geometry.copy">
-<code class="descclassname">cqparts.utils.geometry.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>wp</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.copy" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cqparts.utils.geometry.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -364,6 +442,11 @@ assist tree displays of hierarchical content.</p>
 </div>
 <p>Basis of class was sourced from the <a class="reference external" href="https://github.com/funkybob/antfarm/blob/40a7cc450eba09a280b7bc8f7c68a807b0177c62/antfarm/utils/functional.py">funkybob/antfarm</a> project.
 thanks to <a class="reference external" href="https://github.com/funkybob">&#64;funkybob</a>.</p>
+<dl class="method">
+<dt id="cqparts.utils.misc.property_buffered.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>getter</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.misc.property_buffered.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
