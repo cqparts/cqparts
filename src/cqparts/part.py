@@ -306,8 +306,10 @@ class Assembly(Component):
         Run the solver and assign the solution's :class:`CoordSystem` instances
         as the corresponding part's world coordinates.
         """
+        if self.world_coords is None:
+            log.warning("solving for Assembly without word coordinates set: %r", self)
+
         for (component, world_coords) in solver(self.constraints, self.world_coords):
-            log.info("solved: %r, %r" % (component, world_coords.local_to_world_transform))
             component.world_coords = world_coords
 
     def build(self, recursive=True):

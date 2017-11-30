@@ -185,7 +185,7 @@ def display(*args, **kwargs):
     from Helpers import show
 
     def inner(obj):
-        log.warning("obj: %r", obj)  # TODO: remove logging
+        log.debug("display obj: %r", obj)
         if isinstance(obj, Part):
             # FIXME: only shows local object
             #show(obj.local_obj, obj._render.rgbt)

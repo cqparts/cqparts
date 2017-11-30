@@ -19,11 +19,10 @@ sys.path.insert(0, os.path.join(_this_path, '..', '..', 'src'))
 import cadquery
 from Helpers import show
 
-cadquery.freecad_impl.console_logging.enable()
-
 import logging
+cadquery.freecad_impl.console_logging.enable(logging.DEBUG)
 log = logging.getLogger()
-log.info("----------------- Block Tree ----------------")
+#log.info("----------------- Block Tree ----------------")
 
 import cqparts
 from cqparts.params import *
@@ -266,5 +265,5 @@ class BlockTree(cqparts.Assembly):
 #display(house)
 
 block_tree = BlockTree(trunk_diam=7)
-block_tree.world_coords = CoordSystem()
+#block_tree.world_coords = CoordSystem()
 display(block_tree)

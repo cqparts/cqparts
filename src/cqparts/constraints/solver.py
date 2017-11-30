@@ -3,6 +3,7 @@ from ..utils.geometry import CoordSystem
 from .base import Constraint
 from .lock import LockConstraint, RelativeLockConstraint
 
+
 def solver(constraints, coord_sys=None):
     """
     Solve for valid part transform matrices for the given list of mates

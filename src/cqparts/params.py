@@ -94,6 +94,20 @@ class ParametricObject(object):
         params_copy = dict((k, copy(v)) for (k, v) in self._params_iter())
         return type(self)(**params_copy)
 
+    def __repr__(self):
+        # <Branch: diameter=3.0, height=2.0, twist=0.0 @0x7f1ffbfcd790>
+        params = dict(self._params_iter())
+        return "<{cls}: {params} @0x{id:x}>".format(
+            cls=type(self).__name__,
+            params=", ".join(
+                "%s=%r" % (k, v)
+                for (k, v) in sorted(params.items(), key=lambda x: x[0])
+                if not k.startswith('_')  # ignore private parameters
+            ),
+            id=id(self),
+        )
+
+
     def initialize_parameters(self):
         """
         A palce to set default parameters more intelegently than just a
