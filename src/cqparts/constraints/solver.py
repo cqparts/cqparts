@@ -10,8 +10,11 @@ def solver(constraints):
     :type constraints: list of :class:`Mate`
     """
     for constraint in constraints:
+        # LockConstraint
         if isinstance(constraint, LockConstraint):
             yield (constraint.component, constraint.mate)
+
+        # RelativeLockConstraint
         elif isinstance(constraint, RelativeLockConstraint):
             relative_coords = constraint.relative_to.world_coords
             if relative_coords:
