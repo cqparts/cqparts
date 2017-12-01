@@ -184,15 +184,18 @@ def display(*args, **kwargs):
     from .part import Part, Assembly
     from Helpers import show
 
-    def inner(obj):
+    def inner(obj, _depth=0):
         log.debug("display obj: %r", obj)
         if isinstance(obj, Part):
-            # FIXME: only shows local object
-            #show(obj.local_obj, obj._render.rgbt)
-            show(obj.world_obj, obj._render.rgbt)
+            if _depth:
+                # Assembly being displayed, parts need to be placed
+                show(obj.world_obj, obj._render.rgbt)
+            else:
+                # Part being displayed, just show in local coords
+                show(obj.local_obj, obj._render.rgbt)
         elif isinstance(obj, Assembly):
             obj.solve()
             for (name, component) in obj.components.items():
-                inner(component)
+                inner(component, _depth=_depth + 1)
 
     inner(*args, **kwargs)
