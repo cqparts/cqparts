@@ -1,3 +1,4 @@
+import six
 from copy import copy
 
 from .errors import ParameterError
@@ -85,12 +86,11 @@ class ParametricObject(object):
         return params
 
     def _params_iter(self):
-        params = ParametricObject._get_class_params(type(self))
-        for name in params:
+        param_names = ParametricObject._get_class_params(type(self))
+        for name in sorted(param_names):
             yield (name, getattr(self, name))
 
     def __copy__(self):
-        params = ParametricObject._get_class_params(type(self))
         params_copy = dict((k, copy(v)) for (k, v) in self._params_iter())
         return type(self)(**params_copy)
 
@@ -129,7 +129,7 @@ class Parameter(object):
 
     def __init__(self, default=None, doc=None):
         self.default = self.cast(default)
-        self.doc = doc if doc is not None else "[no description]"
+        self.doc = doc if isinstance(doc, six.string_types) else "[no description]"
 
     def type(self, value):
         """Define's parameter's value class, to be overridden"""
@@ -170,7 +170,7 @@ class Float(Parameter):
         try:
             cast_value = float(value)
         except ValueError:
-            raise ParameterError("value cannot be cast to a float: %r" % given_value)
+            raise ParameterError("value cannot be cast to a float: %r" % value)
         return cast_value
 
 
@@ -342,10 +342,13 @@ class NonNullParameter(Parameter):
 
 
 # ------------ decorator(s) ---------------
-def as_parameter(nullable=True):
+def as_parameter(nullable=True, strict=True):
     """
     Decorate a container class as a functional :class:`Parameter` class
     for a :class:`ParametricObject`.
+
+    :param nullable: if set, parameter's value may be Null
+    :type nullable: :class:`bool`
 
     .. doctest::
 
@@ -353,9 +356,13 @@ def as_parameter(nullable=True):
 
         >>> @as_parameter(nullable=True)
         ... class Stuff(object):
-        ...     def __init__(self, a=1, b=2):
+        ...     def __init__(self, a=1, b=2, c=3):
         ...         self.a = a
         ...         self.b = b
+        ...         self.c = c
+        ...     @property
+        ...     def abc(self):
+        ...         return (self.a, self.b, self.c)
 
         >>> class Thing(ParametricObject):
         ...     foo = Stuff({'a': 10, 'b': 100}, doc="controls stuff")
@@ -363,8 +370,8 @@ def as_parameter(nullable=True):
         >>> thing = Thing(foo={'a': 20})
         >>> thing.foo.a
         20
-        >>> thing.foo.b
-        2
+        >>> thing.foo.abc
+        (20, 2, 3)
     """
     def decorator(cls):
         base_class = Parameter if nullable else NonNullParameter

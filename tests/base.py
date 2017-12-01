@@ -6,7 +6,10 @@ _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
 
 class CQPartsTest(unittest.TestCase):
-    pass
 
     def assertHasAttr(self, obj, attr):
         self.assertTrue(hasattr(obj, attr))
+
+    def assertEqualAndType(self, obj, exp, t):
+        self.assertEqual(obj, exp)
+        self.assertEqual(type(exp), t)  # explicit test; intentionally not isinstance()

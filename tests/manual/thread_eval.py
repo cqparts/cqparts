@@ -22,12 +22,12 @@ class Anchor(cqparts.part.Part):
         return cadquery.Workplane('XY', origin=(0, 0, -10)) \
             .box(10, 30, 10, centered=(True, True, False))
 
-class Cantilever(cqparts.part.Part):
+class Cantilever(cqparts.Part):
     def make(self):
         return cadquery.Workplane('XY', origin=(0, 20, 0)) \
             .box(10, 50, 2, centered=(True, True, False))
 
-class Thing(cqparts.part.Part):
+class Thing(cqparts.Part):
     def make(self):
         return cadquery.Workplane('XZ', origin=(0, 0, 4)) \
             .box(3, 3, 3) \

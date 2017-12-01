@@ -42,6 +42,7 @@ __all__ = [
 
     # Sub-modules
     # bringing scope closer to cqparts for commonly used classes
+    'Component',
     'Part',
     'Assembly',
 ]
@@ -64,5 +65,6 @@ from . import utils
 from . import constraints
 
 # Sub-modules
+from .part import Component
 from .part import Part
 from .part import Assembly
