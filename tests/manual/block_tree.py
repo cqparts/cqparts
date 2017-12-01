@@ -20,7 +20,7 @@ import cadquery
 from Helpers import show
 
 import logging
-cadquery.freecad_impl.console_logging.enable(logging.DEBUG)
+cadquery.freecad_impl.console_logging.enable(logging.INFO)
 log = logging.getLogger()
 #log.info("----------------- Block Tree ----------------")
 
@@ -267,3 +267,5 @@ class BlockTree(cqparts.Assembly):
 block_tree = BlockTree(trunk_diam=7)
 #block_tree.world_coords = CoordSystem()
 display(block_tree)
+
+log.info(block_tree.tree_str(name="block_tree"))

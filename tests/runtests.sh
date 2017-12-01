@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python -m unittest discover . "test_*.py"
+python -m unittest discover . "test_*.py" --verbose

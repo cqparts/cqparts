@@ -379,24 +379,81 @@ class Assembly(Component):
             )
 
     # Component Tree
-    def tree_str(self, prefix_str=''):
-        """
+    def tree_str(self, name=None, prefix_str='', add_repr=False, _depth=0):
+        u"""
         Return string listing recursively the assembly hierarchy
+
+        :param name: if set, names the tree's trunk, otherwise the object's :meth:`repr` names the tree
+        :type name: :class:`str`
+        :param prefix_str: string prefixed to each line, can be used to indent
+        :type prefix_str: :class:`str`
+        :param add_repr: if set, *component* :meth:`repr` is put after their names
+        :type add_repr: :class:`bool`
+        :return: Printable string of an assembly's component hierarchy.
+        :rtype: :class:`str`
+
+        Example output from `block_tree.py <https://github.com/fragmuffin/cqparts/blob/master/tests/manual/block_tree.py>`_
+
+        ::
+
+            >>> log = logging.getLogger(__name__)
+            >>> isinstance(block_tree, Assembly)
+            True
+            >>> log.info(block_tree.tree_str(name="block_tree"))
+            block_tree
+             \u251c\u25cb branch_lb
+             \u251c\u25cb branch_ls
+             \u251c\u2500 branch_r
+             \u2502   \u251c\u25cb L
+             \u2502   \u251c\u25cb R
+             \u2502   \u251c\u25cb branch
+             \u2502   \u251c\u2500 house
+             \u2502   \u2502   \u251c\u25cb bar
+             \u2502   \u2502   \u2514\u25cb foo
+             \u2502   \u2514\u25cb split
+             \u251c\u25cb trunk
+             \u2514\u25cb trunk_split
+
+        Where:
+
+        * ``\u2500`` denotes an :class:`Assembly`, and
+        * ``\u25cb`` denotes a :class:`Part`
         """
-        output = ''
+
+        # unicode characters
+        c_t = u'\u251c'
+        c_l = u'\u2514'
+        c_dash = u'\u2500'
+        c_o = u'\u25cb'
+        c_span = u'\u2502'
+
+        output = u''
+        if not _depth:  # first line
+            output = unicode(prefix_str)
+            if name:
+                output += (name + u': ') if add_repr else name
+            if add_repr or not name:
+                output += repr(self)
+            output += '\n'
+
+        # build tree
         for (is_last, (name, component)) in indicate_last(sorted(self.components.items(), key=lambda x: x[0])):
-            branch_chr = u'\u2514' if is_last else u'\u251c'
+            branch_chr = c_l if is_last else c_t
             if isinstance(component, Assembly):
                 # Assembly: also list nested components
-                output += prefix_str + ' ' + branch_chr + u'\u2500 ' + name + '\n'
+                output += prefix_str + ' ' + branch_chr + c_dash + u' ' + name
+                if add_repr:
+                    output += ': ' + repr(component)
+                output += '\n'
                 output += component.tree_str(
-                    prefix_str=(prefix_str + (u'    ' if is_last else u' \u2502  '))
+                    prefix_str=(prefix_str + (u'    ' if is_last else (u' ' + c_span + '  '))),
+                    add_repr=add_repr,
+                    _depth=_depth + 1,
                 )
             else:
                 # Part (assumed): leaf node
-                output += prefix_str + ' ' + branch_chr + u'\u25cb ' + name + '\n'
+                output += prefix_str + ' ' + branch_chr + c_o + u' ' + name
+                if add_repr:
+                    output += ': ' + repr(component)
+                output += '\n'
         return output
-
-    def print_tree(self):
-        print(repr(self))
-        print(self.tree_str())
