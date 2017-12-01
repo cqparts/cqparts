@@ -130,18 +130,35 @@ class Parameter(object):
         self.default = self.cast(default)
         self.doc = doc if isinstance(doc, six.string_types) else "[no description]"
 
-    def type(self, value):
-        """Define's parameter's value class, to be overridden"""
-        return value
-
     def cast(self, value):
         """
-        Cast given value to the type dictated by this parameter type.
-        (can be overridden to force non-nullable field)
+        First layer of type casting, used for high-level verification.
+
+        If ``value`` is ``None``, :meth:`type` is not called to cast the value
+        further.
+
+        :param value: the value given to the :class:`ParametricObject`'s constructor
+        :return: ``value`` or ``None``
+        :raises ParameterError: if type is invalid
         """
         if value is None:
             return None
         return self.type(value)
+
+    def type(self, value):
+        """
+        Second layer of type casting, usually overridden to change the given
+        ``value`` into the parameter's type.
+
+        Casts given value to the type dictated by this parameter type.
+
+        Raise a :class:`ParameterError` on errors.
+
+        :param value: the value given to the :class:`ParametricObject`'s constructor
+        :return: ``value`` cast to parameter's type
+        :raises ParameterError: if type is invalid
+        """
+        return value
 
     # sphinx documentation helpers
     def _param(self):
