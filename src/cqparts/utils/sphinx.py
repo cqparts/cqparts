@@ -5,7 +5,7 @@ configuration.
 http://www.sphinx-doc.org/en/stable/ext/autodoc.html
 """
 
-from ..params import ParametricObject
+from ..params import ParametricObject, Parameter
 
 
 def _add_lines(lines, new_lines, prepend=False, separator=True):
@@ -109,5 +109,26 @@ def add_parametric_object_params(prepend=False, hide_private=True):
         if all(c(obj) for c in conditions):
             new_lines = param_lines(app, obj)
             _add_lines(lines, new_lines, prepend=prepend)
+
+    return callback
+
+
+def skip_class_parameters():
+    """
+    Can be used with :meth:`add_parametric_object_params`, this removes
+    duplicate variables cluttering the sphinx docs.
+
+    This is only intended to be used with *sphinx autodoc*
+
+    In your *sphinx* ``config.py`` file::
+
+        from cqparts.utils.sphinx import skip_class_parameters
+        def setup(app):
+            app.connect("autodoc-skip-member", skip_class_parameters())
+    """
+    def callback(app, what, name, obj, skip, options):
+        if (what == 'class') and isinstance(obj, Parameter):
+            return True  # yes, skip this object
+        return None
 
     return callback

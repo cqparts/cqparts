@@ -1,8 +1,11 @@
 import cadquery
+
 from .base import Thread
+from ...params import *
+
 
 class BallScrewThread(Thread):
-    ball_radius = 0.25
+    ball_radius = Float(0.25, doc="ball's radius")
 
     def build_profile(self):
         profile = cadquery.Workplane("XZ") \

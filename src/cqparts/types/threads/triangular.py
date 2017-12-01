@@ -1,9 +1,11 @@
 import cadquery
 
 from .base import Thread
+from ...params import *
+
 
 class TriangularThread(Thread):
-    radius_core = 2.5
+    radius_core = Float(2.5, doc="radius of valley")
 
     def build_profile(self):
         points = [

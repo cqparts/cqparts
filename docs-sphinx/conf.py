@@ -183,7 +183,6 @@ texinfo_documents = [
 
 
 
-
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
@@ -204,15 +203,16 @@ def custom_noskip():
         ),
     }
 
-    def skip(app, what, name, obj, skip, options):
-        if name in NOSKIP.get(type(obj).__name__, []):
+    def callback(app, what, name, obj, skip, options):
+        if name in NOSKIP.get(type(obj).__name__, []) and obj.__doc__:
             return False
-        return skip
+        return None
 
-    return skip
+    return callback
 
 
 from cqparts.utils.sphinx import add_parametric_object_params
+from cqparts.utils.sphinx import skip_class_parameters
 
 def setup(app):
     # Custom Style-sheet (effectively inherits from theme, andn overrides it)
@@ -220,6 +220,7 @@ def setup(app):
 
     # Custom skip mapping
     app.connect("autodoc-skip-member", custom_noskip())
+    app.connect("autodoc-skip-member", skip_class_parameters())
 
     # Parameter Mapping
     app.connect("autodoc-process-docstring", add_parametric_object_params(prepend=True))

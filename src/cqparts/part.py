@@ -8,7 +8,7 @@ from .display import (
     RenderProperties,
     TEMPLATE as RENDER_TEMPLATE,
 )
-from .errors import MakeError, ParameterError
+from .errors import MakeError, ParameterError, AssemblyFindError
 from .constraints.solver import solver
 
 from .utils.geometry import copy as copy_wp
@@ -331,44 +331,52 @@ class Assembly(Component):
                 component.build(recursive=recursive)
 
 
-    def find(self, keys, index=0):
+    def find(self, keys, _index=0):
         """
+        :param keys: key path. ``'a.b'`` is equivalent to ``['a', 'b']``
+        :type keys: :class:`str` or :class:`list`
+
         Find a nested :class:`Component` by a "`.`" separated list of names.
         for example::
 
             >>> motor.find('bearing.outer_ring')
 
         would return the Part instance of the motor bearing's outer ring.
-        whereas::
+
+        ::
 
             >>> bearing = motor.find('bearing')
             >>> ring = bearing.find('inner_ring')  # equivalent of 'bearing.inner_ring'
 
-        does much the same thing, bearing is an Assembly, and ring is a Part
+        the above code does much the same thing, ``bearing`` is an :class:`Assembly`,
+        and ``ring`` is a :class:`Part`.
 
-        :param keys: key hierarchy. ``'a.b'`` is equivalent to ``['a', 'b']``
-        :type keys: :class:`str` or :class:`list`
-        :param index: index of keys list (used internally)
-        :type index: :class:`int`
+        .. note::
+
+            For a key path of ``a.b.c`` the ``c`` key can referernce any
+            :class:`Component` type.
+
+            Everything prior (in this case ``a`` and ``b``) must reference an
+            :class:`Assembly`.
         """
 
         if isinstance(keys, six.string_types):
-            keys = [k for k in search_str.split('.') if k]
-        if index >= len(keys):
+            keys = [k for k in keys.split('.') if k]
+        if _index >= len(keys):
             return self
 
-        key = keys[index]
+        key = keys[_index]
         if key in self.components:
             component = self.components[key]
             if isinstance(component, Assembly):
-                return component.find(keys, index=(index + 1))
-            elif index == len(keys) - 1:
+                return component.find(keys, _index=(_index + 1))
+            elif _index == len(keys) - 1:
                 # this is the last search key; component is a leaf, return it
                 return component
             else:
                 raise AssemblyFindError(
                     "could not find '%s' (invalid type at [%i]: %r)" % (
-                        '.'.join(keys), index, component
+                        '.'.join(keys), _index, component
                     )
                 )
         else:
