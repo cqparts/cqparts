@@ -176,6 +176,10 @@ Create a Custom Parameter
 You can also create your own custom parameters, this can provide some very
 intuitive parameter formats for your creations.
 
+
+Mapped Value Example
+^^^^^^^^^^^^^^^^^^^^
+
 Let's create a simple parameter that maps a key string to an integer value.
 
 .. doctest::
@@ -203,3 +207,66 @@ Let's create a simple parameter that maps a key string to an integer value.
     1
     >>> Flib(size='blah') # doctest: +SKIP
     ParameterError: invalid size: 'blah'
+
+
+With ``@as_parameter``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+One obvious use-case for a *parameter* is to pass parameter values to a container
+class, sort of like a :class:`dict` that uses *attributes* as opposed to *items*.
+
+You can do this with a single class using the :meth:`as_parameter` decorator.
+
+.. doctest::
+
+    >>> from cqparts.params import as_parameter, ParametricObject
+
+    >>> @as_parameter(nullable=True)
+    ... class Stuff(object):
+    ...     def __init__(self, a=1, b=2, c=3):
+    ...         self.a = a
+    ...         self.b = b
+    ...         self.c = c
+    ...     @property
+    ...     def abc(self):
+    ...         return (self.a, self.b, self.c)
+
+    >>> class Thing(ParametricObject):
+    ...     foo = Stuff({'a': 10, 'b': 100}, doc="controls stuff")
+
+    >>> thing = Thing(foo={'a': 20})
+    >>> thing.foo.a
+    20
+    >>> thing.foo.abc
+    (20, 2, 3)
+
+.. warning::
+
+    This method is mostly to save space, and to make the code read a bit more fluently.
+
+    It has some limitations, and may cause more problems than it saves if
+    you're not willing to dig into the code.
+
+
+Documenting with Sphinx
+-----------------------
+
+The ``cqparts`` documentation is built using *shpinx* and *sphinx-autodoc*.
+
+(see the link in this page's footer)
+
+If you would like your parts to also use *sphinx*, then add ``_doc_type``
+and ``doc`` to your *parameters* and *parametric objects* (respectively).
+
+.. doctest::
+
+    >>> from cqparts.params import *
+
+    >>> class Thing(Parameter):
+    ...     _doc_type = ':class:`float`'  # the type(value) past to the constructor
+
+    >>> class Foo(ParametricObject):
+    ...     width = Thing(123, doc="width of the base")
+
+
+Also read up on the :mod:`cqparts.utils.sphinx` submodule.

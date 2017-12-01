@@ -101,7 +101,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-mates">Adding <code class="docutils literal"><span class="pre">Mates</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modifying">Modifying</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#inheritance-cutting-a-hole">Inheritance : Cutting a Hole</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-an-instance-union-2-parts">Use an Instance : Union 2 Parts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#registering">Registering</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a></li>
@@ -174,6 +183,150 @@
             
   <div class="section" id="make-your-own-part">
 <span id="tutorial-part"></span><h1>Make your own <code class="docutils literal"><span class="pre">Part</span></code><a class="headerlink" href="#make-your-own-part" title="Permalink to this headline">¶</a></h1>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> solid to be placed into an
+<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<p>Before continuing here, it’s highly recommend you read
+<a class="reference internal" href="../parts/part_vs_assembly.html#part-vs-assembly"><span class="std std-ref">Part vs Assembly</span></a> and <a class="reference internal" href="parametric-object.html#tutorials-parametricobject"><span class="std std-ref">Parametric Object</span></a>.</p>
+<p>Let’s start with a simple variably sized rectangle.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;box length (along x-axis)&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;box width (along y-axis)&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">height</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;box height (along z-axis)&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">centered</span><span class="o">=</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cqparts</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="figure" id="id1">
+<img alt="../_images/part.01-box.png" src="../_images/part.01-box.png" />
+<p class="caption"><span class="caption-text"><code class="docutils literal"><span class="pre">display</span></code> will render the <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance pulled from
+<code class="docutils literal"><span class="pre">box.local_obj</span></code>.</span></p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Remember, your <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a Python class, so you can take advantage
+of everything Python has to offer.</p>
+</div>
+<div class="section" id="adding-mates">
+<h2>Adding <code class="docutils literal"><span class="pre">Mates</span></code><a class="headerlink" href="#adding-mates" title="Permalink to this headline">¶</a></h2>
+<p>A <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.mate.Mate" title="cqparts.constraints.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> defines a coordinate system
+relative to the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> origin.</p>
+<p>A <em>mate</em> is used by an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to help place parts. More on this
+in the <a class="reference internal" href="assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> chapter.</p>
+<p>A <em>mate</em> is often best defined by a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> because they’re placement is
+highly dependent on the <em>part’s</em> parameters.</p>
+<p>So to elaborate on the box example above:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.mate</span> <span class="k">import</span> <span class="n">Mate</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># ... (content as above)</span>
+<span class="gp">... </span>    <span class="nd">@property</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">mate_top</span> 
+</pre></div>
+</div>
+<p>This will return a <em>mate</em> placed in the middle of the boxes top face.</p>
+<p>But wait… <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> offers another way to achieve the same result:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.mate</span> <span class="k">import</span> <span class="n">Mate</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># ... (content as above)</span>
+<span class="gp">... </span>    <span class="nd">@property</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">plane</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">workplane</span><span class="p">()</span><span class="o">.</span><span class="n">plane</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">Mate</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">mate_top</span> 
+</pre></div>
+</div>
+<p>In this case, the first is probably the best, due to its simplicity.</p>
+<p>However, being able to query the part’s geometry to find mating points is
+a powerful feature that can be exploited.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>To reiterate, these are just Python classes, the above <code class="docutils literal"><span class="pre">mate_top</span></code>
+method can be called anything.</p>
+<p>You could also create a method that takes a parameter such as
+<code class="docutils literal"><span class="pre">get_mate_top(twist_angle=0)</span></code> to adjust the <em>mate</em> in a way that’s
+relevant to the <em>part</em>.</p>
+<p class="last">Some advice though, don’t make your <em>part</em> behave too differently to
+other parts you’re using, it will make your code confusing.</p>
+</div>
+</div>
+<div class="section" id="modifying">
+<h2>Modifying<a class="headerlink" href="#modifying" title="Permalink to this headline">¶</a></h2>
+<p>You may want to use an existing part, and modify it without copying the code.</p>
+<p>Let’s try a few examples of ways you can achieve this effectively.</p>
+<div class="section" id="inheritance-cutting-a-hole">
+<h3>Inheritance : Cutting a Hole<a class="headerlink" href="#inheritance-cutting-a-hole" title="Permalink to this headline">¶</a></h3>
+<p>Let’s re-invent the wheel:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Wheel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">radius</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;wheel&#39;s width&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wheel</span> <span class="o">=</span> <span class="n">Wheel</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cqparts</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span> 
+</pre></div>
+</div>
+<img alt="../_images/part.02-wheel.png" src="../_images/part.02-wheel.png" />
+<p>However, we want to put this onto an axel, so we need to cut a hole through
+the center.</p>
+<p>So let’s make our own wheel, using this wheel as a base.</p>
+<p>We inherit the above <code class="docutils literal"><span class="pre">Wheel</span></code>, then in the <code class="docutils literal"><span class="pre">make</span></code> method we get the original
+object, then return a modified version:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">HolyWheel</span><span class="p">(</span><span class="n">Wheel</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">hole_diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;diameter for shaft&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">obj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">HolyWheel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hole_diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">cutThruAll</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_wheel</span> <span class="o">=</span> <span class="n">HolyWheel</span><span class="p">(</span><span class="n">hole_diameter</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cqparts</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">my_wheel</span><span class="p">)</span> 
+</pre></div>
+</div>
+<div class="figure" id="id2">
+<img alt="../_images/part.03-holywheel.png" src="../_images/part.03-holywheel.png" />
+<p class="caption"><span class="caption-text">The wheel was also made a bit wider to show the old parameters are still
+in effect.</span></p>
+</div>
+</div>
+<div class="section" id="use-an-instance-union-2-parts">
+<h3>Use an Instance : Union 2 Parts<a class="headerlink" href="#use-an-instance-union-2-parts" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO</p>
+</div>
+</div>
+</div>
+<div class="section" id="registering">
+<h2>Registering<a class="headerlink" href="#registering" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">TODO</p>
+</div>
+</div>
 </div>
 
 

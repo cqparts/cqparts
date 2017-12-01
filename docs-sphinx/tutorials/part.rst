@@ -115,7 +115,7 @@ Let's try a few examples of ways you can achieve this effectively.
 
 
 Inheritance : Cutting a Hole
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let's re-invent the wheel:
 
