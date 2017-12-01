@@ -46,7 +46,7 @@ class ParametricObject(object):
         # only accept a subset of params
         invalid_params = defined_params - params
         if invalid_params:
-            raise ParameterError("{cls} does not accept any of the parameters: {keys}".format(
+            raise ParameterError("{cls} does not accept parameter(s): {keys}".format(
                 cls=repr(type(self)),
                 keys=', '.join(sorted(invalid_params)),
             ))
