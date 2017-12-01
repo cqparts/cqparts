@@ -98,7 +98,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
@@ -213,6 +213,7 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ball_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – ball’s radius</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
@@ -224,11 +225,6 @@
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="cqparts.types.threads.ball_screw.BallScrewThread.ball_radius">
-<code class="descname">ball_radius</code><em class="property"> = 0.25</em><a class="headerlink" href="#cqparts.types.threads.ball_screw.BallScrewThread.ball_radius" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="cqparts.types.threads.ball_screw.BallScrewThread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.ball_screw.BallScrewThread.build_profile" title="Permalink to this definition">¶</a></dt>
@@ -302,39 +298,9 @@ to construct a thread.</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.inner">
-<code class="descname">inner</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.inner" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.lefthand">
-<code class="descname">lefthand</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.lefthand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="cqparts.types.threads.base.Thread.make">
 <code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.base.Thread.make" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.min_vertices">
-<code class="descname">min_vertices</code><em class="property"> = &lt;cqparts.types.threads.base.MinVerticiesParam object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.min_vertices" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.pitch">
-<code class="descname">pitch</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.pitch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.radius">
-<code class="descname">radius</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.radius" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.base.Thread.start_count">
-<code class="descname">start_count</code><em class="property"> = &lt;cqparts.params.IntRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.base.Thread.start_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -456,11 +422,6 @@ where: len(min_vertices) == number of edges in profile</p>
 <dd><p>Build a thread profile in specified by ISO 262</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cqparts.types.threads.iso_262.ISO262Thread.rounding_ratio">
-<code class="descname">rounding_ratio</code><em class="property"> = &lt;cqparts.params.FloatRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.iso_262.ISO262Thread.rounding_ratio" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>
@@ -485,6 +446,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
 <li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
+<li><strong>radius_core</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – radius of valley</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
@@ -494,11 +456,6 @@ where: len(min_vertices) == number of edges in profile</p>
 <dl class="method">
 <dt id="cqparts.types.threads.triangular.TriangularThread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.triangular.TriangularThread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.triangular.TriangularThread.radius_core">
-<code class="descname">radius_core</code><em class="property"> = 2.5</em><a class="headerlink" href="#cqparts.types.threads.triangular.TriangularThread.radius_core" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -558,39 +515,9 @@ to construct a thread.</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.inner">
-<code class="descname">inner</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.inner" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.lefthand">
-<code class="descname">lefthand</code><em class="property"> = &lt;cqparts.params.Boolean object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.lefthand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="cqparts.types.threads.Thread.make">
 <code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.types.threads.Thread.make" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.min_vertices">
-<code class="descname">min_vertices</code><em class="property"> = &lt;cqparts.types.threads.base.MinVerticiesParam object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.min_vertices" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.pitch">
-<code class="descname">pitch</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.pitch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.radius">
-<code class="descname">radius</code><em class="property"> = &lt;cqparts.params.PositiveFloat object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.radius" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.types.threads.Thread.start_count">
-<code class="descname">start_count</code><em class="property"> = &lt;cqparts.params.IntRange object&gt;</em><a class="headerlink" href="#cqparts.types.threads.Thread.start_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

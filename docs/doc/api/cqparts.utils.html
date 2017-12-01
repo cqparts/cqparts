@@ -97,7 +97,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
@@ -251,11 +251,6 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="method">
-<dt id="cqparts.utils.geometry.CoordSystem.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cqparts.utils.geometry.CoordSystem.from_plane">
@@ -442,11 +437,6 @@ assist tree displays of hierarchical content.</p>
 </div>
 <p>Basis of class was sourced from the <a class="reference external" href="https://github.com/funkybob/antfarm/blob/40a7cc450eba09a280b7bc8f7c68a807b0177c62/antfarm/utils/functional.py">funkybob/antfarm</a> project.
 thanks to <a class="reference external" href="https://github.com/funkybob">&#64;funkybob</a>.</p>
-<dl class="method">
-<dt id="cqparts.utils.misc.property_buffered.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>getter</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.misc.property_buffered.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>
@@ -483,6 +473,20 @@ otherwise, they’re appended at the end.</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.utils.sphinx.skip_class_parameters">
+<code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">skip_class_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.skip_class_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used with <a class="reference internal" href="#cqparts.utils.sphinx.add_parametric_object_params" title="cqparts.utils.sphinx.add_parametric_object_params"><code class="xref py py-meth docutils literal"><span class="pre">add_parametric_object_params()</span></code></a>, this removes
+duplicate variables cluttering the sphinx docs.</p>
+<p>This is only intended to be used with <em>sphinx autodoc</em></p>
+<p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.sphinx</span> <span class="k">import</span> <span class="n">skip_class_parameters</span>
+<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;autodoc-skip-member&quot;</span><span class="p">,</span> <span class="n">skip_class_parameters</span><span class="p">())</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
