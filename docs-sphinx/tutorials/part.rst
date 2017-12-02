@@ -114,8 +114,8 @@ You may want to use an existing part, and modify it without copying the code.
 Let's try a few examples of ways you can achieve this effectively.
 
 
-Inheritance : Cutting a Hole
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Inherit : Cut a Hole
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let's re-invent the wheel:
 
@@ -158,19 +158,66 @@ object, then return a modified version::
 
 .. figure:: img/part.03-holywheel.png
 
-    The wheel was also made a bit wider to show the old parameters are still
-    in effect.
+    The wheel was also made a bit wider to show the inherited parameters are
+    still in effect.
 
 Use an Instance : Union 2 Parts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. warning::
+Now you want 2 wheels connected by an axel, all in 1 (injection moulded) part.
 
-    TODO
+Each wheel (left and right) can have their own radius, and width.
 
-Registering
------------
+We can't use inheritance for this example because we need to instantiate 2
+different wheels, thea union them:
 
-.. warning::
+.. doctest::
 
-    TODO
+    >>> import cadquery
+    >>> import cqparts
+    >>> from cqparts.params import *
+
+    >>> # same implementation as above
+    >>> class Wheel(cqparts.Part):
+    ...     radius = PositiveFloat(100, doc="wheel's radius")
+    ...     width = PositiveFloat(10, doc="wheel's width")
+    ...     def make(self):
+    ...         return cadquery.Workplane('XY') \
+    ...             .circle(self.radius).extrude(self.width)
+
+    >>> class JoinedWheel(cqparts.Part):
+    ...     # Parameters
+    ...     l_radius = PositiveFloat(100, doc="left wheel's radius")
+    ...     l_width = PositiveFloat(10, doc="left wheel's radius")
+    ...     r_radius = PositiveFloat(100, doc="right wheel's radius")
+    ...     r_width = PositiveFloat(10, doc="right wheel's radius")
+    ...     axel_length = PositiveFloat(100, doc="axel length")
+    ...     axel_diam = PositiveFloat(10, doc="axel diameter")
+    ...
+    ...     def make(self):
+    ...         # Make the axel
+    ...         obj = cadquery.Workplane('XY') \
+    ...             .circle(self.axel_diam / 2) \
+    ...             .extrude(self.axel_length)
+    ...         # Make the left and right wheels
+    ...         wheel_l = Wheel(radius=self.l_radius, width=self.l_width)
+    ...         wheel_r = Wheel(radius=self.r_radius, width=self.r_width)
+    ...         # Union them with the axel solid
+    ...         obj = obj.union(wheel_l.local_obj)
+    ...         obj = obj.union(
+    ...             wheel_r.local_obj.mirror('XY') \
+    ...                 .translate((0, 0, self.axel_length))
+    ...         )
+    ...         return obj
+
+    >>> joined_wheel = JoinedWheel(
+    ...     r_radius=80, l_width=20, axel_diam=30,
+    ... )
+    >>> cqparts.display.display(joined_wheel) # doctest: +SKIP
+
+Note that we're instantiating 2 ``Wheel`` classes, and using their ``local_obj``
+attributes to union with the axel.
+
+.. figure:: img/part.04-doublewheel.png
+
+    Which ended up looking more like a table than a set of wheels.
