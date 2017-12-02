@@ -148,7 +148,7 @@ def render_props(**kwargs):
     information to display the part.
     """
     # Pop named args
-    template = kwargs.pop('template', None)
+    template = kwargs.pop('template', 'default')
     doc = kwargs.pop('doc', "render properties")
 
     params = {}

@@ -7,9 +7,11 @@ Component Index
 ===============
 
 Any :class:`Component <cqparts.part.Component>` class can be added to the
-``cqparts`` search index.
+``cqparts`` search index, allowing it to be found by other modules with
+concise code
 
-This will alow it to be found by other modules with concise code.
+This includes anything we've made in :ref:`tutorial_part` and
+:ref:`tutorial_assembly`.
 
 Registering, and searching is all done by the :mod:`cqparts.search` module.
 
@@ -29,13 +31,14 @@ You can use the :meth:`register` method as a *class decorator*.
 .. doctest::
 
     >>> import cqparts
+    >>> from cqparts.search import register
     >>> from cqparts.params import *
 
-    >>> @cqparts.search.register(a='one', b='two')
+    >>> @register(a='one', b='two')
     ... class SomeThing(cqparts.Part):
     ...     length = Float(10)
 
-    >>> @cqparts.search.register(a='one', b='three')
+    >>> @register(a='one', b='three')
     ... class AnotherThing(cqparts.Assembly):
     ...     height = Int(100)
 
@@ -58,10 +61,42 @@ Note that:
 
     Possibly employ :meth:`common_criteria` to clean up your code.
 
+
+Direct Register
+^^^^^^^^^^^^^^^^
+
+Components can also be registered by the :meth:`register` method without
+using it as a decorator.
+
+.. doctest::
+
+    >>> import cqparts
+    >>> from cqparts.search import register
+    >>> from cqparts.params import *
+
+    >>> class _SomeThing(cqparts.Part):
+    ...     length = Float(10)
+    >>> SomeThing = register(a='one', b='two')(_SomeThing)
+
+    >>> class _AnotherThing(cqparts.Assembly):
+    ...     height = Int(100)
+    >>> AnotherThing = register(a='one', b='three')(_AnotherThing)
+
+This and the decorated aproach are functionally identical, which method you use
+is dependent on your library's design, and which best suits you.
+
+
 Searching & Finding
 ---------------------
 
-The 2 parts registered above can be found again with :meth:`search`::
+The 2 parts registered above can be found again with :meth:`search` and/or :meth:`find`:
+
+
+Search
+^^^^^^^^^^
+
+:meth:`search` returns a :class:`set` of all *components* that match the given
+search criteria::
 
     >>> from cqparts.search import search
 
@@ -70,6 +105,12 @@ The 2 parts registered above can be found again with :meth:`search`::
 
     >>> search(b='two', a='one')
     {__main__.SomeThing}
+
+``search()`` will actually return all parts that are registered.
+
+
+Find
+^^^^^^^^^^
 
 But most of the time you'll only be expecting one part to bounce back, because
 mostly this is intended as an indexing tool, not a searching tool.
@@ -85,7 +126,7 @@ To index a unique part, or fail (throw an exception), use :meth:`find` instead::
     >>> find(a='one', b='two')(length=50)  # creates an instance
     <SomeThing: length=50.0 @0x7fdfb28f4510>
 
-This is great for uplling in a *component* with a registered *part number*.
+This is great for finding a *component* class with a registered *part number*.
 
 Using :meth:`find` with criteria that is not unique will raise an exception::
 

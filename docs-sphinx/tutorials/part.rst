@@ -106,8 +106,8 @@ a powerful feature that can be exploited.
     other parts you're using, it will make your code confusing.
 
 
-Modifying
----------
+Modifying Geometry
+-------------------
 
 You may want to use an existing part, and modify it without copying the code.
 
@@ -221,3 +221,40 @@ attributes to union with the axel.
 .. figure:: img/part.04-doublewheel.png
 
     Which ended up looking more like a table than a set of wheels.
+
+
+Rendering
+-----------
+
+In the above examples, you can see we're using :meth:`display() <cqparts.display.display>`
+from the :mod:`cqparts.display` module.
+
+When parts are displayed or exported, their colour, transparency, among other
+attributes are stored with the :class:`Part` instance.
+
+This detail is stored in a hidden property called ``_render``.
+
+We can change a :class:`Part` default render properties by replacing the
+default ``_render`` property with our own using
+:meth:`render_props() <cqparts.display.render_props>`.
+
+.. doctest::
+
+    >>> import cadquery
+    >>> import cqparts
+    >>> from cqparts.display import render_props, display
+
+    >>> class Box(cqparts.Part):
+    ...     _render = render_props(template='red', alpha=0.8)
+    ...     def make(self):
+    ...         return cadquery.Workplane('XY').box(1,1,1)
+
+    >>> box = Box()
+    >>> display(box)
+
+Gives us a red appearance with a 20% transparency.
+
+.. image:: img/part.05-render.png
+
+Have a read of :ref:`parts_rendering` for more details on rendering properties,
+and other rendering methods.

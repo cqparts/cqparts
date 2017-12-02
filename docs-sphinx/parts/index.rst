@@ -9,3 +9,4 @@ Parts & Assembiles
     part_vs_assembly
     fasteners/index
     constraints/index
+    rendering
