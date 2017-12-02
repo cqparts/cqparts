@@ -14,7 +14,23 @@ class AssemblyFindError(Exception):
 
 # Search Exceptions
 class SearchError(Exception):
-    """Raised by cqparts.find()"""
+    """
+    Raised by :meth:`cqparts.search.find`
+
+    parent of both :class:`SearchNoneFoundError` & :class:`SearchMultipleFoundError`
+
+    .. doctest::
+
+        >>> from cqparts.errors import SearchError
+        >>> from cqparts.search import find
+
+        >>> try:
+        ...     part_a_class = find(a='common', b='criteria')  # multiple results
+        ...     part_b_class = find(a="doesn't exist")  # no results
+        ... except SearchError:
+        ...     # error handling?
+        ...     pass
+    """
 
 class SearchNoneFoundError(SearchError):
     """Raised when no results are found by :meth:`cqparts.search.find`"""

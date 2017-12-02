@@ -1,6 +1,8 @@
 from collections import defaultdict
 from copy import copy
 
+from .errors import SearchMultipleFoundError, SearchNoneFoundError
+
 # Search Index
 #   of the format:
 #       index = {
@@ -17,11 +19,13 @@ class_criteria = {}
 
 def register(**criteria):
     """
-    class decorator to add :class:`Part` or :class:`Assembly` to qcparts
+    class decorator to add :class:`Part <cqparts.part.Part>` or
+    :class:`Assembly <cqparts.part.Assembly>` to the ``cqparts`` search index:
 
-    usage::
+    .. testcode::
 
         import cqparts
+        from cqparts.params import *
 
         # Created Part or Assembly
         @cqparts.search.register(
@@ -30,11 +34,14 @@ def register(**criteria):
             part_number='ABC123X',
         )
         class SomeMotor(cqparts.Assembly):
-            def make(self):
+            shaft_diam = PositiveFloat(5)
+            def make_components(self):
                 return {}  # build assembly content
 
         motor_class = cqparts.search.find(part_number='ABC123X')
-        motor = motor_class(shaft_diameter=6.0)
+        motor = motor_class(shaft_diam=6.0)
+
+    Then use :meth:`find` &/or :meth:`search` to instantiate it.
 
     .. warning::
 
@@ -46,6 +53,8 @@ def register(**criteria):
 
         Try adding unique criteria, such as *make*, *model*, *part number*,
         *library name*, &/or *author*.
+
+        To avoid this, learn more in :ref:`tutorial_component-index`.
     """
 
     def inner(cls):
@@ -65,7 +74,7 @@ def register(**criteria):
 
 def search(**criteria):
     """
-    Search registered part classes matching the given criteria.
+    Search registered *component* classes matching the given criteria.
 
     :param criteria: search criteria of the form: ``a='1', b='x'``
     :return: parts registered with the given criteria
@@ -96,7 +105,9 @@ def search(**criteria):
 
 def find(**criteria):
     """
-    Find a single part class with the given criteria:
+    Find a single *component* class with the given criteria.
+
+    Finds classes indexed with :meth:`register`
 
     :raises SearchMultipleFoundError: if more than one result found
     :raises SearchNoneFoundError: if nothing found
@@ -121,3 +132,60 @@ def find(**criteria):
 
     # return found Part|Assembly class
     return results.pop()
+
+
+def common_criteria(**common):
+    """
+    Wrap a function to always call with the given ``common`` named parameters.
+
+    :property common: criteria common to your function call
+    :return: decorator function
+    :rtype: :class:`function`
+
+    .. doctest::
+
+        >>> import cqparts
+        >>> from cqparts.search import register, search, find
+        >>> from cqparts.search import common_criteria
+
+        >>> # Somebody elses (boring) library may register with...
+        >>> @register(a='one', b='two')
+        ... class BoringThing(cqparts.Part):
+        ...     pass
+
+        >>> # But your library is awesome; only registering with unique criteria...
+        >>> lib_criteria = {
+        ...     'author': 'your_name',
+        ...     'libname': 'awesome_things',
+        ... }
+
+        >>> awesome_register = common_criteria(**lib_criteria)(register)
+
+        >>> @awesome_register(a='one', b='two')  # identical to BoringThing
+        ... class AwesomeThing(cqparts.Part):
+        ...     pass
+
+        >>> # So lets try a search
+        >>> len(search(a='one', b='two')) # doctest: +SKIP
+        2
+        >>> # oops, that returned both classes
+
+        >>> # To narrow it down, we add something unique:
+        >>> len(search(a='one', b='two', libname='awesome_things'))  # finds only yours # doctest: +SKIP
+        1
+
+        >>> # or, we could use common_criteria again...
+        >>> awesome_search = common_criteria(**lib_criteria)(search)
+        >>> awesome_find = common_criteria(**lib_criteria)(find)
+        >>> len(awesome_search(a='one', b='two')) # doctest: +SKIP
+        1
+        >>> awesome_find(a='one', b='two').__name__
+        'AwesomeThing'
+    """
+    def decorator(func):
+        def inner(*args, **kwargs):
+            merged_kwargs = copy(common)
+            merged_kwargs.update(kwargs)
+            return func(*args, **merged_kwargs)
+        return inner
+    return decorator
