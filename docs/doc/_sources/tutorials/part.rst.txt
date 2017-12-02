@@ -250,7 +250,7 @@ default ``_render`` property with our own using
     ...         return cadquery.Workplane('XY').box(1,1,1)
 
     >>> box = Box()
-    >>> display(box)
+    >>> display(box) # doctest: +SKIP
 
 Gives us a red appearance with a 20% transparency.
 
