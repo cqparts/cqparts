@@ -103,15 +103,16 @@
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#adding-mates">Adding <code class="docutils literal"><span class="pre">Mates</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modifying">Modifying</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#inheritance-cutting-a-hole">Inheritance : Cutting a Hole</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modifying-geometry">Modifying Geometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#inherit-cut-a-hole">Inherit : Cut a Hole</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#use-an-instance-union-2-parts">Use an Instance : Union 2 Parts</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#registering">Registering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendering">Rendering</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a></li>
 </ul>
@@ -267,12 +268,12 @@ relevant to the <em>part</em>.</p>
 other parts you’re using, it will make your code confusing.</p>
 </div>
 </div>
-<div class="section" id="modifying">
-<h2>Modifying<a class="headerlink" href="#modifying" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="modifying-geometry">
+<h2>Modifying Geometry<a class="headerlink" href="#modifying-geometry" title="Permalink to this headline">¶</a></h2>
 <p>You may want to use an existing part, and modify it without copying the code.</p>
 <p>Let’s try a few examples of ways you can achieve this effectively.</p>
-<div class="section" id="inheritance-cutting-a-hole">
-<h3>Inheritance : Cutting a Hole<a class="headerlink" href="#inheritance-cutting-a-hole" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="inherit-cut-a-hole">
+<h3>Inherit : Cut a Hole<a class="headerlink" href="#inherit-cut-a-hole" title="Permalink to this headline">¶</a></h3>
 <p>Let’s re-invent the wheel:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
@@ -308,24 +309,94 @@ object, then return a modified version:</p>
 </div>
 <div class="figure" id="id2">
 <img alt="../_images/part.03-holywheel.png" src="../_images/part.03-holywheel.png" />
-<p class="caption"><span class="caption-text">The wheel was also made a bit wider to show the old parameters are still
-in effect.</span></p>
+<p class="caption"><span class="caption-text">The wheel was also made a bit wider to show the inherited parameters are
+still in effect.</span></p>
 </div>
 </div>
 <div class="section" id="use-an-instance-union-2-parts">
 <h3>Use an Instance : Union 2 Parts<a class="headerlink" href="#use-an-instance-union-2-parts" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">TODO</p>
+<p>Now you want 2 wheels connected by an axel, all in 1 (injection moulded) part.</p>
+<p>Each wheel (left and right) can have their own radius, and width.</p>
+<p>We can’t use inheritance for this example because we need to instantiate 2
+different wheels, thea union them:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># same implementation as above</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Wheel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">radius</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;wheel&#39;s width&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">JoinedWheel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Parameters</span>
+<span class="gp">... </span>    <span class="n">l_radius</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;left wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">l_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;left wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">r_radius</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;right wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">r_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;right wheel&#39;s radius&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">axel_length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axel length&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">axel_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axel diameter&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># Make the axel</span>
+<span class="gp">... </span>        <span class="n">obj</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axel_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+<span class="gp">... </span>            <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axel_length</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="c1"># Make the left and right wheels</span>
+<span class="gp">... </span>        <span class="n">wheel_l</span> <span class="o">=</span> <span class="n">Wheel</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">l_radius</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">l_width</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">wheel_r</span> <span class="o">=</span> <span class="n">Wheel</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">r_radius</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">r_width</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="c1"># Union them with the axel solid</span>
+<span class="gp">... </span>        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">wheel_l</span><span class="o">.</span><span class="n">local_obj</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">wheel_r</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">mirror</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+<span class="gp">... </span>                <span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axel_length</span><span class="p">))</span>
+<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">obj</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">joined_wheel</span> <span class="o">=</span> <span class="n">JoinedWheel</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">r_radius</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">l_width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">axel_diam</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cqparts</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">joined_wheel</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>Note that we’re instantiating 2 <code class="docutils literal"><span class="pre">Wheel</span></code> classes, and using their <code class="docutils literal"><span class="pre">local_obj</span></code>
+attributes to union with the axel.</p>
+<div class="figure" id="id3">
+<img alt="../_images/part.04-doublewheel.png" src="../_images/part.04-doublewheel.png" />
+<p class="caption"><span class="caption-text">Which ended up looking more like a table than a set of wheels.</span></p>
 </div>
 </div>
 </div>
-<div class="section" id="registering">
-<h2>Registering<a class="headerlink" href="#registering" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">TODO</p>
+<div class="section" id="rendering">
+<h2>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h2>
+<p>In the above examples, you can see we’re using <a class="reference internal" href="../api/cqparts.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>
+from the <a class="reference internal" href="../api/cqparts.html#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> module.</p>
+<p>When parts are displayed or exported, their colour, transparency, among other
+attributes are stored with the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<p>This detail is stored in a hidden property called <code class="docutils literal"><span class="pre">_render</span></code>.</p>
+<p>We can change a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> default render properties by replacing the
+default <code class="docutils literal"><span class="pre">_render</span></code> property with our own using
+<a class="reference internal" href="../api/cqparts.html#cqparts.display.render_props" title="cqparts.display.render_props"><code class="xref py py-meth docutils literal"><span class="pre">render_props()</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">display</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+</pre></div>
 </div>
+<p>Gives us a red appearance with a 20% transparency.</p>
+<img alt="../_images/part.05-render.png" src="../_images/part.05-render.png" />
+<p>Have a read of <a class="reference internal" href="../parts/rendering.html#parts-rendering"><span class="std std-ref">Rendering</span></a> for more details on rendering properties,
+and other rendering methods.</p>
 </div>
 </div>
 

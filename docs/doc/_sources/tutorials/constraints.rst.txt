@@ -1,7 +1,0 @@
-
-Constraints
-===========
-
-Constraints limit the movement of a part.
-
-A :class:`Component <cqparts.part.Component>` can 

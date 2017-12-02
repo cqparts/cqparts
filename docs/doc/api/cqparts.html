@@ -410,7 +410,19 @@ information to display the part.</p>
 <dt id="cqparts.errors.SearchError">
 <em class="property">exception </em><code class="descclassname">cqparts.errors.</code><code class="descname">SearchError</code><a class="headerlink" href="#cqparts.errors.SearchError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></a></p>
-<p>Raised by cqparts.find()</p>
+<p>Raised by <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">cqparts.search.find()</span></code></a></p>
+<p>parent of both <a class="reference internal" href="#cqparts.errors.SearchNoneFoundError" title="cqparts.errors.SearchNoneFoundError"><code class="xref py py-class docutils literal"><span class="pre">SearchNoneFoundError</span></code></a> &amp; <a class="reference internal" href="#cqparts.errors.SearchMultipleFoundError" title="cqparts.errors.SearchMultipleFoundError"><code class="xref py py-class docutils literal"><span class="pre">SearchMultipleFoundError</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.errors</span> <span class="k">import</span> <span class="n">SearchError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">find</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">part_a_class</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;common&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;criteria&#39;</span><span class="p">)</span>  <span class="c1"># multiple results</span>
+<span class="gp">... </span>    <span class="n">part_b_class</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s2">&quot;doesn&#39;t exist&quot;</span><span class="p">)</span>  <span class="c1"># no results</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">SearchError</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="c1"># error handling?</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="exception">
@@ -1047,9 +1059,68 @@ system.</p>
 <div class="section" id="module-cqparts.search">
 <span id="cqparts-search-module"></span><h2>cqparts.search module<a class="headerlink" href="#module-cqparts.search" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="cqparts.search.common_criteria">
+<code class="descclassname">cqparts.search.</code><code class="descname">common_criteria</code><span class="sig-paren">(</span><em>**common</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.common_criteria" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap a function to always call with the given <code class="docutils literal"><span class="pre">common</span></code> named parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Property common:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">criteria common to your function call</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">decorator function</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">function</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">register</span><span class="p">,</span> <span class="n">search</span><span class="p">,</span> <span class="n">find</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">common_criteria</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Somebody elses (boring) library may register with...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@register</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">BoringThing</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># But your library is awesome; only registering with unique criteria...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lib_criteria</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;your_name&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;libname&#39;</span><span class="p">:</span> <span class="s1">&#39;awesome_things&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">awesome_register</span> <span class="o">=</span> <span class="n">common_criteria</span><span class="p">(</span><span class="o">**</span><span class="n">lib_criteria</span><span class="p">)(</span><span class="n">register</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@awesome_register</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">)</span>  <span class="c1"># identical to BoringThing</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">AwesomeThing</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># So lets try a search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">))</span> 
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># oops, that returned both classes</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># To narrow it down, we add something unique:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">search</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="n">libname</span><span class="o">=</span><span class="s1">&#39;awesome_things&#39;</span><span class="p">))</span>  <span class="c1"># finds only yours </span>
+<span class="go">1</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or, we could use common_criteria again...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">awesome_search</span> <span class="o">=</span> <span class="n">common_criteria</span><span class="p">(</span><span class="o">**</span><span class="n">lib_criteria</span><span class="p">)(</span><span class="n">search</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">awesome_find</span> <span class="o">=</span> <span class="n">common_criteria</span><span class="p">(</span><span class="o">**</span><span class="n">lib_criteria</span><span class="p">)(</span><span class="n">find</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">awesome_search</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">))</span> 
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">awesome_find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="go">&#39;AwesomeThing&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="cqparts.search.find">
 <code class="descclassname">cqparts.search.</code><code class="descname">find</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a single part class with the given criteria:</p>
+<dd><p>Find a single <em>component</em> class with the given criteria.</p>
+<p>Finds classes indexed with <a class="reference internal" href="#cqparts.search.register" title="cqparts.search.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1075,9 +1146,10 @@ system.</p>
 <dl class="function">
 <dt id="cqparts.search.register">
 <code class="descclassname">cqparts.search.</code><code class="descname">register</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.register" title="Permalink to this definition">¶</a></dt>
-<dd><p>class decorator to add <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code> to qcparts</p>
-<p>usage:</p>
+<dd><p>class decorator to add <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to the <code class="docutils literal"><span class="pre">cqparts</span></code> search index:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="c1"># Created Part or Assembly</span>
 <span class="nd">@cqparts</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -1086,28 +1158,31 @@ system.</p>
     <span class="n">part_number</span><span class="o">=</span><span class="s1">&#39;ABC123X&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">class</span> <span class="nc">SomeMotor</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">shaft_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{}</span>  <span class="c1"># build assembly content</span>
 
 <span class="n">motor_class</span> <span class="o">=</span> <span class="n">cqparts</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">part_number</span><span class="o">=</span><span class="s1">&#39;ABC123X&#39;</span><span class="p">)</span>
-<span class="n">motor</span> <span class="o">=</span> <span class="n">motor_class</span><span class="p">(</span><span class="n">shaft_diameter</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+<span class="n">motor</span> <span class="o">=</span> <span class="n">motor_class</span><span class="p">(</span><span class="n">shaft_diam</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Then use <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> &amp;/or <a class="reference internal" href="#cqparts.search.search" title="cqparts.search.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a> to instantiate it.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>Multiple classes <em>can</em> be registered with identical criteria, but
 should be avoided.</p>
 <p>If multiple classes share the same criteria, <a class="reference internal" href="#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> will never
 yield the part you want.</p>
-<p class="last">Try adding unique criteria, such as <em>make</em>, <em>model</em>, <em>part number</em>,
+<p>Try adding unique criteria, such as <em>make</em>, <em>model</em>, <em>part number</em>,
 <em>library name</em>, &amp;/or <em>author</em>.</p>
+<p class="last">To avoid this, learn more in <a class="reference internal" href="../tutorials/component-index.html#tutorial-component-index"><span class="std std-ref">Component Index</span></a>.</p>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="cqparts.search.search">
 <code class="descclassname">cqparts.search.</code><code class="descname">search</code><span class="sig-paren">(</span><em>**criteria</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.search.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>Search registered part classes matching the given criteria.</p>
+<dd><p>Search registered <em>component</em> classes matching the given criteria.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

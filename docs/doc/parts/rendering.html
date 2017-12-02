@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; cqparts 0.2.0 documentation</title>
+  <title>Rendering &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -37,8 +37,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
-        <link rel="prev" title="Servo Motor" href="../examples/servo.html"/> 
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="Parts &amp; Assembiles" href="index.html"/>
+        <link rel="next" title="Tutorials" href="../tutorials/index.html"/>
+        <link rel="prev" title="Constraints" href="constraints/index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -70,7 +72,7 @@
             
             
               <div class="version">
-                0.2
+                0.1
               </div>
             
           
@@ -96,10 +98,20 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Parts &amp; Assembiles</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fasteners/index.html">Fasteners</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constraints/index.html">Constraints</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#render-methods">Render Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#render-properties">Render Properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
 </ul>
 
             
@@ -144,7 +156,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>API</li>
+          <li><a href="index.html">Parts &amp; Assembiles</a> &raquo;</li>
+        
+      <li>Rendering</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,54 +175,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cqparts">
-<span id="api"></span><h1>API<a class="headerlink" href="#module-cqparts" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="cqparts.Assembly">
-<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Assembly</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></p>
-<p>An assembly is a group of parts, and other assemblies (called components)</p>
-<dl class="method">
-<dt id="cqparts.Assembly.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear internal object reference; forces object to be re-made when
-self.object is next referenced.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Assembly.find">
-<code class="descname">find</code><span class="sig-paren">(</span><em>keys</em>, <em>index=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a nested Assembly or Part by a ‘.’ separated list of names.
-for example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
-</pre></div>
+  <div class="section" id="rendering">
+<span id="parts-rendering"></span><h1>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="render-methods">
+<h2>Render Methods<a class="headerlink" href="#render-methods" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">At the time of writing this, the only method of display is from within
+freecad using the cadquery plugin and the <a class="reference internal" href="../api/cqparts.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a> method.</p>
 </div>
-<p>would return the Part instance of the motor bearing’s outer ring.
-whereas:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bearing</span> <span class="o">=</span> <span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ring</span> <span class="o">=</span> <span class="n">bearing</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;inner_ring&#39;</span><span class="p">)</span>  <span class="c1"># equivalent of &#39;bearing.inner_ring&#39;</span>
-</pre></div>
 </div>
-<p>does much the same thing, bearing is an Assembly, and ring is a Part
-:param keys: str or list of key hierarchy. ‘a.b’ is equivalent to [‘a’, ‘b’]
-:param index: int index of keys list (used internally)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Assembly.make">
-<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return components dict (must be overridden in inheriting class)
-:return: dict of the form: {&lt;name&gt;: &lt;Part or Assembly instance&gt;, …}</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Assembly.tree_str">
-<code class="descname">tree_str</code><span class="sig-paren">(</span><em>prefix_str=''</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.tree_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return string listing recursively the assembly hierarchy</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="render-properties">
+<h2>Render Properties<a class="headerlink" href="#render-properties" title="Permalink to this headline">¶</a></h2>
+<p>The properties of a solid’s render is stored in the a <a class="reference internal" href="../api/cqparts.html#cqparts.display.RenderProperties" title="cqparts.display.RenderProperties"><code class="xref py py-class docutils literal"><span class="pre">RenderProperties</span></code></a>
+instance, stored in the <code class="docutils literal"><span class="pre">_render</span></code> attribute of each <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+instance.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>At this time the only properties of a render are its colour (RGB) and alpha
+values.
+This may increase in future to support more advanced rendering, for things
+like reflectance, diffusion, ambiance, I don’t know, I’m not a graphics guy.</p>
+<p class="last">For progress regarding this, keep an eye on
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/issues/32">issue #32</a>, and feel free
+to voice your opinion, and/or support there.</p>
+</div>
+</div>
 </div>
 
 
@@ -221,8 +213,10 @@ whereas:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="../examples/servo.html" class="btn btn-neutral" title="Servo Motor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="constraints/index.html" class="btn btn-neutral" title="Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -231,7 +225,7 @@ whereas:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Peter Boin.
+        &copy; Copyright 2017 Peter Boin.
 
     </p>
   </div>
@@ -253,7 +247,7 @@ whereas:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -263,6 +257,7 @@ whereas:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
