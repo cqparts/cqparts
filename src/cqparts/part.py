@@ -5,7 +5,7 @@ from copy import copy
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
 from .display import (
-    RenderProperties,
+    RenderParam,
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError, AssemblyFindError
@@ -58,7 +58,7 @@ class Part(Component):
 
     # Parameters common to every Part
     _simple = Boolean(False, doc="if set, simplified geometry is built")
-    _render = RenderProperties(RENDER_TEMPLATE['default'], doc="render properties")
+    _render = RenderParam(RENDER_TEMPLATE['default'], doc="render properties")
 
     def __init__(self, *largs, **kwargs):
         super(Part, self).__init__(*largs, **kwargs)

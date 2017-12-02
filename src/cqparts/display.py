@@ -42,39 +42,61 @@ TEMPLATE.update({
 
 
 # -------------------- Parameter(s) --------------------
-@as_parameter(nullable=False)
-class RenderProperties(object):
+class RenderProps(object):
     """
     Properties for rendering.
 
-    This class provides a :class:`RenderProperties` instance
+    This class provides a :class:`RenderParam` instance
     as a :class:`Parameter <cqparts.params.Parameter>` for a
     :class:`ParametricObject <cqparts.params.ParametricObject>`.
 
     .. doctest::
 
         >>> from cqparts.params import ParametricObject
-        >>> from cqparts.display import RenderProperties, TEMPLATE, COLOR
+        >>> from cqparts.display import RenderParam, TEMPLATE, COLOR
         >>> class Thing(ParametricObject):
-        ...     _fc_render = RenderProperties(TEMPLATE['red'], doc="render params")
+        ...     _render = RenderParam(TEMPLATE['red'], doc="render params")
         >>> thing = Thing()
-        >>> thing._fc_render.color
+        >>> thing._render.color
         (255, 0, 0)
-        >>> thing._fc_render.alpha
+        >>> thing._render.alpha
         1.0
-        >>> thing = Thing(_fc_render={'color': COLOR['green'], 'alpha': 0.5})
-        >>> thing._fc_render.color
+        >>> thing = Thing(_render={'color': COLOR['green'], 'alpha': 0.5})
+        >>> thing._render.color
         (0, 255, 0)
-        >>> thing._fc_render.alpha
+        >>> thing._render.alpha
         0.5
+        >>> thing._render.dict
+        {'color': (0, 255, 0), 'alpha': 0.5}
 
     The ``TEMPLATE`` and ``COLOR`` dictionaries provide named templates to
     display your creations quickly, but you can also provide custom properties.
     """
 
     def __init__(self, color=(200, 200, 200), alpha=1):
+        """
+        :param color: 3-tuple of RGB in the bounds: ``{0 <= val <= 255}``
+        :type color: :class:`tuple`
+        :param alpha: object alpha in the range ``{0 <= alpha <= 1}``
+                      where ``0`` is transparent, and ``1`` is opaque
+        :type alpha: :class:`float`
+        """
         self.color = color
         self.alpha = max(0., min(float(alpha), 1.))
+
+    @property
+    def dict(self):
+        """
+        Return a :class:`dict` of this instance.
+        Can be used to set a property based on the property of another.
+
+        :return: dict of render attributes
+        :rtype: :class:`dict`
+        """
+        return {
+            'color': self.color,
+            'alpha': self.alpha,
+        }
 
     @property
     def transparency(self):
@@ -94,9 +116,9 @@ class RenderProperties(object):
 
         .. doctest::
 
-            >>> from cadquery.display import RenderProperties
-            >>> fcrp = RenderProperties(color=(1,2,3), alpha=0.2)
-            >>> fcrp.rgba
+            >>> from cqparts.display import RenderProps
+            >>> r = RenderProps(color=(1,2,3), alpha=0.2)
+            >>> r.rgba
             (1, 2, 3, 0.2)
         """
         return self.color + (self.alpha,)
@@ -111,12 +133,14 @@ class RenderProperties(object):
 
         .. doctest::
 
-            >>> from cadquery.display import RenderProperties
-            >>> fcrp = RenderProperties(color=(1,2,3), alpha=0.2)
-            >>> fcrp.rgbt
+            >>> from cqparts.display import RenderProps
+            >>> r = RenderProps(color=(1,2,3), alpha=0.2)
+            >>> r.rgbt
             (1, 2, 3, 0.8)
         """
         return self.color + (self.transparency,)
+
+RenderParam = as_parameter(nullable=False)(RenderProps)
 
 
 def render_props(**kwargs):
@@ -130,7 +154,7 @@ def render_props(**kwargs):
     :type doc: :class:`str`
 
     :return: render property instance
-    :rtype: :class:`RenderProperties`
+    :rtype: :class:`RenderParam`
 
     .. doctest::
 
@@ -161,7 +185,7 @@ def render_props(**kwargs):
     params.update(kwargs)
 
     # return parameter instance
-    return RenderProperties(params, doc=doc)
+    return RenderParam(params, doc=doc)
 
 
 # -------------------- Render helpers --------------------

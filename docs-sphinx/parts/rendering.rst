@@ -18,7 +18,7 @@ Render Methods
 Render Properties
 ------------------
 
-The properties of a solid's render is stored in the a :class:`RenderProperties`
+The properties of a solid's render is stored in the a :class:`RenderProps`
 instance, stored in the ``_render`` attribute of each :class:`Part <cqparts.part.Part>`
 instance.
 
