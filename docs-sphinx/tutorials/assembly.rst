@@ -13,9 +13,7 @@ Today we're going to make a toy car, and put it into an assembly.
 
 This tutorial assumes you've been through the :ref:`tutorial_part` tutorial.
 
-.. warning::
-
-    TODO: image of finished assembly
+.. todo:: image of finished car assembly
 
 Its structure will look something like this::
 
@@ -97,7 +95,9 @@ below as ``mate_left`` and ``mate_right``
 
     display(Axle())
 
-.. image:: img/assembly.part-axle.png
+.. raw:: html
+
+   <iframe src="../_static/iframes/toy-car/axle.html" height="300px" width="100%" frameborder="0"></iframe>
 
 Wheel
 ^^^^^^^^^^^^
@@ -142,7 +142,10 @@ that only accepts these 2 options.
 
     display(Wheel())
 
-.. image:: img/assembly.part-wheel.png
+.. raw:: html
+
+   <iframe src="../_static/iframes/toy-car/wheel.html" height="300px" width="100%" frameborder="0"></iframe>
+
 
 Chassis
 ^^^^^^^^^^^^
@@ -152,21 +155,51 @@ parameters. For the sake of simplicity in this tutorial, we're going to make
 it a static face using :meth:`polyline() <cadquery.Workplane.polyline>` with a
 variable :meth:`extrude() <cadquery.Workplane.extrude>` width.
 
-**Mates**
-
-Mates will be necessary for the front and rear axles, these can be seen below as
-``mate_axle_front`` and ``mate_axle_rear``.
-
 .. testcode::
 
     class Chassis(cqparts.Part):
         # Parameters
-        wheelbase = PositiveFloat(70, "distance between front and rear axles")
+        width = PositiveFloat(50, doc="chassis width")
 
+        _render = render_props(template='wood_light')
+
+        def make(self):
+            points = [  # chassis outline
+                (-60,0),(-60,22),(-47,23),(-37,40),
+                (5,40),(23,25),(60,22),(60,0),
+            ]
+            return cadquery.Workplane('XZ', origin=(0,-self.width/2,0)) \
+                .moveTo(*points[0]).polyline(points[1:]).close() \
+                .extrude(self.width)
+
+::
+
+    display(Chassis())
+
+.. raw:: html
+
+   <iframe src="../_static/iframes/toy-car/chassis.html" height="300px" width="100%" frameborder="1"></iframe>
 
 
 Wheel Assembly
 --------------------
+
+We finally have all the parts we'll need, let's make our first *assembly*.
+
+**Parameters**
+
+Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*.
+
+**Mates**
+
+.. testcode::
+
+    class WheeledAxle(cqparts.Assembly):
+        left_width = PositiveFloat(7, doc="left wheel width")
+        right_width = PositiveFloat(7, doc="right wheel width")
+        left_diam = PositiveFloat(25, doc="left wheel diameter")
+        right_diam = PositiveFloat(25, doc="right wheel diameter")
+        axle_diam = PositiveFloat()
 
 Car Assembly
 ------------------
@@ -178,10 +211,12 @@ Car Assembly
         # Parameters
         wheelbase = PositiveFloat(70, "distance between front and rear axles")
         axle_track = PositiveFloat(60, "distance between tread midlines")
+        # wheels
         front_wheel_width = PositiveFloat(10, doc="width of front wheels")
         rear_wheel_width = PositiveFloat(10, doc="width of rear wheels")
         front_wheel_diam = PositiveFloat(30, doc="front wheel diameter")
         rear_wheel_diam = PositiveFloat(30, doc="rear wheel diameter")
+        axle_diam = PositiveFloat(10, doc="axle diameter")
 
         def make_components(self):
             pass

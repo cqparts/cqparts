@@ -15,6 +15,7 @@ Welcome to cqparts's documentation!
    tutorials/index
    examples/index
    api/modules
+   todo
 
 
 Indices and tables

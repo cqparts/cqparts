@@ -42,6 +42,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
     'sphinx.ext.mathjax',  # examples to get started: https://en.wikipedia.org/wiki/Help:Displaying_a_formula#Examples_of_implemented_TeX_formulas
+    'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -192,6 +193,9 @@ intersphinx_mapping = {
 
 # If true, links to the reST sources are added to the pages.
 html_show_sourcelink = False
+
+# TODO: show todo lists
+todo_include_todos = True
 
 
 def custom_noskip():
