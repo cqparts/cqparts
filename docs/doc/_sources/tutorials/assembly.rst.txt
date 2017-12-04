@@ -178,7 +178,7 @@ variable :meth:`extrude() <cadquery.Workplane.extrude>` width.
 
 .. raw:: html
 
-   <iframe src="../_static/iframes/toy-car/chassis.html" height="300px" width="100%" frameborder="1"></iframe>
+   <iframe src="../_static/iframes/toy-car/chassis.html" height="300px" width="100%" frameborder="0"></iframe>
 
 
 Wheel Assembly
