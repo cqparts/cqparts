@@ -21,10 +21,10 @@ Constraints consist of, at a minimum:
 
 
 Types of Constraints
---------------------
+-----------------------
 
 Lock
-^^^^
+^^^^^^^^
 
 The :class:`LockConstraint <lock.LockConstraint>` explicitly sets a *component's* location
 and orientation relative to its parent's origin:
@@ -60,7 +60,7 @@ and orientation relative to its parent's origin:
 
 
 RelativeLock
-^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
 The :class:`RelativeLockConstraint <lock.RelativeLockConstraint>` sets a
 *component's* coordinate system relative to another part's world coordinate
@@ -116,8 +116,3 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
     >>> thing = Thing()
     >>> thing.build()  # creates and places all components recursively
-
-
-.. warning::
-
-    TODO: document the different types of constraints

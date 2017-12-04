@@ -43,9 +43,7 @@ There are 2 methods of evaluation
   * cylindrical : slower, but will find all interfacing solids
 
 
-::
-
-    # TODO: sample eval code
+.. todo:: write sample evaluation code
 
 
 Selection
@@ -54,9 +52,7 @@ Selection
 An evaluation can be used to determine which fastener you need.
 Or simply, how long the thread on your chosen fastener needs to be.
 
-::
-
-  # TODO: sample selector code
+.. todo:: write sample selector code
 
 
 Application

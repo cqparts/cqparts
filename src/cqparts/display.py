@@ -107,6 +107,18 @@ class RenderProps(object):
         return 1. - self.alpha
 
     @property
+    def rgb(self):
+        """
+        Red, Green, Blue
+
+        :return: red, green, blue values
+        :rtype: :class:`tuple`
+
+        synonym for ``color``
+        """
+        return self.color
+
+    @property
     def rgba(self):
         """
         Red, Green, Blue, Alpha

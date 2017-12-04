@@ -4,10 +4,7 @@ Logo
 
 Making the logo awesome.
 
-.. warning::
-
-    TODO:
-
+.. todo:: build the ``cqparts`` logo using ``cqparts``
 
 
 CQ Block

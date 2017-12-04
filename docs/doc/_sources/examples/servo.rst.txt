@@ -85,6 +85,8 @@ The idea being that following branches should always end in a :class:`Part`
 Display
 ------------
 
+.. todo:: display completed servo example
+
 ::
 
     from cqparts import display

@@ -47,6 +47,9 @@ The wood screw will be a simplified version of the one shown in the diagram:
         def make(self):
             TODO: code for wood screw make()
 
+.. todo:: finish above woodscrew code
+
+
 So to illustrate what we've just made::
 
     from cqparts_mylib.easyinstall import WoodScrew  # pretending it's there
@@ -59,9 +62,10 @@ So to illustrate what we've just made::
     display(screw)
 
 
-.. figure:: img/easy-install-woodscrew.png
+.. todo:: replace woodscrew placeholder with real screw
 
-    TODO: placeholder graphic, put a screenshot here.
+.. image:: img/easy-install-woodscrew.png
+
 
 Anchor
 ^^^^^^
@@ -101,10 +105,9 @@ So to illustrate what we've just made::
     from cqparts.display import display
     display(anchor)
 
+.. todo:: replace placeholder of anchor with real render
 
-.. figure:: img/easy-install-anchor.png
-
-    TODO: placeholder graphic, put a screenshot here.
+.. image:: img/easy-install-anchor.png
 
 
 Evaluation / Selection / Application
@@ -156,9 +159,12 @@ be applied::
         def anchor_norm(self):
             return self.anchor_plane.zDir
 
-.. warning::
+.. todo::
 
-    TODO: insert image for an evaluation
+    image of evaluation, showing:
+
+    * input vector
+    * output effect vectors
 
 
 Selection

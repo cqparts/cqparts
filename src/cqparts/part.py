@@ -1,6 +1,8 @@
 import cadquery
 import six
 from copy import copy
+from io import BytesIO
+import json
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
@@ -205,6 +207,23 @@ class Part(Component):
         new_obj._world_obj =  copy_wp(self._world_obj)
 
         return new_obj
+
+    def get_export_json(self):
+        """
+        Get part's geometry as a json export.
+        """
+        obj = {}
+        with BytesIO() as stream:
+            cadquery.exporters.exportShape(self.local_obj, 'TJS', stream)
+            stream.seek(0)
+            obj = json.load(stream)
+
+        # Change diffuse colour to that in render properties
+        obj['materials'][0]['colorDiffuse'] = [
+            val / 255. for val in self._render.rgb
+        ]
+
+        return json.dumps(obj)
 
 
 class Assembly(Component):
