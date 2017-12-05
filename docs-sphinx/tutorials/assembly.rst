@@ -40,28 +40,10 @@ For this *assembly* we're going to need the following *parts*
 While making these parts, we're going to design them based on how we want to
 use them, but also on how others may want to use them.
 
-Axle
+Wheel
 ^^^^^^^^^^^^
 
-The vehicle's axle is a cylinder with a ``diameter`` and ``length``.
-So we could simply draw a circle and extrude it, right?
-
-The problem with this design is that it's implementation will involve
-translating it by :math:`\frac{length}{2}`, and rotating :math:`90°` so
-the :math:`Z` axis is along the world :math:`Y` axis.
-
-Although that's not difficult, it is messy.
-
-Instead we'll align the axle along the :math:`Y` axis, with the origin at the
-cylinder's center. This can be seen in the ``make()`` function.
-
-**Mates**
-
-A :class:`Mate <cqparts.constraints.mate.Mate>` is a relative *coordinate system*
-used to connect *parts* in an *assembly*.
-
-For the axle we'll want to attach a wheel to each end, so they're defined
-below as ``mate_left`` and ``mate_right``
+The wheel's origin will be the point it meets the axle.
 
 .. testcode::
 
@@ -70,6 +52,38 @@ below as ``mate_left`` and ``mate_right``
     from cqparts.params import *
     from cqparts.display import render_props, display
     from cqparts.constraints import Mate
+
+    class Wheel(cqparts.Part):
+        # Parameters
+        width = PositiveFloat(10, doc="width of wheel")
+        diameter = PositiveFloat(30, doc="wheel diameter")
+
+        # default appearance
+        _render = render_props(template='wood_dark')
+
+        def make(self):
+            wheel = cadquery.Workplane('XY') \
+                .circle(self.diameter / 2).extrude(self.width)
+            return wheel
+
+::
+
+    display(Wheel())
+
+.. raw:: html
+
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/wheel.html"
+        height="300px" width="100%"
+    ></iframe>
+
+
+Axle
+^^^^^^^^^^^^
+
+The vehicle's axle is a cylinder with a ``diameter`` and ``length``.
+
+.. testcode::
 
     class Axle(cqparts.Part):
         # Parameters
@@ -83,13 +97,45 @@ below as ``mate_left`` and ``mate_right``
             return cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
                 .circle(self.diameter / 2).extrude(self.length)
 
+        # wheel mates, assuming they rotate around z-axis
         @property
         def mate_left(self):
-            return Mate((0, -self.length / 2, 0))
+            return Mate(
+                origin=(0, -self.length / 2, 0),
+                xDir=(1, 0, 0), normal=(0, -1, 0),
+            )
 
         @property
         def mate_right(self):
-            return Mate((0, self.length / 2, 0))
+            return Mate(
+                origin=(0, self.length / 2, 0),
+                xDir=(1, 0, 0), normal=(0, 1, 0),
+            )
+
+
+We could have simply drawn a circle and extrude it, right?
+
+The problem with that design is its implementation will involve
+translating it by :math:`\frac{length}{2}`, and rotating :math:`90°` so
+the :math:`Z` axis is along the world :math:`Y` axis.
+
+Although that would not be difficult to do, it *is* messy.
+
+Instead we've aligned the axle along the :math:`Y` axis, with the origin at the
+cylinder's center, implemented in the ``make()`` function above.
+
+**Mates**
+
+A :class:`Mate <cqparts.constraints.mate.Mate>` is a relative *coordinate system*
+used to connect *parts* in an *assembly*. We'll see how that works when we make
+our first *assembly* later in this tutorial.
+
+When assembling an axle we'll want to attach a wheel to each end. They're defined
+above as ``mate_left`` and ``mate_right``.
+
+Note that the ``normal`` for a :class:`Mate <cqparts.constraints.mate.Mate>`
+is ``(0, 0, 1)`` by default (z-axis). changing this to :math:`+Y` axis for left
+and :math:`-Y` for right rotates the wheel accordingly when placed.
 
 ::
 
@@ -99,56 +145,6 @@ below as ``mate_left`` and ``mate_right``
 
     <iframe class="model-display"
         src="../_static/iframes/toy-car/axle.html"
-        height="300px" width="100%"
-    ></iframe>
-
-Wheel
-^^^^^^^^^^^^
-
-The wheel's origin will be the point it meets the axle.
-
-We'll build it on the left side by default, but if it's configured as a
-right wheel, we'll :meth:`mirror() <cadquery.CQ.mirror>` its geometry
-over the 'XZ' plane.
-
-Note that a mirror is preferable to a :math:`180°` rotation because if an
-asymetrical tread is introduced, a mirror would be more appropriate.
-
-Also, so we can name the side as "left" and "right", we can make a parameter
-that only accepts these 2 options.
-
-.. testcode::
-
-    class Side(NonNullParameter):
-        def type(self, value):
-            if not value in ('left', 'right'):
-                raise ParameterError("must be 'left' or 'right'")
-            return value
-
-    class Wheel(cqparts.Part):
-        # Parameters
-        side = Side('left', doc="which side the wheel is on")
-        width = PositiveFloat(10, doc="width of wheel")
-        diameter = PositiveFloat(30, doc="wheel diameter")
-
-        # default appearance
-        _render = render_props(template='wood_dark')
-
-        def make(self):
-            wheel = cadquery.Workplane('XZ') \
-                .circle(self.diameter / 2).extrude(self.width)
-            if self.side == 'right':
-                wheel = wheel.mirror('XZ')
-            return wheel
-
-::
-
-    display(Wheel())
-
-.. raw:: html
-
-    <iframe class="model-display"
-        src="../_static/iframes/toy-car/wheel.html"
         height="300px" width="100%"
     ></iframe>
 
@@ -195,12 +191,6 @@ Wheel Assembly
 
 We finally have all the parts we'll need, let's make our first *assembly*.
 
-**Parameters**
-
-Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*.
-
-**Mates**
-
 .. testcode::
 
     from cqparts.constraints import LockConstraint, RelativeLockConstraint
@@ -218,10 +208,10 @@ Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*
             return {
                 'axle': Axle(length=axel_length, diameter=self.axle_diam),
                 'left_wheel': Wheel(
-                     side='left', width=self.left_width, diameter=self.left_diam,
+                     width=self.left_width, diameter=self.left_diam,
                 ),
                 'right_wheel': Wheel(
-                     side='right', width=self.right_width, diameter=self.right_diam,
+                     width=self.right_width, diameter=self.right_diam,
                 ),
             }
 
@@ -240,7 +230,26 @@ Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*
                 ),
             ]
 
+**Parameters**
+
+Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*.
+
+These parameters can be passed directly or indirectly to *sub-assemblies*, or
+to child *parts*. Note how ``axel_track`` is used to define the axle's length.
+
+**Components**
+
+
+::
+
     display(WheeledAxle())
+
+.. raw:: html
+
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/wheel-assembly.html"
+        height="300px" width="100%"
+    ></iframe>
 
 
 Car Assembly

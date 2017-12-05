@@ -36,4 +36,5 @@
 /* Model Display */
 iframe.model-display {
     border: 1px solid #e1e4e5;
+    margin-bottom: 24px;
 }
