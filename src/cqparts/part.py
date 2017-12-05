@@ -226,6 +226,7 @@ class Part(Component):
         data['materials'][0]['colorDiffuse'] = [
             val / 255. for val in self._render.rgb
         ]
+        data['materials'][0]['transparency'] = self._render.alpha
 
         return data
 
