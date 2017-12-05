@@ -285,6 +285,16 @@ see :ref:`parts.constraints` for more details.
         height="300px" width="100%"
     ></iframe>
 
+**Composition Tree**
+
+To see the hierarchy of what we've just made, we can also run::
+
+    >>> print(wheeled_axle.tree_str(name='wheel_assembly'))
+    wheel_assembly
+     ├○ axle
+     ├○ left_wheel
+     └○ right_wheel
+
 
 Car Assembly
 ------------------

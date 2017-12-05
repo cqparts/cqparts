@@ -408,7 +408,16 @@ if necessary.</p>
 <iframe class="model-display"
     src="../_static/iframes/toy-car/wheel-assembly.html"
     height="300px" width="100%"
-></iframe></div>
+></iframe><p><strong>Composition Tree</strong></p>
+<p>To see the hierarchy of what we’ve just made, we can also run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">wheeled_axle</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;wheel_assembly&#39;</span><span class="p">))</span>
+<span class="go">wheel_assembly</span>
+<span class="go"> ├○ axle</span>
+<span class="go"> ├○ left_wheel</span>
+<span class="go"> └○ right_wheel</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="car-assembly">
 <h2>Car Assembly<a class="headerlink" href="#car-assembly" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
