@@ -105,6 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#types-of-constraints">Types of Constraints</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#lock">Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#relativelock">RelativeLock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#more">More…</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +190,7 @@ Conversely, a fully constrained <em>component</em> can only be at one specific l
 <p>Constraints consist of, at a minimum:</p>
 <ul class="simple">
 <li>the <a class="reference internal" href="../../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> being constrained.</li>
-<li>one or more <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.mate.Mate" title="cqparts.constraints.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instances.</li>
+<li>one or more <a class="reference internal" href="../../api/cqparts.constraints.html#cqparts.constraints.Mate" title="cqparts.constraints.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instances.</li>
 <li>constraint specific parameters (if any)</li>
 </ul>
 <div class="section" id="types-of-constraints">
@@ -200,7 +201,7 @@ Conversely, a fully constrained <em>component</em> can only be at one specific l
 and orientation relative to its parent’s origin:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.lock</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -242,7 +243,7 @@ solved first. So for the coordinates <code class="docutils literal"><span class=
 <p>We can only know what <code class="docutils literal"><span class="pre">C</span></code> is if we know the values of both <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints.lock</span> <span class="k">import</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="p">(</span>
 <span class="gp">... </span>    <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">RelativeLockConstraint</span><span class="p">,</span> <span class="n">Mate</span>
 <span class="gp">... </span><span class="p">)</span>
 
@@ -280,6 +281,18 @@ solved first. So for the coordinates <code class="docutils literal"><span class=
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="more">
+<h3>More…<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>At this time only <em>lock</em> constraints are available.</p>
+<p>More are planned to be introduced in
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/issues/30">issue #30</a>.</p>
+<p>Please feel free to post your interest there to help us gauge how high the
+priority should be on this improvement.</p>
+<p class="last">Examples are most welcome.</p>
 </div>
 </div>
 </div>

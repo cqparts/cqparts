@@ -928,6 +928,22 @@ and <code class="docutils literal"><span class="pre">ring</span></code> is a <a 
 </dd></dl>
 
 <dl class="method">
+<dt id="cqparts.part.Assembly.get_export_gltf">
+<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.get_export_gltf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF json string.</p>
+<p>(same arguments as <a class="reference internal" href="#cqparts.part.Assembly.get_export_gltf_dict" title="cqparts.part.Assembly.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
+<p>When exporting to this format, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Assembly.get_export_gltf_dict">
+<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get assembly geometry as a gltf export by combining each part into
+a single scene.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.part.Assembly.make_components">
 <code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
@@ -1102,9 +1118,18 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.part.Part.get_export_json">
-<code class="descname">get_export_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get part’s geometry as a json export.</p>
+<dt id="cqparts.part.Part.get_export_gltf">
+<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF json string.</p>
+<p>(same arguments as <a class="reference internal" href="#cqparts.part.Part.get_export_gltf_dict" title="cqparts.part.Part.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
+<p>When exporting to this format, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.get_export_gltf_dict">
+<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF formatted dict.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1405,9 +1430,18 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.Part.get_export_json">
-<code class="descname">get_export_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get part’s geometry as a json export.</p>
+<dt id="cqparts.Part.get_export_gltf">
+<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF json string.</p>
+<p>(same arguments as <a class="reference internal" href="#cqparts.Part.get_export_gltf_dict" title="cqparts.Part.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
+<p>When exporting to this format, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.get_export_gltf_dict">
+<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF formatted dict.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1551,6 +1585,22 @@ and <code class="docutils literal"><span class="pre">ring</span></code> is a <a 
 <p class="last">Everything prior (in this case <code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code>) must reference an
 <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.get_export_gltf">
+<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.get_export_gltf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a glTF json string.</p>
+<p>(same arguments as <a class="reference internal" href="#cqparts.Assembly.get_export_gltf_dict" title="cqparts.Assembly.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
+<p>When exporting to this format, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Assembly.get_export_gltf_dict">
+<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get assembly geometry as a gltf export by combining each part into
+a single scene.</p>
 </dd></dl>
 
 <dl class="method">

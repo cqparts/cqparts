@@ -303,6 +303,81 @@ to be placed, a circular problem.</p>
 </div>
 <div class="section" id="module-cqparts.constraints">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.constraints" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.constraints.Mate">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.Mate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">cqparts.utils.geometry.CoordSystem</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.constraints.Constraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraints.Constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>A means to limit the relative position &amp;/or motion of 1 or more components.</p>
+<p>Constraints are combined and solved to set world coordinates of the
+components within an assembly.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.constraints.LockConstraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.LockConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<p>Locks an object to a coordinate system offset.</p>
+<p>There is only 1 possible solution.</p>
+<dl class="method">
+<dt id="cqparts.constraints.LockConstraint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component being constrained</li>
+<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock component’s coordinate system to</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.constraints.RelativeLockConstraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">RelativeLockConstraint</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em>, <em>relative_to</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.RelativeLockConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<p>Locks an object to a coordinate system offset relative to a part.</p>
+<p>To successfully determine the component’s location, the relative component
+must be solvable.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
+on relative locks to place its components.
+This is because every component will be waiting for another component
+to be placed, a circular problem.</p>
+<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraints.LockConstraint" title="cqparts.constraints.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a></p>
+</div>
+<dl class="method">
+<dt id="cqparts.constraints.RelativeLockConstraint.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>mate</em>, <em>relative_to</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.RelativeLockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component being constrained</li>
+<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock component’s coordinate system to</li>
+<li><strong>relative_to</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – <code class="docutils literal"><span class="pre">mate</span></code> is set in this component’s coordinate system</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 

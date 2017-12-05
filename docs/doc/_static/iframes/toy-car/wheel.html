@@ -6,11 +6,6 @@
     <script src="https://rawgit.com/takahirox/aframe-outline/master/build/aframe-outline.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.3/dist/aframe-extras.min.js"></script>
     <script src="../orbit-controls-component.min.js"></script>
-    <style>
-      .a-enter-vr-button {
-        left: 5%;
-      }
-    </style>
   </head>
   <body>
   <a-scene outline>
@@ -30,7 +25,7 @@
         </a-entity>
         <a-entity id="target" position="0 0 0"></a-entity>
         <a-entity id='main' scale="0.01 0.01 0.01" position="0 0 0" rotation="0 0 0">
-          <a-entity json-model="src: url(wheel.json);" position="0 0 0" rotation="-90 0 0"></a-entity>
+          <a-entity json-model="src: url(wheel.gltf);" position="0 0 0" rotation="-90 0 0"></a-entity>
         </a-entity>
     </a-scene>
   </body>
