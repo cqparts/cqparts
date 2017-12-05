@@ -208,13 +208,17 @@ class Part(Component):
 
         return new_obj
 
-    def get_export_gltf_dict(self):
+    def get_export_gltf_dict(self, world=False):
         """
         Export part's geometry as a glTF formatted dict.
+
+        :param world: if True, use world coordinates, otherwise use local
+        :type world: :class:`bool`
         """
         data = {}
         with BytesIO() as stream:
-            cadquery.exporters.exportShape(self.local_obj, 'TJS', stream)
+            obj = self.world_obj if world else self.local_obj
+            cadquery.exporters.exportShape(obj, 'TJS', stream)
             stream.seek(0)
             data = json.load(stream)
 

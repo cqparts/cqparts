@@ -13,7 +13,7 @@
             id="camera"
             camera
             fov="90"
-            position="0.36 0.42 0.84"
+            position="0.2 0.21 0.42"
             orbit-controls="
                 target: #target;
                 enableDamping: true;
@@ -25,7 +25,9 @@
         </a-entity>
         <a-entity id="target" position="0 0 0"></a-entity>
         <a-entity id='main' scale="0.01 0.01 0.01" position="0 0 0" rotation="0 0 0">
-          <a-entity json-model="src: url(wheel-assembly.json);" position="0 0 0" rotation="-90 0 0"></a-entity>
+            <a-entity json-model="src: url(wheel-assembly.axle.gltf);" position="0 0 0" rotation="-90 0 0"></a-entity>
+            <a-entity json-model="src: url(wheel-assembly.left_wheel.gltf);" position="0 0 0" rotation="-90 0 0"></a-entity>
+            <a-entity json-model="src: url(wheel-assembly.right_wheel.gltf);" position="0 0 0" rotation="-90 0 0"></a-entity>
         </a-entity>
     </a-scene>
   </body>
