@@ -66,9 +66,12 @@ The wheel's origin will be the point it meets the axle.
                 .circle(self.diameter / 2).extrude(self.width)
             return wheel
 
+**Result**
+
 ::
 
-    display(Wheel())
+    wheel = Wheel()
+    display(wheel)
 
 .. raw:: html
 
@@ -97,7 +100,7 @@ The vehicle's axle is a cylinder with a ``diameter`` and ``length``.
             return cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
                 .circle(self.diameter / 2).extrude(self.length)
 
-        # wheel mates, assuming they rotate around z-axis
+        # axle's mates: assuming the wheels rotate around their z-axis
         @property
         def mate_left(self):
             return Mate(
@@ -134,12 +137,16 @@ When assembling an axle we'll want to attach a wheel to each end. They're define
 above as ``mate_left`` and ``mate_right``.
 
 Note that the ``normal`` for a :class:`Mate <cqparts.constraints.mate.Mate>`
-is ``(0, 0, 1)`` by default (z-axis). changing this to :math:`+Y` axis for left
-and :math:`-Y` for right rotates the wheel accordingly when placed.
+is ``(0, 0, 1)`` by default :math:`+Z` axis. Changing this to the :math:`\pm Y`
+axis for left/right rotates the wheel so that wheel's :math:`+Z` axis is
+aligned accordingly.
+
+**Result**
 
 ::
 
-    display(Axle())
+    axle = Axle()
+    display(axle)
 
 .. raw:: html
 
@@ -174,9 +181,12 @@ variable :meth:`extrude() <cadquery.Workplane.extrude>` width.
                 .moveTo(*points[0]).polyline(points[1:]).close() \
                 .extrude(self.width)
 
+**Result**
+
 ::
 
-    display(Chassis())
+    chassis = Chassis()
+    display(chassis)
 
 .. raw:: html
 
@@ -239,10 +249,34 @@ to child *parts*. Note how ``axel_track`` is used to define the axle's length.
 
 **Components**
 
+The :meth:`Assembly.make_components` method is overridden above, to return
+a :class:`dict` of named :class:`Component` instances.
+
+Each component requires a name that's unique for the particular *assembly*.
+
+*Components* may be added, or omitted based on the *assembly's* parameters
+if necessary.
+
+**Constraints**
+
+The :meth:`Assembly.make_constraints` method is overridden to return a
+:class:`list` of :meth:`Constraint <cqparts.constraints.Constraint>` instances.
+
+Each *constraint* references, at least:
+
+* the *component* being constrained.
+* parameter(s) defining *how* it is to be constrained.
+
+see :ref:`parts.constraints` for more details.
+
+**Result**
 
 ::
 
-    display(WheeledAxle())
+    # wheels made asymmetrical to show that the
+    # 2 wheels are independently created.
+    wheeled_axle = WheeledAxle(right_width=2)
+    display(wheeled_axle)
 
 .. raw:: html
 
@@ -274,3 +308,7 @@ Car Assembly
 
         def make_constraints(self):
             pass
+
+.. todo::
+
+    I'm getting to this...

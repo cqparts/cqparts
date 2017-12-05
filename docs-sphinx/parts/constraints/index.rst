@@ -16,7 +16,7 @@ Conversely, a fully constrained *component* can only be at one specific location
 Constraints consist of, at a minimum:
 
 * the :class:`Component <cqparts.part.Component>` being constrained.
-* one or more :class:`Mate <mate.Mate>` instances.
+* one or more :class:`Mate` instances.
 * constraint specific parameters (if any)
 
 
@@ -116,3 +116,19 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
     >>> thing = Thing()
     >>> thing.build()  # creates and places all components recursively
+
+
+More...
+^^^^^^^^^^^^^^^
+
+.. warning::
+
+    At this time only *lock* constraints are available.
+
+    More are planned to be introduced in
+    `issue #30 <https://github.com/fragmuffin/cqparts/issues/30>`_.
+
+    Please feel free to post your interest there to help us gauge how high the
+    priority should be on this improvement.
+
+    Examples are most welcome.

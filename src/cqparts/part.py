@@ -208,22 +208,34 @@ class Part(Component):
 
         return new_obj
 
-    def get_export_json(self):
+    def get_export_gltf_dict(self):
         """
-        Get part's geometry as a json export.
+        Export part's geometry as a glTF formatted dict.
         """
-        obj = {}
+        data = {}
         with BytesIO() as stream:
             cadquery.exporters.exportShape(self.local_obj, 'TJS', stream)
             stream.seek(0)
-            obj = json.load(stream)
+            data = json.load(stream)
 
         # Change diffuse colour to that in render properties
-        obj['materials'][0]['colorDiffuse'] = [
+        data['materials'][0]['colorDiffuse'] = [
             val / 255. for val in self._render.rgb
         ]
 
-        return json.dumps(obj)
+        return data
+
+    def get_export_gltf(self, *args, **kwargs):
+        """
+        Export part's geometry as a glTF json string.
+
+        (same arguments as :meth:`get_export_gltf_dict`)
+
+        When exporting to this format, it's recommended that you choose a
+        filename with the extension ``.gltf``.
+        """
+        data = self.get_export_gltf_dict(*args, **kwargs)
+        return json.dumps(data)
 
 
 class Assembly(Component):
@@ -484,3 +496,27 @@ class Assembly(Component):
                     output += ': ' + repr(component)
                 output += '\n'
         return output
+
+    def get_export_gltf_dict(self):
+        """
+        Get assembly geometry as a gltf export by combining each part into
+        a single scene.
+        """
+        data = {}
+
+        # TODO: combine parts recursively
+        raise NotImplemented("can't merge json models yet (don't know how)")
+
+        return data
+
+    def get_export_gltf(self, *args, **kwargs):
+        """
+        Export part's geometry as a glTF json string.
+
+        (same arguments as :meth:`get_export_gltf_dict`)
+
+        When exporting to this format, it's recommended that you choose a
+        filename with the extension ``.gltf``.
+        """
+        data = self.get_export_gltf_dict(*args, **kwargs)
+        return json.dumps(data)

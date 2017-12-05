@@ -98,6 +98,15 @@ class RenderProps(object):
             'alpha': self.alpha,
         }
 
+    def __hash__(self):
+        hash(frozenset(self.dict.items()))
+
+    def __eq__(self, other):
+        return self.dict == other.dict
+
+    def __ne__(self, other):
+        return self.dict != other.dict
+
     @property
     def transparency(self):
         """
