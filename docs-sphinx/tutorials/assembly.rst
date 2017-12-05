@@ -69,7 +69,7 @@ below as ``mate_left`` and ``mate_right``
     import cqparts
     from cqparts.params import *
     from cqparts.display import render_props, display
-    from cqparts.constraints.mate import Mate
+    from cqparts.constraints import Mate
 
     class Axle(cqparts.Part):
         # Parameters
@@ -97,7 +97,10 @@ below as ``mate_left`` and ``mate_right``
 
 .. raw:: html
 
-   <iframe src="../_static/iframes/toy-car/axle.html" height="300px" width="100%" frameborder="0"></iframe>
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/axle.html"
+        height="300px" width="100%"
+    ></iframe>
 
 Wheel
 ^^^^^^^^^^^^
@@ -144,7 +147,10 @@ that only accepts these 2 options.
 
 .. raw:: html
 
-   <iframe src="../_static/iframes/toy-car/wheel.html" height="300px" width="100%" frameborder="0"></iframe>
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/wheel.html"
+        height="300px" width="100%"
+    ></iframe>
 
 
 Chassis
@@ -178,7 +184,10 @@ variable :meth:`extrude() <cadquery.Workplane.extrude>` width.
 
 .. raw:: html
 
-   <iframe src="../_static/iframes/toy-car/chassis.html" height="300px" width="100%" frameborder="0"></iframe>
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/chassis.html"
+        height="300px" width="100%"
+    ></iframe>
 
 
 Wheel Assembly
@@ -194,12 +203,45 @@ Just like a :class:`Part`, the :class:`Assembly` class makes use of *parameters*
 
 .. testcode::
 
+    from cqparts.constraints import LockConstraint, RelativeLockConstraint
+
     class WheeledAxle(cqparts.Assembly):
         left_width = PositiveFloat(7, doc="left wheel width")
         right_width = PositiveFloat(7, doc="right wheel width")
         left_diam = PositiveFloat(25, doc="left wheel diameter")
         right_diam = PositiveFloat(25, doc="right wheel diameter")
-        axle_diam = PositiveFloat()
+        axle_diam = PositiveFloat(8, doc="axel diameter")
+        axle_track = PositiveFloat(50, doc="distance between wheel tread midlines")
+
+        def make_components(self):
+            axel_length = self.axle_track - (self.left_width + self.right_width) / 2
+            return {
+                'axle': Axle(length=axel_length, diameter=self.axle_diam),
+                'left_wheel': Wheel(
+                     side='left', width=self.left_width, diameter=self.left_diam,
+                ),
+                'right_wheel': Wheel(
+                     side='right', width=self.right_width, diameter=self.right_diam,
+                ),
+            }
+
+        def make_constraints(self):
+            return [
+                LockConstraint(self.components['axle'], Mate()),
+                RelativeLockConstraint(
+                    self.components['left_wheel'],
+                    self.components['axle'].mate_left,
+                    self.components['axle']
+                ),
+                RelativeLockConstraint(
+                    self.components['right_wheel'],
+                    self.components['axle'].mate_right,
+                    self.components['axle']
+                ),
+            ]
+
+    display(WheeledAxle())
+
 
 Car Assembly
 ------------------

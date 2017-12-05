@@ -26,8 +26,8 @@ log = logging.getLogger()
 
 import cqparts
 from cqparts.params import *
-from cqparts.constraints.mate import Mate
-from cqparts.constraints.lock import LockConstraint, RelativeLockConstraint
+from cqparts.constraints import Mate
+from cqparts.constraints import LockConstraint, RelativeLockConstraint
 from cqparts.utils.geometry import CoordSystem
 
 from cqparts.display import display, render_props

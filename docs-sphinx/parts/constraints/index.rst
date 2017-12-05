@@ -33,7 +33,7 @@ and orientation relative to its parent's origin:
 
     >>> import cadquery
     >>> from cqparts import Assembly, Part
-    >>> from cqparts.constraints.lock import LockConstraint, Mate
+    >>> from cqparts.constraints import LockConstraint, Mate
 
     >>> class Box(Part):
     ...     def make(self):
@@ -79,7 +79,7 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
     >>> import cadquery
     >>> from cqparts import Assembly, Part
-    >>> from cqparts.constraints.lock import (
+    >>> from cqparts.constraints import (
     ...     LockConstraint, RelativeLockConstraint, Mate
     ... )
 

@@ -1,7 +1,12 @@
 __all__ = [
-    'lock',
-    'mate',
+    'Mate',
+
+    'LockConstraint',
+    'RelativeLockConstraint',
 ]
 
-from . import lock
-from . import mate
+from .mate import Mate
+from .lock import (
+    LockConstraint,
+    RelativeLockConstraint,
+)
