@@ -261,7 +261,7 @@ class Assembly(Component):
 
             This must be overridden in inheriting class.
 
-            See :ref:`tutorial_assembly` for a guide on how.
+            See :ref:`tutorial_assembly-1` for a guide on how.
 
         :return: {<name>: <Component>, ...}
         :rtype: :class:`dict` of :class:`Component` instances
@@ -277,7 +277,7 @@ class Assembly(Component):
 
             This must be overridden in inheriting class.
 
-            See :ref:`tutorial_assembly` for a guide on how.
+            See :ref:`tutorial_assembly-1` for a guide on how.
 
         :return: constraints for assembly children's placement
         :rtype: :class:`list` of :class:`Constraint <cqparts.constraints.base.Constraint>` instances

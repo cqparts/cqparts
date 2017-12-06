@@ -1,10 +1,10 @@
 
-.. _tutorial_assembly:
+.. _tutorial_assembly-1:
 
 .. currentmodule:: cqparts.part
 
-Make your own ``Assembly``
-==========================
+Make your own ``Assembly`` (part 1)
+======================================
 
 An :class:`Assembly` is a container for 1 to many :class:`Part` and/or
 nested :class:`Assembly` instances.
@@ -13,20 +13,25 @@ Today we're going to make a toy car, and put it into an assembly.
 
 This tutorial assumes you've been through the :ref:`tutorial_part` tutorial.
 
-.. todo:: image of finished car assembly
+.. raw:: html
+
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/car.html"
+        height="300px" width="100%"
+    ></iframe>
 
 Its structure will look something like this::
 
     car
-     ├─○ chassis
-     ├── front_axle
-     │   ├─○ axle
-     │   ├─○ left_wheel
-     │   └─○ right_wheel
-     └── rear_axle
-         ├─○ axle
-         ├─○ left_wheel
-         └─○ right_wheel
+    ├○ chassis
+    ├─ front_axle
+    │   ├○ axle
+    │   ├○ left_wheel
+    │   └○ right_wheel
+    └─ rear_axle
+        ├○ axle
+        ├○ left_wheel
+        └○ right_wheel
 
 Parts
 ------
@@ -44,6 +49,9 @@ Wheel
 ^^^^^^^^^^^^
 
 The wheel's origin will be the point it meets the axle.
+
+It's just a cylinder with a couterbore hole for a screw to hold the wheel
+onto its axle.
 
 .. testcode::
 
@@ -64,6 +72,10 @@ The wheel's origin will be the point it meets the axle.
         def make(self):
             wheel = cadquery.Workplane('XY') \
                 .circle(self.diameter / 2).extrude(self.width)
+            cutout = cadquery.Workplane('XY') \
+                .circle(2).extrude(self.width/2).faces(">Z") \
+                .circle(4).extrude(self.width/2)
+            wheel = wheel.cut(cutout)
             return wheel
 
 **Result**
@@ -86,6 +98,8 @@ Axle
 
 The vehicle's axle is a cylinder with a ``diameter`` and ``length``.
 
+We'll put a pilot hole in each end for a screw to hold the wheel on.
+
 .. testcode::
 
     class Axle(cqparts.Part):
@@ -97,8 +111,17 @@ The vehicle's axle is a cylinder with a ``diameter`` and ``length``.
         _render = render_props(color=(50, 50, 50))  # dark grey
 
         def make(self):
-            return cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
+            # Base cylinder
+            axle = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
                 .circle(self.diameter / 2).extrude(self.length)
+            # cut holes
+            cutout = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
+                .circle(1.5).extrude(10)
+            axle = axle.cut(cutout)
+            cutout = cadquery.Workplane('XZ', origin=(0, self.length/2, 0)) \
+                .circle(1.5).extrude(10)
+            axle = axle.cut(cutout)
+            return axle
 
         # axle's mates: assuming the wheels rotate around their z-axis
         @property
@@ -299,6 +322,7 @@ To see the hierarchy of what we've just made, we can also run::
 Car Assembly
 ------------------
 
+And finally we combine eveything above into a car!
 
 .. testcode::
 
@@ -307,18 +331,91 @@ Car Assembly
         wheelbase = PositiveFloat(70, "distance between front and rear axles")
         axle_track = PositiveFloat(60, "distance between tread midlines")
         # wheels
-        front_wheel_width = PositiveFloat(10, doc="width of front wheels")
-        rear_wheel_width = PositiveFloat(10, doc="width of rear wheels")
+        wheel_width = PositiveFloat(10, doc="width of all wheels")
         front_wheel_diam = PositiveFloat(30, doc="front wheel diameter")
         rear_wheel_diam = PositiveFloat(30, doc="rear wheel diameter")
         axle_diam = PositiveFloat(10, doc="axle diameter")
 
         def make_components(self):
-            pass
+            return {
+                'chassis': Chassis(width=self.axle_track),
+                'front_axle': WheeledAxle(
+                    left_width=self.wheel_width,
+                    right_width=self.wheel_width,
+                    left_diam=self.front_wheel_diam,
+                    right_diam=self.front_wheel_diam,
+                    axle_diam=self.axle_diam,
+                    axle_track=self.axle_track,
+                ),
+                'rear_axle': WheeledAxle(
+                    left_width=self.wheel_width,
+                    right_width=self.wheel_width,
+                    left_diam=self.rear_wheel_diam,
+                    right_diam=self.rear_wheel_diam,
+                    axle_diam=self.axle_diam,
+                    axle_track=self.axle_track,
+                ),
+            }
 
         def make_constraints(self):
-            pass
+            return [
+                LockConstraint(self.components['chassis'], Mate()),
+                RelativeLockConstraint(
+                    self.components['front_axle'],
+                    Mate((self.wheelbase/2,0,0)),
+                    self.components['chassis'],
+                ),
+                RelativeLockConstraint(
+                    self.components['rear_axle'],
+                    Mate((-self.wheelbase/2,0,0)),
+                    self.components['chassis'],
+                ),
+            ]
 
-.. todo::
 
-    I'm getting to this...
+::
+
+    car = Car()
+    display(car)
+
+.. raw:: html
+
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/car.html"
+        height="300px" width="100%"
+    ></iframe>
+
+And we can also view its hierarchy with::
+
+    >>> print(car.tree_str(name='car'))
+    car
+    ├○ chassis
+    ├─ front_axle
+    │   ├○ axle
+    │   ├○ left_wheel
+    │   └○ right_wheel
+    └─ rear_axle
+        ├○ axle
+        ├○ left_wheel
+        └○ right_wheel
+
+Note that the components in this *assembly* are both :class:`Part` and
+:class:`Assembly` instances. The nested *assemblies* gives us the 2nd layer of
+parts.
+
+Also note that we have 2 of the same :class:`Assembly` class, but 2 different
+instances, much like the 2 wheels in the previous ``WheeledAxle`` *assembly*.
+
+
+Next Steps
+--------------
+
+What we've made looks neat!
+
+However, it is impossible to construct:
+
+* Axle overlaps chassis.
+* Wheels overlap chassis.
+
+To make this assembly effective, we need to alter parts after they've been
+placed. This is explored in the next chapter: :ref:`tutorial_assembly-2`.

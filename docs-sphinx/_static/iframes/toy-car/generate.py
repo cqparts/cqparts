@@ -41,6 +41,10 @@ class Wheel(cqparts.Part):
     def make(self):
         wheel = cadquery.Workplane('XY') \
             .circle(self.diameter / 2).extrude(self.width)
+        cutout = cadquery.Workplane('XY') \
+            .circle(2).extrude(self.width/2).faces(">Z") \
+            .circle(4).extrude(self.width/2)
+        wheel = wheel.cut(cutout)
         return wheel
 
 wheel = Wheel()
@@ -58,8 +62,15 @@ class Axle(cqparts.Part):
     _render = render_props(color=(50, 50, 50))  # dark grey
 
     def make(self):
-        return cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
+        axle = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
             .circle(self.diameter / 2).extrude(self.length)
+        cutout = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
+            .circle(1.5).extrude(10)
+        axle = axle.cut(cutout)
+        cutout = cadquery.Workplane('XZ', origin=(0, self.length/2, 0)) \
+            .circle(1.5).extrude(10)
+        axle = axle.cut(cutout)
+        return axle
 
     # wheel mates, assuming they rotate around z-axis
     @property
@@ -147,24 +158,53 @@ print(wheeled_axle.tree_str(name='wheel_assembly'))
 
 # ------------------- Car Assembly -------------------
 
-exit(0)
-
 class Car(cqparts.Assembly):
     # Parameters
     wheelbase = PositiveFloat(70, "distance between front and rear axles")
     axle_track = PositiveFloat(60, "distance between tread midlines")
     # wheels
-    front_wheel_width = PositiveFloat(10, doc="width of front wheels")
-    rear_wheel_width = PositiveFloat(10, doc="width of rear wheels")
+    wheel_width = PositiveFloat(10, doc="width of all wheels")
     front_wheel_diam = PositiveFloat(30, doc="front wheel diameter")
     rear_wheel_diam = PositiveFloat(30, doc="rear wheel diameter")
     axle_diam = PositiveFloat(10, doc="axle diameter")
 
     def make_components(self):
-        pass
+        return {
+            'chassis': Chassis(width=self.axle_track),
+            'front_axle': WheeledAxle(
+                left_width=self.wheel_width,
+                right_width=self.wheel_width,
+                left_diam=self.front_wheel_diam,
+                right_diam=self.front_wheel_diam,
+                axle_diam=self.axle_diam,
+                axle_track=self.axle_track,
+            ),
+            'rear_axle': WheeledAxle(
+                left_width=self.wheel_width,
+                right_width=self.wheel_width,
+                left_diam=self.rear_wheel_diam,
+                right_diam=self.rear_wheel_diam,
+                axle_diam=self.axle_diam,
+                axle_track=self.axle_track,
+            ),
+        }
 
     def make_constraints(self):
-        pass
+        return [
+            LockConstraint(self.components['chassis'], Mate()),
+            RelativeLockConstraint(
+                self.components['front_axle'],
+                Mate((self.wheelbase/2,0,0)),
+                self.components['chassis'],
+            ),
+            RelativeLockConstraint(
+                self.components['rear_axle'],
+                Mate((-self.wheelbase/2,0,0)),
+                self.components['chassis'],
+            ),
+        ]
 
 car = Car()
 write_file(car, 'car.gltf')
+
+print(car.tree_str(name='car'))

@@ -11,7 +11,7 @@ Any :class:`Component <cqparts.part.Component>` class can be added to the
 concise code
 
 This includes anything we've made in :ref:`tutorial_part` and
-:ref:`tutorial_assembly`.
+:ref:`tutorial_assembly-1`.
 
 Registering, and searching is all done by the :mod:`cqparts.search` module.
 
