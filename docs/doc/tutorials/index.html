@@ -101,7 +101,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-1.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 1)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-2.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-2.html#assembly-build-cycle"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a></li>
@@ -177,57 +179,30 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="parametric-object.html">Parametric Object</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-parametric-object">Create a Parametric Object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#basic">Basic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#inherited-parameters">Inherited Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#initializing-parameters">Initializing Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#mixing-with-non-parameters">Mixing with Non-Parameters</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#builtin-parameters">Builtin Parameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#parameter-verification">Parameter Verification</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-custom-parameter">Create a Custom Parameter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#mapped-value-example">Mapped Value Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parametric-object.html#with-as-parameter">With <code class="docutils literal"><span class="pre">&#64;as_parameter</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-parametric-object">Create a Parametric Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#builtin-parameters">Builtin Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-custom-parameter">Create a Custom Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html#documenting-with-sphinx">Documenting with Sphinx</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a><ul>
 <li class="toctree-l2"><a class="reference internal" href="part.html#adding-mates">Adding <code class="docutils literal"><span class="pre">Mates</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="part.html#modifying-geometry">Modifying Geometry</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="part.html#inherit-cut-a-hole">Inherit : Cut a Hole</a></li>
-<li class="toctree-l3"><a class="reference internal" href="part.html#use-an-instance-union-2-parts">Use an Instance : Union 2 Parts</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="part.html#modifying-geometry">Modifying Geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part.html#rendering">Rendering</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#parts">Parts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="assembly.html#wheel">Wheel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="assembly.html#axle">Axle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="assembly.html#chassis">Chassis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly-1.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 1)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="assembly-1.html#parts">Parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-1.html#wheel-assembly">Wheel Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-1.html#car-assembly">Car Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-1.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#wheel-assembly">Wheel Assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#car-assembly">Car Assembly</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="assembly-2.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 2)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assembly-2.html#assembly-build-cycle"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="component-index.html">Component Index</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="component-index.html#registering">Registering</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="component-index.html#decorator">Decorator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="component-index.html#direct-register">Direct Register</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="component-index.html#searching-finding">Searching &amp; Finding</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="component-index.html#search">Search</a></li>
-<li class="toctree-l3"><a class="reference internal" href="component-index.html#find">Find</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="component-index.html#registering">Registering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="component-index.html#searching-finding">Searching &amp; Finding</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a><ul>
@@ -235,17 +210,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#component-parts">Component Parts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fastener-easy-install.html#wood-screw">Wood Screw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fastener-easy-install.html#anchor">Anchor</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#evaluation-selection-application">Evaluation / Selection / Application</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fastener-easy-install.html#evaluator">Evaluator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fastener-easy-install.html#selection">Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fastener-easy-install.html#application">Application</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#component-parts">Component Parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#evaluation-selection-application">Evaluation / Selection / Application</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#fastener-assembly">Fastener Assembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html#using-the-fastener">Using the Fastener</a></li>
 </ul>

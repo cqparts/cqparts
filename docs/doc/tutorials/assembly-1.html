@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Make your own Assembly &mdash; cqparts 0.1.0 documentation</title>
+  <title>Make your own Assembly (part 1) &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="Tutorials" href="index.html"/>
-        <link rel="next" title="Component Index" href="component-index.html"/>
+        <link rel="next" title="Make your own Assembly (part 2)" href="assembly-2.html"/>
         <link rel="prev" title="Make your own Part" href="part.html"/> 
 
   
@@ -102,7 +102,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 1)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#parts">Parts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#wheel">Wheel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#axle">Axle</a></li>
@@ -111,8 +111,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#wheel-assembly">Wheel Assembly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#car-assembly">Car Assembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-2.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-2.html#assembly-build-cycle"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a></li>
@@ -167,7 +170,7 @@
         
           <li><a href="index.html">Tutorials</a> &raquo;</li>
         
-      <li>Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></li>
+      <li>Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 1)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,27 +187,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="make-your-own-assembly">
-<span id="tutorial-assembly"></span><h1>Make your own <code class="docutils literal"><span class="pre">Assembly</span></code><a class="headerlink" href="#make-your-own-assembly" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="make-your-own-assembly-part-1">
+<span id="tutorial-assembly-1"></span><h1>Make your own <code class="docutils literal"><span class="pre">Assembly</span></code> (part 1)<a class="headerlink" href="#make-your-own-assembly-part-1" title="Permalink to this headline">¶</a></h1>
 <p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a container for 1 to many <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and/or
 nested <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances.</p>
 <p>Today we’re going to make a toy car, and put it into an assembly.</p>
 <p>This tutorial assumes you’ve been through the <a class="reference internal" href="part.html#tutorial-part"><span class="std std-ref">Make your own Part</span></a> tutorial.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">image of finished car assembly</p>
-</div>
-<p>Its structure will look something like this:</p>
+<iframe class="model-display"
+    src="../_static/iframes/toy-car/car.html"
+    height="300px" width="100%"
+></iframe><p>Its structure will look something like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>car
- ├─○ chassis
- ├── front_axle
- │   ├─○ axle
- │   ├─○ left_wheel
- │   └─○ right_wheel
- └── rear_axle
-     ├─○ axle
-     ├─○ left_wheel
-     └─○ right_wheel
+├○ chassis
+├─ front_axle
+│   ├○ axle
+│   ├○ left_wheel
+│   └○ right_wheel
+└─ rear_axle
+    ├○ axle
+    ├○ left_wheel
+    └○ right_wheel
 </pre></div>
 </div>
 <div class="section" id="parts">
@@ -220,6 +222,8 @@ use them, but also on how others may want to use them.</p>
 <div class="section" id="wheel">
 <h3>Wheel<a class="headerlink" href="#wheel" title="Permalink to this headline">¶</a></h3>
 <p>The wheel’s origin will be the point it meets the axle.</p>
+<p>It’s just a cylinder with a couterbore hole for a screw to hold the wheel
+onto its axle.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">import</span> <span class="nn">cqparts</span>
 <span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
@@ -237,6 +241,10 @@ use them, but also on how others may want to use them.</p>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wheel</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
             <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+        <span class="n">cutout</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">wheel</span> <span class="o">=</span> <span class="n">wheel</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">wheel</span>
 </pre></div>
 </div>
@@ -252,6 +260,7 @@ use them, but also on how others may want to use them.</p>
 <div class="section" id="axle">
 <h3>Axle<a class="headerlink" href="#axle" title="Permalink to this headline">¶</a></h3>
 <p>The vehicle’s axle is a cylinder with a <code class="docutils literal"><span class="pre">diameter</span></code> and <code class="docutils literal"><span class="pre">length</span></code>.</p>
+<p>We’ll put a pilot hole in each end for a screw to hold the wheel on.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Axle</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axle length&quot;</span><span class="p">)</span>
@@ -261,8 +270,17 @@ use them, but also on how others may want to use them.</p>
     <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>  <span class="c1"># dark grey</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;ZX&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
+        <span class="c1"># Base cylinder</span>
+        <span class="n">axle</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;ZX&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
             <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+        <span class="c1"># cut holes</span>
+        <span class="n">cutout</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;ZX&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">axle</span> <span class="o">=</span> <span class="n">axle</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
+        <span class="n">cutout</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">axle</span> <span class="o">=</span> <span class="n">axle</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">axle</span>
 
     <span class="c1"># axle&#39;s mates: assuming the wheels rotate around their z-axis</span>
     <span class="nd">@property</span>
@@ -420,28 +438,91 @@ if necessary.</p>
 </div>
 <div class="section" id="car-assembly">
 <h2>Car Assembly<a class="headerlink" href="#car-assembly" title="Permalink to this headline">¶</a></h2>
+<p>And finally we combine eveything above into a car!</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
     <span class="n">wheelbase</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s2">&quot;distance between front and rear axles&quot;</span><span class="p">)</span>
     <span class="n">axle_track</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;distance between tread midlines&quot;</span><span class="p">)</span>
     <span class="c1"># wheels</span>
-    <span class="n">front_wheel_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;width of front wheels&quot;</span><span class="p">)</span>
-    <span class="n">rear_wheel_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;width of rear wheels&quot;</span><span class="p">)</span>
+    <span class="n">wheel_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;width of all wheels&quot;</span><span class="p">)</span>
     <span class="n">front_wheel_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;front wheel diameter&quot;</span><span class="p">)</span>
     <span class="n">rear_wheel_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;rear wheel diameter&quot;</span><span class="p">)</span>
     <span class="n">axle_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axle diameter&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;chassis&#39;</span><span class="p">:</span> <span class="n">Chassis</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axle_track</span><span class="p">),</span>
+            <span class="s1">&#39;front_axle&#39;</span><span class="p">:</span> <span class="n">WheeledAxle</span><span class="p">(</span>
+                <span class="n">left_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wheel_width</span><span class="p">,</span>
+                <span class="n">right_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wheel_width</span><span class="p">,</span>
+                <span class="n">left_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">front_wheel_diam</span><span class="p">,</span>
+                <span class="n">right_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">front_wheel_diam</span><span class="p">,</span>
+                <span class="n">axle_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axle_diam</span><span class="p">,</span>
+                <span class="n">axle_track</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axle_track</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;rear_axle&#39;</span><span class="p">:</span> <span class="n">WheeledAxle</span><span class="p">(</span>
+                <span class="n">left_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wheel_width</span><span class="p">,</span>
+                <span class="n">right_width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wheel_width</span><span class="p">,</span>
+                <span class="n">left_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rear_wheel_diam</span><span class="p">,</span>
+                <span class="n">right_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rear_wheel_diam</span><span class="p">,</span>
+                <span class="n">axle_diam</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axle_diam</span><span class="p">,</span>
+                <span class="n">axle_track</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axle_track</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">()),</span>
+            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;front_axle&#39;</span><span class="p">],</span>
+                <span class="n">Mate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span>
+            <span class="p">),</span>
+            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;rear_axle&#39;</span><span class="p">],</span>
+                <span class="n">Mate</span><span class="p">((</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">I’m getting to this…</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">car</span><span class="p">)</span>
+</pre></div>
 </div>
+<iframe class="model-display"
+    src="../_static/iframes/toy-car/car.html"
+    height="300px" width="100%"
+></iframe><p>And we can also view its hierarchy with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;car&#39;</span><span class="p">))</span>
+<span class="go">car</span>
+<span class="go">├○ chassis</span>
+<span class="go">├─ front_axle</span>
+<span class="go">│   ├○ axle</span>
+<span class="go">│   ├○ left_wheel</span>
+<span class="go">│   └○ right_wheel</span>
+<span class="go">└─ rear_axle</span>
+<span class="go">    ├○ axle</span>
+<span class="go">    ├○ left_wheel</span>
+<span class="go">    └○ right_wheel</span>
+</pre></div>
+</div>
+<p>Note that the components in this <em>assembly</em> are both <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and
+<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances. The nested <em>assemblies</em> gives us the 2nd layer of
+parts.</p>
+<p>Also note that we have 2 of the same <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> class, but 2 different
+instances, much like the 2 wheels in the previous <code class="docutils literal"><span class="pre">WheeledAxle</span></code> <em>assembly</em>.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>What we’ve made looks neat!</p>
+<p>However, it is impossible to construct:</p>
+<ul class="simple">
+<li>Axle overlaps chassis.</li>
+<li>Wheels overlap chassis.</li>
+</ul>
+<p>To make this assembly effective, we need to alter parts after they’ve been
+placed. This is explored in the next chapter: <a class="reference internal" href="assembly-2.html#tutorial-assembly-2"><span class="std std-ref">Make your own Assembly (part 2)</span></a>.</p>
 </div>
 </div>
 
@@ -455,7 +536,7 @@ if necessary.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="component-index.html" class="btn btn-neutral float-right" title="Component Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="assembly-2.html" class="btn btn-neutral float-right" title="Make your own Assembly (part 2)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="part.html" class="btn btn-neutral" title="Make your own Part" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
