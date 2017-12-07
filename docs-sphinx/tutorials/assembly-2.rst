@@ -5,10 +5,11 @@
 Make your own ``Assembly`` (part 2)
 ======================================
 
-Many :class:`Assembly` instances need to defined, then altered in some way.
+This section improves the *car* we built in :ref:`tutorial_assembly-1`, and if
+you haven't already, now would be a good time to familiarize yourself with the
+:ref:`parts_assembly-build-cycle`.
 
-To
+We're going to change the following:
 
-
-``Assembly`` Build Cycle
-=============================
+* chassis cut out room for the axles
+* chassis cut out to alow wheels to move

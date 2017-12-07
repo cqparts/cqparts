@@ -7,6 +7,8 @@ Parts & Assembiles
     :caption: Contents:
 
     part_vs_assembly
+    part-build-cycle
+    assembly-build-cycle
     fasteners/index
     constraints/index
     rendering
