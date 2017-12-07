@@ -181,6 +181,21 @@ def common_criteria(**common):
         1
         >>> awesome_find(a='one', b='two').__name__
         'AwesomeThing'
+
+    A good universal way to apply unique criteria is with
+
+    .. testcode::
+
+        import cadquery, cqparts
+        from cqparts.search import register, common_criteria
+        _register = common_criteria(module=__name__)(register)
+
+        @_register(shape='cube', scale='unit')
+        class Cube(cqparts.Part):
+            # just an example...
+            def make(self):
+                return cadquery.Workplane('XY').box(1, 1, 1)
+
     """
     def decorator(func):
         def inner(*args, **kwargs):

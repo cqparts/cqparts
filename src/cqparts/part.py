@@ -42,16 +42,16 @@ class Component(ParametricObject):
     @property
     def world_coords(self):
         """
-        :return: coordinate system in the world, None until placed
-        :rtype: :class:`cadquery.Plane`
+        Component's placement in word coordinates
+        (:class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`)
+
+        :return: coordinate system in the world, ``None`` if not set.
+        :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
         """
         return self._world_coords
 
     @world_coords.setter
     def world_coords(self, value):
-        """
-        Set component's placement in word coordinates (as a :class:`cadquery.Plane`)
-        """
         self._world_coords = value
         self._placement_changed()
 
@@ -164,14 +164,13 @@ class Part(Component):
     @property
     def world_obj(self):
         """
-        The :meth:`local_obj` object in the :meth:`world_coords` coordinate
-        system.
+        The :meth:`local_obj <local_obj>` object in the
+        :meth:`world_coords <Component.world_coords>` coordinate system.
 
-        .. note:
+        .. note::
 
-            This is automatically re-generated when called, and either
-            :meth:`local_obj` or :meth:`world_coords` are set, and neither are
-            ``Null``.
+            This is automatically generated when called, and
+            :meth:`world_coords <Component.world_coords>` is not ``Null``.
         """
         if self._world_obj is None:
             local_obj = self.local_obj
@@ -336,6 +335,15 @@ class Assembly(Component):
             self._constraints = constraints
 
         return self._constraints
+
+    def _placement_changed(self):
+        """
+        Called when ``world_coords`` is changed.
+
+        All components' ``world_coords`` must be updated based on the change;
+        calls :meth:`solve`.
+        """
+        self.solve()
 
     def solve(self):
         """
