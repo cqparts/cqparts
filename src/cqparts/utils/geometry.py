@@ -8,10 +8,9 @@ from copy import copy as builtin_copy
 
 
 def intersect(wp1, wp2, combine=True, clean=True):
-    """
-    Return geometric intersection between 2 cadquery.Workplane instances by
-    exploiting.
-    A n B = (A u B) - ((A - B) u (B - A))
+    r"""
+    Return geometric intersection between 2 :class:`cadquery.Workplane` instances by
+    exploiting :math:`A \cap B = (A \cup B) - \left((A - B) \cup (B - A)\right)`.
     """
     solidRef = wp1.findSolid(searchStack=True, searchParents=True)
 

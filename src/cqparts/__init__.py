@@ -23,6 +23,7 @@ __copyright__ = "Copyright 2017 {0}".format(__author__)
 
 # =========================== Imports ===========================
 __all__ = [
+    'basic',
     'bearings',
     'fasteners',
     'gears',
@@ -47,6 +48,7 @@ __all__ = [
     'Assembly',
 ]
 
+from . import basic
 from . import bearings
 from . import fasteners
 from . import gears
