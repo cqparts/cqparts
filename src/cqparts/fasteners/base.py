@@ -1,7 +1,7 @@
 import six
 
 from ..part import Part, Assembly
-from ..types import threads
+from ..solidtypes import threads
 
 from .params import HeadType, DriveType, ThreadType
 from ..params import PositiveFloat

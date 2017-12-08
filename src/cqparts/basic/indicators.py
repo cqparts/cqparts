@@ -63,8 +63,8 @@ class PlaneIndicator(Part):
     """
     A thin plate spread over the given plane
     """
-    size = PositiveFloat(20, doc="size of pl")
-    thickness = PositiveFloat(0.01, doc="thickness of plane indicator plate")
+    size = PositiveFloat(20, doc="size of square plate; length of one side")
+    thickness = PositiveFloat(0.01, doc="thickness of indicator plate")
     name = String('XY', doc="name of plane, according to :meth:`cadquery.Plane.named`")
     def make(self):
         return cadquery.Workplane(self.name).box(self.size, self.size, self.thickness)

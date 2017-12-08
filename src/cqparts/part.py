@@ -3,6 +3,7 @@ import six
 from copy import copy
 from io import BytesIO
 import json
+from types import GeneratorType
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
@@ -11,6 +12,7 @@ from .display import (
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError, AssemblyFindError
+from .constraints import Constraint
 from .constraints.solver import solver
 
 from .utils.geometry import copy as copy_wp
@@ -258,14 +260,15 @@ class Assembly(Component):
 
         .. tip::
 
-            This must be overridden in inheriting class.
+            This **must** be overridden in inheriting class, read:
 
-            See :ref:`tutorial_assembly-1` for a guide on how.
+            * :ref:`parts_assembly-build-cycle` for details.
+            * :ref:`tutorial_assembly-1` for an example.
 
         :return: {<name>: <Component>, ...}
         :rtype: :class:`dict` of :class:`Component` instances
         """
-        raise NotImplementedError("make function not implemented")
+        raise NotImplementedError("make_components function not implemented")
 
     def make_constraints(self):
         """
@@ -274,9 +277,10 @@ class Assembly(Component):
 
         .. tip::
 
-            This must be overridden in inheriting class.
+            This **must** be overridden in inheriting class, read:
 
-            See :ref:`tutorial_assembly-1` for a guide on how.
+            * :ref:`parts_assembly-build-cycle` for details.
+            * :ref:`tutorial_assembly-1` for an example.
 
         :return: constraints for assembly children's placement
         :rtype: :class:`list` of :class:`Constraint <cqparts.constraints.base.Constraint>` instances
@@ -284,56 +288,51 @@ class Assembly(Component):
         Default behaviour returns an empty list; assumes assembly is
         entirely unconstrained.
         """
-        return []
+        raise NotImplementedError("make_constraints function not implemented")
+
+    def make_alterations(self):
+        """
+        Make necessary changes to components after the constraints solver has
+        completed.
+
+        .. tip::
+
+            This *can* be overridden in inheriting class, read:
+
+            * :ref:`parts_assembly-build-cycle` for details.
+            * :ref:`tutorial_assembly-2` for an example.
+
+        """
+        pass
 
     @property
     def components(self):
         """
-        .. warning::
+        Returns full :class:`dict` of :class:`Component` instances, after
+        a successful :meth:`build`
 
-            TODO: document this... needs some 'splaining
+        :return: dict of named :class:`Component` instances
+        :rtype: :class:`dict`
+
+        For more information read about the :ref:`parts_assembly-build-cycle` .
         """
         if self._components is None:
-            # ----- Get Component List
-            components = self.make_components()
-            # verify returned type from user-defined function
-            if not isinstance(components, dict):
-                raise MakeError(
-                    "invalid type returned by make_components(): %r (must be a dict)" % components
-                )
-
-            # check types for (name, component) pairs in dict
-            for (name, component) in components.items():
-                if not isinstance(name, six.string_types) or not isinstance(component, Component):
-                    raise MakeError((
-                        "invalid component returned by make_components(): (%r, %r) "
-                        "(must be a (str, Component))"
-                    ) % (name, component))
-                if '.' in name:
-                    raise MakeError("component names cannot contain a '.' (%s, %r)" % (name, component))
-
-            # ----- Buffer Attribute (only after all of the above has succeeded)
-            self._components = components
-
+            self.build(recursive=False)
         return self._components
 
     @property
     def constraints(self):
         """
-        .. warning::
+        Returns full :class:`list` of :class:`Constraint <cqparts.constraints.Constraint>` instances, after
+        a successful :meth:`build`
 
-            TODO: document this... needs some 'splaining
+        :return: list of named :class:`Constraint <cqparts.constraints.Constraint>` instances
+        :rtype: :class:`list`
+
+        For more information read about the :ref:`parts_assembly-build-cycle` .
         """
         if self._constraints is None:
-            constraints = self.make_constraints()
-            # Verify Return from user-defined function
-            if not isinstance(constraints, list):
-                raise MakeError(
-                    "invalid type returned by make_constraints: %r (must be a list)" % constraints
-                )
-
-            self._constraints = constraints
-
+            self.build(recursive=False)
         return self._constraints
 
     def _placement_changed(self):
@@ -356,24 +355,154 @@ class Assembly(Component):
         for (component, world_coords) in solver(self.constraints, self.world_coords):
             component.world_coords = world_coords
 
+    @staticmethod
+    def verify_components(components):
+        """
+        Verify values returned from :meth:`make_components`.
+
+        Used internally during the :meth:`build` process.
+
+        :param components: value returned from :meth:`make_components`
+        :type components: :class:`dict`
+        :raises ValueError: if verification fails
+        """
+        # verify returned type from user-defined function
+        if not isinstance(components, dict):
+            raise ValueError(
+                "invalid type returned by make_components(): %r (must be a dict)" % components
+            )
+
+        # check types for (name, component) pairs in dict
+        for (name, component) in components.items():
+            # name is a string
+            if not isinstance(name, six.string_types):
+                raise ValueError((
+                    "invalid name from make_components(): (%r, %r) "
+                    "(must be a (str, Component))"
+                ) % (name, component))
+
+            # component is a Component instance
+            if not isinstance(component, Component):
+                raise ValueError((
+                    "invalid component type from make_components(): (%r, %r) "
+                    "(must be a (str, Component))"
+                ) % (name, component))
+
+            # name cannot contain a '.'
+            if '.' in name:
+                raise ValueError("component names cannot contain a '.' (%s, %r)" % (name, component))
+
+    @staticmethod
+    def verify_constraints(constraints):
+        """
+        Verify values returned from :meth:`make_constraints`.
+
+        Used internally during the :meth:`build` process.
+
+        :param constraints: value returned from :meth:`make_constraints`
+        :type constraints: :class:`list`
+        :raises ValueError: if verification fails
+        """
+        # verify return is a list
+        if not isinstance(constraints, list):
+            raise ValueError(
+                "invalid type returned by make_constraints: %r (must be a list)" % constraints
+            )
+
+        # verify each list element is a Constraint instance
+        for constraint in constraints:
+            if not isinstance(constraint, Constraint):
+                raise ValueError(
+                    "invalid constraint type: %r (must be a Constriant)" % constraint
+                )
+
     def build(self, recursive=True):
         """
-        Building an assembly buffers the ``components`` attribute.
-        It also recursively iterates through nested components
-        and builds thos too (if ``recursive`` is set).
+        Building an assembly buffers the :meth:`components` and :meth:`constraints`.
 
-        Running ``.build()`` is optional, it's mostly used to test that
-        there aren't any critical runtime issues with it's construction.
+
+        Running ``build()`` is optional, it's automatically run when requesting
+        :meth:`components` or :meth:`constraints`.
+
+        Mostly it's used to test that there aren't any critical runtime
+        issues with it's construction, but doing anything like *displaying* or
+        *exporting* will ultimately run a build anyway.
 
         :param recursive: if set, iterates through child components and builds
                           those as well.
         :type recursive: :class:`bool`
         """
-        components = self.components
-        if recursive:
-            for (name, component) in components.items():
-                component.build(recursive=recursive)
 
+        # initialize values
+        self._components = {}
+        self._constraints = []
+
+        def genwrap(obj, name, iter_type=None):
+            # Force obj to act like a generator.
+            # this wrapper will always yield at least once.
+            if isinstance(obj, GeneratorType):
+                for i in obj:
+                    if (iter_type is not None) and (not isinstance(i, iter_type)):
+                        raise TypeError("%s must yield a %r" % (name, iter_type))
+                    yield i
+            else:
+                if (iter_type is not None) and (not isinstance(obj, iter_type)):
+                    raise TypeError("%s must return a %r" % (name, iter_type))
+                yield obj
+
+        # Make Components
+        components_iter = genwrap(self.make_components(), "make_components", dict)
+        new_components = components_iter.next()
+        self.verify_components(new_components)
+        self._components.update(new_components)
+
+        # Make Constraints
+        constraints_iter = genwrap(self.make_constraints(), "make_components", list)
+        new_constraints = constraints_iter.next()
+        self.verify_constraints(new_constraints)
+        self._constraints += new_constraints
+
+        # Run solver : sets components' world coordinates
+        self.solve()
+
+        # Make Alterations
+        alterations_iter = genwrap(self.make_alterations(), "make_alterations")
+        alterations_iter.next()  # return value is ignored
+
+        while True:
+            (s1, s2, s3) = (True, True, True)  # stages
+            # Make Components
+            try:
+                new_components = components_iter.next()
+                self.verify_components(new_components)
+                self._components.update(new_components)
+            except StopIteration:
+                s1 = False
+
+            # Make Constraints
+            try:
+                new_constraints = constraints_iter.next()
+                self.verify_constraints(new_constraints)
+                self._constraints += new_constraints
+            except StopIteration:
+                s2 = False
+
+            # Run solver : sets components' world coordinates
+            self.solve()
+
+            # Make Alterations
+            try:
+                alterations_iter.next()  # return value is ignored
+            except StopIteration:
+                s3 = False
+
+            # end loop when all iters are finished
+            if not any((s1, s2, s3)):
+                break
+
+        if recursive:
+            for (name, component) in self._components.items():
+                component.build(recursive=recursive)
 
     def find(self, keys, _index=0):
         """
