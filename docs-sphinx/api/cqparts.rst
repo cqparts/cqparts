@@ -12,8 +12,8 @@ Subpackages
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
+    cqparts.solidtypes
     cqparts.torque_limiters
-    cqparts.types
     cqparts.utils
 
 Submodules
