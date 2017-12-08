@@ -3,9 +3,9 @@ import six
 from ..params import *
 
 # Types of things... not parts on their own, but utilised in many
-from ..types import fastener_heads
-from ..types import screw_drives
-from ..types import threads
+from ..solidtypes import fastener_heads
+from ..solidtypes import screw_drives
+from ..solidtypes import threads
 
 
 # --------- Custom Parameter types ---------
@@ -81,13 +81,13 @@ class HeadType(FastenerComponentParam):
 
         ``value`` can be any of:
 
-        - :class:`FastenerHead <cqparts.types.fastener_heads.FastenerHead>` instance
+        - :class:`FastenerHead <cqparts.solidtypes.fastener_heads.FastenerHead>` instance
         - :class:`tuple` of (``head type``, ``parameters``) where:
 
           - ``head type`` is one of
 
-            - :class:`str` name of fastener head (registered with :meth:`fastener_head <cqparts.types.fastener_heads.fastener_head>`)
-            - :class:`FastenerHead <cqparts.types.fastener_heads.FastenerHead>` subclass
+            - :class:`str` name of fastener head (registered with :meth:`fastener_head <cqparts.solidtypes.fastener_heads.fastener_head>`)
+            - :class:`FastenerHead <cqparts.solidtypes.fastener_heads.FastenerHead>` subclass
 
           - ``parameters`` is a :class:`dict`
         """
@@ -109,13 +109,13 @@ class DriveType(FastenerComponentParam):
 
         ``value`` can be any of:
 
-        - :class:`ScrewDrive <cqparts.types.screw_drives.ScrewDrive>` instance
+        - :class:`ScrewDrive <cqparts.solidtypes.screw_drives.ScrewDrive>` instance
         - :class:`tuple` of (``drive type``, ``parameters``) where
 
           - ``drive type`` is one of
 
-            - ``str``: name of screw-drive (registered with :meth:`screw_drive <cqparts.types.screw_drives.screw_drive>`)
-            - :class:`ScrewDrive <cqparts.types.screw_drives.ScrewDrive>` subclass
+            - ``str``: name of screw-drive (registered with :meth:`screw_drive <cqparts.solidtypes.screw_drives.screw_drive>`)
+            - :class:`ScrewDrive <cqparts.solidtypes.screw_drives.ScrewDrive>` subclass
 
           - ``parameters`` is a :class:`dict`
         """
@@ -136,13 +136,13 @@ class ThreadType(FastenerComponentParam):
 
         ``value`` can be any of:
 
-        - :class:`Thread <cqparts.types.threads.Thread>` instance
+        - :class:`Thread <cqparts.solidtypes.threads.Thread>` instance
         - :class:`tuple` of (``thread type``, ``parameters``) where:
 
           - ``thread type`` is one of
 
-            - ``str``: name of thread type (registered with :meth:`thread <cqparts.types.threads.thread>`)
-            - :class:`Thread <cqparts.types.threads.Thread>` subclass
+            - ``str``: name of thread type (registered with :meth:`thread <cqparts.solidtypes.threads.thread>`)
+            - :class:`Thread <cqparts.solidtypes.threads.Thread>` subclass
 
           - ``parameters`` is a :class:`dict`
         """
