@@ -12,7 +12,7 @@ import cadquery
 import math
 from Helpers import show
 import cqparts
-from cqparts.types.screw_drives.base import screw_drive_map
+from cqparts.solidtypes.screw_drives.base import screw_drive_map
 
 import logging
 log = logging.getLogger(__name__)

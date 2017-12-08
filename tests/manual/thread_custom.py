@@ -13,7 +13,7 @@ import cqparts
 import Part as FreeCADPart
 from Helpers import show
 
-from cqparts.types.threads.base import Thread, profile_to_cross_section, helical_path
+from cqparts.solidtypes.threads.base import Thread, profile_to_cross_section, helical_path
 
 cadquery.freecad_impl.console_logging.enable()
 import logging

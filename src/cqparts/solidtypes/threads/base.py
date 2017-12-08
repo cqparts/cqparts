@@ -52,7 +52,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     **Example**::
 
         import cadquery
-        from cqparts.types.threads.base import profile_to_cross_section
+        from cqparts.solidtypes.threads.base import profile_to_cross_section
         from Helpers import show
 
         profile = cadquery.Workplane("XZ") \
@@ -66,7 +66,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
 
     Will result in:
 
-    .. image:: /_static/img/types.threads.base.profile_to_cross_section.01.png
+    .. image:: /_static/img/solidtypes.threads.base.profile_to_cross_section.01.png
 
     :param profile: workplane containing wire of thread profile.
     :type profile: :class:`cadquery.Workplane`
@@ -251,7 +251,7 @@ class Thread(ParametricObject):
         example implementation::
 
             import cadquery
-            from cqparts.types.threads.base import Thread
+            from cqparts.solidtypes.threads.base import Thread
 
             class MyThread(Thread):
                 def build_profile(self):
@@ -306,7 +306,7 @@ class Thread(ParametricObject):
 #       import cadquery
 #       from Helpers import show
 #       from cqparts.params import *
-#       from cqparts.types.threads import Thread, thread
+#       from cqparts.solidtypes.threads import Thread, thread
 #
 #       @thread('my_thread')  # registration is not mandatory, but recommended
 #       class MyThread(Thread):

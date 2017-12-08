@@ -12,7 +12,7 @@ import cadquery
 import math
 from Helpers import show
 import cqparts
-from cqparts.types.fastener_heads.base import fastener_head_map
+from cqparts.solidtypes.fastener_heads.base import fastener_head_map
 
 import logging
 log = logging.getLogger(__name__)

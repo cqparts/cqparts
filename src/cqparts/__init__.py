@@ -30,7 +30,7 @@ __all__ = [
     'motors',
     'torque_limiters',
 
-    'types',
+    'solidtypes',
 
     'display',
     'errors',
@@ -55,7 +55,7 @@ from . import gears
 from . import motors
 from . import torque_limiters
 
-from . import types
+from . import solidtypes
 
 from . import display
 from . import errors
