@@ -240,3 +240,25 @@ class CoordSystem(cadquery.Plane):
                 self_cls=type(self),
                 other_cls=type(other),
             ))
+
+    def __sub__(self, other):
+        """
+        For ``A`` - ``B``. Where ``A`` is this coordinate system,
+        and ``B`` is ``other``.
+
+        :raises TypeError: if subtraction for the given type is not supported
+
+        Supported types:
+
+        ``A`` (:class:`CoordSystem`) + ``B`` (:class:`CoordSystem`):
+
+        :return: local coordinate system of ``A`` from ``B``'s coordinate system
+        :rtype: :class:`CoordSystem`
+        """
+        if isinstance(other, CoordSystem):
+            # CoordSystem - CoordSystem
+            self_transform = self.local_to_world_transform
+            other_transform = other.world_to_local_transform
+            return self.from_transform(
+                other_transform.multiply(self_transform)
+            )

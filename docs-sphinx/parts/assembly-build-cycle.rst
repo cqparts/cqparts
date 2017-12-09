@@ -32,8 +32,9 @@ For a single build cycle, we implement:
 * :meth:`make_alterations() <Assembly.make_alterations>` to (optionally) make
   changes to components.
 
-To illustrate let's make a plate with cylinder sticking out of it, with a hole
-to fasten it. The hole will be in a configurable location.
+To illustrate let's make a plate with cylinder sticking out of it.
+The plate will have a hole to fasten the cylinder.
+The hole will be in a configurable location, and mounted at an angle.
 
 
 Cylinder Part
@@ -44,7 +45,7 @@ Cylinder Part
     import cadquery
     import cqparts
     from cqparts.params import *
-    from cqparts.display import display
+    from cqparts.display import display, render_props
     from cqparts.constraints import Mate
 
     class Cylinder(cqparts.Part):
@@ -52,6 +53,8 @@ Cylinder Part
         length = PositiveFloat(10, doc="cylinder's length")
         embed = PositiveFloat(2, doc="embedding distance")
         hole_diam = PositiveFloat(2.72, doc="pilot hole diam")
+
+        _render = render_props(alpha=0.8)
 
         def make_base_cylinder(self):
             # This is used as a basis for make() and cutaway()
@@ -72,9 +75,12 @@ Cylinder Part
 
     display(Cylinder())
 
-.. todo::
+.. raw:: html
 
-    display(Cylinder())
+    <iframe class="model-display"
+        src="../_static/iframes/asm-build-cycle/cylinder.html"
+        height="300px" width="100%"
+    ></iframe>
 
 
 Plate Part
@@ -82,29 +88,42 @@ Plate Part
 
 .. testcode::
 
+    from math import sin, radians
+
     class Plate(cqparts.Part):
-        length = PositiveFloat(100, doc="plate length")
-        width = PositiveFloat(100, doc="plate width")
+        length = PositiveFloat(20, doc="plate length")
+        width = PositiveFloat(20, doc="plate width")
         thickness = PositiveFloat(10, doc="plate thickness")
-        hole_offset = Float(50, doc="hole's offset from plate center along x-axis")
         hole_diam = PositiveFloat(3, doc="hole diameter")
+        connection_offset = Float(4, doc="hole's offset from plate center along x-axis")
+        connection_angle = Float(20, doc="angle of mate point")
 
         def make(self):
-            return cadquery.Workplane('XY') \
-                .box(self.length, self.width, self.thickness) \
-                .moveTo(self.hole_offset, 0).hole(self.hole_diam)
+            plate = cadquery.Workplane('XY') \
+                .box(self.length, self.width, self.thickness)
+            hole_tool = cadquery.Workplane('XY', origin=(0, 0, -self.thickness * 5)) \
+                .circle(self.hole_diam / 2).extrude(self.thickness * 10)
+            hole_tool = self.mate_hole + hole_tool
+            return plate.cut(hole_tool)
 
         @property
         def mate_hole(self):
-            return Mate((self.hole_offset, 0, self.thickness/2))
+            return Mate(
+                origin=(self.connection_offset, 0, self.thickness/2),
+                xDir=(1, 0, 0),
+                normal=(0, -sin(radians(self.connection_angle)), 1),
+            )
 
 ::
 
     display(Plate())
 
-.. todo::
+.. raw:: html
 
-    display(Plate())
+    <iframe class="model-display"
+        src="../_static/iframes/asm-build-cycle/plate.html"
+        height="300px" width="100%"
+    ></iframe>
 
 
 Demo Assembly
@@ -118,17 +137,19 @@ And finally, lets combine the two to fully utilise a single build cycle.
 
     class Thing(cqparts.Assembly):
 
+        # Components are updated to self.components first
         def make_components(self):
             return {
                 'pla': Plate(),
                 'cyl': Cylinder(),
             }
 
+        # Then constraints are appended to self.constraints (second)
         def make_constraints(self):
             return [
                 LockConstraint(
                     component=self.components['pla'],
-                    mate=Mate(origin=(-33,92,28), xDir=(1,0.5,0))  # a bit of random placement
+                    mate=Mate(origin=(-1,-5,-2), xDir=(-0.5,1,0))  # a bit of random placement
                 ),
                 RelativeLockConstraint(
                     component=self.components['cyl'],
@@ -137,29 +158,54 @@ And finally, lets combine the two to fully utilise a single build cycle.
                 ),
             ]
 
+        # In between updating components, and adding constraints:
+        #   self.solve() is run.
+        # This gives each component a valid world_coords value, so
+        # we can use it in the next step...
+
+        # Lastly, this function is run (any return is ignored)
         def make_alterations(self):
             # get Cylinder's location relative to the Plate
             coords = self.components['cyl'].world_coords - self.components['pla'].world_coords
             # apply that to the "cutout" we want to subtract from the plate
-            cutout = coords + self.components['cyl'].cutout
+            cutout = coords + self.components['cyl'].cutaway
             self.components['pla'].local_obj = self.components['pla'].local_obj.cut(cutout)
 
-Now we end up with::
+I got a bit lazy with the parameters there; ``Thing`` doesn't take any.
+
+But in the end get::
 
     thing = Thing()
     display(thing)
 
-.. todo::
+.. raw:: html
 
-    display(thing)
+    <iframe class="model-display"
+        src="../_static/iframes/asm-build-cycle/thing.html"
+        height="300px" width="100%"
+    ></iframe>
 
-But more importantly, the plate's geometry now looks like::
+But more importantly, the plate's geometry now looks like this; displayed in
+its local part coordinates::
 
     display(thing.find('pla'))
 
-.. todo::
+.. raw:: html
 
-    display(thing.find('pla'))
+    <iframe class="model-display"
+        src="../_static/iframes/asm-build-cycle/plate-altered.html"
+        height="300px" width="100%"
+    ></iframe>
+
+The ``Plate`` geometry is altered when used in the ``Thing`` :class:`Assembly`,
+and the changes to ``Plate`` could be completely different if used in a different
+:class:`Assembly`.
+
+**But Why?**: Consider a builder constructing a wall, a *part* they may use is a length of
+timber. During the wall's construction, the timber gets holes in it, from nails,
+screws, bolts, or perhaps water pipes are threaded through. All of this detail
+has **nothing** to do with the timber *part* before it's assembled. The alterations
+to the length of timber is the onus of the *assembly*; the wall itself.
 
 
 .. _parts_assembly-build-cycle_multiple:

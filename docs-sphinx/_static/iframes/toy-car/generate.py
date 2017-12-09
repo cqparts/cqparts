@@ -5,30 +5,22 @@
 
 import sys
 import os
+import inspect
 
-sys.path.append('../../../../src')
+if 'MYSCRIPT_DIR' in os.environ:
+    _this_path = os.environ['MYSCRIPT_DIR']
+else:
+    _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+sys.path.insert(0, os.path.join(_this_path, '..', '..', '..', '..', 'src'))
+
+
+# ------------------- Wheel -------------------
 
 import cadquery
 import cqparts
 from cqparts.params import *
 from cqparts.display import render_props, display
 from cqparts.constraints import Mate
-
-
-def write_file(obj, filename, world=False):
-    if isinstance(obj, cqparts.Assembly):
-        obj.solve()
-        for (name, child) in obj.components.items():
-            s = os.path.splitext(filename)
-            write_file(child, "%s.%s%s" % (s[0], name, s[1]), world=True)
-    else:
-        print("exporting: %r" % obj)
-        print("       to: %s" % filename)
-        with open(filename, 'w') as fh:
-            fh.write(obj.get_export_gltf(world=world))
-
-
-# ------------------- Wheel -------------------
 
 class Wheel(cqparts.Part):
     # Parameters
@@ -46,9 +38,6 @@ class Wheel(cqparts.Part):
             .circle(4).extrude(self.width/2)
         wheel = wheel.cut(cutout)
         return wheel
-
-wheel = Wheel()
-write_file(wheel, 'wheel.gltf')
 
 
 # ------------------- Axle -------------------
@@ -86,8 +75,6 @@ class Axle(cqparts.Part):
             origin=(0, self.length / 2, 0),
             xDir=(1, 0, 0), normal=(0, 1, 0),
         )
-axle = Axle()
-write_file(axle, 'axle.gltf')
 
 
 # ------------------- Chassis -------------------
@@ -106,9 +93,6 @@ class Chassis(cqparts.Part):
         return cadquery.Workplane('XZ', origin=(0,self.width/2,0)) \
             .moveTo(*points[0]).polyline(points[1:]).close() \
             .extrude(self.width)
-
-chassis = Chassis()
-write_file(chassis, 'chassis.gltf')
 
 
 # ------------------- Wheel Assembly -------------------
@@ -149,11 +133,6 @@ class WheeledAxle(cqparts.Assembly):
                 self.components['axle']
             ),
         ]
-
-wheeled_axle = WheeledAxle(right_width=2)
-write_file(wheeled_axle, 'wheel-assembly.gltf')
-
-print(wheeled_axle.tree_str(name='wheel_assembly'))
 
 
 # ------------------- Car Assembly -------------------
@@ -204,7 +183,45 @@ class Car(cqparts.Assembly):
             ),
         ]
 
-car = Car()
-write_file(car, 'car.gltf')
 
-print(car.tree_str(name='car'))
+# ------------------- Export / Display -------------------
+# ------- Functions
+from cqparts.utils.env import get_env_name
+
+env_name = get_env_name()
+
+def write_file(obj, filename, world=False):
+    if isinstance(obj, cqparts.Assembly):
+        obj.solve()
+        for (name, child) in obj.components.items():
+            s = os.path.splitext(filename)
+            write_file(child, "%s.%s%s" % (s[0], name, s[1]), world=True)
+    else:
+        print("exporting: %r" % obj)
+        print("       to: %s" % filename)
+        with open(filename, 'w') as fh:
+            fh.write(obj.get_export_gltf(world=world))
+
+# ------- Models
+wheel = Wheel()
+axle = Axle()
+chassis = Chassis()
+wheeled_axle = WheeledAxle(right_width=2)
+car = Car()
+
+if env_name == 'cmdline':
+    write_file(wheel, 'wheel.gltf')
+    write_file(axle, 'axle.gltf')
+    write_file(chassis, 'chassis.gltf')
+    write_file(wheeled_axle, 'wheel-assembly.gltf')
+    print(wheeled_axle.tree_str(name='wheel_assembly'))
+    write_file(car, 'car.gltf')
+    print(car.tree_str(name='car'))
+
+elif env_name == 'freecad':
+    pass  # manually switchable for testing
+    #display(wheel)
+    #display(axle)
+    #display(chassis)
+    #display(wheeled_axle)
+    display(car)
