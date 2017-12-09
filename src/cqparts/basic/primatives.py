@@ -43,7 +43,7 @@ class Cube(Part):
         :return: mate on positive X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(self.size/2,0,0), xDir=(0,0,1), normal=(1,0,0))
+        return Mate(origin=(self.size/2,0,self.size/2), xDir=(0,0,1), normal=(1,0,0))
 
     @property
     def mate_neg_x(self):
@@ -51,7 +51,7 @@ class Cube(Part):
         :return: mate on negative X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(-self.size/2,0,0), xDir=(0,0,1), normal=(-1,0,0))
+        return Mate(origin=(-self.size/2,0,self.size/2), xDir=(0,0,1), normal=(-1,0,0))
 
     @property
     def mate_pos_y(self):
@@ -59,7 +59,7 @@ class Cube(Part):
         :return: mate on positive Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,self.size/2,0), xDir=(0,0,1), normal=(0,1,0))
+        return Mate(origin=(0,self.size/2,self.size/2), xDir=(0,0,1), normal=(0,1,0))
 
     @property
     def mate_neg_y(self):
@@ -67,7 +67,7 @@ class Cube(Part):
         :return: mate on negative Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,-self.size/2,0), xDir=(0,0,1), normal=(0,-1,0))
+        return Mate(origin=(0,-self.size/2,self.size/2), xDir=(0,0,1), normal=(0,-1,0))
 
 
 @_register(shape='box')
@@ -82,7 +82,7 @@ class Box(Part):
     def make(self):
         return cadquery.Workplane('XY').box(
             self.length, self.width, self.height,
-            centered=(False, False, True)
+            centered=(True, True, False)
         )
 
     @property
@@ -99,7 +99,7 @@ class Box(Part):
         :return: mate on positive X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(self.length/2,0,0), xDir=(0,0,1), normal=(1,0,0))
+        return Mate(origin=(self.length/2,0,self.height/2), xDir=(0,0,1), normal=(1,0,0))
 
     @property
     def mate_neg_x(self):
@@ -107,7 +107,7 @@ class Box(Part):
         :return: mate on negative X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(-self.length/2,0,0), xDir=(0,0,1), normal=(-1,0,0))
+        return Mate(origin=(-self.length/2,0,self.height/2), xDir=(0,0,1), normal=(-1,0,0))
 
     @property
     def mate_pos_y(self):
@@ -115,7 +115,7 @@ class Box(Part):
         :return: mate on positive Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,self.width/2,0), xDir=(0,0,1), normal=(0,1,0))
+        return Mate(origin=(0,self.width/2,self.height/2), xDir=(0,0,1), normal=(0,1,0))
 
     @property
     def mate_neg_y(self):
@@ -123,7 +123,7 @@ class Box(Part):
         :return: mate on negative Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,-self.width/2,0), xDir=(0,0,1), normal=(0,-1,0))
+        return Mate(origin=(0,-self.width/2,self.height/2), xDir=(0,0,1), normal=(0,-1,0))
 
 
 @_register(shape='sphere')
