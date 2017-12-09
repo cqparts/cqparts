@@ -357,7 +357,80 @@ to the length of timber is the onus of the <em>assembly</em>; the wall itself.</
 </div>
 <div class="section" id="multiple-build-cycles">
 <span id="parts-assembly-build-cycle-multiple"></span><h2>Multiple build cycles<a class="headerlink" href="#multiple-build-cycles" title="Permalink to this headline">¶</a></h2>
+<p>The cycles that make an <em>assembly</em> can be run multiple times in one build.</p>
+<p>To do this, an assembly can return a generator using <code class="docutils literal"><span class="pre">yield</span></code> as opposed to
+a <code class="docutils literal"><span class="pre">return</span></code> statement.</p>
+<p>To demonstrate, let’s replace the role of the
+<a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.RelativeLockConstraint" title="cqparts.constraints.RelativeLockConstraint"><code class="xref py py-class docutils literal"><span class="pre">RelativeLockConstraint</span></code></a>
+by stacking some primative shapes using only
+<a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.LockConstraint" title="cqparts.constraints.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a>.</p>
+<p>To simplify things, we’re going to use the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> classes registered in
+the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts.basic" title="cqparts.basic"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.basic</span></code></a> module.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Sphere</span>
+
+<span class="k">class</span> <span class="nc">BlockStack</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make Box &#39;a&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)}</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make 2 Cubes &#39;b&#39;, and &#39;c&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span>
+            <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">Cube</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+            <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">Cube</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make sphere &#39;d&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">Sphere</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">3</span><span class="p">)}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;a&#39; at origin&quot;</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;&quot;</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="p">),</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place sphere &#39;d&#39; on cube &#39;b&#39;&quot;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">make_alterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;first round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;second round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;third round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+
+<span class="n">block_stack</span> <span class="o">=</span> <span class="n">BlockStack</span><span class="p">()</span>
+<span class="n">block_stack</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
 </div>
+<p>When the assembly is built, we can see the print statements occur in the order:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>make Box &#39;a&#39;
+place &#39;a&#39; at origin
+first round alteration(s)
+make 2 Cubes &#39;b&#39;, and &#39;c&#39;
+place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;
+second round alteration(s)
+make sphere &#39;d&#39;
+place sphere &#39;d&#39; on cube &#39;b&#39;
+third round alteration(s)
+</pre></div>
+</div>
+<p>And the final result:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">block_stack</span><span class="p">)</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/block_stack.html"
+    height="300px" width="100%"
+></iframe></div>
 </div>
 
 

@@ -212,3 +212,87 @@ to the length of timber is the onus of the *assembly*; the wall itself.
 
 Multiple build cycles
 ---------------------------
+
+The cycles that make an *assembly* can be run multiple times in one build.
+
+To do this, an assembly can return a generator using ``yield`` as opposed to
+a ``return`` statement.
+
+To demonstrate, let's replace the role of the
+:class:`RelativeLockConstraint <cqparts.constraints.RelativeLockConstraint>`
+by stacking some primative shapes using only
+:class:`LockConstraint <cqparts.constraints.LockConstraint>`.
+
+To simplify things, we're going to use the :class:`Part` classes registered in
+the :mod:`cqparts.basic` module.
+
+.. testcode::
+
+    from cqparts.basic.primatives import Cube, Box, Sphere
+
+    class BlockStack(cqparts.Assembly):
+        def make_components(self):
+            print("make Box 'a'")
+            yield {'a': Box(length=10, width=10, height=20)}
+
+            print("make 2 Cubes 'b', and 'c'")
+            yield {
+                'b': Cube(size=8),
+                'c': Cube(size=3),
+            }
+
+            print("make sphere 'd'")
+            yield {'d': Sphere(radius=3)}
+
+        def make_constraints(self):
+            print("place 'a' at origin")
+            a = self.components['a']
+            yield [LockConstraint(a, Mate((0,0,-10)))]
+
+            print("place 'b' & 'c' relative to 'a'")
+            b = self.components['b']
+            c = self.components['c']
+            yield [
+                LockConstraint(b, a.world_coords + a.mate_pos_x),
+                LockConstraint(c, a.world_coords + a.mate_neg_y),
+            ]
+
+            print("place sphere 'd' on cube 'b'")
+            d = self.components['d']
+            yield [LockConstraint(d, b.world_coords + b.mate_pos_x)]
+
+        def make_alterations(self):
+            print("first round alteration(s)")
+            yield
+            print("second round alteration(s)")
+            yield
+            print("third round alteration(s)")
+            yield
+
+    block_stack = BlockStack()
+    block_stack.build()
+
+When the assembly is built, we can see the print statements occur in the order:
+
+.. testoutput::
+
+    make Box 'a'
+    place 'a' at origin
+    first round alteration(s)
+    make 2 Cubes 'b', and 'c'
+    place 'b' & 'c' relative to 'a'
+    second round alteration(s)
+    make sphere 'd'
+    place sphere 'd' on cube 'b'
+    third round alteration(s)
+
+And the final result::
+
+    display(block_stack)
+
+.. raw:: html
+
+    <iframe class="model-display"
+        src="../_static/iframes/asm-build-cycle/block_stack.html"
+        height="300px" width="100%"
+    ></iframe>
