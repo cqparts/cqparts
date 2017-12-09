@@ -40,7 +40,7 @@
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="TODO List" href="../todo.html"/>
-        <link rel="prev" title="cqparts.types.threads package" href="cqparts.types.threads.html"/> 
+        <link rel="prev" title="cqparts.torque_limiters package" href="cqparts.torque_limiters.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -104,13 +104,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.types.html">cqparts.types package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.utils package</a></li>
 </ul>
 </li>
@@ -196,6 +197,59 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-cqparts.utils.env">
+<span id="cqparts-utils-env-module"></span><h2>cqparts.utils.env module<a class="headerlink" href="#module-cqparts.utils.env" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.utils.env.get_env_name">
+<code class="descclassname">cqparts.utils.env.</code><code class="descname">get_env_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.env.get_env_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the currently running environment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Environment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">freecad</span></code></td>
+<td>freecad module</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cmdline</span></code></td>
+<td>directly in a python interpreter</td>
+</tr>
+</tbody>
+</table>
+<p>These environments are intended to switch a script’s behaviour from
+displaying models, or exporting them to file.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.env</span> <span class="k">import</span> <span class="n">get_env_name</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">SomeAssembly</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bar</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">get_env_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cmdline&#39;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.gltf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">get_export_gltf</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cqparts.utils.geometry">
 <span id="cqparts-utils-geometry-module"></span><h2>cqparts.utils.geometry module<a class="headerlink" href="#module-cqparts.utils.geometry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -249,6 +303,33 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.geometry.CoordSystem.__sub__">
+<code class="descname">__sub__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.__sub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>For <code class="docutils literal"><span class="pre">A</span></code> - <code class="docutils literal"><span class="pre">B</span></code>. Where <code class="docutils literal"><span class="pre">A</span></code> is this coordinate system,
+and <code class="docutils literal"><span class="pre">B</span></code> is <code class="docutils literal"><span class="pre">other</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if subtraction for the given type is not supported</td>
+</tr>
+</tbody>
+</table>
+<p>Supported types:</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>):</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">local coordinate system of <code class="docutils literal"><span class="pre">A</span></code> from <code class="docutils literal"><span class="pre">B</span></code>’s coordinate system</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -388,9 +469,8 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 <dl class="function">
 <dt id="cqparts.utils.geometry.intersect">
 <code class="descclassname">cqparts.utils.geometry.</code><code class="descname">intersect</code><span class="sig-paren">(</span><em>wp1</em>, <em>wp2</em>, <em>combine=True</em>, <em>clean=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.intersect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return geometric intersection between 2 cadquery.Workplane instances by
-exploiting.
-A n B = (A u B) - ((A - B) u (B - A))</p>
+<dd><p>Return geometric intersection between 2 <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instances by
+exploiting <span class="math">\(A \cap B = (A \cup B) - \left((A - B) \cup (B - A)\right)\)</span>.</p>
 </dd></dl>
 
 </div>
@@ -546,7 +626,7 @@ duplicate variables cluttering the sphinx docs.</p>
         <a href="../todo.html" class="btn btn-neutral float-right" title="TODO List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cqparts.types.threads.html" class="btn btn-neutral" title="cqparts.types.threads package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts.torque_limiters.html" class="btn btn-neutral" title="cqparts.torque_limiters package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

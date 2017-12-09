@@ -6,13 +6,14 @@ Subpackages
 
 .. toctree::
 
+    cqparts.basic
     cqparts.bearings
     cqparts.constraints
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
+    cqparts.solidtypes
     cqparts.torque_limiters
-    cqparts.types
     cqparts.utils
 
 Submodules
