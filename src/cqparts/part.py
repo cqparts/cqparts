@@ -263,7 +263,7 @@ class Assembly(Component):
             This **must** be overridden in inheriting class, read:
 
             * :ref:`parts_assembly-build-cycle` for details.
-            * :ref:`tutorial_assembly-1` for an example.
+            * :ref:`tutorial_assembly` for an example.
 
         :return: {<name>: <Component>, ...}
         :rtype: :class:`dict` of :class:`Component` instances
@@ -280,7 +280,7 @@ class Assembly(Component):
             This **must** be overridden in inheriting class, read:
 
             * :ref:`parts_assembly-build-cycle` for details.
-            * :ref:`tutorial_assembly-1` for an example.
+            * :ref:`tutorial_assembly` for an example.
 
         :return: constraints for assembly children's placement
         :rtype: :class:`list` of :class:`Constraint <cqparts.constraints.base.Constraint>` instances
@@ -300,7 +300,7 @@ class Assembly(Component):
             This *can* be overridden in inheriting class, read:
 
             * :ref:`parts_assembly-build-cycle` for details.
-            * :ref:`tutorial_assembly-2` for an example.
+            * :ref:`tutorial_assembly` for an example.
 
         """
         pass

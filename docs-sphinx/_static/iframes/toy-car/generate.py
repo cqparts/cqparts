@@ -33,12 +33,17 @@ class Wheel(cqparts.Part):
     def make(self):
         wheel = cadquery.Workplane('XY') \
             .circle(self.diameter / 2).extrude(self.width)
-        cutout = cadquery.Workplane('XY') \
+        hole = cadquery.Workplane('XY') \
             .circle(2).extrude(self.width/2).faces(">Z") \
             .circle(4).extrude(self.width/2)
-        wheel = wheel.cut(cutout)
+        wheel = wheel.cut(hole)
         return wheel
 
+    def get_cutout(self, clearance=0):
+        # A cylinder with a equal clearance on every face
+        return cadquery.Workplane('XY', origin=(0, 0, -clearance)) \
+            .circle((self.diameter / 2) + clearance) \
+            .extrude(self.width + (2 * clearance))
 
 # ------------------- Axle -------------------
 
@@ -76,6 +81,10 @@ class Axle(cqparts.Part):
             xDir=(1, 0, 0), normal=(0, 1, 0),
         )
 
+    def get_cutout(self, clearance=0):
+        return cadquery.Workplane('ZX', origin=(0, -self.length/2 - clearance, 0)) \
+            .circle((self.diameter / 2) + clearance) \
+            .extrude(self.length + (2 * clearance))
 
 # ------------------- Chassis -------------------
 
@@ -106,6 +115,7 @@ class WheeledAxle(cqparts.Assembly):
     right_diam = PositiveFloat(25, doc="right wheel diameter")
     axle_diam = PositiveFloat(8, doc="axel diameter")
     axle_track = PositiveFloat(50, doc="distance between wheel tread midlines")
+    wheel_clearance = PositiveFloat(3, doc="distance between wheel and chassis")
 
     def make_components(self):
         axel_length = self.axle_track - (self.left_width + self.right_width) / 2
@@ -134,6 +144,17 @@ class WheeledAxle(cqparts.Assembly):
             ),
         ]
 
+    def apply_cutout(self, part):
+        # Cut wheel & axle from given part
+        axle = self.components['axle']
+        left_wheel = self.components['left_wheel']
+        right_wheel = self.components['right_wheel']
+        local_obj = part.local_obj
+        local_obj = local_obj \
+            .cut((axle.world_coords - part.world_coords) + axle.get_cutout()) \
+            .cut((left_wheel.world_coords - part.world_coords) + left_wheel.get_cutout(self.wheel_clearance)) \
+            .cut((right_wheel.world_coords - part.world_coords) + right_wheel.get_cutout(self.wheel_clearance))
+        part.local_obj = local_obj
 
 # ------------------- Car Assembly -------------------
 
@@ -183,6 +204,12 @@ class Car(cqparts.Assembly):
             ),
         ]
 
+    def make_alterations(self):
+        # cut out wheel wells
+        chassis = self.components['chassis']
+        self.components['front_axle'].apply_cutout(chassis)
+        self.components['rear_axle'].apply_cutout(chassis)
+
 
 # ------------------- Export / Display -------------------
 # ------- Functions
@@ -217,6 +244,7 @@ if env_name == 'cmdline':
     print(wheeled_axle.tree_str(name='wheel_assembly'))
     write_file(car, 'car.gltf')
     print(car.tree_str(name='car'))
+    write_file(car.find('chassis'), 'chassis-altered.gltf')
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
@@ -225,3 +253,4 @@ elif env_name == 'freecad':
     #display(chassis)
     #display(wheeled_axle)
     display(car)
+    #display(car.find('chassis'))

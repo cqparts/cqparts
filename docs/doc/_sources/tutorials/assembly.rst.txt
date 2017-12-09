@@ -1,9 +1,9 @@
 
-.. _tutorial_assembly-1:
+.. _tutorial_assembly:
 
 .. currentmodule:: cqparts.part
 
-Make your own ``Assembly`` (part 1)
+Make your own ``Assembly``
 ======================================
 
 An :class:`Assembly` is a container for 1 to many :class:`Part` and/or
@@ -72,11 +72,27 @@ onto its axle.
         def make(self):
             wheel = cadquery.Workplane('XY') \
                 .circle(self.diameter / 2).extrude(self.width)
-            cutout = cadquery.Workplane('XY') \
+            hole = cadquery.Workplane('XY') \
                 .circle(2).extrude(self.width/2).faces(">Z") \
                 .circle(4).extrude(self.width/2)
-            wheel = wheel.cut(cutout)
+            wheel = wheel.cut(hole)
             return wheel
+
+        def get_cutout(self, clearance=0):
+            # A cylinder with a equal clearance on every face
+            return cadquery.Workplane('XY', origin=(0, 0, -clearance)) \
+                .circle((self.diameter / 2) + clearance) \
+                .extrude(self.width + (2 * clearance))
+
+**Extra Function**
+
+The ``get_cutout`` will be used later to alter the chassis to make room for
+the wheel, it serves as a negative that will be cut away from another solid.
+
+.. tip::
+
+    Remember: this is just a python class, so we can add any functions, or
+    attributes that make our design better.
 
 **Result**
 
@@ -111,10 +127,8 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
         _render = render_props(color=(50, 50, 50))  # dark grey
 
         def make(self):
-            # Base cylinder
             axle = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
                 .circle(self.diameter / 2).extrude(self.length)
-            # cut holes
             cutout = cadquery.Workplane('ZX', origin=(0, -self.length/2, 0)) \
                 .circle(1.5).extrude(10)
             axle = axle.cut(cutout)
@@ -123,7 +137,7 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
             axle = axle.cut(cutout)
             return axle
 
-        # axle's mates: assuming the wheels rotate around their z-axis
+        # wheel mates, assuming they rotate around z-axis
         @property
         def mate_left(self):
             return Mate(
@@ -138,6 +152,10 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
                 xDir=(1, 0, 0), normal=(0, 1, 0),
             )
 
+        def get_cutout(self, clearance=0):
+            return cadquery.Workplane('ZX', origin=(0, -self.length/2 - clearance, 0)) \
+                .circle((self.diameter / 2) + clearance) \
+                .extrude(self.length + (2 * clearance))
 
 We could have simply drawn a circle and extrude it, right?
 
@@ -163,6 +181,10 @@ Note that the ``normal`` for a :class:`Mate <cqparts.constraints.mate.Mate>`
 is ``(0, 0, 1)`` by default :math:`+Z` axis. Changing this to the :math:`\pm Y`
 axis for left/right rotates the wheel so that wheel's :math:`+Z` axis is
 aligned accordingly.
+
+**Extra Functions**
+
+like the ``Wheel``, we've added a ``get_cutout`` which will be used later.
 
 **Result**
 
@@ -235,6 +257,7 @@ We finally have all the parts we'll need, let's make our first *assembly*.
         right_diam = PositiveFloat(25, doc="right wheel diameter")
         axle_diam = PositiveFloat(8, doc="axel diameter")
         axle_track = PositiveFloat(50, doc="distance between wheel tread midlines")
+        wheel_clearance = PositiveFloat(3, doc="distance between wheel and chassis")
 
         def make_components(self):
             axel_length = self.axle_track - (self.left_width + self.right_width) / 2
@@ -262,6 +285,18 @@ We finally have all the parts we'll need, let's make our first *assembly*.
                     self.components['axle']
                 ),
             ]
+
+        def apply_cutout(self, part):
+            # Cut wheel & axle from given part
+            axle = self.components['axle']
+            left_wheel = self.components['left_wheel']
+            right_wheel = self.components['right_wheel']
+            local_obj = part.local_obj
+            local_obj = local_obj \
+                .cut((axle.world_coords - part.world_coords) + axle.get_cutout()) \
+                .cut((left_wheel.world_coords - part.world_coords) + left_wheel.get_cutout(self.wheel_clearance)) \
+                .cut((right_wheel.world_coords - part.world_coords) + right_wheel.get_cutout(self.wheel_clearance))
+            part.local_obj = local_obj
 
 **Parameters**
 
@@ -291,6 +326,15 @@ Each *constraint* references, at least:
 * parameter(s) defining *how* it is to be constrained.
 
 see :ref:`parts.constraints` for more details.
+
+**Extra Functions**
+
+We've added ``apply_cutout`` as a utility for the next stage of assembly.
+It will subtract geometry away from a given :class:`Part` to alow placement
+of the axle, and freedom for the wheels to spin.
+
+The ``apply_cutout`` method is not part of the normal assembly build cycle; at
+this stage it's simply another method in the class.
 
 **Result**
 
@@ -372,6 +416,11 @@ And finally we combine eveything above into a car!
                 ),
             ]
 
+        def make_alterations(self):
+            # cut out wheel wells
+            chassis = self.components['chassis']
+            self.components['front_axle'].apply_cutout(chassis)
+            self.components['rear_axle'].apply_cutout(chassis)
 
 ::
 
@@ -406,16 +455,13 @@ parts.
 Also note that we have 2 of the same :class:`Assembly` class, but 2 different
 instances, much like the 2 wheels in the previous ``WheeledAxle`` *assembly*.
 
+The chassis was altered after the ``WeeledAxle`` assemblies were placed using
+the ``apply_cutout`` utility methods build into ``WeeledAxle`` class. The
+finished result being:
 
-Next Steps
---------------
+.. raw:: html
 
-What we've made looks neat!
-
-However, it is impossible to construct:
-
-* Axle overlaps chassis.
-* Wheels overlap chassis.
-
-To make this assembly effective, we need to alter parts after they've been
-placed. This is explored in the next chapter: :ref:`tutorial_assembly-2`.
+    <iframe class="model-display"
+        src="../_static/iframes/toy-car/chassis-altered.html"
+        height="300px" width="100%"
+    ></iframe>

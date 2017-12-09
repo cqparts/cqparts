@@ -173,7 +173,7 @@ And finally, lets combine the two to fully utilise a single build cycle.
 
 I got a bit lazy with the parameters there; ``Thing`` doesn't take any.
 
-But in the end get::
+But in the end we get::
 
     thing = Thing()
     display(thing)
@@ -221,7 +221,8 @@ a ``return`` statement.
 To demonstrate, let's replace the role of the
 :class:`RelativeLockConstraint <cqparts.constraints.RelativeLockConstraint>`
 by stacking some primative shapes using only
-:class:`LockConstraint <cqparts.constraints.LockConstraint>`.
+:class:`LockConstraint <cqparts.constraints.LockConstraint>` (a needless
+restriction, but it serves as a good example).
 
 To simplify things, we're going to use the :class:`Part` classes registered in
 the :mod:`cqparts.basic` module.
@@ -271,6 +272,10 @@ the :mod:`cqparts.basic` module.
 
     block_stack = BlockStack()
     block_stack.build()
+
+Note that in the 2nd and 3rd ``yield`` statements of ``make_constraints``
+reference ``world_coords``. That's because :meth:`solve() <Assembly.solve>`
+is run after each list of constraints is yielded.
 
 When the assembly is built, we can see the print statements occur in the order:
 
