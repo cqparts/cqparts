@@ -111,6 +111,50 @@ class Thing(cqparts.Assembly):
         self.components['pla'].local_obj = self.components['pla'].local_obj.cut(cutout)
 
 
+# -------------------------- Multiple Cycles --------------------------
+
+from cqparts.basic.primatives import Cube, Box, Sphere
+
+class BlockStack(cqparts.Assembly):
+    def make_components(self):
+        print("make Box 'a'")
+        yield {'a': Box(length=10, width=10, height=20)}
+
+        print("make 2 Cubes 'b', and 'c'")
+        yield {
+            'b': Cube(size=8),
+            'c': Cube(size=3),
+        }
+
+        print("make sphere 'd'")
+        yield {'d': Sphere(radius=3)}
+
+    def make_constraints(self):
+        print("place 'a' at origin")
+        a = self.components['a']
+        yield [LockConstraint(a, Mate((0,0,-10)))]
+
+        print("place 'b' & 'c' relative to 'a'")
+        b = self.components['b']
+        c = self.components['c']
+        yield [
+            LockConstraint(b, a.world_coords + a.mate_pos_x),
+            LockConstraint(c, a.world_coords + a.mate_neg_y),
+        ]
+
+        print("place sphere 'd' on cube 'b'")
+        d = self.components['d']
+        yield [LockConstraint(d, b.world_coords + b.mate_pos_x)]
+
+    def make_alterations(self):
+        print("first round alteration(s)")
+        yield
+        print("second round alteration(s)")
+        yield
+        print("third round alteration(s)")
+        yield
+
+
 # ------------------- Export / Display -------------------
 # ------- Functions
 from cqparts.utils.env import get_env_name
@@ -133,16 +177,19 @@ def write_file(obj, filename, world=False):
 cylinder = Cylinder()
 plate = Plate()
 thing = Thing()
+block_stack = BlockStack()
 
 if env_name == 'cmdline':
     write_file(cylinder, 'cylinder.gltf')
     write_file(plate, 'plate.gltf')
     write_file(thing, 'thing.gltf')
     write_file(thing.find('pla'), 'plate-altered.gltf')
+    write_file(block_stack, 'block_stack.gltf')
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
     #display(cylinder)
     #display(plate)
     #display(thing.find('pla'))
-    display(thing)
+    #display(thing)
+    display(block_stack)
