@@ -28,7 +28,7 @@ For a single build cycle, we implement:
 * :meth:`make_components() <Assembly.make_components>` to return a
   :class:`dict` with :class:`Component` values.
 * :meth:`make_constraints() <Assembly.make_constraints>` to return a
-  :class:`list` of :class:`Constraint <cqparts.constraints.Constraint>` isntances.
+  :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` isntances.
 * :meth:`make_alterations() <Assembly.make_alterations>` to (optionally) make
   changes to components.
 
@@ -47,7 +47,7 @@ Cylinder Part
     from cqparts.params import *
     from cqparts.display import display, render_props
     from cqparts.utils.geometry import CoordSystem
-    from cqparts.constraints import Mate
+    from cqparts.constraint import Mate
 
     class Cylinder(cqparts.Part):
         diam = PositiveFloat(10, doc="cylinder's diameter")
@@ -140,7 +140,7 @@ And finally, lets combine the two to fully utilise a single build cycle.
 
 .. testcode::
 
-    from cqparts.constraints import LockConstraint, RelativeLockConstraint
+    from cqparts.constraint import LockConstraint, RelativeLockConstraint
 
     class Thing(cqparts.Assembly):
 
@@ -227,9 +227,9 @@ To do this, an assembly can return a generator using ``yield`` as opposed to
 a ``return`` statement.
 
 To demonstrate, let's replace the role of the
-:class:`RelativeLockConstraint <cqparts.constraints.RelativeLockConstraint>`
+:class:`RelativeLockConstraint <cqparts.constraint.RelativeLockConstraint>`
 by stacking some primative shapes using only
-:class:`LockConstraint <cqparts.constraints.LockConstraint>` (a needless
+:class:`LockConstraint <cqparts.constraint.LockConstraint>` (a needless
 restriction, but it serves as a good example).
 
 To simplify things, we're going to use the :class:`Part` classes registered in

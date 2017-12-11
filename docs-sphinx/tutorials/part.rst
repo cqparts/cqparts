@@ -56,7 +56,7 @@ Let's start with a simple variably sized rectangle.
 Adding ``Mates``
 ----------------
 
-A :class:`Mate <cqparts.constraints.mate.Mate>` defines a coordinate system
+A :class:`Mate <cqparts.constraint.mate.Mate>` defines a coordinate system
 relative to the :class:`Part` origin.
 
 A *mate* is used by an :class:`Assembly` to help place parts. More on this
@@ -67,7 +67,7 @@ highly dependent on the *part's* parameters.
 
 So to elaborate on the box example above::
 
-    from cqparts.constraints.mate import Mate
+    from cqparts.constraint import Mate
 
     class Box(cqparts.Part):
         # ... (content as above)

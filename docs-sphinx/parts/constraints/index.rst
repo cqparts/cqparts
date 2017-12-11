@@ -1,7 +1,7 @@
 
 .. _parts.constraints:
 
-.. currentmodule:: cqparts.constraints
+.. currentmodule:: cqparts.constraint
 
 Constraints
 ===========
@@ -33,7 +33,7 @@ and orientation relative to its parent's origin:
 
     import cadquery
     from cqparts import Assembly, Part
-    from cqparts.constraints import LockConstraint
+    from cqparts.constraint import LockConstraint
     from cqparts.utils.geometry import CoordSystem
 
     class Box(Part):
@@ -85,7 +85,7 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
     import cadquery
     from cqparts import Assembly, Part
-    from cqparts.constraints import (
+    from cqparts.constraint import (
         LockConstraint, RelativeLockConstraint, Mate
     )
     from cqparts.utils.geometry import CoordSystem

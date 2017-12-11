@@ -39,7 +39,7 @@ __all__ = [
     'search',
     'utils',
 
-    'constraints',
+    'constraint',
 
     # Sub-modules
     # bringing scope closer to cqparts for commonly used classes
@@ -64,7 +64,7 @@ from . import part
 from . import search
 from . import utils
 
-from . import constraints
+from . import constraint
 
 # Sub-modules
 from .part import Component

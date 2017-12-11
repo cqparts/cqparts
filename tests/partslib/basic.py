@@ -5,8 +5,8 @@ import cqparts
 from cqparts.search import register, common_criteria
 from cqparts.params import *
 
-from cqparts.constraints.mate import Mate
-from cqparts.constraints import LockConstraint, RelativeLockConstraint
+from cqparts.constraint.mate import Mate
+from cqparts.constraint import LockConstraint, RelativeLockConstraint
 
 from cqparts.display import render_props
 

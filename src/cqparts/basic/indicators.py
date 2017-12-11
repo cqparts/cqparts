@@ -2,7 +2,7 @@ import cadquery
 
 from ..part import Part, Assembly
 from ..params import *
-from ..constraints import LockConstraint, Mate
+from ..constraint import LockConstraint, Mate
 from ..search import register, common_criteria
 from ..utils.wrappers import as_part
 from ..display import TEMPLATE

@@ -8,7 +8,7 @@ Subpackages
 
     cqparts.basic
     cqparts.bearings
-    cqparts.constraints
+    cqparts.constraint
     cqparts.fasteners
     cqparts.gears
     cqparts.motors

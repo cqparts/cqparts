@@ -6,12 +6,12 @@ from .lock import LockConstraint, RelativeLockConstraint
 
 def solver(constraints, coord_sys=None):
     """
-    Solve constraints. Solutions pair :class:`Constraint <cqparts.constraints.Constraint>`
+    Solve constraints. Solutions pair :class:`Constraint <cqparts.constraint.Constraint>`
     instances with their suitable :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
     world coordinates.
 
     :param constraints: constraints to solve
-    :type constraints: iterable of :class:`Constraint <cqparts.constraints.Constraint>`
+    :type constraints: iterable of :class:`Constraint <cqparts.constraint.Constraint>`
     :param coord_sys: coordinate system to offset solutions (default: no offset)
     :type coord_sys: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
 

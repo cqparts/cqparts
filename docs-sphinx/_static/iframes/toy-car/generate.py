@@ -47,7 +47,7 @@ class Wheel(cqparts.Part):
 
 # ------------------- Axle -------------------
 
-from cqparts.constraints import Mate
+from cqparts.constraint import Mate
 from cqparts.utils.geometry import CoordSystem
 
 class Axle(cqparts.Part):
@@ -110,7 +110,7 @@ class Chassis(cqparts.Part):
 
 # ------------------- Wheel Assembly -------------------
 
-from cqparts.constraints import LockConstraint, RelativeLockConstraint
+from cqparts.constraint import LockConstraint, RelativeLockConstraint
 
 class WheeledAxle(cqparts.Assembly):
     left_width = PositiveFloat(7, doc="left wheel width")

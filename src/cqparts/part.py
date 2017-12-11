@@ -12,8 +12,8 @@ from .display import (
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError, AssemblyFindError
-from .constraints import Constraint, Mate
-from .constraints.solver import solver
+from .constraint import Constraint, Mate
+from .constraint.solver import solver
 
 from .utils.geometry import copy as copy_wp
 from .utils.geometry import CoordSystem
@@ -291,7 +291,7 @@ class Assembly(Component):
     def make_constraints(self):
         """
         Create and return :class:`list` of
-        :class:`Constraint <cqparts.constraints.base.Constraint>` instances
+        :class:`Constraint <cqparts.constraint.base.Constraint>` instances
 
         .. tip::
 
@@ -301,7 +301,7 @@ class Assembly(Component):
             * :ref:`tutorial_assembly` for an example.
 
         :return: constraints for assembly children's placement
-        :rtype: :class:`list` of :class:`Constraint <cqparts.constraints.base.Constraint>` instances
+        :rtype: :class:`list` of :class:`Constraint <cqparts.constraint.base.Constraint>` instances
 
         Default behaviour returns an empty list; assumes assembly is
         entirely unconstrained.
@@ -341,10 +341,10 @@ class Assembly(Component):
     @property
     def constraints(self):
         """
-        Returns full :class:`list` of :class:`Constraint <cqparts.constraints.Constraint>` instances, after
+        Returns full :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` instances, after
         a successful :meth:`build`
 
-        :return: list of named :class:`Constraint <cqparts.constraints.Constraint>` instances
+        :return: list of named :class:`Constraint <cqparts.constraint.Constraint>` instances
         :rtype: :class:`list`
 
         For more information read about the :ref:`parts_assembly-build-cycle` .

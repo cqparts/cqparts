@@ -17,7 +17,7 @@ import cqparts
 from cqparts.params import *
 from cqparts.display import display, render_props
 from cqparts.utils.geometry import CoordSystem
-from cqparts.constraints import Mate
+from cqparts.constraint import Mate
 
 class Cylinder(cqparts.Part):
     diam = PositiveFloat(10, doc="cylinder's diameter")
@@ -77,7 +77,7 @@ class Plate(cqparts.Part):
 
 # -------------------------- Demo Assembly --------------------------
 
-from cqparts.constraints import LockConstraint, RelativeLockConstraint
+from cqparts.constraint import LockConstraint, RelativeLockConstraint
 
 class Thing(cqparts.Assembly):
 
