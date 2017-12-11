@@ -60,7 +60,7 @@ A :class:`Mate <cqparts.constraints.mate.Mate>` defines a coordinate system
 relative to the :class:`Part` origin.
 
 A *mate* is used by an :class:`Assembly` to help place parts. More on this
-in the :ref:`tutorial_assembly-1` chapter.
+in the :ref:`tutorial_assembly` chapter.
 
 A *mate* is often best defined by a :class:`Part` because they're placement is
 highly dependent on the *part's* parameters.

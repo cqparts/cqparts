@@ -6,12 +6,17 @@ from .lock import LockConstraint, RelativeLockConstraint
 
 def solver(constraints, coord_sys=None):
     """
-    Solve for valid part transform matrices for the given list of mates
+    Solve constraints. Solutions pair :class:`Constraint <cqparts.constraints.Constraint>`
+    instances with their suitable :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+    world coordinates.
 
     :param constraints: constraints to solve
-    :type constraints: list of :class:`Mate`
-    :param coord_sys: coordinate system to offset solutions
-    :type coord_sys: :class:`CoordSystem`
+    :type constraints: iterable of :class:`Constraint <cqparts.constraints.Constraint>`
+    :param coord_sys: coordinate system to offset solutions (default: no offset)
+    :type coord_sys: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+
+    :return: generator of (:class:`Component <cqparts.part.Component>`,
+             :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`) tuples.
     """
 
     if coord_sys is None:
@@ -20,7 +25,6 @@ def solver(constraints, coord_sys=None):
     # Verify list contains constraints
     for constraint in constraints:
         if not isinstance(constraint, Constraint):
-            # Element isn't a constraint
             raise ValueError("{:r} is not a constraint".format(constraint))
 
     solved_count = 0
@@ -31,18 +35,29 @@ def solver(constraints, coord_sys=None):
     while indexed:
         indexes_solved = []
         for (i, constraint) in enumerate(indexed):
+
             # LockConstraint
             if isinstance(constraint, LockConstraint):
                 indexes_solved.append(i)
-                yield (constraint.component, coord_sys + constraint.mate)
+                yield (
+                    constraint.mate.component,
+                    coord_sys + constraint.world_coords
+                )
 
             # RelativeLockConstraint
             elif isinstance(constraint, RelativeLockConstraint):
-                relative_coords = constraint.relative_to.world_coords
-                if relative_coords:
+                try:
+                    relative_to = constraint.to_mate.world_coords
+                except ValueError:
+                    relative_to = None
+
+                if relative_to is not None:
                     indexes_solved.append(i)
-                    # note: relative_coords are world coordinates, applying coord_sys is not necessary
-                    yield (constraint.component, relative_coords + constraint.mate)
+                    # note: relative_to are world coordinates; adding coord_sys is not necessary
+                    yield (
+                        constraint.mate.component,
+                        relative_to + (CoordSystem() - constraint.mate.local_coords)
+                    )
 
         if not indexes_solved:  # no solutions found
             # At least 1 solution must be found each iteration.

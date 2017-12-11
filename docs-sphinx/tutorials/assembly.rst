@@ -59,7 +59,6 @@ onto its axle.
     import cqparts
     from cqparts.params import *
     from cqparts.display import render_props, display
-    from cqparts.constraints import Mate
 
     class Wheel(cqparts.Part):
         # Parameters
@@ -118,6 +117,9 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
 
 .. testcode::
 
+    from cqparts.constraints import Mate
+    from cqparts.utils.geometry import CoordSystem
+
     class Axle(cqparts.Part):
         # Parameters
         length = PositiveFloat(50, doc="axle length")
@@ -140,17 +142,17 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
         # wheel mates, assuming they rotate around z-axis
         @property
         def mate_left(self):
-            return Mate(
+            return Mate(self, CoordSystem(
                 origin=(0, -self.length / 2, 0),
                 xDir=(1, 0, 0), normal=(0, -1, 0),
-            )
+            ))
 
         @property
         def mate_right(self):
-            return Mate(
+            return Mate(self, CoordSystem(
                 origin=(0, self.length / 2, 0),
                 xDir=(1, 0, 0), normal=(0, 1, 0),
-            )
+            ))
 
         def get_cutout(self, clearance=0):
             return cadquery.Workplane('ZX', origin=(0, -self.length/2 - clearance, 0)) \
@@ -222,7 +224,7 @@ variable :meth:`extrude() <cadquery.Workplane.extrude>` width.
                 (-60,0),(-60,22),(-47,23),(-37,40),
                 (5,40),(23,25),(60,22),(60,0),
             ]
-            return cadquery.Workplane('XZ', origin=(0,-self.width/2,0)) \
+            return cadquery.Workplane('XZ', origin=(0,self.width/2,0)) \
                 .moveTo(*points[0]).polyline(points[1:]).close() \
                 .extrude(self.width)
 
@@ -273,16 +275,14 @@ We finally have all the parts we'll need, let's make our first *assembly*.
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['axle'], Mate()),
+                LockConstraint(self.components['axle'].mate_origin, CoordSystem()),
                 RelativeLockConstraint(
-                    self.components['left_wheel'],
-                    self.components['axle'].mate_left,
-                    self.components['axle']
+                    self.components['left_wheel'].mate_origin,
+                    self.components['axle'].mate_left
                 ),
                 RelativeLockConstraint(
-                    self.components['right_wheel'],
-                    self.components['axle'].mate_right,
-                    self.components['axle']
+                    self.components['right_wheel'].mate_origin,
+                    self.components['axle'].mate_right
                 ),
             ]
 
@@ -403,16 +403,14 @@ And finally we combine eveything above into a car!
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['chassis'], Mate()),
+                LockConstraint(self.components['chassis'].mate_origin),
                 RelativeLockConstraint(
-                    self.components['front_axle'],
-                    Mate((self.wheelbase/2,0,0)),
-                    self.components['chassis'],
+                    self.components['front_axle'].mate_origin,
+                    Mate(self.components['chassis'], CoordSystem((self.wheelbase/2,0,0))),
                 ),
                 RelativeLockConstraint(
-                    self.components['rear_axle'],
-                    Mate((-self.wheelbase/2,0,0)),
-                    self.components['chassis'],
+                    self.components['rear_axle'].mate_origin,
+                    Mate(self.components['chassis'], CoordSystem((-self.wheelbase/2,0,0))),
                 ),
             ]
 

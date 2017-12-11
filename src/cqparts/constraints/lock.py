@@ -1,29 +1,53 @@
 
 from .base import Constraint
 from .mate import Mate
+from ..utils.geometry import CoordSystem
 
 
 class LockConstraint(Constraint):
     """
-    Locks an object to a coordinate system offset.
+    Sets a component's world coordinates so the given ``mate`` is
+    positioned and orientated to the given ``world_coords``.
 
     There is only 1 possible solution.
     """
 
-    def __init__(self, component, mate):
+    def __init__(self, mate, world_coords=None):
         """
-        :param component: component being constrained
-        :type component: :class:`Component <cqparts.part.Component>`
-        :param mate: mate to lock component's coordinate system to
-        :type mate: :class:`Mate <cqparts.constraints.base.Mate>`
+        :param mate: mate to lock
+        :type mate: :class:`Mate`
+        :param world_coords: world coordinates to lock ``mate`` to
+        :type world_coords: :class:`CoordSystem`
+        :raises TypeError: if an invalid parameter type is passed
+
+        If the ``world_coords`` parameter is set as a :class:`Mate` instance,
+        the mate's ``.world_coords`` is used.
+
+        If ``world_coords`` is ``None``, the object is locked to the origin.
         """
-        self.component = component
-        self.mate = mate
+        # mate
+        if isinstance(mate, Mate):
+            self.mate = mate
+        else:
+            raise TypeError("mate must be a %r, not a %r" % (Mate, type(mate)))
+
+        # world_coords
+        if isinstance(world_coords, CoordSystem):
+            self.world_coords = world_coords
+        elif isinstance(world_coords, Mate):
+            self.world_coords = world_coords.world_coords
+        elif world_coords is None:
+            self.world_coords = CoordSystem()
+        else:
+            raise TypeError(
+                "world_coords must be a %r or %r, not a %r" % (Mate, CoordSystem, type(world_coords))
+            )
 
 
 class RelativeLockConstraint(Constraint):
     """
-    Locks an object to a coordinate system offset relative to a part.
+    Set a component's world coordinates of ``mate.component`` so that
+    ``mate.world_coords`` == ``to_mate.world_coords``.
 
     To successfully determine the component's location, the relative component
     must be solvable.
@@ -36,15 +60,21 @@ class RelativeLockConstraint(Constraint):
 
         At least one of them must use the :class:`LockConstraint`
     """
-    def __init__(self, component, mate, relative_to):
+    def __init__(self, mate, to_mate):
         """
-        :param component: component being constrained
-        :type component: :class:`Component <cqparts.part.Component>`
-        :param mate: mate to lock component's coordinate system to
-        :type mate: :class:`Mate <cqparts.constraints.base.Mate>`
-        :param relative_to: ``mate`` is set in this component's coordinate system
-        :type relative_to: :class:`Component <cqparts.part.Component>`
+        :param mate: mate to lock
+        :type mate: :class:`Mate`
+        :param to_mate: mate to lock ``mate`` to
+        :type to_mate: :class:`Mate`
         """
-        self.component = component
-        self.mate = mate
-        self.relative_to = relative_to
+        # mate
+        if isinstance(mate, Mate):
+            self.mate = mate
+        else:
+            raise TypeError("mate must be a %r, not a %r" % (Mate, type(mate)))
+
+        # to_mate
+        if isinstance(to_mate, Mate):
+            self.to_mate = to_mate
+        else:
+            raise TypeError("to_mate must be a %r, not a %r" % (Mate, type(to_mate)))

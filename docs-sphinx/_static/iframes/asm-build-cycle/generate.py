@@ -16,6 +16,7 @@ import cadquery
 import cqparts
 from cqparts.params import *
 from cqparts.display import display, render_props
+from cqparts.utils.geometry import CoordSystem
 from cqparts.constraints import Mate
 
 class Cylinder(cqparts.Part):
@@ -28,7 +29,7 @@ class Cylinder(cqparts.Part):
 
     def make_base_cylinder(self):
         # This is used as a basis for make() and cutaway()
-        return cadquery.Workplane('XY', origin=(0,0,-self.embed)) \
+        return cadquery.Workplane('XY') \
             .circle(self.diam/2).extrude(self.embed + self.length)
 
     def make(self):
@@ -41,10 +42,14 @@ class Cylinder(cqparts.Part):
         # Use the base cylindrical shape, no alterations
         return self.make_base_cylinder()
 
+    @property
+    def mate_embedded(self):
+        return Mate(self, CoordSystem((0, 0, self.embed)))
+
 
 # -------------------------- Plate Part --------------------------
 
-from math import sin, radians
+from math import sin, cos, radians
 
 class Plate(cqparts.Part):
     length = PositiveFloat(20, doc="plate length")
@@ -52,23 +57,23 @@ class Plate(cqparts.Part):
     thickness = PositiveFloat(10, doc="plate thickness")
     hole_diam = PositiveFloat(3, doc="hole diameter")
     connection_offset = Float(4, doc="hole's offset from plate center along x-axis")
-    connection_angle = Float(20, doc="angle of mate point")
+    connection_angle = Float(15, doc="angle of mate point")
 
     def make(self):
         plate = cadquery.Workplane('XY') \
             .box(self.length, self.width, self.thickness)
         hole_tool = cadquery.Workplane('XY', origin=(0, 0, -self.thickness * 5)) \
             .circle(self.hole_diam / 2).extrude(self.thickness * 10)
-        hole_tool = self.mate_hole + hole_tool
+        hole_tool = self.mate_hole.local_coords + hole_tool
         return plate.cut(hole_tool)
 
     @property
     def mate_hole(self):
-        return Mate(
+        return Mate(self, CoordSystem(
             origin=(self.connection_offset, 0, self.thickness/2),
             xDir=(1, 0, 0),
-            normal=(0, -sin(radians(self.connection_angle)), 1),
-        )
+            normal=(0, -sin(radians(self.connection_angle)), cos(radians(self.connection_angle))),
+        ))
 
 # -------------------------- Demo Assembly --------------------------
 
@@ -85,15 +90,16 @@ class Thing(cqparts.Assembly):
 
     # Then constraints are appended to self.constraints (second)
     def make_constraints(self):
+        plate = self.components['pla']
+        cylinder = self.components['cyl']
         return [
             LockConstraint(
-                component=self.components['pla'],
-                mate=Mate(origin=(-1,-5,-2), xDir=(-0.5,1,0))  # a bit of random placement
+                mate=plate.mate_origin,
+                world_coords=CoordSystem(origin=(-1,-5,-2), xDir=(-0.5,1,0))  # a bit of random placement
             ),
             RelativeLockConstraint(
-                component=self.components['cyl'],
-                mate=self.components['pla'].mate_hole,
-                relative_to=self.components['pla']
+                mate=cylinder.mate_embedded,
+                to_mate=plate.mate_hole,
             ),
         ]
 
@@ -132,19 +138,19 @@ class BlockStack(cqparts.Assembly):
     def make_constraints(self):
         print("place 'a' at origin")
         a = self.components['a']
-        yield [LockConstraint(a, Mate((0,0,-10)))]
+        yield [LockConstraint(a.mate_origin, CoordSystem((0,0,-10)))]
 
         print("place 'b' & 'c' relative to 'a'")
         b = self.components['b']
         c = self.components['c']
         yield [
-            LockConstraint(b, a.world_coords + a.mate_pos_x),
-            LockConstraint(c, a.world_coords + a.mate_neg_y),
+            LockConstraint(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
+            LockConstraint(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
         ]
 
         print("place sphere 'd' on cube 'b'")
         d = self.components['d']
-        yield [LockConstraint(d, b.world_coords + b.mate_pos_x)]
+        yield [LockConstraint(d.mate_origin, b.world_coords + b.mate_pos_x.local_coords)]
 
     def make_alterations(self):
         print("first round alteration(s)")
@@ -180,6 +186,7 @@ thing = Thing()
 block_stack = BlockStack()
 
 if env_name == 'cmdline':
+    pass  # manually switchable for testing
     write_file(cylinder, 'cylinder.gltf')
     write_file(plate, 'plate.gltf')
     write_file(thing, 'thing.gltf')
@@ -191,5 +198,5 @@ elif env_name == 'freecad':
     #display(cylinder)
     #display(plate)
     #display(thing.find('pla'))
-    #display(thing)
-    display(block_stack)
+    display(thing)
+    #display(block_stack)

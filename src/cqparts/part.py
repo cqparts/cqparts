@@ -12,16 +12,26 @@ from .display import (
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError, AssemblyFindError
-from .constraints import Constraint
+from .constraints import Constraint, Mate
 from .constraints.solver import solver
 
 from .utils.geometry import copy as copy_wp
+from .utils.geometry import CoordSystem
 
 import logging
 log = logging.getLogger(__name__)
 
 
 class Component(ParametricObject):
+    """
+    .. note::
+
+        Both the :class:`Part` and :class:`Assembly` classes inherit
+        from ``Component``.
+
+        Wherever the term "*component*" is used, it is in reference to an
+        instance of either :class:`Part` **or** :class:`Assembly`.
+    """
 
     def __init__(self, *largs, **kwargs):
         super(Component, self).__init__(*largs, **kwargs)
@@ -56,6 +66,14 @@ class Component(ParametricObject):
     def world_coords(self, value):
         self._world_coords = value
         self._placement_changed()
+
+    @property
+    def mate_origin(self):
+        """
+        :return: mate at object's origin
+        :rtype: :class:`Mate`
+        """
+        return Mate(self, CoordSystem())
 
 
 class Part(Component):

@@ -4,6 +4,7 @@ from ..part import Part
 from ..params import *
 from ..search import register, common_criteria
 from ..constraints import Mate
+from ..utils.geometry import CoordSystem
 
 
 # basic.primatives registration utility
@@ -35,7 +36,7 @@ class Cube(Part):
         :return: mate at top of cube
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate((0, 0, self.size))
+        return Mate(self, CoordSystem((0, 0, self.size)))
 
     @property
     def mate_pos_x(self):
@@ -43,7 +44,9 @@ class Cube(Part):
         :return: mate on positive X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(self.size/2,0,self.size/2), xDir=(0,0,1), normal=(1,0,0))
+        return Mate(self, CoordSystem(
+            origin=(self.size/2,0,self.size/2), xDir=(0,0,1), normal=(1,0,0)
+        ))
 
     @property
     def mate_neg_x(self):
@@ -51,7 +54,9 @@ class Cube(Part):
         :return: mate on negative X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(-self.size/2,0,self.size/2), xDir=(0,0,1), normal=(-1,0,0))
+        return Mate(self, CoordSystem(
+            origin=(-self.size/2,0,self.size/2), xDir=(0,0,1), normal=(-1,0,0)
+        ))
 
     @property
     def mate_pos_y(self):
@@ -59,7 +64,9 @@ class Cube(Part):
         :return: mate on positive Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,self.size/2,self.size/2), xDir=(0,0,1), normal=(0,1,0))
+        return Mate(self, CoordSystem(
+            origin=(0,self.size/2,self.size/2), xDir=(0,0,1), normal=(0,1,0)
+        ))
 
     @property
     def mate_neg_y(self):
@@ -67,7 +74,9 @@ class Cube(Part):
         :return: mate on negative Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,-self.size/2,self.size/2), xDir=(0,0,1), normal=(0,-1,0))
+        return Mate(self, CoordSystem(
+            origin=(0,-self.size/2,self.size/2), xDir=(0,0,1), normal=(0,-1,0)
+        ))
 
 
 @_register(shape='box')
@@ -91,7 +100,7 @@ class Box(Part):
         :return: mate at top of box
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate((0, 0, self.height))
+        return Mate(self, CoordSystem((0, 0, self.height)))
 
     @property
     def mate_pos_x(self):
@@ -99,7 +108,9 @@ class Box(Part):
         :return: mate on positive X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(self.length/2,0,self.height/2), xDir=(0,0,1), normal=(1,0,0))
+        return Mate(self, CoordSystem(
+            origin=(self.length/2,0,self.height/2), xDir=(0,0,1), normal=(1,0,0)
+        ))
 
     @property
     def mate_neg_x(self):
@@ -107,7 +118,9 @@ class Box(Part):
         :return: mate on negative X face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(-self.length/2,0,self.height/2), xDir=(0,0,1), normal=(-1,0,0))
+        return Mate(self, CoordSystem(
+            origin=(-self.length/2,0,self.height/2), xDir=(0,0,1), normal=(-1,0,0)
+        ))
 
     @property
     def mate_pos_y(self):
@@ -115,7 +128,9 @@ class Box(Part):
         :return: mate on positive Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,self.width/2,self.height/2), xDir=(0,0,1), normal=(0,1,0))
+        return Mate(self, CoordSystem(
+            origin=(0,self.width/2,self.height/2), xDir=(0,0,1), normal=(0,1,0)
+        ))
 
     @property
     def mate_neg_y(self):
@@ -123,7 +138,9 @@ class Box(Part):
         :return: mate on negative Y face
         :rtype: :class:`Mate <cqparts.constraints.Mate>`
         """
-        return Mate(origin=(0,-self.width/2,self.height/2), xDir=(0,0,1), normal=(0,-1,0))
+        return Mate(self, CoordSystem(
+            origin=(0,-self.width/2,self.height/2), xDir=(0,0,1), normal=(0,-1,0)
+        ))
 
 
 @_register(shape='sphere')
