@@ -116,7 +116,7 @@ Let's re-define ``Box`` without those print statements...
 
 .. testcode::
 
-    from cqparts.constraints import Mate
+    from cqparts.utils.geometry import CoordSystem
 
     class Box(cqparts.Part):
         x = Int(10)
@@ -137,7 +137,7 @@ setting :meth:`world_coords <Component.world_coords>`.
     True
 
     >>> # let's translate across the y-axis
-    >>> box.world_coords = Mate(origin=(0,20,0))
+    >>> box.world_coords = CoordSystem(origin=(0,20,0))
 
     >>> # Now world_obj exists, and has been translated
     >>> isinstance(box.world_obj, cadquery.Workplane)
@@ -162,7 +162,7 @@ So the obvious thing to do now is to drill a hole through the box... right?
 .. doctest::
 
     >>> box = Box()
-    >>> box.world_coords = Mate(origin=(0,20,0))
+    >>> box.world_coords = CoordSystem(origin=(0,20,0))
     >>> len(box.world_obj.val().Faces())
     6
     >>> box.local_obj = box.local_obj.faces(">Z").hole(2)
@@ -180,7 +180,7 @@ Let's try the same thing by changing :meth:`world_obj <Part.world_obj>`:
 .. doctest::
 
     >>> box = Box()
-    >>> box.world_coords = Mate(origin=(0,20,0))
+    >>> box.world_coords = CoordSystem(origin=(0,20,0))
     >>> box.world_obj = box.world_obj.faces(">Z").hole(2) # doctest: +SKIP
     ValueError: can't set world_obj directly, set local_obj instead
 

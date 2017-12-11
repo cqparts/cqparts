@@ -11,7 +11,7 @@ Any :class:`Component <cqparts.part.Component>` class can be added to the
 concise code
 
 This includes anything we've made in :ref:`tutorial_part` and
-:ref:`tutorial_assembly-1`.
+:ref:`tutorial_assembly`.
 
 Registering, and searching is all done by the :mod:`cqparts.search` module.
 
@@ -105,8 +105,6 @@ search criteria::
 
     >>> search(b='two', a='one')
     {__main__.SomeThing}
-
-``search()`` will actually return all parts that are registered.
 
 
 Find

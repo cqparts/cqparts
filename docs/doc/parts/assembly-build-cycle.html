@@ -217,6 +217,7 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 <span class="kn">import</span> <span class="nn">cqparts</span>
 <span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">render_props</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
 <span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">Mate</span>
 
 <span class="k">class</span> <span class="nc">Cylinder</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
@@ -229,7 +230,7 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 
     <span class="k">def</span> <span class="nf">make_base_cylinder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This is used as a basis for make() and cutaway()</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">))</span> \
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
             <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diam</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -241,6 +242,10 @@ The hole will be in a configurable location, and mounted at an angle.</p>
     <span class="k">def</span> <span class="nf">cutaway</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Use the base cylindrical shape, no alterations</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_base_cylinder</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_embedded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">)))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Cylinder</span><span class="p">())</span>
@@ -252,7 +257,7 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 ></iframe></div>
 <div class="section" id="plate-part">
 <h3>Plate Part<a class="headerlink" href="#plate-part" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">radians</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">radians</span>
 
 <span class="k">class</span> <span class="nc">Plate</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;plate length&quot;</span><span class="p">)</span>
@@ -260,25 +265,26 @@ The hole will be in a configurable location, and mounted at an angle.</p>
     <span class="n">thickness</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;plate thickness&quot;</span><span class="p">)</span>
     <span class="n">hole_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;hole diameter&quot;</span><span class="p">)</span>
     <span class="n">connection_offset</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;hole&#39;s offset from plate center along x-axis&quot;</span><span class="p">)</span>
-    <span class="n">connection_angle</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;angle of mate point&quot;</span><span class="p">)</span>
+    <span class="n">connection_angle</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;angle of mate point&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">plate</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
             <span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span><span class="p">)</span>
         <span class="n">hole_tool</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span> <span class="o">*</span> <span class="mi">5</span><span class="p">))</span> \
             <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hole_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
-        <span class="n">hole_tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mate_hole</span> <span class="o">+</span> <span class="n">hole_tool</span>
+        <span class="n">hole_tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mate_hole</span><span class="o">.</span><span class="n">local_coords</span> <span class="o">+</span> <span class="n">hole_tool</span>
         <span class="k">return</span> <span class="n">plate</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">hole_tool</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mate_hole</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span>
             <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
             <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_angle</span><span class="p">)),</span> <span class="mi">1</span><span class="p">),</span>
-        <span class="p">)</span>
+            <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_angle</span><span class="p">)),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_angle</span><span class="p">))),</span>
+        <span class="p">))</span>
 </pre></div>
 </div>
+<p>Note that the hole through the plate is at an angle (by default <span class="math">\(15°\)</span>)</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Plate</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -302,15 +308,16 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 
     <span class="c1"># Then constraints are appended to self.constraints (second)</span>
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">plate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span>
+        <span class="n">cylinder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">LockConstraint</span><span class="p">(</span>
-                <span class="n">component</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">],</span>
-                <span class="n">mate</span><span class="o">=</span><span class="n">Mate</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># a bit of random placement</span>
+                <span class="n">mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">world_coords</span><span class="o">=</span><span class="n">CoordSystem</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># a bit of random placement</span>
             <span class="p">),</span>
             <span class="n">RelativeLockConstraint</span><span class="p">(</span>
-                <span class="n">component</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">],</span>
-                <span class="n">mate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_hole</span><span class="p">,</span>
-                <span class="n">relative_to</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span>
+                <span class="n">mate</span><span class="o">=</span><span class="n">cylinder</span><span class="o">.</span><span class="n">mate_embedded</span><span class="p">,</span>
+                <span class="n">to_mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_hole</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">]</span>
 
@@ -386,19 +393,19 @@ the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;a&#39; at origin&quot;</span><span class="p">)</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
-        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;&quot;</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
         <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
         <span class="k">yield</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="p">),</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="p">),</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
         <span class="p">]</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place sphere &#39;d&#39; on cube &#39;b&#39;&quot;</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
-        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="p">)]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">make_alterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;first round alteration(s)&quot;</span><span class="p">)</span>

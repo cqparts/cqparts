@@ -29,34 +29,40 @@ Lock
 The :class:`LockConstraint <lock.LockConstraint>` explicitly sets a *component's* location
 and orientation relative to its parent's origin:
 
-.. doctest::
+.. testcode::
 
-    >>> import cadquery
-    >>> from cqparts import Assembly, Part
-    >>> from cqparts.constraints import LockConstraint, Mate
+    import cadquery
+    from cqparts import Assembly, Part
+    from cqparts.constraints import LockConstraint
+    from cqparts.utils.geometry import CoordSystem
 
-    >>> class Box(Part):
-    ...     def make(self):
-    ...         # a unit cube centered on 0,0,0
-    ...         return cadquery.Workplane('XY').box(1, 1, 1)
+    class Box(Part):
+        def make(self):
+            # a unit cube centered on 0,0,0
+            return cadquery.Workplane('XY').box(1, 1, 1)
 
-    >>> class Thing(Assembly):
-    ...     def make_components(self):
-    ...         return {
-    ...             'box_a': Box(),
-    ...             'box_b': Box(),
-    ...         }
-    ...
-    ...     def make_constraints(self):
-    ...         return [
-    ...             # boxA 10mm up, no change to rotation
-    ...             LockConstraint(self.components['box_a'], Mate((0,0,10), (1,0,0), (0,0,1))),
-    ...             # boxA at origin, rotate around z 45deg ccw
-    ...             LockConstraint(self.components['box_b'], Mate((0,0,0), (1,1,0), (0,0,1))),
-    ...         ]
+    class Thing(Assembly):
+        def make_components(self):
+            return {
+                'box_a': Box(),
+                'box_b': Box(),
+            }
 
-    >>> thing = Thing()
-    >>> thing.build()  # creates and places all components recursively
+        def make_constraints(self):
+            return [
+                LockConstraint(  # boxA 10mm up, no change to rotation
+                    self.components['box_a'].mate_origin,
+                    CoordSystem((0,0,10), (1,0,0), (0,0,1))
+                ),
+
+                LockConstraint(  # boxB at origin, rotate around z 45deg ccw
+                    self.components['box_b'].mate_origin,
+                    CoordSystem((0,0,0), (1,1,0), (0,0,1))
+                ),
+            ]
+
+    thing = Thing()
+    thing.build()  # creates and places all components recursively
 
 
 RelativeLock
@@ -75,47 +81,47 @@ solved first. So for the coordinates ``A + B = C``, where:
 
 We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
 
-.. doctest::
+.. testcode::
 
-    >>> import cadquery
-    >>> from cqparts import Assembly, Part
-    >>> from cqparts.constraints import (
-    ...     LockConstraint, RelativeLockConstraint, Mate
-    ... )
+    import cadquery
+    from cqparts import Assembly, Part
+    from cqparts.constraints import (
+        LockConstraint, RelativeLockConstraint, Mate
+    )
+    from cqparts.utils.geometry import CoordSystem
 
-    >>> class Box(Part):
-    ...     def make(self):
-    ...         # a unit cube placed on top of XY plane
-    ...         return cadquery.Workplane('XY') \
-    ...             .box(10, 10, 10, centered=(True, True, False))
-    ...
-    ...     @property
-    ...     def mate_top(self):
-    ...         return Mate.from_plane(self.local_obj.faces(">Z").workplane().plane)
+    class Box(Part):
+        def make(self):
+            # a unit cube placed on top of XY plane
+            return cadquery.Workplane('XY') \
+                .box(10, 10, 10, centered=(True, True, False))
 
-    >>> class Thing(Assembly):
-    ...     def make_components(self):
-    ...         return {
-    ...             'box_a': Box(),
-    ...             'box_b': Box(),
-    ...         }
-    ...
-    ...     def make_constraints(self):
-    ...         return [
-    ...             # boxA at zero, no rotation
-    ...             LockConstraint(
-    ...                 self.components['box_a'], Mate((0,0,0), (1,0,0), (0,0,1))
-    ...             ),
-    ...             # boxB at on top of boxA, using boxA's
-    ...             RelativeLockConstraint(
-    ...                 component=self.components['box_b'],
-    ...                 mate=self.components['box_a'].mate_top,
-    ...                 relative_to=self.components['box_a'],
-    ...             ),
-    ...         ]
+        @property
+        def mate_top(self):
+            return Mate(self, CoordSystem.from_plane(
+                self.local_obj.faces(">Z").workplane().plane
+            ))
 
-    >>> thing = Thing()
-    >>> thing.build()  # creates and places all components recursively
+    class Thing(Assembly):
+        def make_components(self):
+            return {
+                'box_a': Box(),
+                'box_b': Box(),
+            }
+
+        def make_constraints(self):
+            return [
+                # boxA at zero, no rotation
+                LockConstraint(self.components['box_a'].mate_origin),
+                # boxB at on top of boxA, using boxA's mate_top attribute
+                RelativeLockConstraint(
+                    self.components['box_b'].mate_origin,
+                    self.components['box_a'].mate_top,
+                ),
+            ]
+
+    thing = Thing()
+    thing.build()  # creates and places all components recursively
 
 
 More...

@@ -1134,6 +1134,13 @@ as the corresponding part’s world coordinates.</p>
 <dt id="cqparts.part.Component">
 <em class="property">class </em><code class="descclassname">cqparts.part.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Both the <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes inherit
+from <code class="docutils literal"><span class="pre">Component</span></code>.</p>
+<p class="last">Wherever the term “<em>component</em>” is used, it is in reference to an
+instance of either <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> <strong>or</strong> <a class="reference internal" href="#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+</div>
 <dl class="method">
 <dt id="cqparts.part.Component.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.build" title="Permalink to this definition">¶</a></dt>
@@ -1142,6 +1149,21 @@ as the corresponding part’s world coordinates.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplementedError</strong> – must be overridden by inheriting classes to function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.part.Component.mate_origin">
+<code class="descname">mate_origin</code><a class="headerlink" href="#cqparts.part.Component.mate_origin" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">mate at object’s origin</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1473,6 +1495,13 @@ yield the part you want.</p>
 <dt id="cqparts.Component">
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Both the <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes inherit
+from <code class="docutils literal"><span class="pre">Component</span></code>.</p>
+<p class="last">Wherever the term “<em>component</em>” is used, it is in reference to an
+instance of either <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> <strong>or</strong> <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+</div>
 <dl class="method">
 <dt id="cqparts.Component.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.build" title="Permalink to this definition">¶</a></dt>
@@ -1481,6 +1510,21 @@ yield the part you want.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplementedError</strong> – must be overridden by inheriting classes to function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.Component.mate_origin">
+<code class="descname">mate_origin</code><a class="headerlink" href="#cqparts.Component.mate_origin" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">mate at object’s origin</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></td>
 </tr>
 </tbody>
 </table>

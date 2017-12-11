@@ -87,4 +87,4 @@ also lower level :class:`Assembly` classes used to create the high level object.
 Consider how others may want to use your :class:`Assembly`, and empower the
 class with the tools necessary to make their job easy.
 
-More discussion on this in :ref:`tutorial_assembly-1`.
+More discussion on this in :ref:`tutorial_assembly`.

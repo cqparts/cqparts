@@ -225,7 +225,6 @@ onto its axle.</p>
 <span class="kn">import</span> <span class="nn">cqparts</span>
 <span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span><span class="p">,</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">Mate</span>
 
 <span class="k">class</span> <span class="nc">Wheel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
@@ -272,7 +271,10 @@ attributes that make our design better.</p>
 <h3>Axle<a class="headerlink" href="#axle" title="Permalink to this headline">¶</a></h3>
 <p>The vehicle’s axle is a cylinder with a <code class="docutils literal"><span class="pre">diameter</span></code> and <code class="docutils literal"><span class="pre">length</span></code>.</p>
 <p>We’ll put a pilot hole in each end for a screw to hold the wheel on.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Axle</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">Mate</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+
+<span class="k">class</span> <span class="nc">Axle</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axle length&quot;</span><span class="p">)</span>
     <span class="n">diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;axle diameter&quot;</span><span class="p">)</span>
@@ -294,17 +296,17 @@ attributes that make our design better.</p>
     <span class="c1"># wheel mates, assuming they rotate around z-axis</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mate_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span>
             <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mate_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span>
             <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">get_cutout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;ZX&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">clearance</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
@@ -357,7 +359,7 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
             <span class="p">(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span><span class="mi">22</span><span class="p">),(</span><span class="o">-</span><span class="mi">47</span><span class="p">,</span><span class="mi">23</span><span class="p">),(</span><span class="o">-</span><span class="mi">37</span><span class="p">,</span><span class="mi">40</span><span class="p">),</span>
             <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">40</span><span class="p">),(</span><span class="mi">23</span><span class="p">,</span><span class="mi">25</span><span class="p">),(</span><span class="mi">60</span><span class="p">,</span><span class="mi">22</span><span class="p">),(</span><span class="mi">60</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
         <span class="p">]</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> \
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> \
             <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> \
             <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
 </pre></div>
@@ -400,16 +402,14 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
 
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">()),</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">()),</span>
             <span class="n">RelativeLockConstraint</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;left_wheel&#39;</span><span class="p">],</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_left</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;left_wheel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_left</span>
             <span class="p">),</span>
             <span class="n">RelativeLockConstraint</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;right_wheel&#39;</span><span class="p">],</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_right</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;right_wheel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_right</span>
             <span class="p">),</span>
         <span class="p">]</span>
 
@@ -507,16 +507,14 @@ this stage it’s simply another method in the class.</p>
 
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">Mate</span><span class="p">()),</span>
+            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
             <span class="n">RelativeLockConstraint</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;front_axle&#39;</span><span class="p">],</span>
-                <span class="n">Mate</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;front_axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))),</span>
             <span class="p">),</span>
             <span class="n">RelativeLockConstraint</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;rear_axle&#39;</span><span class="p">],</span>
-                <span class="n">Mate</span><span class="p">((</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;rear_axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))),</span>
             <span class="p">),</span>
         <span class="p">]</span>
 
