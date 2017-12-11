@@ -17,8 +17,9 @@ Definition
 
 A fastener is something that mechanically connects 2 or more *things* together,
 such as a screw, bolt, or nail.
-For us, a :class:`cqparts.fasteners.Fastener` is an :class:`Assembly`
-containing 1 or more :class:`Part` objects.
+For us, a :class:`Fastener <cqparts.fasteners.Fastener>` is an
+:class:`Assembly <cqparts.part.Assembly>` containing 1 or more
+:class:`Part <cqparts.part.Part>` objects.
 
 For example, nut and bolt with washers either side would be a single fastener
 assembly with a hierarchy of::

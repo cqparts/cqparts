@@ -106,8 +106,6 @@ search criteria::
     >>> search(b='two', a='one')
     {__main__.SomeThing}
 
-``search()`` will actually return all parts that are registered.
-
 
 Find
 ^^^^^^^^^^
