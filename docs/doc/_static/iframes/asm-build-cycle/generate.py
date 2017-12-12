@@ -77,7 +77,7 @@ class Plate(cqparts.Part):
 
 # -------------------------- Demo Assembly --------------------------
 
-from cqparts.constraint import LockConstraint, RelativeLockConstraint
+from cqparts.constraint import Fixed, Coincident
 
 class Thing(cqparts.Assembly):
 
@@ -93,11 +93,11 @@ class Thing(cqparts.Assembly):
         plate = self.components['pla']
         cylinder = self.components['cyl']
         return [
-            LockConstraint(
+            Fixed(
                 mate=plate.mate_origin,
                 world_coords=CoordSystem(origin=(-1,-5,-2), xDir=(-0.5,1,0))  # a bit of random placement
             ),
-            RelativeLockConstraint(
+            Coincident(
                 mate=cylinder.mate_embedded,
                 to_mate=plate.mate_hole,
             ),
@@ -138,19 +138,19 @@ class BlockStack(cqparts.Assembly):
     def make_constraints(self):
         print("place 'a' at origin")
         a = self.components['a']
-        yield [LockConstraint(a.mate_origin, CoordSystem((0,0,-10)))]
+        yield [Fixed(a.mate_origin, CoordSystem((0,0,-10)))]
 
         print("place 'b' & 'c' relative to 'a'")
         b = self.components['b']
         c = self.components['c']
         yield [
-            LockConstraint(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
-            LockConstraint(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
+            Fixed(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
+            Fixed(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
         ]
 
         print("place sphere 'd' on cube 'b'")
         d = self.components['d']
-        yield [LockConstraint(d.mate_origin, b.world_coords + b.mate_pos_x.local_coords)]
+        yield [Fixed(d.mate_origin, b.world_coords + b.mate_pos_x.local_coords)]
 
     def make_alterations(self):
         print("first round alteration(s)")

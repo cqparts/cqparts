@@ -223,14 +223,14 @@ of everything Python has to offer.</p>
 </div>
 <div class="section" id="adding-mates">
 <h2>Adding <code class="docutils literal"><span class="pre">Mates</span></code><a class="headerlink" href="#adding-mates" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.mate.Mate" title="cqparts.constraints.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> defines a coordinate system
+<p>A <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.mate.Mate" title="cqparts.constraint.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> defines a coordinate system
 relative to the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> origin.</p>
 <p>A <em>mate</em> is used by an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to help place parts. More on this
 in the <a class="reference internal" href="assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> chapter.</p>
 <p>A <em>mate</em> is often best defined by a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> because they’re placement is
 highly dependent on the <em>part’s</em> parameters.</p>
 <p>So to elaborate on the box example above:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraints.mate</span> <span class="k">import</span> <span class="n">Mate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
 
 <span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># ... (content as above)</span>

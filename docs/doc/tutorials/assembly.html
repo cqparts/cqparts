@@ -271,7 +271,7 @@ attributes that make our design better.</p>
 <h3>Axle<a class="headerlink" href="#axle" title="Permalink to this headline">¶</a></h3>
 <p>The vehicle’s axle is a cylinder with a <code class="docutils literal"><span class="pre">diameter</span></code> and <code class="docutils literal"><span class="pre">length</span></code>.</p>
 <p>We’ll put a pilot hole in each end for a screw to hold the wheel on.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">Mate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
 <span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
 
 <span class="k">class</span> <span class="nc">Axle</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
@@ -322,12 +322,12 @@ the <span class="math">\(Z\)</span> axis is along the world <span class="math">\
 <p>Instead we’ve aligned the axle along the <span class="math">\(Y\)</span> axis, with the origin at the
 cylinder’s center, implemented in the <code class="docutils literal"><span class="pre">make()</span></code> function above.</p>
 <p><strong>Mates</strong></p>
-<p>A <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.mate.Mate" title="cqparts.constraints.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> is a relative <em>coordinate system</em>
+<p>A <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.mate.Mate" title="cqparts.constraint.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> is a relative <em>coordinate system</em>
 used to connect <em>parts</em> in an <em>assembly</em>. We’ll see how that works when we make
 our first <em>assembly</em> later in this tutorial.</p>
 <p>When assembling an axle we’ll want to attach a wheel to each end. They’re defined
 above as <code class="docutils literal"><span class="pre">mate_left</span></code> and <code class="docutils literal"><span class="pre">mate_right</span></code>.</p>
-<p>Note that the <code class="docutils literal"><span class="pre">normal</span></code> for a <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.mate.Mate" title="cqparts.constraints.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>
+<p>Note that the <code class="docutils literal"><span class="pre">normal</span></code> for a <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.mate.Mate" title="cqparts.constraint.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>
 is <code class="docutils literal"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> by default <span class="math">\(+Z\)</span> axis. Changing this to the <span class="math">\(\pm Y\)</span>
 axis for left/right rotates the wheel so that wheel’s <span class="math">\(+Z\)</span> axis is
 aligned accordingly.</p>
@@ -377,7 +377,7 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
 <div class="section" id="wheel-assembly">
 <h2>Wheel Assembly<a class="headerlink" href="#wheel-assembly" title="Permalink to this headline">¶</a></h2>
 <p>We finally have all the parts we’ll need, let’s make our first <em>assembly</em>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">RelativeLockConstraint</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
 
 <span class="k">class</span> <span class="nc">WheeledAxle</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="n">left_width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;left wheel width&quot;</span><span class="p">)</span>
@@ -402,12 +402,12 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
 
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">()),</span>
-            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">()),</span>
+            <span class="n">Coincident</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;left_wheel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_left</span>
             <span class="p">),</span>
-            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+            <span class="n">Coincident</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;right_wheel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_right</span>
             <span class="p">),</span>
@@ -438,7 +438,7 @@ a <a class="reference external" href="https://docs.python.org/2/library/stdtypes
 if necessary.</p>
 <p><strong>Constraints</strong></p>
 <p>The <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_constraints" title="cqparts.part.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_constraints()</span></code></a> method is overridden to return a
-<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-meth docutils literal"><span class="pre">Constraint</span></code></a> instances.</p>
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-meth docutils literal"><span class="pre">Constraint</span></code></a> instances.</p>
 <p>Each <em>constraint</em> references, at least:</p>
 <ul class="simple">
 <li>the <em>component</em> being constrained.</li>
@@ -507,12 +507,12 @@ this stage it’s simply another method in the class.</p>
 
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
-            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+            <span class="n">Coincident</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;front_axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
                 <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))),</span>
             <span class="p">),</span>
-            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+            <span class="n">Coincident</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;rear_axle&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
                 <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;chassis&#39;</span><span class="p">],</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">wheelbase</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))),</span>
             <span class="p">),</span>

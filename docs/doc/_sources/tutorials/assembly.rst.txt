@@ -117,7 +117,7 @@ We'll put a pilot hole in each end for a screw to hold the wheel on.
 
 .. testcode::
 
-    from cqparts.constraints import Mate
+    from cqparts.constraint import Mate
     from cqparts.utils.geometry import CoordSystem
 
     class Axle(cqparts.Part):
@@ -172,14 +172,14 @@ cylinder's center, implemented in the ``make()`` function above.
 
 **Mates**
 
-A :class:`Mate <cqparts.constraints.mate.Mate>` is a relative *coordinate system*
+A :class:`Mate <cqparts.constraint.mate.Mate>` is a relative *coordinate system*
 used to connect *parts* in an *assembly*. We'll see how that works when we make
 our first *assembly* later in this tutorial.
 
 When assembling an axle we'll want to attach a wheel to each end. They're defined
 above as ``mate_left`` and ``mate_right``.
 
-Note that the ``normal`` for a :class:`Mate <cqparts.constraints.mate.Mate>`
+Note that the ``normal`` for a :class:`Mate <cqparts.constraint.mate.Mate>`
 is ``(0, 0, 1)`` by default :math:`+Z` axis. Changing this to the :math:`\pm Y`
 axis for left/right rotates the wheel so that wheel's :math:`+Z` axis is
 aligned accordingly.
@@ -250,7 +250,7 @@ We finally have all the parts we'll need, let's make our first *assembly*.
 
 .. testcode::
 
-    from cqparts.constraints import LockConstraint, RelativeLockConstraint
+    from cqparts.constraint import Fixed, Coincident
 
     class WheeledAxle(cqparts.Assembly):
         left_width = PositiveFloat(7, doc="left wheel width")
@@ -275,12 +275,12 @@ We finally have all the parts we'll need, let's make our first *assembly*.
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['axle'].mate_origin, CoordSystem()),
-                RelativeLockConstraint(
+                Fixed(self.components['axle'].mate_origin, CoordSystem()),
+                Coincident(
                     self.components['left_wheel'].mate_origin,
                     self.components['axle'].mate_left
                 ),
-                RelativeLockConstraint(
+                Coincident(
                     self.components['right_wheel'].mate_origin,
                     self.components['axle'].mate_right
                 ),
@@ -318,7 +318,7 @@ if necessary.
 **Constraints**
 
 The :meth:`Assembly.make_constraints` method is overridden to return a
-:class:`list` of :meth:`Constraint <cqparts.constraints.Constraint>` instances.
+:class:`list` of :meth:`Constraint <cqparts.constraint.Constraint>` instances.
 
 Each *constraint* references, at least:
 
@@ -403,12 +403,12 @@ And finally we combine eveything above into a car!
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['chassis'].mate_origin),
-                RelativeLockConstraint(
+                Fixed(self.components['chassis'].mate_origin),
+                Coincident(
                     self.components['front_axle'].mate_origin,
                     Mate(self.components['chassis'], CoordSystem((self.wheelbase/2,0,0))),
                 ),
-                RelativeLockConstraint(
+                Coincident(
                     self.components['rear_axle'].mate_origin,
                     Mate(self.components['chassis'], CoordSystem((-self.wheelbase/2,0,0))),
                 ),

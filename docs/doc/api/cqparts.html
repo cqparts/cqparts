@@ -106,7 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -207,13 +207,13 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts.bearings.html#module-cqparts.bearings">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cqparts.constraints.html">cqparts.constraints package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.base">cqparts.constraints.base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.lock">cqparts.constraints.lock module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.mate">cqparts.constraints.mate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints.solver">cqparts.constraints.solver module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#module-cqparts.constraint.base">cqparts.constraint.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#module-cqparts.constraint.constraints">cqparts.constraint.constraints module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#module-cqparts.constraint.mate">cqparts.constraint.mate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#module-cqparts.constraint.solver">cqparts.constraint.solver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.constraint.html#module-cqparts.constraint">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a><ul>
@@ -908,13 +908,13 @@ a successful <a class="reference internal" href="#cqparts.part.Assembly.build" t
 <dl class="attribute">
 <dt id="cqparts.part.Assembly.constraints">
 <code class="descname">constraints</code><a class="headerlink" href="#cqparts.part.Assembly.constraints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns full <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances, after
+<dd><p>Returns full <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances, after
 a successful <a class="reference internal" href="#cqparts.part.Assembly.build" title="cqparts.part.Assembly.build"><code class="xref py py-meth docutils literal"><span class="pre">build()</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of named <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of named <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></td>
 </tr>
@@ -1014,7 +1014,7 @@ completed.</p>
 <dt id="cqparts.part.Assembly.make_constraints">
 <code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make_constraints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
-<a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
+<a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This <strong>must</strong> be overridden in inheriting class, read:</p>
@@ -1029,7 +1029,7 @@ completed.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">constraints for assembly children’s placement</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
 </tr>
 </tbody>
 </table>
@@ -1690,9 +1690,9 @@ to provide 2 cylinders, one for the bolt’s head, and another for the thread.</
 <dl class="method">
 <dt id="cqparts.Assembly.build">
 <code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.build" title="Permalink to this definition">¶</a></dt>
-<dd><p>Building an assembly buffers the <a class="reference internal" href="#cqparts.Assembly.components" title="cqparts.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> and <a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints" title="cqparts.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
+<dd><p>Building an assembly buffers the <a class="reference internal" href="#cqparts.Assembly.components" title="cqparts.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> and <a class="reference internal" href="#cqparts.Assembly.constraints" title="cqparts.Assembly.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
 <p>Running <code class="docutils literal"><span class="pre">build()</span></code> is optional, it’s automatically run when requesting
-<a class="reference internal" href="#cqparts.Assembly.components" title="cqparts.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> or <a class="reference internal" href="cqparts.constraints.html#module-cqparts.constraints" title="cqparts.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
+<a class="reference internal" href="#cqparts.Assembly.components" title="cqparts.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> or <a class="reference internal" href="#cqparts.Assembly.constraints" title="cqparts.Assembly.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
 <p>Mostly it’s used to test that there aren’t any critical runtime
 issues with it’s construction, but doing anything like <em>displaying</em> or
 <em>exporting</em> will ultimately run a build anyway.</p>
@@ -1728,13 +1728,13 @@ a successful <a class="reference internal" href="#cqparts.Assembly.build" title=
 <dl class="attribute">
 <dt id="cqparts.Assembly.constraints">
 <code class="descname">constraints</code><a class="headerlink" href="#cqparts.Assembly.constraints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns full <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances, after
+<dd><p>Returns full <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances, after
 a successful <a class="reference internal" href="#cqparts.Assembly.build" title="cqparts.Assembly.build"><code class="xref py py-meth docutils literal"><span class="pre">build()</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of named <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of named <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></td>
 </tr>
@@ -1834,7 +1834,7 @@ completed.</p>
 <dt id="cqparts.Assembly.make_constraints">
 <code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make_constraints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of
-<a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
+<a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This <strong>must</strong> be overridden in inheriting class, read:</p>
@@ -1849,7 +1849,7 @@ completed.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">constraints for assembly children’s placement</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraints.html#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
 </tr>
 </tbody>
 </table>

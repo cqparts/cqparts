@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts.constraints package &mdash; cqparts 0.1.0 documentation</title>
+  <title>cqparts.constraint package &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -106,7 +106,7 @@
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.constraints package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -175,7 +175,7 @@
         
           <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
         
-      <li>cqparts.constraints package</li>
+      <li>cqparts.constraint package</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -192,16 +192,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cqparts-constraints-package">
-<h1>cqparts.constraints package<a class="headerlink" href="#cqparts-constraints-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cqparts-constraint-package">
+<h1>cqparts.constraint package<a class="headerlink" href="#cqparts-constraint-package" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cqparts.constraints.base">
-<span id="cqparts-constraints-base-module"></span><h2>cqparts.constraints.base module<a class="headerlink" href="#module-cqparts.constraints.base" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.constraint.base">
+<span id="cqparts-constraint-base-module"></span><h2>cqparts.constraint.base module<a class="headerlink" href="#module-cqparts.constraint.base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.constraints.base.Constraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.base.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraints.base.Constraint" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.base.Constraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.base.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraint.base.Constraint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A means to limit the relative position &amp;/or motion of 1 or more components.</p>
 <p>Constraints are combined and solved to set world coordinates of the
@@ -209,18 +209,53 @@ components within an assembly.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.constraints.lock">
-<span id="cqparts-constraints-lock-module"></span><h2>cqparts.constraints.lock module<a class="headerlink" href="#module-cqparts.constraints.lock" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.constraint.constraints">
+<span id="cqparts-constraint-constraints-module"></span><h2>cqparts.constraint.constraints module<a class="headerlink" href="#module-cqparts.constraint.constraints" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.constraints.lock.LockConstraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.lock.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.lock.LockConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<dt id="cqparts.constraint.constraints.Coincident">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.constraints.</code><code class="descname">Coincident</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.constraints.Coincident" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraint.base.Constraint</span></code></a></p>
+<p>Set a component’s world coordinates of <code class="docutils literal"><span class="pre">mate.component</span></code> so that
+<code class="docutils literal"><span class="pre">mate.world_coords</span></code> == <code class="docutils literal"><span class="pre">to_mate.world_coords</span></code>.</p>
+<p>To successfully determine the component’s location, the relative component
+must be solvable.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
+on relative locks to place its components.
+This is because every component will be waiting for another component
+to be placed, a circular problem.</p>
+<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraint.constraints.Fixed" title="cqparts.constraint.constraints.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a></p>
+</div>
+<dl class="method">
+<dt id="cqparts.constraint.constraints.Coincident.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.constraints.Coincident.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock</li>
+<li><strong>to_mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.constraint.constraints.Fixed">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.constraints.</code><code class="descname">Fixed</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.constraints.Fixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraint.base.Constraint</span></code></a></p>
 <p>Sets a component’s world coordinates so the given <code class="docutils literal"><span class="pre">mate</span></code> is
 positioned and orientated to the given <code class="docutils literal"><span class="pre">world_coords</span></code>.</p>
 <p>There is only 1 possible solution.</p>
 <dl class="method">
-<dt id="cqparts.constraints.lock.LockConstraint.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.lock.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.constraints.Fixed.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.constraints.Fixed.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -243,52 +278,17 @@ the mate’s <code class="docutils literal"><span class="pre">.world_coords</spa
 
 </dd></dl>
 
-<dl class="class">
-<dt id="cqparts.constraints.lock.RelativeLockConstraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.lock.</code><code class="descname">RelativeLockConstraint</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.lock.RelativeLockConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
-<p>Set a component’s world coordinates of <code class="docutils literal"><span class="pre">mate.component</span></code> so that
-<code class="docutils literal"><span class="pre">mate.world_coords</span></code> == <code class="docutils literal"><span class="pre">to_mate.world_coords</span></code>.</p>
-<p>To successfully determine the component’s location, the relative component
-must be solvable.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
-on relative locks to place its components.
-This is because every component will be waiting for another component
-to be placed, a circular problem.</p>
-<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraints.lock.LockConstraint" title="cqparts.constraints.lock.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a></p>
 </div>
-<dl class="method">
-<dt id="cqparts.constraints.lock.RelativeLockConstraint.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.lock.RelativeLockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock</li>
-<li><strong>to_mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-cqparts.constraints.mate">
-<span id="cqparts-constraints-mate-module"></span><h2>cqparts.constraints.mate module<a class="headerlink" href="#module-cqparts.constraints.mate" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.constraint.mate">
+<span id="cqparts-constraint-mate-module"></span><h2>cqparts.constraint.mate module<a class="headerlink" href="#module-cqparts.constraint.mate" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.constraints.mate.Mate">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.mate.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.mate.Mate" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.mate.Mate">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.mate.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.mate.Mate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
-<dt id="cqparts.constraints.mate.Mate.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.mate.Mate.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.mate.Mate.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.mate.Mate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -302,14 +302,14 @@ to be placed, a circular problem.</p>
 </tbody>
 </table>
 <p>If <code class="docutils literal"><span class="pre">component</span></code> is explicitly set to None, the mate’s
-<a class="reference internal" href="#cqparts.constraints.mate.Mate.world_coords" title="cqparts.constraints.mate.Mate.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> == <code class="docutils literal"><span class="pre">local_coords</span></code>.</p>
+<a class="reference internal" href="#cqparts.constraint.mate.Mate.world_coords" title="cqparts.constraint.mate.Mate.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> == <code class="docutils literal"><span class="pre">local_coords</span></code>.</p>
 <p>If <code class="docutils literal"><span class="pre">local_coords</span></code> is not set, the component’s origin is used (ie:
 coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, with no rotation)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.constraints.mate.Mate.world_coords">
-<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.constraints.mate.Mate.world_coords" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.mate.Mate.world_coords">
+<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.constraint.mate.Mate.world_coords" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -328,12 +328,12 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.constraints.solver">
-<span id="cqparts-constraints-solver-module"></span><h2>cqparts.constraints.solver module<a class="headerlink" href="#module-cqparts.constraints.solver" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.constraint.solver">
+<span id="cqparts-constraint-solver-module"></span><h2>cqparts.constraint.solver module<a class="headerlink" href="#module-cqparts.constraint.solver" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="cqparts.constraints.solver.solver">
-<code class="descclassname">cqparts.constraints.solver.</code><code class="descname">solver</code><span class="sig-paren">(</span><em>constraints</em>, <em>coord_sys=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.solver.solver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solve constraints. Solutions pair <a class="reference internal" href="#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a>
+<dt id="cqparts.constraint.solver.solver">
+<code class="descclassname">cqparts.constraint.solver.</code><code class="descname">solver</code><span class="sig-paren">(</span><em>constraints</em>, <em>coord_sys=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.solver.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve constraints. Solutions pair <a class="reference internal" href="#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a>
 instances with their suitable <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>
 world coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -341,7 +341,7 @@ world coordinates.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>constraints</strong> (iterable of <a class="reference internal" href="#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a>) – constraints to solve</li>
+<li><strong>constraints</strong> (iterable of <a class="reference internal" href="#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a>) – constraints to solve</li>
 <li><strong>coord_sys</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – coordinate system to offset solutions (default: no offset)</li>
 </ul>
 </td>
@@ -355,16 +355,16 @@ world coordinates.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.constraints">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.constraints" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.constraint">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.constraint" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.constraints.Mate">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.Mate" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Mate">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Mate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
-<dt id="cqparts.constraints.Mate.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.Mate.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Mate.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Mate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -378,14 +378,14 @@ world coordinates.</p>
 </tbody>
 </table>
 <p>If <code class="docutils literal"><span class="pre">component</span></code> is explicitly set to None, the mate’s
-<a class="reference internal" href="#cqparts.constraints.Mate.world_coords" title="cqparts.constraints.Mate.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> == <code class="docutils literal"><span class="pre">local_coords</span></code>.</p>
+<a class="reference internal" href="#cqparts.constraint.Mate.world_coords" title="cqparts.constraint.Mate.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords()</span></code></a> == <code class="docutils literal"><span class="pre">local_coords</span></code>.</p>
 <p>If <code class="docutils literal"><span class="pre">local_coords</span></code> is not set, the component’s origin is used (ie:
 coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, with no rotation)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cqparts.constraints.Mate.world_coords">
-<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.constraints.Mate.world_coords" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Mate.world_coords">
+<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.constraint.Mate.world_coords" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -404,8 +404,8 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.constraints.Constraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraints.Constraint" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Constraint">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraint.Constraint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A means to limit the relative position &amp;/or motion of 1 or more components.</p>
 <p>Constraints are combined and solved to set world coordinates of the
@@ -413,21 +413,21 @@ components within an assembly.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.constraints.LockConstraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">LockConstraint</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.LockConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<dt id="cqparts.constraint.Fixed">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Fixed</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Fixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraint.base.Constraint</span></code></a></p>
 <p>Sets a component’s world coordinates so the given <code class="docutils literal"><span class="pre">mate</span></code> is
 positioned and orientated to the given <code class="docutils literal"><span class="pre">world_coords</span></code>.</p>
 <p>There is only 1 possible solution.</p>
 <dl class="method">
-<dt id="cqparts.constraints.LockConstraint.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.LockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Fixed.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>world_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Fixed.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraints.Mate" title="cqparts.constraints.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
+<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
 <li><strong>world_coords</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – world coordinates to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
 </ul>
 </td>
@@ -437,7 +437,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 </tr>
 </tbody>
 </table>
-<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a <a class="reference internal" href="#cqparts.constraints.Mate" title="cqparts.constraints.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instance,
+<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a <a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instance,
 the mate’s <code class="docutils literal"><span class="pre">.world_coords</span></code> is used.</p>
 <p>If <code class="docutils literal"><span class="pre">world_coords</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, the object is locked to the origin.</p>
 </dd></dl>
@@ -445,9 +445,9 @@ the mate’s <code class="docutils literal"><span class="pre">.world_coords</spa
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.constraints.RelativeLockConstraint">
-<em class="property">class </em><code class="descclassname">cqparts.constraints.</code><code class="descname">RelativeLockConstraint</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.RelativeLockConstraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.constraints.base.Constraint" title="cqparts.constraints.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraints.base.Constraint</span></code></a></p>
+<dt id="cqparts.constraint.Coincident">
+<em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Coincident</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Coincident" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.constraint.base.Constraint" title="cqparts.constraint.base.Constraint"><code class="xref py py-class docutils literal"><span class="pre">cqparts.constraint.base.Constraint</span></code></a></p>
 <p>Set a component’s world coordinates of <code class="docutils literal"><span class="pre">mate.component</span></code> so that
 <code class="docutils literal"><span class="pre">mate.world_coords</span></code> == <code class="docutils literal"><span class="pre">to_mate.world_coords</span></code>.</p>
 <p>To successfully determine the component’s location, the relative component
@@ -458,18 +458,18 @@ must be solvable.</p>
 on relative locks to place its components.
 This is because every component will be waiting for another component
 to be placed, a circular problem.</p>
-<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraints.LockConstraint" title="cqparts.constraints.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a></p>
+<p class="last">At least one of them must use the <a class="reference internal" href="#cqparts.constraint.Fixed" title="cqparts.constraint.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a></p>
 </div>
 <dl class="method">
-<dt id="cqparts.constraints.RelativeLockConstraint.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraints.RelativeLockConstraint.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.constraint.Coincident.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>mate</em>, <em>to_mate</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Coincident.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraints.Mate" title="cqparts.constraints.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
-<li><strong>to_mate</strong> (<a class="reference internal" href="#cqparts.constraints.Mate" title="cqparts.constraints.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
+<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
+<li><strong>to_mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
 </ul>
 </td>
 </tr>

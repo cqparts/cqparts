@@ -28,7 +28,7 @@ For a single build cycle, we implement:
 * :meth:`make_components() <Assembly.make_components>` to return a
   :class:`dict` with :class:`Component` values.
 * :meth:`make_constraints() <Assembly.make_constraints>` to return a
-  :class:`list` of :class:`Constraint <cqparts.constraints.Constraint>` isntances.
+  :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` isntances.
 * :meth:`make_alterations() <Assembly.make_alterations>` to (optionally) make
   changes to components.
 
@@ -47,7 +47,7 @@ Cylinder Part
     from cqparts.params import *
     from cqparts.display import display, render_props
     from cqparts.utils.geometry import CoordSystem
-    from cqparts.constraints import Mate
+    from cqparts.constraint import Mate
 
     class Cylinder(cqparts.Part):
         diam = PositiveFloat(10, doc="cylinder's diameter")
@@ -140,7 +140,7 @@ And finally, lets combine the two to fully utilise a single build cycle.
 
 .. testcode::
 
-    from cqparts.constraints import LockConstraint, RelativeLockConstraint
+    from cqparts.constraint import Fixed, Coincident
 
     class Thing(cqparts.Assembly):
 
@@ -156,11 +156,11 @@ And finally, lets combine the two to fully utilise a single build cycle.
             plate = self.components['pla']
             cylinder = self.components['cyl']
             return [
-                LockConstraint(
+                Fixed(
                     mate=plate.mate_origin,
                     world_coords=CoordSystem(origin=(-1,-5,-2), xDir=(-0.5,1,0))  # a bit of random placement
                 ),
-                RelativeLockConstraint(
+                Coincident(
                     mate=cylinder.mate_embedded,
                     to_mate=plate.mate_hole,
                 ),
@@ -227,9 +227,9 @@ To do this, an assembly can return a generator using ``yield`` as opposed to
 a ``return`` statement.
 
 To demonstrate, let's replace the role of the
-:class:`RelativeLockConstraint <cqparts.constraints.RelativeLockConstraint>`
+:class:`Coincident <cqparts.constraint.Coincident>`
 by stacking some primative shapes using only
-:class:`LockConstraint <cqparts.constraints.LockConstraint>` (a needless
+:class:`Fixed <cqparts.constraint.Fixed>` (a needless
 restriction, but it serves as a good example).
 
 To simplify things, we're going to use the :class:`Part` classes registered in
@@ -256,19 +256,19 @@ the :mod:`cqparts.basic` module.
         def make_constraints(self):
             print("place 'a' at origin")
             a = self.components['a']
-            yield [LockConstraint(a.mate_origin, CoordSystem((0,0,-10)))]
+            yield [Fixed(a.mate_origin, CoordSystem((0,0,-10)))]
 
             print("place 'b' & 'c' relative to 'a'")
             b = self.components['b']
             c = self.components['c']
             yield [
-                LockConstraint(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
-                LockConstraint(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
+                Fixed(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
+                Fixed(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
             ]
 
             print("place sphere 'd' on cube 'b'")
             d = self.components['d']
-            yield [LockConstraint(d.mate_origin, b.world_coords + b.mate_pos_x.local_coords)]
+            yield [Fixed(d.mate_origin, b.world_coords + b.mate_pos_x.local_coords)]
 
         def make_alterations(self):
             print("first round alteration(s)")
@@ -281,9 +281,9 @@ the :mod:`cqparts.basic` module.
     block_stack = BlockStack()
     block_stack.build()
 
-Note that in the 2nd and 3rd ``yield`` statements of ``make_constraints``
-reference ``world_coords``. That's because :meth:`solve() <Assembly.solve>`
-is run after each list of constraints is yielded.
+Note that in the 2nd and 3rd ``yield`` statements of ``make_constraints()``
+we reference the ``.world_coords`` of some *components*. That's because
+:meth:`solve() <Assembly.solve>` is run after each list of constraints is yielded.
 
 When the assembly is built, we can see the print statements occur in the order:
 

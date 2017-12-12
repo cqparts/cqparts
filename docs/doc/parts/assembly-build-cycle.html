@@ -204,7 +204,7 @@ they may be <em>altered</em> to be assembled.</p>
 <li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_components" title="cqparts.part.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a> to return a
 <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> values.</li>
 <li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_constraints" title="cqparts.part.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a> to return a
-<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.Constraint" title="cqparts.constraints.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> isntances.</li>
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> isntances.</li>
 <li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_alterations" title="cqparts.part.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a> to (optionally) make
 changes to components.</li>
 </ul>
@@ -218,7 +218,7 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 <span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">render_props</span>
 <span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
-<span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">Mate</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
 
 <span class="k">class</span> <span class="nc">Cylinder</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="n">diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cylinder&#39;s diameter&quot;</span><span class="p">)</span>
@@ -295,7 +295,7 @@ The hole will be in a configurable location, and mounted at an angle.</p>
 <div class="section" id="demo-assembly">
 <h3>Demo Assembly<a class="headerlink" href="#demo-assembly" title="Permalink to this headline">¶</a></h3>
 <p>And finally, lets combine the two to fully utilise a single build cycle.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraints</span> <span class="k">import</span> <span class="n">LockConstraint</span><span class="p">,</span> <span class="n">RelativeLockConstraint</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
 
 <span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
 
@@ -311,11 +311,11 @@ The hole will be in a configurable location, and mounted at an angle.</p>
         <span class="n">plate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span>
         <span class="n">cylinder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span>
+            <span class="n">Fixed</span><span class="p">(</span>
                 <span class="n">mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
                 <span class="n">world_coords</span><span class="o">=</span><span class="n">CoordSystem</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># a bit of random placement</span>
             <span class="p">),</span>
-            <span class="n">RelativeLockConstraint</span><span class="p">(</span>
+            <span class="n">Coincident</span><span class="p">(</span>
                 <span class="n">mate</span><span class="o">=</span><span class="n">cylinder</span><span class="o">.</span><span class="n">mate_embedded</span><span class="p">,</span>
                 <span class="n">to_mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_hole</span><span class="p">,</span>
             <span class="p">),</span>
@@ -368,9 +368,9 @@ to the length of timber is the onus of the <em>assembly</em>; the wall itself.</
 <p>To do this, an assembly can return a generator using <code class="docutils literal"><span class="pre">yield</span></code> as opposed to
 a <code class="docutils literal"><span class="pre">return</span></code> statement.</p>
 <p>To demonstrate, let’s replace the role of the
-<a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.RelativeLockConstraint" title="cqparts.constraints.RelativeLockConstraint"><code class="xref py py-class docutils literal"><span class="pre">RelativeLockConstraint</span></code></a>
+<a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Coincident" title="cqparts.constraint.Coincident"><code class="xref py py-class docutils literal"><span class="pre">Coincident</span></code></a>
 by stacking some primative shapes using only
-<a class="reference internal" href="../api/cqparts.constraints.html#cqparts.constraints.LockConstraint" title="cqparts.constraints.LockConstraint"><code class="xref py py-class docutils literal"><span class="pre">LockConstraint</span></code></a> (a needless
+<a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Fixed" title="cqparts.constraint.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a> (a needless
 restriction, but it serves as a good example).</p>
 <p>To simplify things, we’re going to use the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> classes registered in
 the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts.basic" title="cqparts.basic"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.basic</span></code></a> module.</p>
@@ -393,19 +393,19 @@ the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts
     <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;a&#39; at origin&quot;</span><span class="p">)</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
-        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">Fixed</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;&quot;</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
         <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
         <span class="k">yield</span> <span class="p">[</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
-            <span class="n">LockConstraint</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
         <span class="p">]</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place sphere &#39;d&#39; on cube &#39;b&#39;&quot;</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
-        <span class="k">yield</span> <span class="p">[</span><span class="n">LockConstraint</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">)]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">Fixed</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">make_alterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;first round alteration(s)&quot;</span><span class="p">)</span>
@@ -419,9 +419,9 @@ the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts
 <span class="n">block_stack</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Note that in the 2nd and 3rd <code class="docutils literal"><span class="pre">yield</span></code> statements of <code class="docutils literal"><span class="pre">make_constraints</span></code>
-reference <code class="docutils literal"><span class="pre">world_coords</span></code>. That’s because <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.solve" title="cqparts.part.Assembly.solve"><code class="xref py py-meth docutils literal"><span class="pre">solve()</span></code></a>
-is run after each list of constraints is yielded.</p>
+<p>Note that in the 2nd and 3rd <code class="docutils literal"><span class="pre">yield</span></code> statements of <code class="docutils literal"><span class="pre">make_constraints()</span></code>
+we reference the <code class="docutils literal"><span class="pre">.world_coords</span></code> of some <em>components</em>. That’s because
+<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.solve" title="cqparts.part.Assembly.solve"><code class="xref py py-meth docutils literal"><span class="pre">solve()</span></code></a> is run after each list of constraints is yielded.</p>
 <p>When the assembly is built, we can see the print statements occur in the order:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>make Box &#39;a&#39;
 place &#39;a&#39; at origin
