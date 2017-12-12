@@ -15,13 +15,14 @@ class Fixed(Constraint):
     def __init__(self, mate, world_coords=None):
         """
         :param mate: mate to lock
-        :type mate: :class:`Mate`
+        :type mate: :class:`Mate <cqparts.constraint.Mate>`
         :param world_coords: world coordinates to lock ``mate`` to
-        :type world_coords: :class:`CoordSystem`
+        :type world_coords: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
         :raises TypeError: if an invalid parameter type is passed
 
-        If the ``world_coords`` parameter is set as a :class:`Mate` instance,
-        the mate's ``.world_coords`` is used.
+        If the ``world_coords`` parameter is set as a
+        :class:`Mate <cqparts.constraint.Mate>` instance, the mate's
+        ``.world_coords`` is used.
 
         If ``world_coords`` is ``None``, the object is locked to the origin.
         """
@@ -63,9 +64,9 @@ class Coincident(Constraint):
     def __init__(self, mate, to_mate):
         """
         :param mate: mate to lock
-        :type mate: :class:`Mate`
+        :type mate: :class:`Mate <cqparts.constraint.Mate>`
         :param to_mate: mate to lock ``mate`` to
-        :type to_mate: :class:`Mate`
+        :type to_mate: :class:`Mate <cqparts.constraint.Mate>`
         """
         # mate
         if isinstance(mate, Mate):

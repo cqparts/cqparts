@@ -12,7 +12,7 @@ class Mate(object):
         :param component: component the mate is relative to
         :type component: :class:`Component <cqparts.part.Component>`
         :param local_coords: coordinate system of mate relative to component's origin
-        :type local_coords: :class:`CoordSystem`
+        :type local_coords: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
 
         If ``component`` is explicitly set to None, the mate's
         :meth:`world_coords` == ``local_coords``.
@@ -43,7 +43,7 @@ class Mate(object):
     def world_coords(self):
         """
         :return: world coordinates of mate.
-        :rtype: :class:`CoordSystem`
+        :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
         :raises ValueError: if ``.component`` does not have valid world coordinates.
 
         If ``.component`` is ``None``, then the ``.local_coords`` are returned.
@@ -60,3 +60,33 @@ class Mate(object):
                 )
 
             return cmp_origin + self.local_coords
+
+    def __add__(self, other):
+        """
+        :param other: the object being added
+
+        Behaviour based on type being added:
+
+        :class:`Mate` + :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`:
+
+        Return a copy of ``self`` with ``other`` added to ``.local_coords``
+
+        :raises TypeError: if type of ``other`` is not supported
+        """
+        if isinstance(other, CoordSystem):
+            return type(self)(
+                component=self.component,
+                local_coords=self.local_coords + other,
+            )
+
+        else:
+            raise TypeError("addition of %r + %r is not supported" % (
+                type(self), type(other)
+            ))
+
+    def __repr__(self):
+        return "<{cls_name}:\n  component={component}\n  local_coords={local_coords}\n>".format(
+            cls_name=type(self).__name__,
+            component=self.component,
+            local_coords=self.local_coords,
+        )
