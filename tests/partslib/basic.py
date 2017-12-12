@@ -6,7 +6,7 @@ from cqparts.search import register, common_criteria
 from cqparts.params import *
 
 from cqparts.constraint.mate import Mate
-from cqparts.constraint import LockConstraint, RelativeLockConstraint
+from cqparts.constraint import Fixed, Coincident
 
 from cqparts.display import render_props
 

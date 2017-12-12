@@ -1,7 +1,7 @@
 
 from ..utils.geometry import CoordSystem
 from .base import Constraint
-from .lock import LockConstraint, RelativeLockConstraint
+from .constraints import Fixed, Coincident
 
 
 def solver(constraints, coord_sys=None):
@@ -36,16 +36,16 @@ def solver(constraints, coord_sys=None):
         indexes_solved = []
         for (i, constraint) in enumerate(indexed):
 
-            # LockConstraint
-            if isinstance(constraint, LockConstraint):
+            # Fixed
+            if isinstance(constraint, Fixed):
                 indexes_solved.append(i)
                 yield (
                     constraint.mate.component,
                     coord_sys + constraint.world_coords
                 )
 
-            # RelativeLockConstraint
-            elif isinstance(constraint, RelativeLockConstraint):
+            # Coincident
+            elif isinstance(constraint, Coincident):
                 try:
                     relative_to = constraint.to_mate.world_coords
                 except ValueError:

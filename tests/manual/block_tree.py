@@ -27,7 +27,7 @@ log = logging.getLogger()
 import cqparts
 from cqparts.params import *
 from cqparts.constraint import Mate
-from cqparts.constraint import LockConstraint, RelativeLockConstraint
+from cqparts.constraint import Fixed, Coincident
 from cqparts.utils.geometry import CoordSystem
 
 from cqparts.display import display, render_props
@@ -157,11 +157,11 @@ class BlueHouse(cqparts.Assembly):
 
     def make_constraints(self):
         return [
-            LockConstraint(
+            Fixed(
                 self.components['foo'],  # lock this
                 mate=Mate(),  # here
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['bar'],  # lock this
                 mate=self.components['foo'].mate_right,  # here
                 relative_to=self.components['foo'],  # relative to this
@@ -182,26 +182,26 @@ class GreenBranch(cqparts.Assembly):
 
     def make_constraints(self):
         return [
-            LockConstraint(
+            Fixed(
                 self.components['branch'],  # lock this
                 mate=Mate((0,0,0), (1,0,0), (0,0,1)),  # here
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['split'],  # lock this
                 mate=self.components['branch'].mate_top,  # here
                 relative_to=self.components['branch'],  # relative to this
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['L'],  # lock this
                 mate=self.components['split'].mate_left,  # here
                 relative_to=self.components['split'],  # relative to this
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['R'],  # lock this
                 mate=self.components['split'].mate_right,  # here
                 relative_to=self.components['split'],  # relative to this
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['house'],  # lock this
                 mate=self.components['R'].mate_top,  # here
                 relative_to=self.components['R'],  # relative to this
@@ -230,30 +230,30 @@ class BlockTree(cqparts.Assembly):
     def make_constraints(self):
         return [
             # trunk
-            LockConstraint(
+            Fixed(
                 self.components['trunk'],  # lock this
                 mate=Mate((0,0,0), (1,0,0), (0,0,1)),  # here
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['trunk_split'],  # lock this
                 mate=self.components['trunk'].mate_top,  # here
                 relative_to=self.components['trunk'],  # relative to this
             ),
 
             # branch L
-            RelativeLockConstraint(
+            Coincident(
                 self.components['branch_lb'],
                 mate=self.components['trunk_split'].mate_left,
                 relative_to=self.components['trunk_split'],
             ),
-            RelativeLockConstraint(
+            Coincident(
                 self.components['branch_ls'],
                 mate=self.components['branch_lb'].mate_top,
                 relative_to=self.components['branch_lb'],
             ),
 
             # branch RL
-            RelativeLockConstraint(
+            Coincident(
                 self.components['branch_r'],
                 mate=self.components['trunk_split'].mate_right,
                 relative_to=self.components['trunk_split'],

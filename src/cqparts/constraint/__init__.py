@@ -1,17 +1,17 @@
 __all__ = [
     'Mate',
+    'Constraint',
 
     # Constraints
-    'Constraint',
-    'LockConstraint',
-    'RelativeLockConstraint',
+    'Fixed',
+    'Coincident',
 ]
 
 from .mate import Mate
 
 # Constraints
 from .base import Constraint
-from .lock import (
-    LockConstraint,
-    RelativeLockConstraint,
+from .constraints import (
+    Fixed,
+    Coincident,
 )

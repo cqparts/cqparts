@@ -250,7 +250,7 @@ We finally have all the parts we'll need, let's make our first *assembly*.
 
 .. testcode::
 
-    from cqparts.constraint import LockConstraint, RelativeLockConstraint
+    from cqparts.constraint import Fixed, Coincident
 
     class WheeledAxle(cqparts.Assembly):
         left_width = PositiveFloat(7, doc="left wheel width")
@@ -275,12 +275,12 @@ We finally have all the parts we'll need, let's make our first *assembly*.
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['axle'].mate_origin, CoordSystem()),
-                RelativeLockConstraint(
+                Fixed(self.components['axle'].mate_origin, CoordSystem()),
+                Coincident(
                     self.components['left_wheel'].mate_origin,
                     self.components['axle'].mate_left
                 ),
-                RelativeLockConstraint(
+                Coincident(
                     self.components['right_wheel'].mate_origin,
                     self.components['axle'].mate_right
                 ),
@@ -403,12 +403,12 @@ And finally we combine eveything above into a car!
 
         def make_constraints(self):
             return [
-                LockConstraint(self.components['chassis'].mate_origin),
-                RelativeLockConstraint(
+                Fixed(self.components['chassis'].mate_origin),
+                Coincident(
                     self.components['front_axle'].mate_origin,
                     Mate(self.components['chassis'], CoordSystem((self.wheelbase/2,0,0))),
                 ),
-                RelativeLockConstraint(
+                Coincident(
                     self.components['rear_axle'].mate_origin,
                     Mate(self.components['chassis'], CoordSystem((-self.wheelbase/2,0,0))),
                 ),

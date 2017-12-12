@@ -26,14 +26,14 @@ Types of Constraints
 Lock
 ^^^^^^^^
 
-The :class:`LockConstraint <lock.LockConstraint>` explicitly sets a *component's* location
+The :class:`Fixed <lock.Fixed>` explicitly sets a *component's* location
 and orientation relative to its parent's origin:
 
 .. testcode::
 
     import cadquery
     from cqparts import Assembly, Part
-    from cqparts.constraint import LockConstraint
+    from cqparts.constraint import Fixed
     from cqparts.utils.geometry import CoordSystem
 
     class Box(Part):
@@ -50,12 +50,12 @@ and orientation relative to its parent's origin:
 
         def make_constraints(self):
             return [
-                LockConstraint(  # boxA 10mm up, no change to rotation
+                Fixed(  # boxA 10mm up, no change to rotation
                     self.components['box_a'].mate_origin,
                     CoordSystem((0,0,10), (1,0,0), (0,0,1))
                 ),
 
-                LockConstraint(  # boxB at origin, rotate around z 45deg ccw
+                Fixed(  # boxB at origin, rotate around z 45deg ccw
                     self.components['box_b'].mate_origin,
                     CoordSystem((0,0,0), (1,1,0), (0,0,1))
                 ),
@@ -68,7 +68,7 @@ and orientation relative to its parent's origin:
 RelativeLock
 ^^^^^^^^^^^^^^^
 
-The :class:`RelativeLockConstraint <lock.RelativeLockConstraint>` sets a
+The :class:`Coincident <lock.Coincident>` sets a
 *component's* coordinate system relative to another part's world coordinate
 system.
 
@@ -86,7 +86,7 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
     import cadquery
     from cqparts import Assembly, Part
     from cqparts.constraint import (
-        LockConstraint, RelativeLockConstraint, Mate
+        Fixed, Coincident, Mate
     )
     from cqparts.utils.geometry import CoordSystem
 
@@ -112,9 +112,9 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
         def make_constraints(self):
             return [
                 # boxA at zero, no rotation
-                LockConstraint(self.components['box_a'].mate_origin),
+                Fixed(self.components['box_a'].mate_origin),
                 # boxB at on top of boxA, using boxA's mate_top attribute
-                RelativeLockConstraint(
+                Coincident(
                     self.components['box_b'].mate_origin,
                     self.components['box_a'].mate_top,
                 ),

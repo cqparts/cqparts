@@ -4,7 +4,7 @@ from .mate import Mate
 from ..utils.geometry import CoordSystem
 
 
-class LockConstraint(Constraint):
+class Fixed(Constraint):
     """
     Sets a component's world coordinates so the given ``mate`` is
     positioned and orientated to the given ``world_coords``.
@@ -44,7 +44,7 @@ class LockConstraint(Constraint):
             )
 
 
-class RelativeLockConstraint(Constraint):
+class Coincident(Constraint):
     """
     Set a component's world coordinates of ``mate.component`` so that
     ``mate.world_coords`` == ``to_mate.world_coords``.
@@ -58,7 +58,7 @@ class RelativeLockConstraint(Constraint):
         This is because every component will be waiting for another component
         to be placed, a circular problem.
 
-        At least one of them must use the :class:`LockConstraint`
+        At least one of them must use the :class:`Fixed`
     """
     def __init__(self, mate, to_mate):
         """

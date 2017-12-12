@@ -2,7 +2,7 @@ import cadquery
 
 from ..part import Part, Assembly
 from ..params import *
-from ..constraint import LockConstraint, Mate
+from ..constraint import Fixed, Mate
 from ..search import register, common_criteria
 from ..utils.wrappers import as_part
 from ..display import TEMPLATE
@@ -53,7 +53,7 @@ class CoordSysIndicator(Assembly):
 
     def make_constraints(self):
         return [
-            LockConstraint(self.components[k], Mate())
+            Fixed(self.components[k], Mate())
             for k in 'xyz'
         ]
 
