@@ -167,18 +167,6 @@ from cqparts.utils.env import get_env_name
 
 env_name = get_env_name()
 
-def write_file(obj, filename, world=False):
-    if isinstance(obj, cqparts.Assembly):
-        obj.solve()
-        for (name, child) in obj.components.items():
-            s = os.path.splitext(filename)
-            write_file(child, "%s.%s%s" % (s[0], name, s[1]), world=True)
-    else:
-        print("exporting: %r" % obj)
-        print("       to: %s" % filename)
-        with open(filename, 'w') as fh:
-            fh.write(obj.get_export_gltf(world=world))
-
 # ------- Models
 cylinder = Cylinder()
 plate = Plate()
@@ -187,11 +175,11 @@ block_stack = BlockStack()
 
 if env_name == 'cmdline':
     pass  # manually switchable for testing
-    write_file(cylinder, 'cylinder.gltf')
-    write_file(plate, 'plate.gltf')
-    write_file(thing, 'thing.gltf')
-    write_file(thing.find('pla'), 'plate-altered.gltf')
-    write_file(block_stack, 'block_stack.gltf')
+    cylinder.exporter('json')('cylinder.json')
+    plate.exporter('json')('plate.json')
+    thing.exporter('json')('thing.json')
+    thing.find('pla').exporter('json')('plate-altered.json')
+    block_stack.exporter('json')('block_stack.json')
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
