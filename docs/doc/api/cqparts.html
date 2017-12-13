@@ -106,6 +106,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
@@ -205,6 +206,13 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.bearings.html#module-cqparts.bearings">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.gltf">cqparts.codec.gltf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.threejs_json">cqparts.codec.threejs_json module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a><ul>
@@ -1154,6 +1162,60 @@ instance of either <a class="reference internal" href="#cqparts.part.Part" title
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="cqparts.part.Component.exporter">
+<code class="descname">exporter</code><span class="sig-paren">(</span><em>exporter_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.exporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an exporter instance to write the component’s content to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exporter_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of exporter to use, see
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_exporter" title="cqparts.codec.register_exporter"><code class="xref py py-meth docutils literal"><span class="pre">register_exporter()</span></code></a>
+for more information.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, to get a
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.ThreeJSJsonExporter" title="cqparts.codec.ThreeJSJsonExporter"><code class="xref py py-class docutils literal"><span class="pre">ThreeJSJsonExporter</span></code></a>
+instance to import a <code class="docutils literal"><span class="pre">json</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each exporter will behave differently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span><span class="p">(</span><span class="s1">&#39;out.json&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.part.Component.importer">
+<em class="property">classmethod </em><code class="descname">importer</code><span class="sig-paren">(</span><em>importer_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Component.importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an importer instance to instantiate a component from file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>importer_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of importer to use, see
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_importer" title="cqparts.codec.register_importer"><code class="xref py py-meth docutils literal"><span class="pre">register_importer()</span></code></a>
+for more information.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, to get an importer to instantiate a <a class="reference internal" href="#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> from a
+<code class="docutils literal"><span class="pre">STEP</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">step_importer</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">importer</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each importer will behave differently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_part</span> <span class="o">=</span> <span class="n">step_importer</span><span class="p">(</span><span class="s1">&#39;my_file.step&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="cqparts.part.Component.mate_origin">
 <code class="descname">mate_origin</code><a class="headerlink" href="#cqparts.part.Component.mate_origin" title="Permalink to this definition">¶</a></dt>
@@ -1225,23 +1287,69 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.part.Part.get_export_gltf">
-<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF json string.</p>
-<p>(same arguments as <a class="reference internal" href="#cqparts.part.Part.get_export_gltf_dict" title="cqparts.part.Part.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
-<p>When exporting to this format, it’s recommended that you choose a
-filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.part.Part.get_export_gltf_dict">
-<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF formatted dict.</p>
+<dt id="cqparts.part.Part.get_export_gltf_bin">
+<code class="descname">get_export_gltf_bin</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
+asset binary stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>To embed binary model data into a ‘uri’, you can:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">some_model</span><span class="o">.</span><span class="n">get_export_gltf_bin</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.get_export_json">
+<code class="descname">get_export_json</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as three.js JSON model format v3.</p>
+<p>(same arguments as <code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JSON string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>When writing this to file, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.json</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.part.Part.get_export_json_dict">
+<code class="descname">get_export_json_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_json_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as
+<a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3</a>
+, as a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON model format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1515,6 +1623,60 @@ instance of either <a class="reference internal" href="#cqparts.Part" title="cqp
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="cqparts.Component.exporter">
+<code class="descname">exporter</code><span class="sig-paren">(</span><em>exporter_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.exporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an exporter instance to write the component’s content to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exporter_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of exporter to use, see
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_exporter" title="cqparts.codec.register_exporter"><code class="xref py py-meth docutils literal"><span class="pre">register_exporter()</span></code></a>
+for more information.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, to get a
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.ThreeJSJsonExporter" title="cqparts.codec.ThreeJSJsonExporter"><code class="xref py py-class docutils literal"><span class="pre">ThreeJSJsonExporter</span></code></a>
+instance to import a <code class="docutils literal"><span class="pre">json</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each exporter will behave differently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span><span class="p">(</span><span class="s1">&#39;out.json&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.Component.importer">
+<em class="property">classmethod </em><code class="descname">importer</code><span class="sig-paren">(</span><em>importer_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an importer instance to instantiate a component from file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>importer_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of importer to use, see
+<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_importer" title="cqparts.codec.register_importer"><code class="xref py py-meth docutils literal"><span class="pre">register_importer()</span></code></a>
+for more information.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, to get an importer to instantiate a <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> from a
+<code class="docutils literal"><span class="pre">STEP</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">step_importer</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">importer</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each importer will behave differently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_part</span> <span class="o">=</span> <span class="n">step_importer</span><span class="p">(</span><span class="s1">&#39;my_file.step&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="cqparts.Component.mate_origin">
 <code class="descname">mate_origin</code><a class="headerlink" href="#cqparts.Component.mate_origin" title="Permalink to this definition">¶</a></dt>
@@ -1586,23 +1748,69 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.Part.get_export_gltf">
-<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF json string.</p>
-<p>(same arguments as <a class="reference internal" href="#cqparts.Part.get_export_gltf_dict" title="cqparts.Part.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
-<p>When exporting to this format, it’s recommended that you choose a
-filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Part.get_export_gltf_dict">
-<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF formatted dict.</p>
+<dt id="cqparts.Part.get_export_gltf_bin">
+<code class="descname">get_export_gltf_bin</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf_bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
+asset binary stream.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>To embed binary model data into a ‘uri’, you can:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">some_model</span><span class="o">.</span><span class="n">get_export_gltf_bin</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.get_export_json">
+<code class="descname">get_export_json</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as three.js JSON model format v3.</p>
+<p>(same arguments as <code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JSON string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>When writing this to file, it’s recommended that you choose a
+filename with the extension <code class="docutils literal"><span class="pre">.json</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.Part.get_export_json_dict">
+<code class="descname">get_export_json_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_json_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as
+<a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3</a>
+, as a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON model format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
 </tbody>
 </table>

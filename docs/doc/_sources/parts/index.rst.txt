@@ -12,3 +12,4 @@ Parts & Assembiles
     fasteners/index
     constraints/index
     rendering
+    import-export

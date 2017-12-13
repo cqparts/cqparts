@@ -40,7 +40,7 @@
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts.fasteners package" href="cqparts.fasteners.html"/>
-        <link rel="prev" title="cqparts.bearings package" href="cqparts.bearings.html"/> 
+        <link rel="prev" title="cqparts.codec package" href="cqparts.codec.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -106,6 +106,7 @@
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
@@ -235,8 +236,8 @@ to be placed, a circular problem.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock</li>
-<li><strong>to_mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
+<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
+<li><strong>to_mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
 </ul>
 </td>
 </tr>
@@ -261,8 +262,8 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>mate</strong> (<code class="xref py py-class docutils literal"><span class="pre">Mate</span></code>) – mate to lock</li>
-<li><strong>world_coords</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – world coordinates to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
+<li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
+<li><strong>world_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – world coordinates to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
 </ul>
 </td>
 </tr>
@@ -271,8 +272,9 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 </tr>
 </tbody>
 </table>
-<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a <code class="xref py py-class docutils literal"><span class="pre">Mate</span></code> instance,
-the mate’s <code class="docutils literal"><span class="pre">.world_coords</span></code> is used.</p>
+<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a
+<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instance, the mate’s
+<code class="docutils literal"><span class="pre">.world_coords</span></code> is used.</p>
 <p>If <code class="docutils literal"><span class="pre">world_coords</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, the object is locked to the origin.</p>
 </dd></dl>
 
@@ -287,6 +289,30 @@ the mate’s <code class="docutils literal"><span class="pre">.world_coords</spa
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
+<dt id="cqparts.constraint.mate.Mate.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.mate.Mate.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> – the object being added</td>
+</tr>
+</tbody>
+</table>
+<p>Behaviour based on type being added:</p>
+<p><a class="reference internal" href="#cqparts.constraint.mate.Mate" title="cqparts.constraint.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> + <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>:</p>
+<p>Return a copy of <code class="docutils literal"><span class="pre">self</span></code> with <code class="docutils literal"><span class="pre">other</span></code> added to <code class="docutils literal"><span class="pre">.local_coords</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.constraint.mate.Mate.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.mate.Mate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -295,7 +321,7 @@ the mate’s <code class="docutils literal"><span class="pre">.world_coords</spa
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
-<li><strong>local_coords</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – coordinate system of mate relative to component’s origin</li>
+<li><strong>local_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – coordinate system of mate relative to component’s origin</li>
 </ul>
 </td>
 </tr>
@@ -316,7 +342,7 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of mate.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
 </tr>
@@ -363,6 +389,30 @@ world coordinates.</p>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
+<dt id="cqparts.constraint.Mate.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Mate.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> – the object being added</td>
+</tr>
+</tbody>
+</table>
+<p>Behaviour based on type being added:</p>
+<p><a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> + <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>:</p>
+<p>Return a copy of <code class="docutils literal"><span class="pre">self</span></code> with <code class="docutils literal"><span class="pre">other</span></code> added to <code class="docutils literal"><span class="pre">.local_coords</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.constraint.Mate.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Mate.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -371,7 +421,7 @@ world coordinates.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
-<li><strong>local_coords</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – coordinate system of mate relative to component’s origin</li>
+<li><strong>local_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – coordinate system of mate relative to component’s origin</li>
 </ul>
 </td>
 </tr>
@@ -392,7 +442,7 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of mate.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
 </tr>
@@ -428,7 +478,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>mate</strong> (<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a>) – mate to lock</li>
-<li><strong>world_coords</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – world coordinates to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
+<li><strong>world_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – world coordinates to lock <code class="docutils literal"><span class="pre">mate</span></code> to</li>
 </ul>
 </td>
 </tr>
@@ -437,8 +487,9 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 </tr>
 </tbody>
 </table>
-<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a <a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instance,
-the mate’s <code class="docutils literal"><span class="pre">.world_coords</span></code> is used.</p>
+<p>If the <code class="docutils literal"><span class="pre">world_coords</span></code> parameter is set as a
+<a class="reference internal" href="#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instance, the mate’s
+<code class="docutils literal"><span class="pre">.world_coords</span></code> is used.</p>
 <p>If <code class="docutils literal"><span class="pre">world_coords</span></code> is <code class="docutils literal"><span class="pre">None</span></code>, the object is locked to the origin.</p>
 </dd></dl>
 
@@ -495,7 +546,7 @@ to be placed, a circular problem.</p>
         <a href="cqparts.fasteners.html" class="btn btn-neutral float-right" title="cqparts.fasteners package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cqparts.bearings.html" class="btn btn-neutral" title="cqparts.bearings package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts.codec.html" class="btn btn-neutral" title="cqparts.codec package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

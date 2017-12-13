@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.codec package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts package" href="cqparts.html"/>
+        <link rel="next" title="cqparts.constraint package" href="cqparts.constraint.html"/>
+        <link rel="prev" title="cqparts.bearings package" href="cqparts.bearings.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.codec package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+      <li>cqparts.codec package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-codec-package">
+<h1>cqparts.codec package<a class="headerlink" href="#cqparts-codec-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.codec.gltf">
+<span id="cqparts-codec-gltf-module"></span><h2>cqparts.codec.gltf module<a class="headerlink" href="#module-cqparts.codec.gltf" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.codec.threejs_json">
+<span id="cqparts-codec-threejs-json-module"></span><h2>cqparts.codec.threejs_json module<a class="headerlink" href="#module-cqparts.codec.threejs_json" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.threejs_json.ThreeJSJsonExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreeJSJsonExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreeJSJsonExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p><strong>Name:</strong> <code class="docutils literal"><span class="pre">json</span></code></p>
+<p><strong>Specification:</strong> <a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.codec">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.codec" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.Exporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">Exporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.Exporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.codec.register_exporter">
+<code class="descclassname">cqparts.codec.</code><code class="descname">register_exporter</code><span class="sig-paren">(</span><em>name</em>, <em>base_class</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.register_exporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an exporter to use for a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>,
+<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, or both
+(with <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>).</p>
+<p>Registration is necessary to use with
+<a class="reference internal" href="cqparts.html#cqparts.part.Component.exporter" title="cqparts.part.Component.exporter"><code class="xref py py-meth docutils literal"><span class="pre">Component.exporter()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name (or ‘key’) of exporter</li>
+<li><strong>base_class</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">type</span></code></a>) – class of <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> to export</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.codec</span> <span class="k">import</span> <span class="n">Exporter</span><span class="p">,</span> <span class="n">register_exporter</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@register_exporter</span><span class="p">(</span><span class="s1">&#39;my_type&#39;</span><span class="p">,</span> <span class="n">Part</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">class</span> <span class="nc">MyExporter</span><span class="p">(</span><span class="n">Exporter</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;out.mytype&#39;</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;export </span><span class="si">%r</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Sphere</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Sphere</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;my_type&#39;</span><span class="p">)(</span><span class="s1">&#39;some-file.mytype&#39;</span><span class="p">)</span>
+<span class="go">export &lt;Sphere: radius=5.0&gt; to some-file.mytype</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.codec.get_exporter">
+<code class="descclassname">cqparts.codec.</code><code class="descname">get_exporter</code><span class="sig-paren">(</span><em>obj</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.get_exporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an exporter for the</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – object to export</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of exporter</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">an exporter instance of the given type</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">Exporter</span></code></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>TypeError</strong> – if exporter cannot be found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.Importer">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">Importer</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.Importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.codec.register_importer">
+<code class="descclassname">cqparts.codec.</code><code class="descname">register_importer</code><span class="sig-paren">(</span><em>name</em>, <em>base_class</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.register_importer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cqparts.codec.get_importer">
+<code class="descclassname">cqparts.codec.</code><code class="descname">get_importer</code><span class="sig-paren">(</span><em>cls</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.get_importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an importer for the given registered type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cls</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">type</span></code></a>) – class to import</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of importer</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">an importer instance of the given type</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">Importer</span></code></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>TypeError</strong> – if importer cannot be found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.ThreeJSJsonExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreeJSJsonExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreeJSJsonExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p><strong>Name:</strong> <code class="docutils literal"><span class="pre">json</span></code></p>
+<p><strong>Specification:</strong> <a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.constraint.html" class="btn btn-neutral float-right" title="cqparts.constraint package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.bearings.html" class="btn btn-neutral" title="cqparts.bearings package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
