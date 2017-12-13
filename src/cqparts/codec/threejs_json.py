@@ -10,6 +10,7 @@ import cadquery
 from . import Exporter, register_exporter
 from ..part import Component, Part, Assembly
 
+
 @register_exporter('json', Part)
 class ThreejsJSONExporter(Exporter):
     """

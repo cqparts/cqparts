@@ -6,6 +6,7 @@ import cadquery
 from . import Exporter, register_exporter
 from ..part import Part
 
+
 @register_exporter('stl', Part)
 class STLExporter(Exporter):
     """

@@ -1,4 +1,4 @@
-
+import os
 import re
 
 import cadquery
@@ -6,6 +6,7 @@ import cadquery
 from . import Exporter, register_exporter
 from . import Importer, register_importer
 from ..part import Part
+
 
 @register_exporter('step', Part)
 class STEPExporter(Exporter):
@@ -38,6 +39,7 @@ class STEPExporter(Exporter):
                 fileLike=fh,
             )
 
+
 @register_importer('step', Part)
 class STEPImporter(Importer):
     """
@@ -55,6 +57,9 @@ class STEPImporter(Importer):
     """
 
     def __call__(self, filename):
+        if not os.path.exists(filename):
+            raise ValueError("given file does not exist: '%s'" % filename)
+
         # Create a class inheriting from our class
         imported_type = type(self._mangled_filename(filename), (self.cls,), {
             'make': lambda self: cadquery.freecad_impl.importers.importShape(
