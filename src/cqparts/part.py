@@ -86,7 +86,7 @@ class Component(ParametricObject):
         :type exporter_name: :class:`str`
 
         For example, to get a
-        :class:`ThreeJSJsonExporter <cqparts.codec.ThreeJSJsonExporter>`
+        :class:`ThreejsJSONExporter <cqparts.codec.ThreejsJSONExporter>`
         instance to import a ``json`` file:
 
         .. doctest::
@@ -308,49 +308,6 @@ class Part(Component):
 
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
-
-
-    # ----- Export: .json (JSON model format v3)
-    def get_export_json_dict(self, world=False):
-        """
-        Export part's geometry as
-        `three.js JSON model format v3 <https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3>`_
-        , as a :class:`dict`
-
-        :param world: if True, use world coordinates, otherwise use local
-        :type world: :class:`bool`
-        :return: JSON model format
-        :rtype: :class:`dict`
-        """
-        data = {}
-        with BytesIO() as stream:
-            obj = self.world_obj if world else self.local_obj
-            cadquery.exporters.exportShape(obj, 'TJS', stream)
-            stream.seek(0)
-            data = json.load(stream)
-
-        # Change diffuse colour to that in render properties
-        data['materials'][0]['colorDiffuse'] = [
-            val / 255. for val in self._render.rgb
-        ]
-        data['materials'][0]['transparency'] = self._render.alpha
-
-        return data
-
-    def get_export_json(self, *args, **kwargs):
-        """
-        Export part's geometry as three.js JSON model format v3.
-
-        (same arguments as :meth:`get_export_gltf_dict`)
-
-        :return: JSON string
-        :rtype: :class:`str`
-
-        When writing this to file, it's recommended that you choose a
-        filename with the extension ``.json``.
-        """
-        data = self.get_export_json_dict(*args, **kwargs)
-        return json.dumps(data)
 
 
 class Assembly(Component):

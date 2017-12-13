@@ -178,9 +178,10 @@ __all__ = [
     'Importer', 'register_importer', 'get_importer',
 
     # Codecs
-    'ThreeJSJsonExporter',
-
+    'ThreejsJSONExporter', 'ThreejsJSONAssemblyExporter',
+    'GLTFExporter'
 
 ]
 
-from .threejs_json import ThreeJSJsonExporter
+from .threejs_json import ThreejsJSONExporter, ThreejsJSONAssemblyExporter
+from .gltf import GLTFExporter

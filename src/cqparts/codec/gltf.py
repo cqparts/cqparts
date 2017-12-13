@@ -1,6 +1,14 @@
 import base64
 
+from . import Exporter, register_exporter
 from .. import __version__
+from ..part import Component, Part, Assembly
+
+
+@register_exporter('gltf', Component)
+class GLTFExporter(Exporter):
+    pass
+
 
 TEMPLATE = {
     "asset": {
