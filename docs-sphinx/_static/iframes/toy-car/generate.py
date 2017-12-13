@@ -218,18 +218,6 @@ from cqparts.utils.env import get_env_name
 
 env_name = get_env_name()
 
-def write_file(obj, filename, world=False):
-    if isinstance(obj, cqparts.Assembly):
-        obj.solve()
-        for (name, child) in obj.components.items():
-            s = os.path.splitext(filename)
-            write_file(child, "%s.%s%s" % (s[0], name, s[1]), world=True)
-    else:
-        print("exporting: %r" % obj)
-        print("       to: %s" % filename)
-        with open(filename, 'w') as fh:
-            fh.write(obj.get_export_gltf(world=world))
-
 # ------- Models
 wheel = Wheel()
 axle = Axle()
@@ -238,14 +226,14 @@ wheeled_axle = WheeledAxle(right_width=2)
 car = Car()
 
 if env_name == 'cmdline':
-    write_file(wheel, 'wheel.gltf')
-    write_file(axle, 'axle.gltf')
-    write_file(chassis, 'chassis.gltf')
-    write_file(wheeled_axle, 'wheel-assembly.gltf')
+    wheel.exporter('json')('wheel.json')
+    axle.exporter('json')('axle.json')
+    chassis.exporter('json')('chassis.json')
+    wheeled_axle.exporter('json')('wheel-assembly.json')
     print(wheeled_axle.tree_str(name='wheel_assembly'))
-    write_file(car, 'car.gltf')
+    car.exporter('json')('car.json')
     print(car.tree_str(name='car'))
-    write_file(car.find('chassis'), 'chassis-altered.gltf')
+    car.find('chassis').exporter('json')('chassis-altered.json')
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
