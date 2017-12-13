@@ -281,34 +281,6 @@ class Part(Component):
 
         return new_obj
 
-    # ----- Export: .glTF 2.0 (OpenGL Transfer Format)
-    def get_export_gltf_bin(self, world=False):
-        """
-        Export part's geometry as a
-        `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
-        asset binary stream.
-
-        :param world: if True, use world coordinates, otherwise use local
-        :type world: :class:`bool`
-        :return: byte sream of exported geometry
-        :rtype: :class:`BytesIO`
-
-        To embed binary model data into a 'uri', you can::
-
-            >>> data = some_model.get_export_gltf_bin()
-
-            >>> import base64
-            >>> {'uri': "data:{mimetype};base64,{data}".format(
-            ...     mimetype="application/octet-stream",
-            ...     data=base64.b64encode(data).decode('ascii'),
-            ... )}
-
-        """
-        data = BytesIO()
-
-        # binary save done here:
-        #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
-
 
 class Assembly(Component):
     """
@@ -704,27 +676,3 @@ class Assembly(Component):
                     output += ': ' + repr(component)
                 output += '\n'
         return output
-
-    def get_export_gltf_dict(self):
-        """
-        Get assembly geometry as a gltf export by combining each part into
-        a single scene.
-        """
-        data = {}
-
-        # TODO: combine parts recursively
-        raise NotImplemented("can't merge json models yet (don't know how)")
-
-        return data
-
-    def get_export_gltf(self, *args, **kwargs):
-        """
-        Export part's geometry as a glTF json string.
-
-        (same arguments as :meth:`get_export_gltf_dict`)
-
-        When exporting to this format, it's recommended that you choose a
-        filename with the extension ``.gltf``.
-        """
-        data = self.get_export_gltf_dict(*args, **kwargs)
-        return json.dumps(data)

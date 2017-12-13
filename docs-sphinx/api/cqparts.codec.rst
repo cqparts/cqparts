@@ -12,6 +12,14 @@ cqparts\.codec\.gltf module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.codec\.step module
+---------------------------
+
+.. automodule:: cqparts.codec.step
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cqparts\.codec\.threejs\_json module
 ------------------------------------
 

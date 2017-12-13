@@ -178,10 +178,18 @@ __all__ = [
     'Importer', 'register_importer', 'get_importer',
 
     # Codecs
+    'AMFExporter',
+    'GLTFExporter',
+    'STEPExporter', 'STEPImporter',
+    'STLExporter',
+    'SVGExporter',
     'ThreejsJSONExporter', 'ThreejsJSONAssemblyExporter',
-    'GLTFExporter'
 
 ]
 
-from .threejs_json import ThreejsJSONExporter, ThreejsJSONAssemblyExporter
+from .amf import AMFExporter
 from .gltf import GLTFExporter
+from .step import STEPExporter, STEPImporter
+from .stl import STLExporter
+from .svg import SVGExporter
+from .threejs_json import ThreejsJSONExporter, ThreejsJSONAssemblyExporter

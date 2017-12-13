@@ -13,13 +13,20 @@ from ..part import Component, Part, Assembly
 @register_exporter('json', Part)
 class ThreejsJSONExporter(Exporter):
     """
-    Export the :class:`Part` to a *three.js JSON v3* file format.
+    Export the :class:`Part <cqparts.part.Part>` to a *three.js JSON v3* file format.
 
     =============== ======================
     **Name**        ``json``
-    **Exports**     :class:`Part`
+    **Exports**     :class:`Part <cqparts.part.Part>`
     **Spec**        `three.js JSON model format v3 specification <https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3>`_
     =============== ======================
+
+    For information on how to load in a webpage, look to your WebGL framework
+    of choice:
+
+    * ThreeJS: https://threejs.org/docs/#api/loaders/ObjectLoader
+    * A-Frame: https://aframe.io/docs/0.7.0/core/asset-management-system.html#lt-a-asset-item-gt
+
     """
 
     def __call__(self, filename="out.json", world=False):

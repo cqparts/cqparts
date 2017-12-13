@@ -7,7 +7,53 @@ from ..part import Component, Part, Assembly
 
 @register_exporter('gltf', Component)
 class GLTFExporter(Exporter):
-    pass
+    """
+    Export :class:`Part <cqparts.part.Part>` or
+    :class:`Assembly <cqparts.part.Assembly>` to a *glTF 2.0* format.
+
+    =============== ======================
+    **Name**        ``gltf``
+    **Exports**     :class:`Part <cqparts.part.Part>` & :class:`Assembly <cqparts.part.Assembly>`
+    **Spec**        `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
+    =============== ======================
+
+    """
+
+    @classmethod
+    def part_buffer(cls, part, world=False):
+        """
+        Export part's geometry as a
+        `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
+        asset binary stream.
+
+        :param world: if True, use world coordinates, otherwise use local
+        :type world: :class:`bool`
+        :return: byte sream of exported geometry
+        :rtype: :class:`BytesIO`
+
+        To embed binary model data into a 'uri', you can:
+
+        .. doctest::
+
+            >>> import cqparts
+            >>> from cqparts.basic.primatives import Cube
+
+            >>> cube = Cube()
+            >>> data = cqparts.codec.GLTFExporter.part_buffer(some_part)
+
+            >>> import base64
+            >>> {'uri': "data:{mimetype};base64,{data}".format(
+            ...     mimetype="application/octet-stream",
+            ...     data=base64.b64encode(data).decode('ascii'),
+            ... )}
+
+        """
+        data = BytesIO()
+
+        # binary save done here:
+        #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
+
+        # TODO: this is a work in progress
 
 
 TEMPLATE = {
