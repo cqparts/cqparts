@@ -200,15 +200,104 @@
 </div>
 <div class="section" id="module-cqparts.codec.gltf">
 <span id="cqparts-codec-gltf-module"></span><h2>cqparts.codec.gltf module<a class="headerlink" href="#module-cqparts.codec.gltf" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.gltf.GLTFExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-cqparts.codec.threejs_json">
 <span id="cqparts-codec-threejs-json-module"></span><h2>cqparts.codec.threejs_json module<a class="headerlink" href="#module-cqparts.codec.threejs_json" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.codec.threejs_json.ThreeJSJsonExporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreeJSJsonExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreeJSJsonExporter" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.codec.threejs_json.ThreejsJSONAssemblyExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreejsJSONAssemblyExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONAssemblyExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p><strong>Name:</strong> <code class="docutils literal"><span class="pre">json</span></code></p>
-<p><strong>Specification:</strong> <a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></p>
+<p>Export an <code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code> into <strong>multiple</strong> <code class="docutils literal"><span class="pre">json</span></code> files.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">json</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>The <em>three.js JSON v3</em> format does not support multiple models (or, at
+least, not as far as I can tell).</p>
+<p>So this exporter will create multiple files, one per part.</p>
+<p class="last">If you’re after a more modern WebGL supported export, consider using
+<a class="reference internal" href="#cqparts.codec.GLTFExporter" title="cqparts.codec.GLTFExporter"><code class="xref py py-class docutils literal"><span class="pre">GLTFExporter</span></code></a> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.threejs_json.ThreejsJSONExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export the <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> to a <em>three.js JSON v3</em> file format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">json</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.codec.threejs_json.ThreejsJSONExporter.get_dict">
+<code class="descname">get_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter.get_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the part’s geometry as a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON model format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.threejs_json.ThreejsJSONExporter.get_str">
+<code class="descname">get_str</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter.get_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get file string.</p>
+<p>(same arguments as <code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JSON string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -322,11 +411,100 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.codec.ThreeJSJsonExporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreeJSJsonExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreeJSJsonExporter" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.codec.ThreejsJSONExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p><strong>Name:</strong> <code class="docutils literal"><span class="pre">json</span></code></p>
-<p><strong>Specification:</strong> <a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></p>
+<p>Export the <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> to a <em>three.js JSON v3</em> file format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">json</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts.codec.ThreejsJSONExporter.get_dict">
+<code class="descname">get_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter.get_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the part’s geometry as a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">JSON model format</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.ThreejsJSONExporter.get_str">
+<code class="descname">get_str</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter.get_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get file string.</p>
+<p>(same arguments as <code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JSON string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.ThreejsJSONAssemblyExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreejsJSONAssemblyExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONAssemblyExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export an <code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code> into <strong>multiple</strong> <code class="docutils literal"><span class="pre">json</span></code> files.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">json</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>The <em>three.js JSON v3</em> format does not support multiple models (or, at
+least, not as far as I can tell).</p>
+<p>So this exporter will create multiple files, one per part.</p>
+<p class="last">If you’re after a more modern WebGL supported export, consider using
+<a class="reference internal" href="#cqparts.codec.GLTFExporter" title="cqparts.codec.GLTFExporter"><code class="xref py py-class docutils literal"><span class="pre">GLTFExporter</span></code></a> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.GLTFExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
 </dd></dl>
 
 </div>

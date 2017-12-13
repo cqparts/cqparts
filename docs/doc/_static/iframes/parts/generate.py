@@ -14,13 +14,6 @@ from cqparts.params import *
 from cqparts.display import display
 
 
-def write_file(obj, filename):
-    print("exporting: %r" % obj)
-    print("       to: %s" % filename)
-    with open(filename, 'w') as fh:
-        fh.write(obj.get_export_gltf())
-
-
 # ------------------- Box -------------------
 
 class Box(cqparts.Part):
@@ -35,7 +28,6 @@ class Box(cqparts.Part):
         )
 
 box = Box(height=5)
-write_file(box, 'box.gltf')
 
 
 # ------------------- Disk -------------------
@@ -48,7 +40,6 @@ class Wheel(cqparts.Part):
             .circle(self.radius).extrude(self.width)
 
 wheel = Wheel()
-write_file(wheel, 'wheel.gltf')
 
 
 # ------------------- Holy Disk -------------------
@@ -61,7 +52,6 @@ class HolyWheel(Wheel):
             .cutThruAll()
 
 my_wheel = HolyWheel(hole_diameter=50, width=15)
-write_file(my_wheel, 'holy-wheel.gltf')
 
 
 # ------------------- Joined Disk -------------------
@@ -96,8 +86,6 @@ joined_wheel = JoinedWheel(
 )
 joined_wheel.local_obj
 
-write_file(joined_wheel, 'joined-wheel.gltf')
-
 
 # ------------------- Red Box -------------------
 
@@ -109,4 +97,11 @@ class Box(cqparts.Part):
         return cadquery.Workplane('XY').box(10,10,10)
 
 red_box = Box()
-write_file(red_box, 'red-box.gltf')
+
+
+# ------------------- Export -------------------
+box.exporter('json')('box.json')
+wheel.exporter('json')('wheel.json')
+my_wheel.exporter('json')('holy-wheel.json')
+joined_wheel.exporter('json')('joined-wheel.json')
+red_box.exporter('json')('red-box.json')
