@@ -75,6 +75,60 @@ class Component(ParametricObject):
         """
         return Mate(self, CoordSystem())
 
+    # ----- Export / Import
+    def exporter(self, exporter_name=None):
+        """
+        Get an exporter instance to write the component's content to file.
+
+        :param exporter_name: registered name of exporter to use, see
+                              :meth:`register_exporter() <cqparts.codec.register_exporter>`
+                              for more information.
+        :type exporter_name: :class:`str`
+
+        For example, to get a
+        :class:`ThreeJSJsonExporter <cqparts.codec.ThreeJSJsonExporter>`
+        instance to import a ``json`` file:
+
+        .. doctest::
+
+            >>> from cqparts.basic.primatives import Box
+            >>> box = Box()
+            >>> json_exporter = box.exporter('json')
+
+            >>> # then each exporter will behave differently
+            >>> json_exporter('out.json')  # doctest: +SKIP
+
+        To learn more: :ref:`parts_import-export`
+        """
+        from .codec import get_exporter
+        return get_exporter(self, exporter_name)
+
+    @classmethod
+    def importer(cls, importer_name=None):
+        """
+        Get an importer instance to instantiate a component from file.
+
+        :param importer_name: registered name of importer to use, see
+                              :meth:`register_importer() <cqparts.codec.register_importer>`
+                              for more information.
+        :type importer_name: :class:`str`
+
+        For example, to get an importer to instantiate a :class:`Part` from a
+        ``STEP`` file:
+
+        .. doctest::
+
+            >>> from cqparts import Part
+            >>> step_importer = Part.importer('step')
+
+            >>> # then each importer will behave differently
+            >>> my_part = step_importer('my_file.step')
+
+        To learn more: :ref:`parts_import-export`
+        """
+        from .codec import get_importer
+        return get_importer(cls, importer_name)
+
 
 class Part(Component):
 
@@ -227,12 +281,46 @@ class Part(Component):
 
         return new_obj
 
-    def get_export_gltf_dict(self, world=False):
+    # ----- Export: .glTF 2.0 (OpenGL Transfer Format)
+    def get_export_gltf_bin(self, world=False):
         """
-        Export part's geometry as a glTF formatted dict.
+        Export part's geometry as a
+        `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
+        asset binary stream.
 
         :param world: if True, use world coordinates, otherwise use local
         :type world: :class:`bool`
+        :return: byte sream of exported geometry
+        :rtype: :class:`BytesIO`
+
+        To embed binary model data into a 'uri', you can::
+
+            >>> data = some_model.get_export_gltf_bin()
+
+            >>> import base64
+            >>> {'uri': "data:{mimetype};base64,{data}".format(
+            ...     mimetype="application/octet-stream",
+            ...     data=base64.b64encode(data).decode('ascii'),
+            ... )}
+
+        """
+        data = BytesIO()
+
+        # binary save done here:
+        #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
+
+
+    # ----- Export: .json (JSON model format v3)
+    def get_export_json_dict(self, world=False):
+        """
+        Export part's geometry as
+        `three.js JSON model format v3 <https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3>`_
+        , as a :class:`dict`
+
+        :param world: if True, use world coordinates, otherwise use local
+        :type world: :class:`bool`
+        :return: JSON model format
+        :rtype: :class:`dict`
         """
         data = {}
         with BytesIO() as stream:
@@ -249,16 +337,19 @@ class Part(Component):
 
         return data
 
-    def get_export_gltf(self, *args, **kwargs):
+    def get_export_json(self, *args, **kwargs):
         """
-        Export part's geometry as a glTF json string.
+        Export part's geometry as three.js JSON model format v3.
 
         (same arguments as :meth:`get_export_gltf_dict`)
 
-        When exporting to this format, it's recommended that you choose a
-        filename with the extension ``.gltf``.
+        :return: JSON string
+        :rtype: :class:`str`
+
+        When writing this to file, it's recommended that you choose a
+        filename with the extension ``.json``.
         """
-        data = self.get_export_gltf_dict(*args, **kwargs)
+        data = self.get_export_json_dict(*args, **kwargs)
         return json.dumps(data)
 
 

@@ -8,6 +8,7 @@ Subpackages
 
     cqparts.basic
     cqparts.bearings
+    cqparts.codec
     cqparts.constraint
     cqparts.fasteners
     cqparts.gears

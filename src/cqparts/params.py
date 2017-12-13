@@ -97,14 +97,13 @@ class ParametricObject(object):
     def __repr__(self):
         # <Branch: diameter=3.0, height=2.0, twist=0.0 @0x7f1ffbfcd790>
         params = list(self._params_iter())
-        return "<{cls}:{params} @0x{id:x}>".format(
+        return "<{cls}: {params}>".format(
             cls=type(self).__name__,
-            params=(' ' + ", ".join(
+            params=", ".join(
                 "%s=%r" % (k, v)
                 for (k, v) in params
                 if not k.startswith('_')  # ignore private parameters
-            )) if params else '',
-            id=id(self),
+            ),
         )
 
     def initialize_parameters(self):
