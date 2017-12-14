@@ -122,7 +122,7 @@ class Component(ParametricObject):
             >>> step_importer = Part.importer('step')
 
             >>> # then each importer will behave differently
-            >>> my_part = step_importer('my_file.step')
+            >>> my_part = step_importer('my_file.step')  # doctest: +SKIP
 
         To learn more: :ref:`parts_import-export`
         """

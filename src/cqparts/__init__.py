@@ -40,6 +40,7 @@ __all__ = [
     'utils',
 
     'constraint',
+    'codec'
 
     # Sub-modules
     # bringing scope closer to cqparts for commonly used classes
@@ -65,6 +66,7 @@ from . import search
 from . import utils
 
 from . import constraint
+from . import codec
 
 # Sub-modules
 from .part import Component

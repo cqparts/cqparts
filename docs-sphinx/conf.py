@@ -204,6 +204,7 @@ def custom_noskip():
             '__init__',
             '__add__', '__sub__',
             '__mul__', '__div__',
+            '__call__',
         ),
     }
 
