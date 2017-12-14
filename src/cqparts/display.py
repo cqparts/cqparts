@@ -161,6 +161,21 @@ class RenderProps(object):
         """
         return self.color + (self.transparency,)
 
+    @property
+    def gltf_material(self):
+        """
+        :return: `glTF Material <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materials>`_
+        :rtype: :class:`dict`
+        """
+        # There's a lot of room for improvement here
+        return {
+            "pbrMetallicRoughness": {
+                "baseColorFactor": [(val / 255.) for val in self.rgb] + [self.alpha],
+                "metallicFactor": 0.0,
+            },
+            #"name": "red",
+        }
+
 RenderParam = as_parameter(nullable=False)(RenderProps)
 
 

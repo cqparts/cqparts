@@ -291,8 +291,11 @@ class GLTFExporter(Exporter):
         "scenes": [{"nodes": [0]}],
         "nodes": [
             {
-                "children": [1],  # may be replaced before exporting
-                "matrix": [  # scene rotation
+                "children": [1],  # may be replaced before writing to file
+                # scene rotation to suit glTF coordinate system
+                # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
+                # TODO: apply scale for mm (cqparts) -> meters (glTF), make variable (for people still using inches... metric FTW!)
+                "matrix": [
                     1.0, 0.0, 0.0, 0.0,
                     0.0, 0.0,-1.0, 0.0,
                     0.0, 1.0, 0.0, 0.0,
@@ -497,6 +500,11 @@ class GLTFExporter(Exporter):
         self.gltf_dict['accessors'].append(accessor)
         accessor_index_indices = accessor_index + 1
 
+        # ----- Adding: materials
+        materials_index = len(self.gltf_dict['materials'])
+        material = part._render.gltf_material
+        self.gltf_dict['materials'].append(material)
+
         # ----- Adding: meshes
         mesh_index = len(self.gltf_dict['meshes'])
         mesh = {
@@ -507,7 +515,7 @@ class GLTFExporter(Exporter):
                     },
                     "indices": accessor_index_indices,
                     "mode": WebGL.TRIANGLES,
-                    #"material": 0,  # TODO: add materials
+                    "material": materials_index,
                 }
             ],
             "name": name,

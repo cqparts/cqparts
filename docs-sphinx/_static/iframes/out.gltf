@@ -50,7 +50,19 @@
       "uri": "out.bin"
     }
   ], 
-  "materials": [], 
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0, 
+          0.0, 
+          0.0, 
+          1.0
+        ], 
+        "metallicFactor": 0.0
+      }
+    }
+  ], 
   "meshes": [
     {
       "name": "out", 
@@ -60,6 +72,7 @@
             "POSITION": 0
           }, 
           "indices": 1, 
+          "material": 0, 
           "mode": 4
         }
       ]
