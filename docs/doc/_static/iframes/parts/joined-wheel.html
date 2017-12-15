@@ -8,25 +8,28 @@
     <script src="../../js/orbit-controls-component.min.js"></script>
   </head>
   <body>
-  <a-scene outline>
+    <a-scene outline>
+      <a-assets>
+          <a-asset-item id="object" src="joined-wheel.gltf">
+      </a-assets>
       <a-entity
-            id="camera"
-            camera
-            fov="90"
-            position="0.7 0.8 1.6"
-            orbit-controls="
-                target: #target;
-                enableDamping: true;
-                dampingFactor: 0.25;
-                rotateSpeed:0.14;
-                minDistance:0.01;
-                maxDistance:25;"
-            mouse-cursor="">
-        </a-entity>
-        <a-entity id="target" position="0 0 0"></a-entity>
-        <a-entity id='main' scale="0.01 0.01 0.01" position="0 0 0" rotation="0 0 0">
-          <a-entity json-model="src: url(joined-wheel.json);" position="0 0 0" rotation="-90 0 0"></a-entity>
-        </a-entity>
+          id="camera"
+          camera
+          fov="90"
+          position="0.07 0.08 .16"
+          orbit-controls="
+              target: #target;
+              enableDamping: true;
+              dampingFactor: 0.25;
+              rotateSpeed:0.14;
+              minDistance:0.01;
+              maxDistance:25;"
+          mouse-cursor="">
+      </a-entity>
+      <a-entity id="target" position="0 0 0"></a-entity>
+      <a-entity id='main' position="0 0 0" rotation="0 0 0">
+        <a-gltf-model src="#object"></a-gltf-model>
+      </a-entity>
     </a-scene>
   </body>
 </html>

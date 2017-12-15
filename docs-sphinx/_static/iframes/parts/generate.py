@@ -100,8 +100,8 @@ red_box = Box()
 
 
 # ------------------- Export -------------------
-box.exporter('json')('box.json')
-wheel.exporter('json')('wheel.json')
-my_wheel.exporter('json')('holy-wheel.json')
-joined_wheel.exporter('json')('joined-wheel.json')
-red_box.exporter('json')('red-box.json')
+box.exporter('gltf')('box.gltf', embed=True)
+wheel.exporter('gltf')('wheel.gltf', embed=True)
+my_wheel.exporter('gltf')('holy-wheel.gltf', embed=True)
+joined_wheel.exporter('gltf')('joined-wheel.gltf', embed=True)
+red_box.exporter('gltf')('red-box.gltf', embed=True)

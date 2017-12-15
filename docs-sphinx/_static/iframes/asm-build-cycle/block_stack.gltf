@@ -1,0 +1,428 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 8, 
+      "max": [
+        5.1, 
+        5.1, 
+        20.1
+      ], 
+      "min": [
+        -5.1, 
+        -5.1, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 1, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 36, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 2, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 8, 
+      "max": [
+        1.6, 
+        1.6, 
+        3.1
+      ], 
+      "min": [
+        -1.6, 
+        -1.6, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 3, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 36, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 4, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 8, 
+      "max": [
+        4.1, 
+        4.1, 
+        8.1
+      ], 
+      "min": [
+        -4.1, 
+        -4.1, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 5, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 36, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 6, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 3122, 
+      "max": [
+        3.1, 
+        3.0988609210748543, 
+        6.1
+      ], 
+      "min": [
+        -3.0954445492999487, 
+        -3.0988609210748543, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 7, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 18720, 
+      "type": "SCALAR"
+    }
+  ], 
+  "asset": {
+    "generator": "cqparts_0.1.0", 
+    "version": "2.0"
+  }, 
+  "bufferViews": [
+    {
+      "buffer": 0, 
+      "byteLength": 96, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 0, 
+      "byteLength": 72, 
+      "byteOffset": 96, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 96, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 72, 
+      "byteOffset": 96, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 96, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 72, 
+      "byteOffset": 96, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 3, 
+      "byteLength": 37464, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 3, 
+      "byteLength": 37440, 
+      "byteOffset": 37464, 
+      "target": 34963
+    }
+  ], 
+  "buffers": [
+    {
+      "byteLength": 168, 
+      "uri": "block_stack.a.bin"
+    }, 
+    {
+      "byteLength": 168, 
+      "uri": "block_stack.c.bin"
+    }, 
+    {
+      "byteLength": 168, 
+      "uri": "block_stack.b.bin"
+    }, 
+    {
+      "byteLength": 74904, 
+      "uri": "block_stack.d.bin"
+    }
+  ], 
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          1.0
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          1.0
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          1.0
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          1.0
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }
+  ], 
+  "meshes": [
+    {
+      "name": "block_stack.a", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          }, 
+          "indices": 1, 
+          "material": 0, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "block_stack.c", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          }, 
+          "indices": 3, 
+          "material": 1, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "block_stack.b", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          }, 
+          "indices": 5, 
+          "material": 2, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "block_stack.d", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          }, 
+          "indices": 7, 
+          "material": 3, 
+          "mode": 4
+        }
+      ]
+    }
+  ], 
+  "nodes": [
+    {
+      "children": [
+        1
+      ], 
+      "matrix": [
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -0.001, 
+        0.0, 
+        0.0, 
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ]
+    }, 
+    {
+      "children": [
+        2, 
+        3, 
+        4, 
+        5
+      ], 
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "name": "block_stack"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -10.0, 
+        1.0
+      ], 
+      "mesh": 0, 
+      "name": "block_stack.a"
+    }, 
+    {
+      "matrix": [
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        -1.0, 
+        -0.0, 
+        -0.0, 
+        -0.0, 
+        -0.0, 
+        -1.0, 
+        -0.0, 
+        -0.0, 
+        0.0, 
+        -5.0, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 1, 
+      "name": "block_stack.c"
+    }, 
+    {
+      "matrix": [
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        -0.0, 
+        -1.0, 
+        -0.0, 
+        -0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        5.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 2, 
+      "name": "block_stack.b"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        9.0, 
+        0.0, 
+        4.0, 
+        1.0
+      ], 
+      "mesh": 3, 
+      "name": "block_stack.d"
+    }
+  ], 
+  "scene": 0, 
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

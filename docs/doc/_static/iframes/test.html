@@ -9,27 +9,24 @@
   <body>
     <a-scene>
       <a-assets>
-          <!-- <a-asset-item id="box" src="out.gltf"> -->
-          <a-asset-item id="box" src="car.gltf">
+          <a-asset-item id="box" src="out.gltf">
       </a-assets>
       <a-entity
-            id="camera"
-            camera
-            fov="90"
-            position="1 1 0.5"
-            orbit-controls="
-                target: #target;
-                enableDamping: true;
-                dampingFactor: 0.25;
-                rotateSpeed:0.14;
-                minDistance:0.01;
-                maxDistance:25;"
-            mouse-cursor="">
+          id="camera"
+          camera
+          fov="90"
+          position="1 1 0.5"
+          orbit-controls="
+              target: #target;
+              enableDamping: true;
+              dampingFactor: 0.25;
+              rotateSpeed:0.14;
+              minDistance:0.01;
+              maxDistance:25;"
+          mouse-cursor="">
       </a-entity>
       <a-entity id="target" position="0 0 0"></a-entity>
-
       <a-gltf-model src="#box"></a-gltf-model>
-
     </a-scene>
   </body>
 </html>

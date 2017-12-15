@@ -175,11 +175,11 @@ block_stack = BlockStack()
 
 if env_name == 'cmdline':
     pass  # manually switchable for testing
-    cylinder.exporter('json')('cylinder.json')
-    plate.exporter('json')('plate.json')
-    thing.exporter('json')('thing.json')
-    thing.find('pla').exporter('json')('plate-altered.json')
-    block_stack.exporter('json')('block_stack.json')
+    cylinder.exporter('gltf')('cylinder.gltf')
+    plate.exporter('gltf')('plate.gltf')
+    thing.exporter('gltf')('thing.gltf')
+    thing.find('pla').exporter('gltf')('plate-altered.gltf')
+    block_stack.exporter('gltf')('block_stack.gltf')
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing

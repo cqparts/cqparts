@@ -226,24 +226,13 @@ wheeled_axle = WheeledAxle(right_width=2)
 car = Car()
 
 if env_name == 'cmdline':
-    wheel.exporter('json')('wheel.json')
     wheel.exporter('gltf')('wheel.gltf')
-
-    axle.exporter('json')('axle.json')
     axle.exporter('gltf')('axle.gltf')
-
-    chassis.exporter('json')('chassis.json')
     chassis.exporter('gltf')('chassis.gltf')
-
-    wheeled_axle.exporter('json')('wheel-assembly.json')
     wheeled_axle.exporter('gltf')('wheel-assembly.gltf')
     print(wheeled_axle.tree_str(name='wheel_assembly'))
-
-    car.exporter('json')('car.json')
     car.exporter('gltf')('car.gltf')
     print(car.tree_str(name='car'))
-
-    car.find('chassis').exporter('json')('chassis-altered.json')
     car.find('chassis').exporter('gltf')('chassis-altered.gltf')
 
 

@@ -59,7 +59,8 @@
           0.1961, 
           1.0
         ], 
-        "metallicFactor": 0.0
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
       }
     }
   ], 

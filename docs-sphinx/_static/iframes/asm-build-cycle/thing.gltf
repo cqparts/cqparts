@@ -1,0 +1,250 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 340, 
+      "max": [
+        10.1, 
+        10.1, 
+        5.1
+      ], 
+      "min": [
+        -10.1, 
+        -10.1, 
+        -5.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 1, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 2040, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 2, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 380, 
+      "max": [
+        5.1, 
+        5.1, 
+        12.1
+      ], 
+      "min": [
+        -5.1, 
+        -5.1, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 3, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 2280, 
+      "type": "SCALAR"
+    }
+  ], 
+  "asset": {
+    "generator": "cqparts_0.1.0", 
+    "version": "2.0"
+  }, 
+  "bufferViews": [
+    {
+      "buffer": 0, 
+      "byteLength": 4080, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 0, 
+      "byteLength": 4080, 
+      "byteOffset": 4080, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 4560, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 4560, 
+      "byteOffset": 4560, 
+      "target": 34963
+    }
+  ], 
+  "buffers": [
+    {
+      "byteLength": 8160, 
+      "uri": "thing.pla.bin"
+    }, 
+    {
+      "byteLength": 9120, 
+      "uri": "thing.cyl.bin"
+    }
+  ], 
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          1.0
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.7529, 
+          0.7529, 
+          0.7529, 
+          0.8
+        ], 
+        "metallicFactor": 0.6, 
+        "roughnessFactor": 0.6
+      }
+    }
+  ], 
+  "meshes": [
+    {
+      "name": "thing.pla", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          }, 
+          "indices": 1, 
+          "material": 0, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "thing.cyl", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          }, 
+          "indices": 3, 
+          "material": 1, 
+          "mode": 4
+        }
+      ]
+    }
+  ], 
+  "nodes": [
+    {
+      "children": [
+        1
+      ], 
+      "matrix": [
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -0.001, 
+        0.0, 
+        0.0, 
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ]
+    }, 
+    {
+      "children": [
+        2, 
+        3
+      ], 
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "name": "thing"
+    }, 
+    {
+      "matrix": [
+        -0.4472135954999579, 
+        0.8944271909999157, 
+        0.0, 
+        0.0, 
+        -0.8944271909999159, 
+        -0.4472135954999579, 
+        -0.0, 
+        -0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        -1.0, 
+        -5.0, 
+        -2.0, 
+        1.0
+      ], 
+      "mesh": 0, 
+      "name": "thing.pla"
+    }, 
+    {
+      "matrix": [
+        -0.44721359549995787, 
+        0.8944271909999159, 
+        0.0, 
+        0.0, 
+        -0.8639503235220041, 
+        -0.431975161761002, 
+        0.25881904510252096, 
+        -0.0, 
+        0.2314947914883283, 
+        0.11574739574416415, 
+        0.9659258262890681, 
+        0.0, 
+        -3.251843964976488, 
+        -1.6537860274886653, 
+        1.0681483474218638, 
+        1.0
+      ], 
+      "mesh": 1, 
+      "name": "thing.cyl"
+    }
+  ], 
+  "scene": 0, 
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
