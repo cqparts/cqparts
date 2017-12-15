@@ -1,0 +1,336 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 868, 
+      "max": [
+        12.6, 
+        12.59874839708436, 
+        7.1
+      ], 
+      "min": [
+        -12.6, 
+        -12.59874839708436, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 1, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 5208, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 2, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 552, 
+      "max": [
+        4.1, 
+        22.85, 
+        4.1
+      ], 
+      "min": [
+        -4.1, 
+        -22.85, 
+        -4.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 3, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 3300, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 4, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 868, 
+      "max": [
+        12.6, 
+        12.59874839708436, 
+        2.1
+      ], 
+      "min": [
+        -12.6, 
+        -12.59874839708436, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 5, 
+      "byteOffset": 0, 
+      "componentType": 5123, 
+      "count": 5208, 
+      "type": "SCALAR"
+    }
+  ], 
+  "asset": {
+    "generator": "cqparts_0.1.0", 
+    "version": "2.0"
+  }, 
+  "bufferViews": [
+    {
+      "buffer": 0, 
+      "byteLength": 10416, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 0, 
+      "byteLength": 10416, 
+      "byteOffset": 10416, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 6624, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 6600, 
+      "byteOffset": 6624, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 10416, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 10416, 
+      "byteOffset": 10416, 
+      "target": 34963
+    }
+  ], 
+  "buffers": [
+    {
+      "byteLength": 20832, 
+      "uri": "wheel-assembly.left_wheel.bin"
+    }, 
+    {
+      "byteLength": 13224, 
+      "uri": "wheel-assembly.axle.bin"
+    }, 
+    {
+      "byteLength": 20832, 
+      "uri": "wheel-assembly.right_wheel.bin"
+    }
+  ], 
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6627, 
+          0.1961, 
+          0.149, 
+          1.0
+        ], 
+        "metallicFactor": 0.0
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.1961, 
+          0.1961, 
+          0.1961, 
+          1.0
+        ], 
+        "metallicFactor": 0.0
+      }
+    }, 
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6627, 
+          0.1961, 
+          0.149, 
+          1.0
+        ], 
+        "metallicFactor": 0.0
+      }
+    }
+  ], 
+  "meshes": [
+    {
+      "name": "wheel-assembly.left_wheel", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          }, 
+          "indices": 1, 
+          "material": 0, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "wheel-assembly.axle", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          }, 
+          "indices": 3, 
+          "material": 1, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "wheel-assembly.right_wheel", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          }, 
+          "indices": 5, 
+          "material": 2, 
+          "mode": 4
+        }
+      ]
+    }
+  ], 
+  "nodes": [
+    {
+      "children": [
+        1
+      ], 
+      "matrix": [
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -0.001, 
+        0.0, 
+        0.0, 
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ]
+    }, 
+    {
+      "children": [
+        2, 
+        3, 
+        4
+      ], 
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "name": "wheel-assembly"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        -1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -22.75, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 0, 
+      "name": "wheel-assembly.left_wheel"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 1, 
+      "name": "wheel-assembly.axle"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -1.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        22.75, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 2, 
+      "name": "wheel-assembly.right_wheel"
+    }
+  ], 
+  "scene": 0, 
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
