@@ -5,6 +5,7 @@ from io import BytesIO
 from itertools import chain
 from copy import copy, deepcopy
 import json
+from collections import defaultdict
 
 from . import Exporter, register_exporter
 from .. import __version__
@@ -13,13 +14,19 @@ from ..part import Component, Part, Assembly
 
 class WebGL:
     """
-    Enumeration container (nothing special)
+    Enumeration container (nothing special).
 
     .. doctest::
 
         >>> from cqparts.codec.gltf import WebGL
         >>> WebGL.ARRAY_BUFFER
         34962
+
+    This class purely exists to make the code more readable.
+
+    All enumerations transcribed from
+    `the spec' <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
+    where needed.
     """
 
     # accessor.componentType
@@ -67,11 +74,11 @@ class ShapeBuffer(object):
         ...     for chunk in sb.buffer_iter():  # doctest: +SKIP
         ...         fh.write(chunk)  # doctest: +SKIP
 
-        >>> # get sizes (relevant for offsets)
-        >>> (sb.vert_len, sb.vert_size)
-        (36L, 3L)
-        >>> (sb.idx_len, sb.idx_size)
-        (6L, 3L)
+        >>> # get sizes (relevant for bufferViews, and accessors)
+        >>> (sb.vert_len, sb.vert_offset, sb.vert_size)
+        (36L, 0L, 3L)
+        >>> (sb.idx_len, sb.idx_offset, sb.idx_size)
+        (6L, 36L, 3L)
     """
     def __init__(self):
         self.vert_data = BytesIO()  # POSITION
@@ -92,7 +99,7 @@ class ShapeBuffer(object):
         """
         Offset (in bytes) of the ``vert_data`` buffer.
         """
-        return 0
+        return 0L
 
     @property
     def vert_size(self):
@@ -187,7 +194,7 @@ class ShapeBuffer(object):
         # Chain streams seamlessly
         for stream in streams:
             stream.seek(0)
-            for chunk in stream.read(block_size):
+            for chunk in iter(lambda: stream.read(block_size), ''):
                 yield chunk
 
         # When complete, each stream position should be reset;
@@ -203,6 +210,10 @@ class ShapeBuffer(object):
 
             **Why?** This is a *convenience* function; it doesn't encourage good
             memory management.
+
+            All memory required for a mesh is duplicated, and returned as a
+            single :class:`str`. So at best, using this function will double
+            the memory required for a single model.
 
             **Instead:** Wherever possible, please use :meth:`buffer_iter`.
         """
@@ -279,6 +290,7 @@ class GLTFExporter(Exporter):
 
     """
 
+    SCALE = 0.001  # mm to meters
     TEMPLATE = {
         # Static values
         "asset": {
@@ -291,14 +303,14 @@ class GLTFExporter(Exporter):
         "scenes": [{"nodes": [0]}],
         "nodes": [
             {
-                "children": [1],  # may be replaced before writing to file
+                "children": [],  # will be appended to before writing to file
                 # scene rotation to suit glTF coordinate system
                 # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
                 # TODO: apply scale for mm (cqparts) -> meters (glTF), make variable (for people still using inches... metric FTW!)
                 "matrix": [
-                    1.0, 0.0, 0.0, 0.0,
-                    0.0, 0.0,-1.0, 0.0,
-                    0.0, 1.0, 0.0, 0.0,
+                    1.0 * SCALE, 0.0, 0.0, 0.0,
+                    0.0, 0.0,-1.0 * SCALE, 0.0,
+                    0.0, 1.0 * SCALE, 0.0, 0.0,
                     0.0, 0.0, 0.0, 1.0,
                 ],
             },
@@ -327,34 +339,53 @@ class GLTFExporter(Exporter):
         :type embed: :class:`bool`
         """
 
-        def add(obj, filename, name):
+        def add(obj, filename, name, parent_node_index=0):
             split = os.path.splitext(filename)
 
             if isinstance(obj, Assembly):
-                obj.solve()
+                # --- Assembly
+                obj.solve()  # shoult this be obj.build()?
+
+                # Add empty node to serve as a parent
+                node_index = len(self.gltf_dict['nodes'])
+                node = {}
+                if name:
+                    node['name'] = name
+                self.gltf_dict['nodes'].append(node)
+
+                # Add this node to its parent
+                parent_node = self.gltf_dict['nodes'][parent_node_index]
+                parent_node['children'] = parent_node.get('children', []) + [node_index]
+
                 for (child_name, child) in obj.components.items():
+                    # Full name of child (including '.' separated list of all parents)
+                    full_name = "%s.%s" % (name, child_name)
+
+                    # Recursively add children
                     add(
                         child,
-                        filename=None if embed else ("%s.%s%s" % (split[0], child_name, split[1])),
-                        name="%s.%s" % (name, child_name)
+                        filename="%s.%s%s" % (split[0], child_name, split[1]),
+                        name="%s.%s" % (name, child_name),
+                        parent_node_index=node_index,
                     )
+
             else:
+                # --- Part
                 self.add_part(
                     obj,
                     filename=None if embed else filename,
                     name=name,
+                    parent_idx=parent_node_index,
                 )
 
         split = os.path.splitext(filename)
         add(
             obj=self.obj,
-            filename=None if embed else ("%s.bin" % split[0]),
+            filename="%s.bin" % split[0],
             name=os.path.splitext(os.path.basename(filename))[0]
         )
 
-        # make sure node[0] has all other objects as children
-        self.gltf_dict['nodes'][0]['children'] = list(range(1, len(self.gltf_dict['nodes'])))
-
+        # Write self.gltf_dict to file as JSON string
         with open(filename, 'w') as fh:
             fh.write(json.dumps(self.gltf_dict, indent=2, sort_keys=True))
 
@@ -410,7 +441,6 @@ class GLTFExporter(Exporter):
             ...     data=base64.b64encode(buff.read()).decode('ascii'),
             ... )}
             {'uri': 'data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAABAAIAAQADAAIABAAFAAYABAAHAAUAAwAHAAIAAgAHAAQAAAAFAAEABgAFAAAAAwABAAcABwABAAUABAAAAAIABgAAAAQA'}
-
         """
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
@@ -426,7 +456,43 @@ class GLTFExporter(Exporter):
 
         return buff
 
-    def add_part(self, part, filename=None, name=''):
+    def add_part(self, part, filename=None, name=None, parent_idx=0):
+        """
+        Adds the given ``part`` to ``self.gltf_dict``.
+
+        :param part: part to add to gltf export
+        :type part: :class:`Part <cqparts.part.Part>`
+        :param filename: name of binary file to store buffer, if ``None``,
+                         binary data is embedded in the *buffer's 'uri'*
+        :type filename: :class:`str`
+        :param name: name given to exported mesh (optional)
+        :type name: :class:`str`
+        :param parent_idx: index of parent node (everything is added to a hierarchy)
+        :type parent_idx: :class:`int`
+        :return: information about additions to the gltf dict
+        :rtype: :class:`dict`
+
+        **Return Format:**
+
+        The returned :class:`dict` is an account of what objects were added
+        to the gltf dict, and the index they may be referenced::
+
+            <return format> = {
+                'buffers':     [(<index>, <object>), ... ],
+                'bufferViews': [(<index>, <object>), ... ],
+                'accessors':   [(<index>, <object>), ... ],
+                'materials':   [(<index>, <object>), ... ],
+                'meshes':      [(<index>, <object>), ... ],
+                'nodes':       [(<index>, <object>), ... ],
+            }
+
+        .. note::
+
+            The format of the returned :class:`dict` **looks similar** to the gltf
+            format, but it **is not**.
+        """
+        info = defaultdict(list)
+
         # ----- Adding to: buffers
         buff = self.part_buffer(part)
 
@@ -448,6 +514,7 @@ class GLTFExporter(Exporter):
             )
 
         self.gltf_dict['buffers'].append(buffer_dict)
+        info['buffers'].append((buffer_index, buffer_dict))
 
         # ----- Adding: bufferViews
         bufferView_index = len(self.gltf_dict['bufferViews'])
@@ -462,6 +529,7 @@ class GLTFExporter(Exporter):
         }
         self.gltf_dict['bufferViews'].append(view)
         bufferView_index_vertices = bufferView_index
+        info['bufferViews'].append((bufferView_index_vertices, view))
 
         # indices view
         view = {
@@ -472,6 +540,7 @@ class GLTFExporter(Exporter):
         }
         self.gltf_dict['bufferViews'].append(view)
         bufferView_index_indices = bufferView_index + 1
+        info['bufferViews'].append((bufferView_index_indices, view))
 
         # ----- Adding: accessors
         accessor_index = len(self.gltf_dict['accessors'])
@@ -482,12 +551,13 @@ class GLTFExporter(Exporter):
             "byteOffset": 0,
             "componentType": WebGL.FLOAT,
             "count": buff.vert_size,
-            "min": buff.vert_min,
-            "max": buff.vert_max,
+            "min": [v - 0.1 for v in buff.vert_min],
+            "max": [v + 0.1 for v in buff.vert_max],
             "type": "VEC3",
         }
         self.gltf_dict['accessors'].append(accessor)
         accessor_index_vertices = accessor_index
+        info['accessors'].append((accessor_index_vertices, accessor))
 
         # indices accessor
         accessor = {
@@ -499,11 +569,13 @@ class GLTFExporter(Exporter):
         }
         self.gltf_dict['accessors'].append(accessor)
         accessor_index_indices = accessor_index + 1
+        info['accessors'].append((accessor_index_indices, accessor))
 
         # ----- Adding: materials
-        materials_index = len(self.gltf_dict['materials'])
+        material_index = len(self.gltf_dict['materials'])
         material = part._render.gltf_material
         self.gltf_dict['materials'].append(material)
+        info['materials'].append((material_index, material))
 
         # ----- Adding: meshes
         mesh_index = len(self.gltf_dict['meshes'])
@@ -515,19 +587,30 @@ class GLTFExporter(Exporter):
                     },
                     "indices": accessor_index_indices,
                     "mode": WebGL.TRIANGLES,
-                    "material": materials_index,
+                    "material": material_index,
                 }
             ],
-            "name": name,
         }
+        if name:
+            mesh['name'] = name
         self.gltf_dict['meshes'].append(mesh)
+        info['meshes'].append((mesh_index, mesh))
 
         # ----- Adding: nodes
         node_index = len(self.gltf_dict['nodes'])
         node = {
             "mesh": mesh_index,
         }
+        if name:
+            node['name'] = name
         self.gltf_dict['nodes'].append(node)
+        info['nodes'].append((node_index, node))
+
+        # Appending child index to its parent's children list
+        parent_node = self.gltf_dict['nodes'][parent_idx]
+        parent_node['children'] = parent_node.get('children', []) + [node_index]
+
+        return info
 
 
 TEMPLATE = {
