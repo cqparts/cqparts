@@ -10,6 +10,7 @@ from collections import defaultdict
 from . import Exporter, register_exporter
 from .. import __version__
 from ..part import Component, Part, Assembly
+from ..utils.geometry import CoordSystem
 
 
 class WebGL:
@@ -339,16 +340,20 @@ class GLTFExporter(Exporter):
         :type embed: :class:`bool`
         """
 
-        def add(obj, filename, name, parent_node_index=0):
+        def add(obj, filename, name, origin, parent_node_index=0):
             split = os.path.splitext(filename)
 
             if isinstance(obj, Assembly):
                 # --- Assembly
-                obj.solve()  # shoult this be obj.build()?
+                obj_world_coords = obj.world_coords
+                if obj_world_coords is None:
+                    obj_world_coords = CoordSystem()
+                relative_coordsys = obj_world_coords - origin
 
                 # Add empty node to serve as a parent
                 node_index = len(self.gltf_dict['nodes'])
                 node = {}
+                node.update(self.coordsys_dict(relative_coordsys))
                 if name:
                     node['name'] = name
                 self.gltf_dict['nodes'].append(node)
@@ -366,6 +371,7 @@ class GLTFExporter(Exporter):
                         child,
                         filename="%s.%s%s" % (split[0], child_name, split[1]),
                         name="%s.%s" % (name, child_name),
+                        origin=obj_world_coords,
                         parent_node_index=node_index,
                     )
 
@@ -375,19 +381,54 @@ class GLTFExporter(Exporter):
                     obj,
                     filename=None if embed else filename,
                     name=name,
+                    origin=origin,
                     parent_idx=parent_node_index,
                 )
 
         split = os.path.splitext(filename)
+        if self.obj.world_coords is None:
+            self.obj.world_coords = CoordSystem()
+        if isinstance(self.obj, Assembly):
+            self.obj.solve()  # shoult this be obj.build()?
         add(
             obj=self.obj,
             filename="%s.bin" % split[0],
-            name=os.path.splitext(os.path.basename(filename))[0]
+            origin=self.obj.world_coords,
+            name=os.path.splitext(os.path.basename(filename))[0],
         )
 
         # Write self.gltf_dict to file as JSON string
         with open(filename, 'w') as fh:
             fh.write(json.dumps(self.gltf_dict, indent=2, sort_keys=True))
+
+    @classmethod
+    def coordsys_dict(cls, coord_sys, matrix=True):
+        """
+        Return coordinate system as
+        `gltf node transform <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations>`_
+
+        :param coord_sys: Coordinate system to transform
+        :type coord_sys: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+        :return: node transform keys & values
+        :rtype: :class:`dict`
+        """
+        node_update = {}
+        if matrix:
+            m = coord_sys.local_to_world_transform  # FreeCAD.Base.Matrix
+            node_update.update({
+                # glTF matrix is column major; needs to be tranposed
+                'matrix': m.transposed().A,
+            })
+        else:
+            raise NotImplementedError("only matrix export is supported (for now)")
+            # The plan is to support something more like:
+            #   {
+            #       "rotation": [0, 0, 0, 1],
+            #       "scale": [1, 1, 1],
+            #       "translation": [-17.7082, -11.4156, 2.0922]
+            #   }
+            # This is preferable since it's more human-readable.
+        return node_update
 
     @classmethod
     def part_mesh(cls, part):
@@ -456,7 +497,7 @@ class GLTFExporter(Exporter):
 
         return buff
 
-    def add_part(self, part, filename=None, name=None, parent_idx=0):
+    def add_part(self, part, filename=None, name=None, origin=None, parent_idx=0):
         """
         Adds the given ``part`` to ``self.gltf_dict``.
 
@@ -603,6 +644,8 @@ class GLTFExporter(Exporter):
         }
         if name:
             node['name'] = name
+        if origin:
+            node.update(self.coordsys_dict(part.world_coords - origin))
         self.gltf_dict['nodes'].append(node)
         info['nodes'].append((node_index, node))
 
