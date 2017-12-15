@@ -29,10 +29,10 @@ For example, exporting a ``.json`` file may be done with:
     >>> cube = Cube(size=2)
 
     >>> json_exporter = cube.exporter('json')
-    >>> json_exporter('my_cube.json')
+    >>> json_exporter('my_cube.json')  # doctest: +SKIP
 
     >>> # or in a single line
-    >>> cube.exporter('json')('my_cube.json')
+    >>> cube.exporter('json')('my_cube.json')  # doctest: +SKIP
 
 each :class:`Exporter` will have different ways to call it, and different
 parameters.

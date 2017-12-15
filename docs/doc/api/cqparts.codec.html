@@ -122,7 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -198,12 +198,578 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-cqparts.codec.amf">
+<span id="cqparts-codec-amf-module"></span><h2>cqparts.codec.amf module<a class="headerlink" href="#module-cqparts.codec.amf" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.amf.AMFExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.amf.</code><code class="descname">AMFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.amf.AMFExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to AMF format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">amf</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cqparts.codec.gltf">
 <span id="cqparts-codec-gltf-module"></span><h2>cqparts.codec.gltf module<a class="headerlink" href="#module-cqparts.codec.gltf" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.codec.gltf.GLTFExporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">gltf</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
+<p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.gltf.GLTFExporter.__call__" title="cqparts.codec.gltf.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
+stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
+However this is very inefficient, for larger, more complex models when
+loading on a web-interface.</p>
+<p>When not embedded, all geometry will be stored as binary <code class="docutils literal"><span class="pre">.bin</span></code>
+files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
+<p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
+with the hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>car
+├○ chassis
+├─ front_axle
+│   ├○ axle
+│   ├○ left_wheel
+│   └○ right_wheel
+└─ rear_axle
+    ├○ axle
+    ├○ left_wheel
+    └○ right_wheel
+</pre></div>
+</div>
+<p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
+<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
+<p>So the following files will be generated:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">car</span><span class="o">.</span><span class="n">gltf</span>
+<span class="n">car</span><span class="o">.</span><span class="n">chassis</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">axle</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">left_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">right_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">axle</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">left_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">right_wheel</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">car.gltf</span></code> will reference each of the <code class="docutils literal"><span class="pre">.bin</span></code> files.</p>
+<p>The <code class="docutils literal"><span class="pre">car.gltf</span></code> and <strong>all</strong> <code class="docutils literal"><span class="pre">.bin</span></code> files should be web-hosted to serve
+the scene correctly.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p>In this example, all <em>wheels</em> and <em>axles</em> are the same, they should
+only generate a single buffer.</p>
+<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+instance equality?</p>
+</div>
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.GLTFExporter.SCALE">
+<code class="descname">SCALE</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.SCALE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.GLTFExporter.TEMPLATE">
+<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.1.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.gltf.GLTFExporter.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>filename='out.gltf'</em>, <em>embed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of <code class="docutils literal"><span class="pre">.gltf</span></code> file to export</li>
+<li><strong>embed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, binary content is embedded in json object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.gltf.GLTFExporter.add_part">
+<code class="descname">add_part</code><span class="sig-paren">(</span><em>part</em>, <em>filename=None</em>, <em>name=None</em>, <em>origin=None</em>, <em>parent_idx=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.add_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the given <code class="docutils literal"><span class="pre">part</span></code> to <code class="docutils literal"><span class="pre">self.gltf_dict</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of binary file to store buffer, if <code class="docutils literal"><span class="pre">None</span></code>,
+binary data is embedded in the <em>buffer’s ‘uri’</em></li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name given to exported mesh (optional)</li>
+<li><strong>parent_idx</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – index of parent node (everything is added to a hierarchy)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">information about additions to the gltf dict</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Format:</strong></p>
+<p>The returned <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> is an account of what objects were added
+to the gltf dict, and the index they may be referenced:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="k">return</span> <span class="nb">format</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;buffers&#39;</span><span class="p">:</span>     <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;bufferViews&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;accessors&#39;</span><span class="p">:</span>   <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;materials&#39;</span><span class="p">:</span>   <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;meshes&#39;</span><span class="p">:</span>      <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span>       <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The format of the returned <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> <strong>looks similar</strong> to the gltf
+format, but it <strong>is not</strong>.</p>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.gltf.GLTFExporter.coordsys_dict">
+<em class="property">classmethod </em><code class="descname">coordsys_dict</code><span class="sig-paren">(</span><em>coord_sys</em>, <em>matrix=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.coordsys_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return coordinate system as
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations">gltf node transform</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coord_sys</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – Coordinate system to transform</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">node transform keys &amp; values</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.gltf.GLTFExporter.part_buffer">
+<em class="property">classmethod </em><code class="descname">part_buffer</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.part_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
+asset binary stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>To embed binary model data into a ‘uri’, you can:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buff</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">part_buffer</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buff</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)}</span>
+<span class="go">{&#39;uri&#39;: &#39;data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAABAAIAAQADAAIABAAFAAYABAAHAAUAAwAHAAIAAgAHAAQAAAAFAAEABgAFAAAAAwABAAcABwABAAUABAAAAAIABgAAAAQA&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.gltf.GLTFExporter.part_mesh">
+<em class="property">classmethod </em><code class="descname">part_mesh</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.part_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a part’s object to a mesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
+<li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, world coordinates are used</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of (&lt;vertices&gt;, &lt;indexes&gt;)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returned mesh format:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="k">return</span> <span class="n">value</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>  <span class="c1"># list of vertices</span>
+    <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>  <span class="c1"># indexes of vertices making a polygon</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.GLTFExporter.tolerance">
+<code class="descname">tolerance</code><em class="property"> = 0.01</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.gltf.ShapeBuffer">
+<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">ShapeBuffer</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Write byte buffer for a set of polygons</p>
+<p>To create a buffer for a single polygon:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.codec.gltf</span> <span class="k">import</span> <span class="n">ShapeBuffer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span> <span class="o">=</span> <span class="n">ShapeBuffer</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Populate data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># [0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># [1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span><span class="o">.</span><span class="n">add_vertex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># [2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span><span class="o">.</span><span class="n">add_poly_index</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># write to file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;single-poly.bin&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>  
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">sb</span><span class="o">.</span><span class="n">buffer_iter</span><span class="p">():</span>  
+<span class="gp">... </span>        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>  
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get sizes (relevant for bufferViews, and accessors)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">vert_len</span><span class="p">,</span> <span class="n">sb</span><span class="o">.</span><span class="n">vert_offset</span><span class="p">,</span> <span class="n">sb</span><span class="o">.</span><span class="n">vert_size</span><span class="p">)</span>
+<span class="go">(36L, 0L, 3L)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">sb</span><span class="o">.</span><span class="n">idx_len</span><span class="p">,</span> <span class="n">sb</span><span class="o">.</span><span class="n">idx_offset</span><span class="p">,</span> <span class="n">sb</span><span class="o">.</span><span class="n">idx_size</span><span class="p">)</span>
+<span class="go">(6L, 36L, 3L)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.codec.gltf.ShapeBuffer.add_poly_index">
+<code class="descname">add_poly_index</code><span class="sig-paren">(</span><em>i</em>, <em>j</em>, <em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.add_poly_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add 3 <code class="docutils literal"><span class="pre">SCALAR</span></code> of <code class="docutils literal"><span class="pre">uint</span></code> (2 bytes each) to the <code class="docutils literal"><span class="pre">idx_data</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.gltf.ShapeBuffer.add_vertex">
+<code class="descname">add_vertex</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.add_vertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a <code class="docutils literal"><span class="pre">VEC3</span></code> of <code class="docutils literal"><span class="pre">floats</span></code> to the <code class="docutils literal"><span class="pre">vert_data</span></code> buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.gltf.ShapeBuffer.buffer_iter">
+<code class="descname">buffer_iter</code><span class="sig-paren">(</span><em>block_size=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.buffer_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through chunks of the vertices, and indices buffers seamlessly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To see a usage example, look at the <a class="reference internal" href="#cqparts.codec.gltf.ShapeBuffer" title="cqparts.codec.gltf.ShapeBuffer"><code class="xref py py-class docutils literal"><span class="pre">ShapeBuffer</span></code></a> description.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.idx_len">
+<code class="descname">idx_len</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.idx_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bytes in <code class="docutils literal"><span class="pre">idx_data</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.idx_offset">
+<code class="descname">idx_offset</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.idx_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Offset (in bytes) of the <code class="docutils literal"><span class="pre">idx_data</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.idx_size">
+<code class="descname">idx_size</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.idx_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Size of <code class="docutils literal"><span class="pre">idx_data</span></code> in UINTs.
+(ie: number of 2 byte groups)</p>
+<p>See <a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size">Accessor Element Size</a>
+in the glTF docs for clarification.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.gltf.ShapeBuffer.read">
+<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read buffer out as a single stream.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Avoid using this function!</p>
+<p><strong>Why?</strong> This is a <em>convenience</em> function; it doesn’t encourage good
+memory management.</p>
+<p>All memory required for a mesh is duplicated, and returned as a
+single <a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>. So at best, using this function will double
+the memory required for a single model.</p>
+<p class="last"><strong>Instead:</strong> Wherever possible, please use <a class="reference internal" href="#cqparts.codec.gltf.ShapeBuffer.buffer_iter" title="cqparts.codec.gltf.ShapeBuffer.buffer_iter"><code class="xref py py-meth docutils literal"><span class="pre">buffer_iter()</span></code></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.vert_len">
+<code class="descname">vert_len</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.vert_len" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bytes in <code class="docutils literal"><span class="pre">vert_data</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.vert_offset">
+<code class="descname">vert_offset</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.vert_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Offset (in bytes) of the <code class="docutils literal"><span class="pre">vert_data</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.ShapeBuffer.vert_size">
+<code class="descname">vert_size</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.vert_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Size of <code class="docutils literal"><span class="pre">vert_data</span></code> in groups of 3 floats
+(ie: number of <span class="math">\(3 \times 4\)</span> byte groups)</p>
+<p>See <a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size">Accessor Element Size</a>
+in the glTF docs for clarification.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.gltf.WebGL">
+<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">WebGL</code><a class="headerlink" href="#cqparts.codec.gltf.WebGL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enumeration container (nothing special).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.codec.gltf</span> <span class="k">import</span> <span class="n">WebGL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WebGL</span><span class="o">.</span><span class="n">ARRAY_BUFFER</span>
+<span class="go">34962</span>
+</pre></div>
+</div>
+<p>This class purely exists to make the code more readable.</p>
+<p>All enumerations transcribed from
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">the spec’</a>
+where needed.</p>
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.ARRAY_BUFFER">
+<code class="descname">ARRAY_BUFFER</code><em class="property"> = 34962</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.ARRAY_BUFFER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.BYTE">
+<code class="descname">BYTE</code><em class="property"> = 5120</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.BYTE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.ELEMENT_ARRAY_BUFFER">
+<code class="descname">ELEMENT_ARRAY_BUFFER</code><em class="property"> = 34963</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.ELEMENT_ARRAY_BUFFER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.FLOAT">
+<code class="descname">FLOAT</code><em class="property"> = 5126</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.FLOAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.LINES">
+<code class="descname">LINES</code><em class="property"> = 1</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.LINES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.LINE_LOOP">
+<code class="descname">LINE_LOOP</code><em class="property"> = 2</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.LINE_LOOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.LINE_STRIP">
+<code class="descname">LINE_STRIP</code><em class="property"> = 3</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.LINE_STRIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.POINTS">
+<code class="descname">POINTS</code><em class="property"> = 0</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.POINTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.SHORT">
+<code class="descname">SHORT</code><em class="property"> = 5122</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.SHORT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.TRIANGLES">
+<code class="descname">TRIANGLES</code><em class="property"> = 4</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.TRIANGLES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.TRIANGLE_FAN">
+<code class="descname">TRIANGLE_FAN</code><em class="property"> = 6</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.TRIANGLE_FAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.TRIANGLE_STRIP">
+<code class="descname">TRIANGLE_STRIP</code><em class="property"> = 5</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.TRIANGLE_STRIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.UNSIGNED_BYTE">
+<code class="descname">UNSIGNED_BYTE</code><em class="property"> = 5121</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.UNSIGNED_BYTE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.UNSIGNED_INT">
+<code class="descname">UNSIGNED_INT</code><em class="property"> = 5125</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.UNSIGNED_INT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.gltf.WebGL.UNSIGNED_SHORT">
+<code class="descname">UNSIGNED_SHORT</code><em class="property"> = 5123</em><a class="headerlink" href="#cqparts.codec.gltf.WebGL.UNSIGNED_SHORT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.codec.step">
+<span id="cqparts-codec-step-module"></span><h2>cqparts.codec.step module<a class="headerlink" href="#module-cqparts.codec.step" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.step.STEPExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to STEP format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">step</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.step.STEPImporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Importer</span></code></a></p>
+<p>Import a shape from a STEP formatted file.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">step</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Imports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Step file is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.importers.importShape()</span></code>
+to create the shape.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.codec.stl">
+<span id="cqparts-codec-stl-module"></span><h2>cqparts.codec.stl module<a class="headerlink" href="#module-cqparts.codec.stl" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.stl.STLExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.stl.</code><code class="descname">STLExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.stl.STLExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to STL format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">stl</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.codec.svg">
+<span id="cqparts-codec-svg-module"></span><h2>cqparts.codec.svg module<a class="headerlink" href="#module-cqparts.codec.svg" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.codec.svg.SVGExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.svg.</code><code class="descname">SVGExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.svg.SVGExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to AMF format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">svg</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
 </dd></dl>
 
 </div>
@@ -245,7 +811,7 @@ least, not as far as I can tell).</p>
 <dt id="cqparts.codec.threejs_json.ThreejsJSONExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export the <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> to a <em>three.js JSON v3</em> file format.</p>
+<p>Export the <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
@@ -256,13 +822,37 @@ least, not as far as I can tell).</p>
 <td><code class="docutils literal"><span class="pre">json</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
 </tr>
 </tbody>
 </table>
+<p>For information on how to load in a webpage, look to your WebGL framework
+of choice:</p>
+<ul class="simple">
+<li>ThreeJS: <a class="reference external" href="https://threejs.org/docs/#api/loaders/ObjectLoader">https://threejs.org/docs/#api/loaders/ObjectLoader</a></li>
+<li>A-Frame: <a class="reference external" href="https://aframe.io/docs/0.7.0/core/asset-management-system.html#lt-a-asset-item-gt">https://aframe.io/docs/0.7.0/core/asset-management-system.html#lt-a-asset-item-gt</a></li>
+</ul>
+<dl class="method">
+<dt id="cqparts.codec.threejs_json.ThreejsJSONExporter.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>filename='out.json'</em>, <em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – file to write</li>
+<li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="cqparts.codec.threejs_json.ThreejsJSONExporter.get_dict">
 <code class="descname">get_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter.get_dict" title="Permalink to this definition">¶</a></dt>
@@ -411,10 +1001,371 @@ least, not as far as I can tell).</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="cqparts.codec.AMFExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">AMFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.AMFExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to AMF format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">amf</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.GLTFExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">gltf</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
+</tr>
+<tr class="row-odd"><td><strong>Spec</strong></td>
+<td><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
+<p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.GLTFExporter.__call__" title="cqparts.codec.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
+stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
+However this is very inefficient, for larger, more complex models when
+loading on a web-interface.</p>
+<p>When not embedded, all geometry will be stored as binary <code class="docutils literal"><span class="pre">.bin</span></code>
+files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
+<p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
+with the hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>car
+├○ chassis
+├─ front_axle
+│   ├○ axle
+│   ├○ left_wheel
+│   └○ right_wheel
+└─ rear_axle
+    ├○ axle
+    ├○ left_wheel
+    └○ right_wheel
+</pre></div>
+</div>
+<p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
+<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
+<p>So the following files will be generated:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">car</span><span class="o">.</span><span class="n">gltf</span>
+<span class="n">car</span><span class="o">.</span><span class="n">chassis</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">axle</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">left_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">front_axle</span><span class="o">.</span><span class="n">right_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">axle</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">left_wheel</span><span class="o">.</span><span class="n">bin</span>
+<span class="n">car</span><span class="o">.</span><span class="n">rear_axle</span><span class="o">.</span><span class="n">right_wheel</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">car.gltf</span></code> will reference each of the <code class="docutils literal"><span class="pre">.bin</span></code> files.</p>
+<p>The <code class="docutils literal"><span class="pre">car.gltf</span></code> and <strong>all</strong> <code class="docutils literal"><span class="pre">.bin</span></code> files should be web-hosted to serve
+the scene correctly.</p>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p>In this example, all <em>wheels</em> and <em>axles</em> are the same, they should
+only generate a single buffer.</p>
+<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+instance equality?</p>
+</div>
+<dl class="attribute">
+<dt id="cqparts.codec.GLTFExporter.SCALE">
+<code class="descname">SCALE</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.SCALE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.GLTFExporter.TEMPLATE">
+<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.1.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.GLTFExporter.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>filename='out.gltf'</em>, <em>embed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of <code class="docutils literal"><span class="pre">.gltf</span></code> file to export</li>
+<li><strong>embed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, binary content is embedded in json object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.codec.GLTFExporter.add_part">
+<code class="descname">add_part</code><span class="sig-paren">(</span><em>part</em>, <em>filename=None</em>, <em>name=None</em>, <em>origin=None</em>, <em>parent_idx=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter.add_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the given <code class="docutils literal"><span class="pre">part</span></code> to <code class="docutils literal"><span class="pre">self.gltf_dict</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of binary file to store buffer, if <code class="docutils literal"><span class="pre">None</span></code>,
+binary data is embedded in the <em>buffer’s ‘uri’</em></li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name given to exported mesh (optional)</li>
+<li><strong>parent_idx</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – index of parent node (everything is added to a hierarchy)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">information about additions to the gltf dict</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Format:</strong></p>
+<p>The returned <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> is an account of what objects were added
+to the gltf dict, and the index they may be referenced:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="k">return</span> <span class="nb">format</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;buffers&#39;</span><span class="p">:</span>     <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;bufferViews&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;accessors&#39;</span><span class="p">:</span>   <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;materials&#39;</span><span class="p">:</span>   <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;meshes&#39;</span><span class="p">:</span>      <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+    <span class="s1">&#39;nodes&#39;</span><span class="p">:</span>       <span class="p">[(</span><span class="o">&lt;</span><span class="n">index</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="nb">object</span><span class="o">&gt;</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The format of the returned <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> <strong>looks similar</strong> to the gltf
+format, but it <strong>is not</strong>.</p>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.GLTFExporter.coordsys_dict">
+<em class="property">classmethod </em><code class="descname">coordsys_dict</code><span class="sig-paren">(</span><em>coord_sys</em>, <em>matrix=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter.coordsys_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return coordinate system as
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#transformations">gltf node transform</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>coord_sys</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – Coordinate system to transform</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">node transform keys &amp; values</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.GLTFExporter.part_buffer">
+<em class="property">classmethod </em><code class="descname">part_buffer</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter.part_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export part’s geometry as a
+<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
+asset binary stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>To embed binary model data into a ‘uri’, you can:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buff</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">part_buffer</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buff</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)}</span>
+<span class="go">{&#39;uri&#39;: &#39;data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAABAAIAAQADAAIABAAFAAYABAAHAAUAAwAHAAIAAgAHAAQAAAAFAAEABgAFAAAAAwABAAcABwABAAUABAAAAAIABgAAAAQA&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.codec.GLTFExporter.part_mesh">
+<em class="property">classmethod </em><code class="descname">part_mesh</code><span class="sig-paren">(</span><em>part</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter.part_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a part’s object to a mesh.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
+<li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, world coordinates are used</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of (&lt;vertices&gt;, &lt;indexes&gt;)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returned mesh format:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="k">return</span> <span class="n">value</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">[</span><span class="n">FreeCAD</span><span class="o">.</span><span class="n">Base</span><span class="o">.</span><span class="n">Vector</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>  <span class="c1"># list of vertices</span>
+    <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>  <span class="c1"># indexes of vertices making a polygon</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.GLTFExporter.tolerance">
+<code class="descname">tolerance</code><em class="property"> = 0.01</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.tolerance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.STEPExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">STEPExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.STEPExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to STEP format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">step</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.STEPImporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">STEPImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.STEPImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Importer</span></code></a></p>
+<p>Import a shape from a STEP formatted file.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">step</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Imports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Step file is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.importers.importShape()</span></code>
+to create the shape.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.STLExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">STLExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.STLExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to STL format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">stl</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.codec.SVGExporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">SVGExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.SVGExporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
+<p>Export shape to AMF format.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">svg</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Exports</strong></td>
+<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
+for exporting.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
 <dt id="cqparts.codec.ThreejsJSONExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export the <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> to a <em>three.js JSON v3</em> file format.</p>
+<p>Export the <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
@@ -425,13 +1376,37 @@ least, not as far as I can tell).</p>
 <td><code class="docutils literal"><span class="pre">json</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
 </tr>
 </tbody>
 </table>
+<p>For information on how to load in a webpage, look to your WebGL framework
+of choice:</p>
+<ul class="simple">
+<li>ThreeJS: <a class="reference external" href="https://threejs.org/docs/#api/loaders/ObjectLoader">https://threejs.org/docs/#api/loaders/ObjectLoader</a></li>
+<li>A-Frame: <a class="reference external" href="https://aframe.io/docs/0.7.0/core/asset-management-system.html#lt-a-asset-item-gt">https://aframe.io/docs/0.7.0/core/asset-management-system.html#lt-a-asset-item-gt</a></li>
+</ul>
+<dl class="method">
+<dt id="cqparts.codec.ThreejsJSONExporter.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>filename='out.json'</em>, <em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – file to write</li>
+<li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="cqparts.codec.ThreejsJSONExporter.get_dict">
 <code class="descname">get_dict</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter.get_dict" title="Permalink to this definition">¶</a></dt>
@@ -499,12 +1474,6 @@ least, not as far as I can tell).</p>
 <p class="last">If you’re after a more modern WebGL supported export, consider using
 <a class="reference internal" href="#cqparts.codec.GLTFExporter" title="cqparts.codec.GLTFExporter"><code class="xref py py-class docutils literal"><span class="pre">GLTFExporter</span></code></a> instead.</p>
 </div>
-</dd></dl>
-
-<dl class="class">
-<dt id="cqparts.codec.GLTFExporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
 </dd></dl>
 
 </div>

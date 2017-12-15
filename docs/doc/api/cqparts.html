@@ -122,7 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cqparts.part">cqparts.part module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cqparts.search">cqparts.search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-cqparts">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -210,7 +210,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.amf">cqparts.codec.amf module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.gltf">cqparts.codec.gltf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.step">cqparts.codec.step module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.stl">cqparts.codec.stl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.svg">cqparts.codec.svg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.threejs_json">cqparts.codec.threejs_json module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec">Module contents</a></li>
 </ul>
@@ -374,6 +378,21 @@ Can be used to set a property based on the property of another.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of render attributes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.RenderProps.dict" title="cqparts.display.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.gltf_material">
+<code class="descname">gltf_material</code><a class="headerlink" href="#cqparts.display.RenderProps.gltf_material" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materials">glTF Material</a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.RenderProps.dict" title="cqparts.display.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
@@ -964,22 +983,6 @@ and <code class="docutils literal"><span class="pre">ring</span></code> is a <a 
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.part.Assembly.get_export_gltf">
-<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.get_export_gltf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF json string.</p>
-<p>(same arguments as <a class="reference internal" href="#cqparts.part.Assembly.get_export_gltf_dict" title="cqparts.part.Assembly.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
-<p>When exporting to this format, it’s recommended that you choose a
-filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.part.Assembly.get_export_gltf_dict">
-<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get assembly geometry as a gltf export by combining each part into
-a single scene.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="cqparts.part.Assembly.make_alterations">
 <code class="descname">make_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Assembly.make_alterations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make necessary changes to components after the constraints solver has
@@ -1210,7 +1213,7 @@ for more information.</td>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">step_importer</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">importer</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each importer will behave differently</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_part</span> <span class="o">=</span> <span class="n">step_importer</span><span class="p">(</span><span class="s1">&#39;my_file.step&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_part</span> <span class="o">=</span> <span class="n">step_importer</span><span class="p">(</span><span class="s1">&#39;my_file.step&#39;</span><span class="p">)</span>  
 </pre></div>
 </div>
 <p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
@@ -1284,36 +1287,6 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.part.Part.get_export_gltf_bin">
-<code class="descname">get_export_gltf_bin</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.part.Part.get_export_gltf_bin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a
-<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
-asset binary stream.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>To embed binary model data into a ‘uri’, you can:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">some_model</span><span class="o">.</span><span class="n">get_export_gltf_bin</span><span class="p">()</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
-<span class="gp">... </span><span class="p">)}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -1558,121 +1531,9 @@ yield the part you want.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cqparts.Component">
-<em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Both the <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes inherit
-from <code class="docutils literal"><span class="pre">Component</span></code>.</p>
-<p class="last">Wherever the term “<em>component</em>” is used, it is in reference to an
-instance of either <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> <strong>or</strong> <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
-</div>
-<dl class="method">
-<dt id="cqparts.Component.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>recursive=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.build" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplementedError</strong> – must be overridden by inheriting classes to function</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Component.exporter">
-<code class="descname">exporter</code><span class="sig-paren">(</span><em>exporter_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.exporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an exporter instance to write the component’s content to file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exporter_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of exporter to use, see
-<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_exporter" title="cqparts.codec.register_exporter"><code class="xref py py-meth docutils literal"><span class="pre">register_exporter()</span></code></a>
-for more information.</td>
-</tr>
-</tbody>
-</table>
-<p>For example, to get a
-<a class="reference internal" href="cqparts.codec.html#cqparts.codec.ThreejsJSONExporter" title="cqparts.codec.ThreejsJSONExporter"><code class="xref py py-class docutils literal"><span class="pre">ThreejsJSONExporter</span></code></a>
-instance to import a <code class="docutils literal"><span class="pre">json</span></code> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each exporter will behave differently</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span><span class="p">(</span><span class="s1">&#39;out.json&#39;</span><span class="p">)</span>  
-</pre></div>
-</div>
-<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="cqparts.Component.importer">
-<em class="property">classmethod </em><code class="descname">importer</code><span class="sig-paren">(</span><em>importer_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component.importer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an importer instance to instantiate a component from file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>importer_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of importer to use, see
-<a class="reference internal" href="cqparts.codec.html#cqparts.codec.register_importer" title="cqparts.codec.register_importer"><code class="xref py py-meth docutils literal"><span class="pre">register_importer()</span></code></a>
-for more information.</td>
-</tr>
-</tbody>
-</table>
-<p>For example, to get an importer to instantiate a <a class="reference internal" href="#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> from a
-<code class="docutils literal"><span class="pre">STEP</span></code> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">step_importer</span> <span class="o">=</span> <span class="n">Part</span><span class="o">.</span><span class="n">importer</span><span class="p">(</span><span class="s1">&#39;step&#39;</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># then each importer will behave differently</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">my_part</span> <span class="o">=</span> <span class="n">step_importer</span><span class="p">(</span><span class="s1">&#39;my_file.step&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To learn more: <a class="reference internal" href="../parts/import-export.html#parts-import-export"><span class="std std-ref">Import / Export</span></a></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.Component.mate_origin">
-<code class="descname">mate_origin</code><a class="headerlink" href="#cqparts.Component.mate_origin" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">mate at object’s origin</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cqparts.Component.world_coords">
-<code class="descname">world_coords</code><a class="headerlink" href="#cqparts.Component.world_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Component’s placement in word coordinates
-(<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system in the world, <code class="docutils literal"><span class="pre">None</span></code> if not set.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cqparts"></span><dl class="class">
 <dt id="cqparts.Part">
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Part</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Component</span></code></a></p>
@@ -1706,36 +1567,6 @@ there aren’t any critical runtime issues with it’s construction.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Part.get_export_gltf_bin">
-<code class="descname">get_export_gltf_bin</code><span class="sig-paren">(</span><em>world=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Part.get_export_gltf_bin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a
-<a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a>
-asset binary stream.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, use world coordinates, otherwise use local</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">byte sream of exported geometry</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">BytesIO</span></code></td>
-</tr>
-</tbody>
-</table>
-<p>To embed binary model data into a ‘uri’, you can:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">some_model</span><span class="o">.</span><span class="n">get_export_gltf_bin</span><span class="p">()</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">base64</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">{</span><span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s2">&quot;data:</span><span class="si">{mimetype}</span><span class="s2">;base64,</span><span class="si">{data}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;application/octet-stream&quot;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
-<span class="gp">... </span><span class="p">)}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -1802,11 +1633,11 @@ to provide 2 cylinders, one for the bolt’s head, and another for the thread.</
 <dt id="cqparts.Part.world_obj">
 <code class="descname">world_obj</code><a class="headerlink" href="#cqparts.Part.world_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <a class="reference internal" href="#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> object in the
-<a class="reference internal" href="#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> coordinate system.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code> coordinate system.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This is automatically generated when called, and
-<a class="reference internal" href="#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> is not <code class="docutils literal"><span class="pre">Null</span></code>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code> is not <code class="docutils literal"><span class="pre">Null</span></code>.</p>
 </div>
 </dd></dl>
 
@@ -1840,13 +1671,13 @@ those as well.</td>
 <dl class="attribute">
 <dt id="cqparts.Assembly.components">
 <code class="descname">components</code><a class="headerlink" href="#cqparts.Assembly.components" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns full <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances, after
+<dd><p>Returns full <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances, after
 a successful <a class="reference internal" href="#cqparts.Assembly.build" title="cqparts.Assembly.build"><code class="xref py py-meth docutils literal"><span class="pre">build()</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of named <a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of named <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
@@ -1884,7 +1715,7 @@ a successful <a class="reference internal" href="#cqparts.Assembly.build" title=
 </tr>
 </tbody>
 </table>
-<p>Find a nested <a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> by a “<cite>.</cite>” separated list of names.
+<p>Find a nested <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> by a “<cite>.</cite>” separated list of names.
 for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">motor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;bearing.outer_ring&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1899,26 +1730,10 @@ and <code class="docutils literal"><span class="pre">ring</span></code> is a <a 
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>For a key path of <code class="docutils literal"><span class="pre">a.b.c</span></code> the <code class="docutils literal"><span class="pre">c</span></code> key can referernce any
-<a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> type.</p>
+<code class="xref py py-class docutils literal"><span class="pre">Component</span></code> type.</p>
 <p class="last">Everything prior (in this case <code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code>) must reference an
 <a class="reference internal" href="#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Assembly.get_export_gltf">
-<code class="descname">get_export_gltf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.get_export_gltf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export part’s geometry as a glTF json string.</p>
-<p>(same arguments as <a class="reference internal" href="#cqparts.Assembly.get_export_gltf_dict" title="cqparts.Assembly.get_export_gltf_dict"><code class="xref py py-meth docutils literal"><span class="pre">get_export_gltf_dict()</span></code></a>)</p>
-<p>When exporting to this format, it’s recommended that you choose a
-filename with the extension <code class="docutils literal"><span class="pre">.gltf</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cqparts.Assembly.get_export_gltf_dict">
-<code class="descname">get_export_gltf_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.get_export_gltf_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get assembly geometry as a gltf export by combining each part into
-a single scene.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1939,7 +1754,7 @@ completed.</p>
 <dl class="method">
 <dt id="cqparts.Assembly.make_components">
 <code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Assembly.make_components" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
+<dd><p>Create and return <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This <strong>must</strong> be overridden in inheriting class, read:</p>
@@ -1954,7 +1769,7 @@ completed.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">{&lt;name&gt;: &lt;Component&gt;, …}</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <code class="xref py py-class docutils literal"><span class="pre">Component</span></code> instances</td>
 </tr>
 </tbody>
 </table>
