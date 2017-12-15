@@ -1,26 +1,32 @@
+#!/usr/bin/env python
+
 import os
 import sys
 import inspect
-from math import (
-    sin, cos, tan,
-    radians,
-)
 
 if 'MYSCRIPT_DIR' in os.environ:
     _this_path = os.environ['MYSCRIPT_DIR']
 else:
     _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-
 sys.path.insert(0, os.path.join(_this_path, '..', '..', 'src'))
 #cadquery_path = os.path.join(_this_path, '..', '..', '..', 'cadquery')
 #if os.path.exists(cadquery_path):
 #    sys.path.insert(0, cadquery_path)
 
+from math import (
+    sin, cos, tan,
+    radians,
+)
+
 import cadquery
 from Helpers import show
 
 import logging
-cadquery.freecad_impl.console_logging.enable(logging.INFO)
+try:
+    cadquery.freecad_impl.console_logging.enable(logging.INFO)
+except AttributeError:
+    pass  # outdated cadquery, no worries
+
 log = logging.getLogger()
 #log.info("----------------- Block Tree ----------------")
 
@@ -67,9 +73,9 @@ class Branch(cqparts.Part):
     @property
     def mate_top(self):
         # Mate point at the top of the cylinder, twist applied
-        return Mate.from_plane(
+        return Mate(self, CoordSystem.from_plane(
             self.local_obj.faces(">Z").workplane().plane.rotated((0, 0, self.twist))
-        )
+        ))
 
 
 class Splitter(cqparts.Part):
@@ -109,21 +115,21 @@ class Splitter(cqparts.Part):
     def mate_left(self):
         """Mate point in the center of the angled face on the left"""
         # TODO: query self.local_obj geometry to get center of face?
-        return Mate(
+        return Mate(self, CoordSystem(
             origin=(-self.width / 4, 0, (self.height + self.left_wall_height) / 2),
             xDir=(0,1,0),
             normal=(-sin(radians(self.angle_left)), 0, cos(radians(self.angle_left)))
-        )
+        ))
 
     @property
     def mate_right(self):
         """Mate point in the center of the angled face on the right"""
         # TODO: query self.local_obj geometry to get center of face?
-        return Mate(
+        return Mate(self, CoordSystem(
             origin=(self.width / 4, 0, (self.height + self.right_wall_height) / 2),
             xDir=(0,1,0),
             normal=(sin(radians(self.angle_right)), 0, cos(radians(self.angle_right)))
-        )
+        ))
 
 
 # ------------------- Tree --------------------
@@ -158,13 +164,11 @@ class BlueHouse(cqparts.Assembly):
     def make_constraints(self):
         return [
             Fixed(
-                self.components['foo'],  # lock this
-                mate=Mate(),  # here
+                self.components['foo'].mate_origin,  # lock to origin
             ),
             Coincident(
-                self.components['bar'],  # lock this
-                mate=self.components['foo'].mate_right,  # here
-                relative_to=self.components['foo'],  # relative to this
+                self.components['bar'].mate_origin, # lock this
+                self.components['foo'].mate_right,  # to this
             ),
         ]
 
@@ -183,28 +187,24 @@ class GreenBranch(cqparts.Assembly):
     def make_constraints(self):
         return [
             Fixed(
-                self.components['branch'],  # lock this
-                mate=Mate((0,0,0), (1,0,0), (0,0,1)),  # here
+                self.components['branch'].mate_origin,  # lock this
+                CoordSystem((0,0,0), (1,0,0), (0,0,1)),  # here
             ),
             Coincident(
-                self.components['split'],  # lock this
-                mate=self.components['branch'].mate_top,  # here
-                relative_to=self.components['branch'],  # relative to this
+                self.components['split'].mate_origin,  # lock this
+                self.components['branch'].mate_top,  # here
             ),
             Coincident(
-                self.components['L'],  # lock this
-                mate=self.components['split'].mate_left,  # here
-                relative_to=self.components['split'],  # relative to this
+                self.components['L'].mate_origin,  # lock this
+                self.components['split'].mate_left,  # here
             ),
             Coincident(
-                self.components['R'],  # lock this
-                mate=self.components['split'].mate_right,  # here
-                relative_to=self.components['split'],  # relative to this
+                self.components['R'].mate_origin,  # lock this
+                self.components['split'].mate_right,  # here
             ),
             Coincident(
-                self.components['house'],  # lock this
-                mate=self.components['R'].mate_top,  # here
-                relative_to=self.components['R'],  # relative to this
+                self.components['house'].mate_origin,  # lock this
+                self.components['R'].mate_top,  # here
             ),
         ]
 
@@ -231,32 +231,28 @@ class BlockTree(cqparts.Assembly):
         return [
             # trunk
             Fixed(
-                self.components['trunk'],  # lock this
-                mate=Mate((0,0,0), (1,0,0), (0,0,1)),  # here
+                self.components['trunk'].mate_origin,  # lock this
+                CoordSystem((0,0,0), (1,0,0), (0,0,1)),  # here
             ),
             Coincident(
-                self.components['trunk_split'],  # lock this
-                mate=self.components['trunk'].mate_top,  # here
-                relative_to=self.components['trunk'],  # relative to this
+                self.components['trunk_split'].mate_origin,  # lock this
+                self.components['trunk'].mate_top,  # here
             ),
 
             # branch L
             Coincident(
-                self.components['branch_lb'],
-                mate=self.components['trunk_split'].mate_left,
-                relative_to=self.components['trunk_split'],
+                self.components['branch_lb'].mate_origin,
+                self.components['trunk_split'].mate_left,
             ),
             Coincident(
-                self.components['branch_ls'],
-                mate=self.components['branch_lb'].mate_top,
-                relative_to=self.components['branch_lb'],
+                self.components['branch_ls'].mate_origin,
+                self.components['branch_lb'].mate_top,
             ),
 
             # branch RL
             Coincident(
-                self.components['branch_r'],
-                mate=self.components['trunk_split'].mate_right,
-                relative_to=self.components['trunk_split'],
+                self.components['branch_r'].mate_origin,
+                self.components['trunk_split'].mate_right,
             ),
         ]
 
@@ -264,8 +260,24 @@ class BlockTree(cqparts.Assembly):
 #house = Splitter()
 #display(house)
 
-block_tree = BlockTree(trunk_diam=7)
 #block_tree.world_coords = CoordSystem()
-display(block_tree)
 
-log.info(block_tree.tree_str(name="block_tree"))
+# ------------------- Export / Display -------------------
+# ------- Functions
+from cqparts.utils.env import get_env_name
+
+env_name = get_env_name()
+
+# ------- Models
+block_tree = BlockTree(trunk_diam=7)
+
+#import ipdb
+#ipdb.set_trace()
+
+if env_name == 'cmdline':
+    block_tree.exporter('gltf')('exports/block-tree.gltf', embed=True)
+    print(block_tree.tree_str(name="block_tree"))
+
+elif env_name == 'freecad':
+    pass  # manually switchable for testing
+    display(block_tree)
