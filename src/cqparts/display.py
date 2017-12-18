@@ -171,8 +171,8 @@ class RenderProps(object):
         return {
             "pbrMetallicRoughness": {
                 "baseColorFactor": [round(val / 255., 4) for val in self.rgb] + [self.alpha],
-                "metallicFactor": 0.6,
-                "roughnessFactor": 0.6,
+                "metallicFactor": 0.1,
+                "roughnessFactor": 0.7,
             },
             #"name": "red",
         }

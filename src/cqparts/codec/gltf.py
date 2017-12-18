@@ -126,7 +126,8 @@ class ShapeBuffer(object):
         """
         Offset (in bytes) of the ``idx_data`` buffer.
         """
-        return self.vert_len
+        # after vert_data
+        return self.vert_offset + self.vert_len
 
     @property
     def idx_size(self):
