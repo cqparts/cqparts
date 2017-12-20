@@ -1,9 +1,5 @@
 
-#from .part import Part, Assembly  # removed due to circular dependency
-from .params import as_parameter
-
-import logging
-log = logging.getLogger(__name__)
+from ..params import as_parameter
 
 
 # Templates (may be used optionally)
@@ -223,40 +219,3 @@ def render_props(**kwargs):
 
     # return parameter instance
     return RenderParam(params, doc=doc)
-
-
-# -------------------- Render helpers --------------------
-def display(*args, **kwargs):
-    """
-    This displays the given *component(s)* in whatever medium best suits the
-    environment.
-
-    For example, if it's called from a FreeCAD script, then the given *component(s)*
-    are displayed using FreeCAD's GUI.
-
-    .. warning::
-
-        TODO: document...
-
-        * parameters
-        * supported display environments
-    """
-
-    from .part import Part, Assembly
-    from Helpers import show
-
-    def inner(obj, _depth=0):
-        log.debug("display obj: %r", obj)
-        if isinstance(obj, Part):
-            if _depth:
-                # Assembly being displayed, parts need to be placed
-                show(obj.world_obj, obj._render.rgbt)
-            else:
-                # Part being displayed, just show in local coords
-                show(obj.local_obj, obj._render.rgbt)
-        elif isinstance(obj, Assembly):
-            obj.solve()
-            for (name, component) in obj.components.items():
-                inner(component, _depth=_depth + 1)
-
-    inner(*args, **kwargs)

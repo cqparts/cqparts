@@ -7,7 +7,7 @@ from types import GeneratorType
 
 from .params import ParametricObject, Boolean
 from .utils.misc import indicate_last, property_buffered
-from .display import (
+from .display.material import (
     RenderParam,
     TEMPLATE as RENDER_TEMPLATE,
 )
@@ -598,14 +598,14 @@ class Assembly(Component):
             )
 
     # Component Tree
-    def tree_str(self, name=None, prefix_str='', add_repr=False, _depth=0):
+    def tree_str(self, name=None, prefix='', add_repr=False, _depth=0):
         u"""
         Return string listing recursively the assembly hierarchy
 
         :param name: if set, names the tree's trunk, otherwise the object's :meth:`repr` names the tree
         :type name: :class:`str`
-        :param prefix_str: string prefixed to each line, can be used to indent
-        :type prefix_str: :class:`str`
+        :param prefix: string prefixed to each line, can be used to indent
+        :type prefix: :class:`str`
         :param add_repr: if set, *component* :meth:`repr` is put after their names
         :type add_repr: :class:`bool`
         :return: Printable string of an assembly's component hierarchy.
@@ -648,7 +648,7 @@ class Assembly(Component):
 
         output = u''
         if not _depth:  # first line
-            output = unicode(prefix_str)
+            output = unicode(prefix)
             if name:
                 output += (name + u': ') if add_repr else name
             if add_repr or not name:
@@ -660,18 +660,18 @@ class Assembly(Component):
             branch_chr = c_l if is_last else c_t
             if isinstance(component, Assembly):
                 # Assembly: also list nested components
-                output += prefix_str + ' ' + branch_chr + c_dash + u' ' + name
+                output += prefix + ' ' + branch_chr + c_dash + u' ' + name
                 if add_repr:
                     output += ': ' + repr(component)
                 output += '\n'
                 output += component.tree_str(
-                    prefix_str=(prefix_str + (u'    ' if is_last else (u' ' + c_span + '  '))),
+                    prefix=(prefix + (u'    ' if is_last else (u' ' + c_span + '  '))),
                     add_repr=add_repr,
                     _depth=_depth + 1,
                 )
             else:
                 # Part (assumed): leaf node
-                output += prefix_str + ' ' + branch_chr + c_o + u' ' + name
+                output += prefix + ' ' + branch_chr + c_o + u' ' + name
                 if add_repr:
                     output += ': ' + repr(component)
                 output += '\n'

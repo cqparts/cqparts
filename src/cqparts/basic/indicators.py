@@ -5,7 +5,7 @@ from ..params import *
 from ..constraint import Fixed, Mate
 from ..search import register, common_criteria
 from ..utils.wrappers import as_part
-from ..display import TEMPLATE
+from ..display.material import TEMPLATE
 
 
 # basic.primatives registration utility

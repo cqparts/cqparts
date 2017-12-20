@@ -1,6 +1,4 @@
 
-from ..part import Part
-
 def as_part(func):
     """
     Converts a function to a :class:`Part <cqparts.part.Part>` instance.
@@ -33,6 +31,8 @@ def as_part(func):
 
     In both cases, ``box`` is a :class:`Part <cqparts.part.Part>` instance.
     """
+    from ..part import Part
+    
     def inner(*args, **kwargs):
         part_class = type(func.__name__, (Part,), {
             'make': lambda self: func(*args, **kwargs),
