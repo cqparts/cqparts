@@ -238,7 +238,10 @@ class Thread(ParametricObject):
 
     def build_profile(self):
         r"""
-        Build the thread's profile in a cadquery.Workplace as a wire
+        Build the thread's profile in a cadquery.Workplace as a wire.
+
+        It will be used as an input to
+        :meth:`profile_to_cross_section <cqparts.solidtypes.threads.base.profile_to_cross_section>`
 
         .. note::
 
@@ -329,12 +332,55 @@ thread_map = {}
 
 
 def thread(*names):
+    r"""
+    Register a thread so it may be found with :meth:`find`
+
+    .. doctest::
+
+        import cadquery
+        from cqparts.solidtypes.threads import Thread, thread
+        from cqparts.params import *
+
+        @thread('my_thread')
+        class MyThread(Thread):
+            ratio = PositiveFloat(1.2, doc="outer radius as ratio of inner")
+            def build_profile(self):
+                points = [
+                    (self.radius, 0),
+                    (self.radius * self.ratio, self.pitch),
+                    (self.radius, self.pitch),
+                ]
+                return cadquery.Workplane("XZ") \
+                    .moveTo(*points[0]).polyline(points[1:]) \
+                    .wire()
+
+    Then, when creating your thread:
+
+    .. doctest::
+
+        import cqparts
+        from cqparts.solidtypes.threads import find as find_thread
+
+        class Foo(cqparts.Part):
+            def make(self):
+                return find_thread('my_thread')(
+                    radius=5, ratio=1.3,
+                ).make(length=10)
+
+        from cqparts.display import display
+        display(Foo())  # doctest: +SKIP
+
+    Gives us this:
+
+    .. image:: /_static/img/solidtypes.threads.base.thread.register01.png
+
+    """
     assert all(isinstance(n, six.string_types) for n in names), "bad thread name"
     def inner(cls):
         """
         Add thread class to mapping
         """
-        assert issubclass(cls, ScrewDrive), "class must inherit from ScrewDrive"
+        assert issubclass(cls, Thread), "class must inherit from Thread"
         for name in names:
             assert name not in thread_map, "more than one thread named '%s'" % name
             thread_map[name] = cls
@@ -344,4 +390,9 @@ def thread(*names):
 
 
 def find(name):
+    """
+    Find a registered :class:`Thread` class by name.
+
+    For details, see :meth:`thread <cqparts.solidtypes.threads.base.thread>`
+    """
     return thread_map[name]
