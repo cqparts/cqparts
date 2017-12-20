@@ -55,7 +55,8 @@ def web_display(component, port=None):
     shutil.copytree(TEMPLATE_CONTENT_DIR, host_dir)
 
     # Export model
-    component.exporter('gltf')(
+    exporter = component.exporter('gltf')
+    exporter(
         filename=os.path.join(host_dir, 'model', 'out.gltf'),
         embed=False,
     )
@@ -65,11 +66,26 @@ def web_display(component, port=None):
     with open(os.path.join(host_dir, 'index.html'), 'r') as fh:
         index_template = jinja2.Template(fh.read())
     with open(os.path.join(host_dir, 'index.html'), 'w') as fh:
+
+        cam_t = [
+            (((a + b) / 2.) / 1000)  # midpoint (unit: meters)
+            for (a, b) in zip(exporter.scene_min, exporter.scene_max)
+        ]
+        cam_p = [
+            ((val * 2.) / 1000)  # max point * 200% (unit: meters)
+            for val in exporter.scene_max
+        ]
+
         fh.write(index_template.render(
             model_filename='model/out.gltf',
-            # FIXME: change camera based on scale of model (pull from gltf data)
-            camera_target='0 0 0',
-            camera_pos='0.5 0.5 0.5',
+            camera_target=' '.join(
+                "%g" % (val)
+                for val in [cam_t[0], cam_t[2], cam_t[1]]
+            ),
+            camera_pos=' '.join(
+                "%g" % (val)
+                for val in [cam_p[0], cam_p[2], cam_p[1]]
+            ),
         ))
 
     try:

@@ -52,6 +52,13 @@ class WebGL:
     TRIANGLE_FAN = 6
 
 
+def _list3_min(l_a, l_b):
+    return [min((a, b)) for (a, b) in zip(l_a if l_a else l_b, l_b)]
+
+
+def _list3_max(l_a, l_b):
+    return [max((a, b)) for (a, b) in zip(l_a if l_a else l_b, l_b)]
+
 
 class ShapeBuffer(object):
     """
@@ -154,21 +161,8 @@ class ShapeBuffer(object):
         )
 
         # retain min/max values
-        # FIXME: efficiency
-        # min
-        if self.vert_min is None:
-            self.vert_min = [x, y, z]
-        else:
-            self.vert_min[0] = min(self.vert_min[0], x)
-            self.vert_min[1] = min(self.vert_min[1], y)
-            self.vert_min[2] = min(self.vert_min[2], z)
-        # max
-        if self.vert_max is None:
-            self.vert_max = [x, y, z]
-        else:
-            self.vert_max[0] = max(self.vert_max[0], x)
-            self.vert_max[1] = max(self.vert_max[1], y)
-            self.vert_max[2] = max(self.vert_max[2], z)
+        self.vert_min = _list3_min(self.vert_min, (x, y, z))
+        self.vert_max = _list3_max(self.vert_max, (x, y, z))
 
     def add_poly_index(self, i, j, k):
         """
@@ -332,6 +326,8 @@ class GLTFExporter(Exporter):
 
         # Initialize
         self.gltf_dict = deepcopy(self.TEMPLATE)
+        self.scene_min = None
+        self.scene_max = None
 
     def __call__(self, filename='out.gltf', embed=False):
         """
@@ -537,6 +533,8 @@ class GLTFExporter(Exporter):
 
         # ----- Adding to: buffers
         buff = self.part_buffer(part)
+        self.scene_min = _list3_min(self.scene_min, buff.vert_min)
+        self.scene_max = _list3_max(self.scene_max, buff.vert_max)
 
         buffer_index = len(self.gltf_dict['buffers'])
         buffer_dict = {
