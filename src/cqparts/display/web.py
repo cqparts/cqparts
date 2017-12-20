@@ -27,7 +27,7 @@ _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 #   >>> web.web_display(some_thing)
 #
 # This would typically be used for testing, or development purposes.
-TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'template')
+TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'web-template')
 
 DEFAULT_PORT = 9041
 SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of port
@@ -66,7 +66,7 @@ def web_display(component, port=None):
     with open(os.path.join(host_dir, 'index.html'), 'r') as fh:
         index_template = jinja2.Template(fh.read())
     with open(os.path.join(host_dir, 'index.html'), 'w') as fh:
-
+        # camera location & target
         cam_t = [
             (((a + b) / 2.) / 1000)  # midpoint (unit: meters)
             for (a, b) in zip(exporter.scene_min, exporter.scene_max)
@@ -76,6 +76,7 @@ def web_display(component, port=None):
             for val in exporter.scene_max
         ]
 
+        # write
         fh.write(index_template.render(
             model_filename='model/out.gltf',
             camera_target=' '.join(
