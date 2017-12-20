@@ -6,6 +6,7 @@ from itertools import chain
 from copy import copy, deepcopy
 import json
 from collections import defaultdict
+import numpy
 
 from . import Exporter, register_exporter
 from .. import __version__
@@ -91,12 +92,24 @@ class ShapeBuffer(object):
         >>> (sb.idx_len, sb.idx_offset, sb.idx_size)
         (6L, 36L, 3L)
     """
-    def __init__(self):
+    def __init__(self, max_index=0xffffL):
+        """
+        :param max_index: maximum index number, if > 65535, 4-byte integers are used
+        :type max_index: :class:`long`
+        """
+
         self.vert_data = BytesIO()  # POSITION
         self.idx_data = BytesIO()  # indices
 
+        # vertices min/max
         self.vert_min = None
         self.vert_max = None
+
+        # indices number format
+        self.max_index = max_index
+        (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('<H', WebGL.UNSIGNED_SHORT, 2)
+        if max_index > 0xffffL:
+            (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('<I', WebGL.UNSIGNED_INT, 4)
 
     @property
     def vert_len(self):
@@ -142,13 +155,13 @@ class ShapeBuffer(object):
     @property
     def idx_size(self):
         """
-        Size of ``idx_data`` in UINTs.
-        (ie: number of 2 byte groups)
+        Number of ``idx_data`` elements.
+        (ie: number of 2 or 4 byte groups)
 
         See `Accessor Element Size <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size>`_
         in the glTF docs for clarification.
         """
-        return self.idx_len / 2
+        return self.idx_len / self.idx_bytelen
 
     def __len__(self):
         return self.vert_len + self.idx_len
@@ -169,12 +182,12 @@ class ShapeBuffer(object):
 
     def add_poly_index(self, i, j, k):
         """
-        Add 3 ``SCALAR`` of ``uint`` (2 bytes each) to the ``idx_data`` buffer.
+        Add 3 ``SCALAR`` of ``uint`` to the ``idx_data`` buffer.
         """
         self.idx_data.write(
-            struct.pack('<H', i) +
-            struct.pack('<H', j) +
-            struct.pack('<H', k)
+            struct.pack(self.idx_fmt, i) +
+            struct.pack(self.idx_fmt, j) +
+            struct.pack(self.idx_fmt, k)
         )
 
     def buffer_iter(self, block_size=1024):
@@ -486,10 +499,15 @@ class GLTFExporter(Exporter):
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
 
-        buff = ShapeBuffer()
+        # Get shape's mesh
+        (vertices, indices) = cls.part_mesh(part)
+
+        # Create ShapeBuffer
+        buff = ShapeBuffer(
+            max_index=numpy.matrix(indices).max(),
+        )
 
         # Push mesh to ShapeBuffer
-        (vertices, indices) = cls.part_mesh(part)
         for vert in vertices:
             buff.add_vertex(vert.x, vert.y, vert.z)
         for (i, j, k) in indices:
@@ -611,7 +629,7 @@ class GLTFExporter(Exporter):
             accessor = {
                 "bufferView": bufferView_index_indices,
                 "byteOffset": 0,
-                "componentType": WebGL.UNSIGNED_SHORT,
+                "componentType": buff.idx_type,
                 "count": buff.idx_size,
                 "type": "SCALAR",
             }
@@ -659,8 +677,8 @@ class GLTFExporter(Exporter):
             self.gltf_dict['nodes'].append(node)
             info['nodes'].append((node_index, node))
 
-            # Appending child index to its parent's children list
-            parent_node = self.gltf_dict['nodes'][parent_idx]
-            parent_node['children'] = parent_node.get('children', []) + [node_index]
+        # Appending child index to its parent's children list
+        parent_node = self.gltf_dict['nodes'][parent_idx]
+        parent_node['children'] = parent_node.get('children', []) + [node_index]
 
         return info
