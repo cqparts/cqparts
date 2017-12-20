@@ -10,7 +10,10 @@ from collections import defaultdict
 from . import Exporter, register_exporter
 from .. import __version__
 from ..part import Component, Part, Assembly
-from ..utils.geometry import CoordSystem
+from ..utils import CoordSystem, measure_time
+
+import logging
+log = logging.getLogger(__name__)
 
 
 class WebGL:
@@ -286,7 +289,7 @@ class GLTFExporter(Exporter):
 
     """
 
-    SCALE = 0.001  # mm to meters
+    scale = 0.001  # mm to meters
     TEMPLATE = {
         # Static values
         "asset": {
@@ -302,11 +305,10 @@ class GLTFExporter(Exporter):
                 "children": [],  # will be appended to before writing to file
                 # scene rotation to suit glTF coordinate system
                 # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
-                # TODO: apply scale for mm (cqparts) -> meters (glTF), make variable (for people still using inches... metric FTW!)
                 "matrix": [
-                    1.0 * SCALE, 0.0, 0.0, 0.0,
-                    0.0, 0.0,-1.0 * SCALE, 0.0,
-                    0.0, 1.0 * SCALE, 0.0, 0.0,
+                    1.0 * scale, 0.0, 0.0, 0.0,
+                    0.0, 0.0,-1.0 * scale, 0.0,
+                    0.0, 1.0 * scale, 0.0, 0.0,
                     0.0, 0.0, 0.0, 1.0,
                 ],
             },
@@ -446,10 +448,11 @@ class GLTFExporter(Exporter):
                 [(i, j, k), ... ],  # indexes of vertices making a polygon
             )
         """
-        workplane = part.local_obj  # cadquery.CQ instance
-        shape = workplane.val()  # expecting a cadquery.Solid instance
-        tess = shape.tessellate(cls.tolerance)
-        return tess
+        with measure_time(log, 'buffers.part_mesh'):
+            workplane = part.local_obj  # cadquery.CQ instance
+            shape = workplane.val()  # expecting a cadquery.Solid instance
+            tess = shape.tessellate(cls.tolerance)
+            return tess
 
     @classmethod
     def part_buffer(cls, part):
@@ -531,228 +534,133 @@ class GLTFExporter(Exporter):
         """
         info = defaultdict(list)
 
+        log.debug("gltf export: %r", part)
+
         # ----- Adding to: buffers
-        buff = self.part_buffer(part)
-        self.scene_min = _list3_min(self.scene_min, buff.vert_min)
-        self.scene_max = _list3_max(self.scene_max, buff.vert_max)
+        with measure_time(log, 'buffers'):
+            buff = self.part_buffer(part)
+            self.scene_min = _list3_min(self.scene_min, buff.vert_min)
+            self.scene_max = _list3_max(self.scene_max, buff.vert_max)
 
-        buffer_index = len(self.gltf_dict['buffers'])
-        buffer_dict = {
-            "byteLength": len(buff),
-        }
-        if filename:
-            # write file
-            with open(filename, 'wb') as fh:
-                for chunk in buff.buffer_iter():
-                    fh.write(chunk)
-            buffer_dict['uri'] = os.path.basename(filename)
-        else:
-            # embed buffer data in URI
-            buffer_dict['uri'] = "data:{mimetype};base64,{data}".format(
-                mimetype="application/octet-stream",
-                data=base64.b64encode(buff.read()).decode('ascii'),
-            )
+            buffer_index = len(self.gltf_dict['buffers'])
+            buffer_dict = {
+                "byteLength": len(buff),
+            }
+            if filename:
+                # write file
+                with open(filename, 'wb') as fh:
+                    for chunk in buff.buffer_iter():
+                        fh.write(chunk)
+                buffer_dict['uri'] = os.path.basename(filename)
+            else:
+                # embed buffer data in URI
+                buffer_dict['uri'] = "data:{mimetype};base64,{data}".format(
+                    mimetype="application/octet-stream",
+                    data=base64.b64encode(buff.read()).decode('ascii'),
+                )
 
-        self.gltf_dict['buffers'].append(buffer_dict)
-        info['buffers'].append((buffer_index, buffer_dict))
+            self.gltf_dict['buffers'].append(buffer_dict)
+            info['buffers'].append((buffer_index, buffer_dict))
 
         # ----- Adding: bufferViews
-        bufferView_index = len(self.gltf_dict['bufferViews'])
+        with measure_time(log, 'bufferViews'):
+            bufferView_index = len(self.gltf_dict['bufferViews'])
 
-        # vertices view
-        view = {
-            "buffer": buffer_index,
-            "byteOffset": buff.vert_offset,
-            "byteLength": buff.vert_len,
-            "byteStride": 12,
-            "target": WebGL.ARRAY_BUFFER,
-        }
-        self.gltf_dict['bufferViews'].append(view)
-        bufferView_index_vertices = bufferView_index
-        info['bufferViews'].append((bufferView_index_vertices, view))
+            # vertices view
+            view = {
+                "buffer": buffer_index,
+                "byteOffset": buff.vert_offset,
+                "byteLength": buff.vert_len,
+                "byteStride": 12,
+                "target": WebGL.ARRAY_BUFFER,
+            }
+            self.gltf_dict['bufferViews'].append(view)
+            bufferView_index_vertices = bufferView_index
+            info['bufferViews'].append((bufferView_index_vertices, view))
 
-        # indices view
-        view = {
-            "buffer": buffer_index,
-            "byteOffset": buff.idx_offset,
-            "byteLength": buff.idx_len,
-            "target": WebGL.ELEMENT_ARRAY_BUFFER,
-        }
-        self.gltf_dict['bufferViews'].append(view)
-        bufferView_index_indices = bufferView_index + 1
-        info['bufferViews'].append((bufferView_index_indices, view))
+            # indices view
+            view = {
+                "buffer": buffer_index,
+                "byteOffset": buff.idx_offset,
+                "byteLength": buff.idx_len,
+                "target": WebGL.ELEMENT_ARRAY_BUFFER,
+            }
+            self.gltf_dict['bufferViews'].append(view)
+            bufferView_index_indices = bufferView_index + 1
+            info['bufferViews'].append((bufferView_index_indices, view))
 
         # ----- Adding: accessors
-        accessor_index = len(self.gltf_dict['accessors'])
+        with measure_time(log, 'accessors'):
+            accessor_index = len(self.gltf_dict['accessors'])
 
-        # vertices accessor
-        accessor = {
-            "bufferView": bufferView_index_vertices,
-            "byteOffset": 0,
-            "componentType": WebGL.FLOAT,
-            "count": buff.vert_size,
-            "min": [v - 0.1 for v in buff.vert_min],
-            "max": [v + 0.1 for v in buff.vert_max],
-            "type": "VEC3",
-        }
-        self.gltf_dict['accessors'].append(accessor)
-        accessor_index_vertices = accessor_index
-        info['accessors'].append((accessor_index_vertices, accessor))
+            # vertices accessor
+            accessor = {
+                "bufferView": bufferView_index_vertices,
+                "byteOffset": 0,
+                "componentType": WebGL.FLOAT,
+                "count": buff.vert_size,
+                "min": [v - 0.1 for v in buff.vert_min],
+                "max": [v + 0.1 for v in buff.vert_max],
+                "type": "VEC3",
+            }
+            self.gltf_dict['accessors'].append(accessor)
+            accessor_index_vertices = accessor_index
+            info['accessors'].append((accessor_index_vertices, accessor))
 
-        # indices accessor
-        accessor = {
-            "bufferView": bufferView_index_indices,
-            "byteOffset": 0,
-            "componentType": WebGL.UNSIGNED_SHORT,
-            "count": buff.idx_size,
-            "type": "SCALAR",
-        }
-        self.gltf_dict['accessors'].append(accessor)
-        accessor_index_indices = accessor_index + 1
-        info['accessors'].append((accessor_index_indices, accessor))
+            # indices accessor
+            accessor = {
+                "bufferView": bufferView_index_indices,
+                "byteOffset": 0,
+                "componentType": WebGL.UNSIGNED_SHORT,
+                "count": buff.idx_size,
+                "type": "SCALAR",
+            }
+            self.gltf_dict['accessors'].append(accessor)
+            accessor_index_indices = accessor_index + 1
+            info['accessors'].append((accessor_index_indices, accessor))
 
         # ----- Adding: materials
-        material_index = len(self.gltf_dict['materials'])
-        material = part._render.gltf_material
-        self.gltf_dict['materials'].append(material)
-        info['materials'].append((material_index, material))
+        with measure_time(log, 'materials'):
+            material_index = len(self.gltf_dict['materials'])
+            material = part._render.gltf_material
+            self.gltf_dict['materials'].append(material)
+            info['materials'].append((material_index, material))
 
         # ----- Adding: meshes
-        mesh_index = len(self.gltf_dict['meshes'])
-        mesh = {
-            "primitives": [
-                {
-                    "attributes": {
-                        "POSITION": accessor_index_vertices,
-                    },
-                    "indices": accessor_index_indices,
-                    "mode": WebGL.TRIANGLES,
-                    "material": material_index,
-                }
-            ],
-        }
-        if name:
-            mesh['name'] = name
-        self.gltf_dict['meshes'].append(mesh)
-        info['meshes'].append((mesh_index, mesh))
+        with measure_time(log, 'meshes'):
+            mesh_index = len(self.gltf_dict['meshes'])
+            mesh = {
+                "primitives": [
+                    {
+                        "attributes": {
+                            "POSITION": accessor_index_vertices,
+                        },
+                        "indices": accessor_index_indices,
+                        "mode": WebGL.TRIANGLES,
+                        "material": material_index,
+                    }
+                ],
+            }
+            if name:
+                mesh['name'] = name
+            self.gltf_dict['meshes'].append(mesh)
+            info['meshes'].append((mesh_index, mesh))
 
         # ----- Adding: nodes
-        node_index = len(self.gltf_dict['nodes'])
-        node = {
-            "mesh": mesh_index,
-        }
-        if name:
-            node['name'] = name
-        if origin:
-            node.update(self.coordsys_dict(part.world_coords - origin))
-        self.gltf_dict['nodes'].append(node)
-        info['nodes'].append((node_index, node))
+        with measure_time(log, 'nodes'):
+            node_index = len(self.gltf_dict['nodes'])
+            node = {
+                "mesh": mesh_index,
+            }
+            if name:
+                node['name'] = name
+            if origin:
+                node.update(self.coordsys_dict(part.world_coords - origin))
+            self.gltf_dict['nodes'].append(node)
+            info['nodes'].append((node_index, node))
 
-        # Appending child index to its parent's children list
-        parent_node = self.gltf_dict['nodes'][parent_idx]
-        parent_node['children'] = parent_node.get('children', []) + [node_index]
+            # Appending child index to its parent's children list
+            parent_node = self.gltf_dict['nodes'][parent_idx]
+            parent_node['children'] = parent_node.get('children', []) + [node_index]
 
         return info
-
-
-TEMPLATE = {
-    "asset": {
-        "generator": "cqparts_%s" % __version__,
-        "version": "2.0"  # glTF version
-    },
-    "scene": 0,
-    "scenes": [{"nodes": [0]}],
-    "nodes": [
-        # https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#nodes-and-hierarchy
-        {
-            "children": [
-                1
-            ],
-            # TOOD: add scale + translation
-            "matrix": [
-                1.0, 0.0, 0.0, 0.0,
-                0.0, 0.0,-1.0, 0.0,
-                0.0, 1.0, 0.0, 0.0,
-                0.0, 0.0, 0.0, 1.0,
-            ],
-        },
-        {
-            "mesh": 0,
-        },
-    ],
-    "meshes": [
-        {
-            "primitives": [
-                {
-                    "attributes": {
-                        "NORMAL": 1,
-                        "POSITION": 2,
-                    },
-                    "indices": 0,
-                    "mode": 4,
-                    "material": 0,
-                }
-            ],
-            "name": "Mesh",
-        }
-    ],
-    "accessors": [
-        {
-            "bufferView": 0,
-            "byteOffset": 0,
-            "componentType": 5123,
-            "count": 36,
-            "max": [23],
-            "min": [0],
-            "type": "SCALAR",
-        },
-        {
-            "bufferView": 1,
-            "byteOffset": 0,
-            "componentType": 5126,
-            "count": 24,
-            "max": [ 1.0,  1.0,  1.0],
-            "min": [-1.0, -1.0, -1.0],
-            "type": "VEC3",
-        },
-        {
-            "bufferView": 1,
-            "byteOffset": 288,
-            "componentType": 5126,
-            "count": 24,
-            "max": [ 0.5,  0.5,  0.5],
-            "min": [-0.5, -0.5, -0.5],
-            "type": "VEC3",
-        },
-    ],
-    "materials": [
-        {
-            "pbrMetallicRoughness": {
-                "baseColorFactor": [0.8, 0.0, 0.0, 1.0],  # rbta
-                "metallicFactor": 0.0,
-            },
-            "name": "Red",
-        },
-    ],
-    "bufferViews": [
-        {
-            "buffer": 0,
-            "byteOffset": 576,
-            "byteLength": 72,
-            "target": 34963,
-        },
-        {
-            "buffer": 0,
-            "byteOffset": 0,
-            "byteLength": 576,
-            "byteStride": 12,
-            "target": 34962,
-        },
-    ],
-    "buffers": [
-        {
-            "byteLength": 648,
-            "uri": "Box0.bin",
-        },
-    ],
-}

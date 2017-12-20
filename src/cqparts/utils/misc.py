@@ -1,4 +1,8 @@
 
+from time import time
+from contextlib import contextmanager
+
+
 class property_buffered(object):
     """
     Buffer the result of a method on the class instance, similar to python builtin
@@ -50,3 +54,11 @@ def indicate_last(items):
     last_index = len(items) - 1
     for (i, item) in enumerate(items):
         yield (i == last_index, item)
+
+
+@contextmanager
+def measure_time(log, name):
+    start_time = time()
+    yield
+    taken = time() - start_time
+    log.debug("    %-25s (took: %gms)", name, round(taken * 1000, 3))
