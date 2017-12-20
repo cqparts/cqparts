@@ -356,6 +356,20 @@ class NonNullParameter(Parameter):
         return self.type(value)
 
 
+class PartsList(Parameter):
+    def type(self, value):
+        # Verify, raise exception for any problems
+        if isinstance(value, (list, tuple)):
+            from .part import Part  # avoid circular dependency
+            for part in value:
+                if not isinstance(part, Part):
+                    raise ParameterError("value must be a list of Part instances")
+        else:
+            raise ParameterError("value must be a list")
+
+        return value
+
+
 # ------------ decorator(s) ---------------
 def as_parameter(nullable=True, strict=True):
     """
