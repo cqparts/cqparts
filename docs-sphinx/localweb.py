@@ -6,6 +6,7 @@ import time
 import SimpleHTTPServer
 import SocketServer
 import threading
+import webbrowser
 
 PORT = 9040
 SocketServer.TCPServer.allow_reuse_address = True
@@ -21,6 +22,8 @@ try:
     server_thread = threading.Thread(target=httpd.serve_forever)
     server_thread.daemon = True
     server_thread.start()
+
+    webbrowser.open("http://localhost:%i/" % PORT)
 
     while True:  # wait for Ctrl+C
         time.sleep(0.5)
