@@ -32,12 +32,13 @@ class STEPExporter(Exporter):
         shape = workplane.val()
 
         # call cadquery exporter
-        with open(filename, 'w') as fh:
-            cadquery.freecad_impl.exporters.exportShape(
-                shape=shape,
-                exportType='STEP',
-                fileLike=fh,
-            )
+        with cadquery.freecad_impl.suppress_stdout_stderr():
+            with open(filename, 'w') as fh:
+                cadquery.freecad_impl.exporters.exportShape(
+                    shape=shape,
+                    exportType='STEP',
+                    fileLike=fh,
+                )
 
 
 @register_importer('step', Part)
