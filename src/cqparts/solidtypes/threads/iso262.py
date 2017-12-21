@@ -1,9 +1,10 @@
 import cadquery
 from math import pi, sin, cos, tan, sqrt
 
-from .base import Thread
+from .base import Thread, thread
 from ...params import *
 
+@thread('iso262')
 class ISO262Thread(Thread):
     # rounding ratio:
     #   0.0 = no rounding; peaks and valeys are flat
@@ -20,7 +21,7 @@ class ISO262Thread(Thread):
         # height of sawtooth profile (along x axis)
         # (to be trunkated to make a trapezoidal thread)
         height = self.pitch * cos(pi/6)  # ISO 262
-        r_maj = self.radius
+        r_maj = self.diameter / 2
         r_min = r_maj - ((5./8) * height)
 
         profile = cadquery.Workplane("XZ").moveTo(r_min, 0)
@@ -62,3 +63,11 @@ class ISO262Thread(Thread):
             )
 
         return profile.wire()
+
+    def get_radii(self):
+        # irrespective of self.inner flag
+        height = self.pitch * cos(pi/6)
+        return (
+            (self.diameter / 2) - ((5./8) * height),  # inner
+            self.diameter / 2  # outer
+        )

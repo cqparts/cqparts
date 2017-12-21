@@ -7,9 +7,15 @@ class ParameterError(Exception):
 class MakeError(Exception):
     """Raised when there are issues during the make() process of a Part or Assembly"""
 
+
 # Internal Search Exceptions
 class AssemblyFindError(Exception):
-    """Raised """
+    """Raised when an assembly element cannot be found"""
+
+
+# Solids Validity
+class SolidValidityError(Exception):
+    """Raised when an unrecoverable issue occurs with a solid"""
 
 
 # Search Exceptions

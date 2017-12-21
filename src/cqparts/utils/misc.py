@@ -1,6 +1,8 @@
 
+import os
 from time import time
 from contextlib import contextmanager
+import jinja2
 
 
 class property_buffered(object):
@@ -54,6 +56,14 @@ def indicate_last(items):
     last_index = len(items) - 1
     for (i, item) in enumerate(items):
         yield (i == last_index, item)
+
+
+@contextmanager
+def working_dir(path):
+    initial_path = os.getcwd()
+    os.chdir(path)
+    yield
+    os.chdir(initial_path)
 
 
 @contextmanager

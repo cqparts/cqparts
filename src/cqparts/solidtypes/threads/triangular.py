@@ -1,19 +1,43 @@
 import cadquery
+from math import radians, tan
 
-from .base import Thread
+from .base import Thread, thread
 from ...params import *
 
 
+@thread('triangular')
 class TriangularThread(Thread):
-    radius_core = Float(2.5, doc="radius of valley")
+    diameter_core = Float(None, doc="diamter of core")
+    angle = PositiveFloat(30, doc="pressure angle of thread")
+
+    def initialize_parameters(self):
+        if self.diameter_core is None:
+            self.diameter_core = self.diameter * (2. / 3)
 
     def build_profile(self):
+        # Determine thread's length along z-axis
+        thread_height = tan(radians(self.angle)) * (self.diameter - self.diameter_core)
+        if thread_height > self.pitch:
+            raise ValueError("thread's core diameter of %g cannot be achieved with an outer diameter of %g and an angle of %g" % (
+                self.diameter_core, self.diameter, self.angle
+            ))
+
         points = [
-            (self.radius_core, 0),
-            (self.radius, self.pitch/2),
-            (self.radius_core, self.pitch),
+            (self.diameter_core / 2, 0),
+            (self.diameter / 2, thread_height / 2),
+            (self.diameter_core / 2, thread_height),
         ]
+        if thread_height < self.pitch:
+            points.append((self.diameter_core / 2, self.pitch))
+
         profile = cadquery.Workplane("XZ") \
             .moveTo(*points[0]).polyline(points[1:]) \
             .wire()
         return profile
+
+    def get_radii(self):
+        # irrespective of self.inner flag
+        return (
+            self.diameter_core / 2,  # inner
+            self.diameter / 2  # outer
+        )

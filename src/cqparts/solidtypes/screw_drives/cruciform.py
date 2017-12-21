@@ -32,12 +32,12 @@ class FrearsonScrewDrive(ScrewDrive):
 @screw_drive('phillips')
 class PhillipsScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5, doc="blade width")
-    chamfer = PositiveFloat(None, "chamfer at top of cross section")  # defaults to width
+    chamfer = PositiveFloat(None, "chamfer at top of cross section")
 
     def initialize_parameters(self):
         super(PhillipsScrewDrive, self).initialize_parameters()
         if self.chamfer is None:
-            self.chamfer = self.width
+            self.chamfer = self.width / 2
 
     def apply(self, workplane, offset=(0, 0, 0)):
         # Frearson style cross from center

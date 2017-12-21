@@ -12,7 +12,7 @@ import cadquery
 import cqparts
 from Helpers import show
 
-from cqparts.solidtypes.threads.iso_262 import ISO262Thread
+from cqparts.solidtypes.threads.iso262 import ISO262Thread
 
 import logging
 log = logging.getLogger(__name__)

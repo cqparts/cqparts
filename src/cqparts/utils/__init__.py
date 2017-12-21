@@ -8,6 +8,7 @@ __all__ = [
     # misc
     'property_buffered',
     'indicate_last',
+    'working_dir',
     'measure_time',
 
     # wrappers
@@ -20,6 +21,7 @@ from .geometry import CoordSystem
 
 from .misc import property_buffered
 from .misc import indicate_last
+from .misc import working_dir
 from .misc import measure_time
 
 from .wrappers import as_part

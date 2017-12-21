@@ -16,16 +16,16 @@ class CounterSunkFastenerHead(FastenerHead):
     bugle = Boolean(False)
     bugle_ratio = FloatRange(0, 1, 0.5)
 
-    def get_raised(self):
+    def initialize_parameters(self):
         if self.raised is None:
-            return self.diameter / 10.
-        return self.raised
+            self.raised = self.diameter / 10.
+        if self.chamfer is None:
+            self.chamfer = self.diameter / 20
 
     def make(self, offset=(0, 0, 0)):
-        chamfer = self.diameter / 20 if self.chamfer is None else self.chamfer
         cone_radius = self.diameter / 2
         cone_height = cone_radius  # to achieve a 45deg angle
-        cylinder_radius = cone_radius - chamfer
+        cylinder_radius = cone_radius - self.chamfer
         cylinder_height = self.height
         shaft_radius = (self.diameter / 2.) - self.height
 
@@ -41,13 +41,12 @@ class CounterSunkFastenerHead(FastenerHead):
         head = intersect(cone, cylinder)
 
         # Raised bubble (if given)
-        raised = self.get_raised()
-        if raised:
-            sphere_radius = ((raised ** 2) + (cylinder_radius ** 2)) / (2 * raised)
+        if self.raised:
+            sphere_radius = ((self.raised ** 2) + (cylinder_radius ** 2)) / (2 * self.raised)
 
-            sphere = cadquery.Workplane("XY").workplane(offset=-(sphere_radius - raised)) \
+            sphere = cadquery.Workplane("XY").workplane(offset=-(sphere_radius - self.raised)) \
                 .sphere(sphere_radius)
-            raised_cylinder = cadquery.Workplane("XY").circle(cylinder_radius).extrude(raised)
+            raised_cylinder = cadquery.Workplane("XY").circle(cylinder_radius).extrude(self.raised)
             from Helpers import show
 
             #raised_bubble = sphere.intersect(raised_cylinder)  # FIXME: fix is in master
@@ -59,7 +58,7 @@ class CounterSunkFastenerHead(FastenerHead):
             # bugle_angle = angle head material makes with chamfer cylinder on top
             bugle_angle = (pi / 4) * self.bugle_ratio
             # face_span = longest straight distance along flat conical face (excluding chamfer)
-            face_span = sqrt(2) * (((self.diameter / 2.) - chamfer) - shaft_radius)
+            face_span = sqrt(2) * (((self.diameter / 2.) - self.chamfer) - shaft_radius)
             r2 = (face_span / 2.) / sin((pi / 4) - bugle_angle)
             d_height = r2 * sin(bugle_angle)
             r1 = (r2 * cos(bugle_angle)) + shaft_radius
@@ -78,7 +77,7 @@ class CounterSunkFastenerHead(FastenerHead):
         return head.translate(offset)
 
     def get_face_offset(self):
-        return (0, 0, self.get_raised())
+        return (0, 0, self.raised)
 
 
 @fastener_head('countersunk_raised')

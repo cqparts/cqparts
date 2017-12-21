@@ -263,7 +263,6 @@ class BlockTree(cqparts.Assembly):
 #block_tree.world_coords = CoordSystem()
 
 # ------------------- Export / Display -------------------
-# ------- Functions
 from cqparts.utils.env import get_env_name
 
 env_name = get_env_name()
