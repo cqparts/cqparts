@@ -92,24 +92,26 @@ class ShapeBuffer(object):
         >>> (sb.idx_len, sb.idx_offset, sb.idx_size)
         (6L, 36L, 3L)
     """
-    def __init__(self, max_index=0xffffL):
+    def __init__(self, max_index=0xff):
         """
         :param max_index: maximum index number, if > 65535, 4-byte integers are used
         :type max_index: :class:`long`
         """
+        self.vert_data = BytesIO()  # vertex positions
+        self.idx_data = BytesIO()  # indices connecting vertices into polygons
 
-        self.vert_data = BytesIO()  # POSITION
-        self.idx_data = BytesIO()  # indices
-
-        # vertices min/max
+        # vertices min/max2
         self.vert_min = None
         self.vert_max = None
 
         # indices number format
         self.max_index = max_index
-        (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('<H', WebGL.UNSIGNED_SHORT, 2)
-        if max_index > 0xffffL:
+        if max_index > 0xffff:
             (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('<I', WebGL.UNSIGNED_INT, 4)
+        elif max_index > 0xff:
+            (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('<H', WebGL.UNSIGNED_SHORT, 2)
+        else:
+            (self.idx_fmt, self.idx_type, self.idx_bytelen) = ('B', WebGL.UNSIGNED_BYTE, 1)
 
     @property
     def vert_len(self):
