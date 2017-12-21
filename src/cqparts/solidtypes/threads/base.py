@@ -7,6 +7,7 @@ import Part as FreeCADPart
 
 # relative imports
 from ...params import *
+from ...errors import SolidValidityError
 
 import logging
 log = logging.getLogger(__name__)
@@ -231,14 +232,19 @@ class Thread(ParametricObject):
     pitch = PositiveFloat(1.0, doc="thread's pitch")
     start_count = IntRange(1, None, 1, doc="number of thread starts")
     min_vertices = MinVerticiesParam(20, doc="minimum vertices used cross-section's wire")
-    radius = PositiveFloat(3.0, doc="thread radius")
+    diameter = PositiveFloat(3.0, doc="thread's diameter")
 
     inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
     lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")
 
+    def __init__(self, *args, **kwargs):
+        super(Thread, self).__init__(*args, **kwargs)
+        self._profile = None
+
     def build_profile(self):
         r"""
-        Build the thread's profile in a cadquery.Workplace as a wire.
+        Build the thread's profile in a cadquery.Workplace as a wire
+        on the :math:`XZ` plane.
 
         It will be used as an input to
         :meth:`profile_to_cross_section <cqparts.solidtypes.threads.base.profile_to_cross_section>`
@@ -263,22 +269,57 @@ class Thread(ParametricObject):
                     ]
                     profile = cadquery.Workplane("XZ") \
                         .moveTo(*points[0]).polyline(points[1:])
-                    return profile.wire()
+                    return profile.wire()  # .wire() is mandatory
+
+        :return: thread profile as a wire on the XZ plane
+        :rtype: :class:`cadquery.Workplane`
+
+        .. warning::
+
+            Wire must be built on the :math:`XZ` plane (as shown in the
+            example). If it is not, the thread *may* not be generated correctly.
         """
         raise NotImplementedError("build_profile function not overridden in %s" % type(self))
 
+    @property
+    def profile(self):
+        """
+        Buffered result of :meth:`build_profile`
+        """
+        if self._profile is None:
+            self._profile = self.build_profile()
+        return self._profile
+
+    def get_radii(self):
+        """
+        Get the inner and outer radii of the thread.
+
+        :return: (<inner radius>, <outer radius>)
+        :rtype: :class:`tuple`
+
+        .. note::
+
+            Ideally this method is overridden in inheriting classes to
+            mathematically determine the radii.
+
+            Default action is to generate the profile, then use the
+            bounding box to determine min & max radii. However this method is
+            prone to small numeric error.
+        """
+        bb = self.profile.val().BoundingBox()
+        return (bb.xmin, bb.xmax)
+
     def make(self, length):
         # Make cross-section
-        profile = self.build_profile()
         cross_section = profile_to_cross_section(
-            self.build_profile(),
+            self.profile,
             lefthand=self.lefthand,
             start_count=self.start_count,
             min_vertices=self.min_vertices,
         )
 
         # Make helical path
-        profile_bb = profile.val().BoundingBox()
+        profile_bb = self.profile.val().BoundingBox()
         #lead = (profile_bb.zmax - profile_bb.zmin) * self.start_count
         lead = self.pitch * self.start_count
         path = helical_path(lead, length, 1, lefthand=self.lefthand)
@@ -295,7 +336,10 @@ class Thread(ParametricObject):
             new_thread.sewShape()
             thread.objects[0].wrapped = FreeCADPart.Solid(new_thread)
             if not thread.objects[0].wrapped.isValid():
-                log.error("new thread STILL not valid")
+                log.error("sewn thread STILL not valid")
+                raise SolidValidityError(
+                    "created thread solid cannot be made watertight"
+                )
 
         #solid = thread.val().wrapped
         #face = App.ActiveDocument.Face.Shape.copy()
@@ -345,10 +389,11 @@ def thread(*names):
         class MyThread(Thread):
             ratio = PositiveFloat(1.2, doc="outer radius as ratio of inner")
             def build_profile(self):
+                radius = self.diameter / 2
                 points = [
-                    (self.radius, 0),
-                    (self.radius * self.ratio, self.pitch),
-                    (self.radius, self.pitch),
+                    (radius, 0),
+                    (radius * self.ratio, self.pitch),
+                    (radius, self.pitch),
                 ]
                 return cadquery.Workplane("XZ") \
                     .moveTo(*points[0]).polyline(points[1:]) \
@@ -364,7 +409,7 @@ def thread(*names):
         class Foo(cqparts.Part):
             def make(self):
                 return find_thread('my_thread')(
-                    radius=5, ratio=1.3,
+                    diameter=10, ratio=1.3,
                 ).make(length=10)
 
         from cqparts.display import display

@@ -16,6 +16,8 @@ import webbrowser
 import logging
 log = logging.getLogger(__name__)
 
+from ..utils import working_dir
+
 # Get this file's location
 _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
@@ -77,16 +79,11 @@ def web_display(component, port=None):
         ]
 
         # write
+        xzy = lambda a: (a[0], a[2], a[1])  # x,z,y coordinates (not x,y,z)
         fh.write(index_template.render(
             model_filename='model/out.gltf',
-            camera_target=' '.join(
-                "%g" % (val)
-                for val in [cam_t[0], cam_t[2], cam_t[1]]
-            ),
-            camera_pos=' '.join(
-                "%g" % (val)
-                for val in [cam_p[0], cam_p[2], cam_p[1]]
-            ),
+            camera_target=' '.join("%g" % (val) for val in xzy(cam_t)),
+            camera_pos=' '.join("%g" % (val) for val in xzy(cam_p)),
         ))
 
     try:
@@ -97,8 +94,8 @@ def web_display(component, port=None):
         )
         server_addr = "http://%s:%i/" % server.server_address
         def thread_target():
-            os.chdir(host_dir)
-            server.serve_forever()
+            with working_dir(host_dir):
+                server.serve_forever()
 
         log.info("serving: %s", server_addr)
         sys.stdout.flush()
