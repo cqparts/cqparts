@@ -134,6 +134,6 @@ def web_display(component, port=None):
         print("[server shutdown successfully]")
 
         # Delete temporary content
-        if os.path.exists(os.path.join(host_dir, 'html', 'cqparts-display.txt')):
+        if os.path.exists(os.path.join(host_dir, 'cqparts-display.txt')):
             # just making sure we're deleting the right folder
             shutil.rmtree(temp_dir)
