@@ -1,5 +1,6 @@
 import six
 from math import ceil, sin, cos, pi
+import os
 
 import cadquery
 import FreeCAD
@@ -239,7 +240,10 @@ class Thread(Part):
     inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
     lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")
 
-    _simple = Boolean(True, doc="if set, simplified geometry is built")  # FIXME: see bug #1
+    _simple = Boolean(
+        default=(os.environ.get('CQPARTS_COMPLEX_THREADS', 'no') == 'no'),
+        doc="if set, simplified geometry is built",
+    )  # FIXME: see bug #1
 
     def __init__(self, *args, **kwargs):
         super(Thread, self).__init__(*args, **kwargs)
