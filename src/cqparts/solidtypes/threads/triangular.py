@@ -11,6 +11,7 @@ class TriangularThread(Thread):
     angle = PositiveFloat(30, doc="pressure angle of thread")
 
     def initialize_parameters(self):
+        super(TriangularThread, self).initialize_parameters()
         if self.diameter_core is None:
             self.diameter_core = self.diameter * (2. / 3)
 

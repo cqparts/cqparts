@@ -1,12 +1,15 @@
 import cadquery
 
 from ...utils.geometry import intersect, copy
+from ...utils.geometry import CoordSystem
 from ...utils.misc import property_buffered
 from . import _casting
+
 
 # --------------------- Effect ----------------------
 class Effect(object):
     pass
+
 
 class VectorEffect(Effect):
     """
@@ -15,19 +18,17 @@ class VectorEffect(Effect):
 
     Effects are sortable (based on proximity to evaluation origin)
     """
-    def __init__(self, origin, direction, part, result):
+    def __init__(self, location, part, result):
         """
-        :param origin: origin of evaluation
-        :type  origin: cadquery.Vector
-        :param direction: direction of evaluation
-        :type  direction: cadquery.Vector
+        :param location: where the fastener is to be applied (eg: for a screw
+                         application will be along the -Z axis)
+        :type location: :class:`CoordSystem`
         :param part: effected solid
         :type  part: cadquery.Workplane
         :param result: result of evaluation
         :type  result: cadquery.Workplane
         """
-        self.origin = origin
-        self.direction = direction.normalized()  # force unit vector
+        self.location = location
         self.part = part
         self.result = result
 
@@ -36,23 +37,29 @@ class VectorEffect(Effect):
         """
         Start vertex of effect
 
-        :return: vertex
-        :rtype: cadquery.Vertex
+        :return: vertex (as vector)
+        :rtype: :class:`cadquery.Vector`
         """
         edge = self.result.wire().val().Edges()[0]
         return edge.Vertices()[0].Center()
 
     @property
     def end_point(self):
+        """
+        End vertex of effect
+
+        :return: vertex (as vector)
+        :rtype: :class:`cadquery.Vector`
+        """
         edge = self.result.wire().val().Edges()[-1]
         return edge.Vertices()[-1].Center()
 
     @property
     def origin_displacement(self):
         """
-        planar distance of start point from self.origin along self.direction
+        planar distance of start point from self.location along :math:`-Z` axis
         """
-        return self.start_point.sub(self.origin).dot(self.direction)
+        return self.start_point.sub(self.location.origin).dot(-self.location.zDir)
 
     @property
     def wire(self):
@@ -118,7 +125,7 @@ class Evaluator(object):
         Default behaviour, does nothing, returns empty list
 
         :return: empty list
-        :rtype: :class:`list`
+        :rtype: :class:`list` of :class:`Effect`
         """
         return []
 
@@ -131,18 +138,26 @@ class VectorEvaluator(Evaluator):
 
     effect_class = VectorEffect
 
-    def __init__(self, parts, start, dir):
+    def __init__(self, parts, location):
         """
         :param parts: parts involved in fastening
         :type parts: list of :class:`cqparts.Part`
-        :param start: fastener starting vertex
-        :type start: :class:`cadquery.Vector`
-        :param dir: direction fastener is pointing
-        :type dir: :class:`cadquery.Vector`
+        :param location: where the fastener is to be applied (eg: for a screw
+                         application will be along the -Z axis)
+        :type location: :class:`CoordSystem`
+
+        **Location**
+
+        The orientation of ``location`` may not be important; it may be for a
+        basic application of a screw, in which case the :math:`-Z` axis will be
+        used to perform the evaluation, and the :math:`X` and :math`Y` axes are
+        of no consequence.
+
+        For *some* fasteners, the orientation of ``location`` will be
+        important.
         """
         super(VectorEvaluator, self).__init__(parts)
-        self.start = _casting.vector(start)
-        self.dir = _casting.vector(dir)
+        self.location = location
 
     @property_buffered
     def max_effect_length(self):
@@ -162,9 +177,9 @@ class VectorEvaluator(Evaluator):
         #   - return the maximum of these from all solids
         def max_length_iter():
             for part in self.parts:
-                if part.object.findSolid():
-                    bb = part.object.findSolid().BoundingBox()
-                    yield bb.center.sub(self.start).Length + (bb.DiagonalLength / 2)
+                if part.local_obj.findSolid():
+                    bb = part.local_obj.findSolid().BoundingBox()
+                    yield abs(bb.center - self.location.origin) + (bb.DiagonalLength / 2)
         try:
             return max(max_length_iter())
         except ValueError as e:
@@ -184,20 +199,19 @@ class VectorEvaluator(Evaluator):
             # no effect is possible, return an empty list
             return []
         edge = cadquery.Edge.makeLine(
-            self.start,
-            self.dir.normalized().multiply(self.max_effect_length + 1)  # +1 to avoid rounding errors
+            self.location.origin,
+            self.location.zDir * -(self.max_effect_length + 1)  # +1 to avoid rounding errors
         )
         wire = cadquery.Wire.assembleEdges([edge])
         wp = cadquery.Workplane('XY').newObject([wire])
 
         effect_list = []  # list of self.effect_class instances
         for part in self.parts:
-            solid = part.object.translate((0, 0, 0))
+            solid = part.world_obj.translate((0, 0, 0))
             #intersection = solid.intersect(copy(wp))  # FIXME: fix is in cadquery master
             intersection = intersect(solid, copy(wp))
             effect = self.effect_class(
-                origin=self.start,
-                direction=self.dir,
+                location=self.location,
                 part=part,
                 result=intersection,
             )

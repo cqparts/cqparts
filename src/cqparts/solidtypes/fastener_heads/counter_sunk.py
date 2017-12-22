@@ -17,12 +17,13 @@ class CounterSunkFastenerHead(FastenerHead):
     bugle_ratio = FloatRange(0, 1, 0.5)
 
     def initialize_parameters(self):
+        super(CounterSunkFastenerHead, self).initialize_parameters()
         if self.raised is None:
             self.raised = self.diameter / 10.
         if self.chamfer is None:
             self.chamfer = self.diameter / 20
 
-    def make(self, offset=(0, 0, 0)):
+    def make(self):
         cone_radius = self.diameter / 2
         cone_height = cone_radius  # to achieve a 45deg angle
         cylinder_radius = cone_radius - self.chamfer
@@ -74,7 +75,20 @@ class CounterSunkFastenerHead(FastenerHead):
             )
             head = head.cut(torus)
 
-        return head.translate(offset)
+        return head
+
+    def make_cutter(self):
+        """
+        Add countersunk cone to cutter
+        """
+        obj = super(CounterSunkFastenerHead, self).make_cutter()
+        cone = cadquery.CQ(cadquery.Solid.makeCone(
+            radius1=self.diameter / 2,
+            radius2=0,
+            height=self.height,
+            dir=cadquery.Vector(0,0,-1),
+        ))
+        return obj.union(cone)
 
     def get_face_offset(self):
         return (0, 0, self.raised)

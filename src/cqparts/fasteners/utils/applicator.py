@@ -11,7 +11,12 @@ class Applicator(object):
     cutting tool to subtract from mating part(s) (eg: thread tapping).
     """
 
-    compatible_eval_classes = (VectorEvaluator, CylinderEvaluator)
+    def __init__(self, evaluation, selector):
+        self.evaluation = evaluation
+        self.selector = selector
 
-    #def __init__(self, evaluator):
-    #    self.evaluator =
+    def apply(self):
+        """
+        Apply alterations to relevant parts based on the selected parts
+        """
+        pass

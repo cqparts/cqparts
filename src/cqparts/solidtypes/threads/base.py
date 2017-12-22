@@ -240,6 +240,9 @@ class Thread(Part):
     inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
     lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")
 
+    pilothole_ratio = Float(0.5, doc=r"sets thread's pilot hole using *inner* and *outer* thread radii: :math:`radius = inner + ratio \times (outer-inner)`")
+    pilothole_radius = PositiveFloat(None, doc="explicitly set pilothole radius, overrides ``pilothole_ratio``")
+
     _simple = Boolean(
         default=(os.environ.get('CQPARTS_COMPLEX_THREADS', 'no') == 'no'),
         doc="if set, simplified geometry is built",
@@ -359,9 +362,25 @@ class Thread(Part):
         Return a cylinder with the thread's outer radius & length
         """
         (inner_radius, outer_radius) = self.get_radii()
+        radius = (inner_radius + outer_radius) / 2
         return cadquery.Workplane('XY') \
-            .circle(outer_radius).extrude(self.length)
+            .circle(radius).extrude(self.length)
 
+    def make_pilothole_cutter(self):
+        """
+        Make a solid to subtract from an interfacing solid to bore a pilot-hole.
+        """
+        # get pilothole ratio
+        #   note: not done in .initialize_parameters() because this would cause
+        #   the thread's profile to be created at initialisation (by default).
+        pilothole_radius = self.pilothole_radius
+        if pilothole_radius is None:
+            (inner_radius, outer_radius) = self.get_radii()
+            pilothole_radius = inner_radius + self.pilothole_ratio * (outer_radius - inner_radius)
+
+        return cadquery.Workplane('XY') \
+            .circle(pilothole_radius) \
+            .extrude(self.length)
 
 # Thread register
 #   Create your own custom thread like so...

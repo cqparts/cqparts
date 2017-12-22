@@ -9,14 +9,33 @@ log = logging.getLogger(__name__)
 
 
 class FastenerHead(ParametricObject):
-    diameter = PositiveFloat(5.2)
-    height = PositiveFloat(2.0)
+    diameter = PositiveFloat(5.2, doc="fastener head diameter")
+    height = PositiveFloat(2.0, doc="fastener head height")
+    # tool access
+    access_diameter = PositiveFloat(None, doc="diameter of circle alowing tool access above fastener (defaults to diameter)")
+    access_height = PositiveFloat(1000, doc="depth of hole providing access (default 1m)")
 
-    def make(self, offset=(0, 0, 0)):
+    def initialize_parameters(self):
+        if self.access_diameter is None:
+            self.access_diameter = self._default_access_diameter()
+
+    def _default_access_diameter(self):
+        return self.diameter
+
+    def make(self):
         """
         Create fastener head solid and return it
         """
         raise NotImplementedError("make function not overridden in %r" % self)
+
+    def make_cutter(self):
+        """
+        Create solid to subtract from material to make way for the fastener's
+        head (just the head)
+        """
+        return cadquery.Workplane('XY') \
+            .circle(self.access_diameter / 2) \
+            .extrude(self.access_height)
 
     def get_face_offset(self):
         """

@@ -29,6 +29,15 @@ class DrivenFastenerHead(FastenerHead):
         if self.washer_diameter is None:
             self.washer_diameter = self.diameter * 1.2
 
+    def _default_access_diameter(self):
+        # driven heads need more clearance
+        if self.washer:
+            return max((  # the greater of...
+                self.diameter * 1.5,  # 150% head's diameter
+                self.washer_diameter * 1.1  # 110% washer diameter
+            ))
+        return self.diameter * 1.2
+
     def get_cross_section_points(self):
         points = []
         d_angle = pi / self.edges
@@ -41,7 +50,7 @@ class DrivenFastenerHead(FastenerHead):
             ))
         return points
 
-    def make(self, offset=(0, 0, 0)):
+    def make(self):
         points = self.get_cross_section_points()
         head = cadquery.Workplane("XY") \
             .moveTo(*points[0]).polyline(points[1:]).close() \
@@ -63,7 +72,7 @@ class DrivenFastenerHead(FastenerHead):
                 .extrude(self.washer_height)
             head = head.union(washer)
 
-        return head.translate(offset)
+        return head
 
 
 @fastener_head('square')

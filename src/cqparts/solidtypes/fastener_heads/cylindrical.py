@@ -17,7 +17,7 @@ class CylindricalFastenerHead(FastenerHead):
         if self.fillet is None:
             self.fillet = self.diameter / 10
 
-    def make(self, offset=(0, 0, 0)):
+    def make(self):
         head = cadquery.Workplane("XY") \
             .circle(self.diameter / 2.).extrude(self.height)
 
@@ -37,7 +37,7 @@ class CylindricalFastenerHead(FastenerHead):
             if self.fillet:
                 head = head.faces(">Z").edges().fillet(self.fillet)
 
-        return head.translate(offset)
+        return head
 
 
 @fastener_head('cheese')
@@ -76,8 +76,8 @@ class RoundFastenerHead(CylindricalFastenerHead):
         if self.coach_chamfer is None:
             self.coach_chamfer = self.coach_width / 6
 
-    def make(self, offset=(0, 0, 0)):
-        head = super(RoundFastenerHead, self).make(offset=offset)
+    def make(self):
+        head = super(RoundFastenerHead, self).make()
 
         # Add chamfered square block beneath fastener head
         if self.coach_head:
