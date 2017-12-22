@@ -6,6 +6,7 @@ import FreeCAD
 import Part as FreeCADPart
 
 # relative imports
+from ...part import Part
 from ...params import *
 from ...errors import SolidValidityError
 
@@ -227,15 +228,18 @@ class MinVerticiesParam(Parameter):
             raise ParameterError("min_vertices must be an integer, or a list of integers: %r" % value)
 
 
-class Thread(ParametricObject):
+class Thread(Part):
     # Base parameters
     pitch = PositiveFloat(1.0, doc="thread's pitch")
     start_count = IntRange(1, None, 1, doc="number of thread starts")
     min_vertices = MinVerticiesParam(20, doc="minimum vertices used cross-section's wire")
     diameter = PositiveFloat(3.0, doc="thread's diameter")
+    length = PositiveFloat(5, doc="thread's length")
 
     inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
     lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")
+
+    _simple = Boolean(True, doc="if set, simplified geometry is built")  # FIXME: see bug #1
 
     def __init__(self, *args, **kwargs):
         super(Thread, self).__init__(*args, **kwargs)
@@ -309,7 +313,7 @@ class Thread(ParametricObject):
         bb = self.profile.val().BoundingBox()
         return (bb.xmin, bb.xmax)
 
-    def make(self, length):
+    def make(self):
         # Make cross-section
         cross_section = profile_to_cross_section(
             self.profile,
@@ -322,7 +326,7 @@ class Thread(ParametricObject):
         profile_bb = self.profile.val().BoundingBox()
         #lead = (profile_bb.zmax - profile_bb.zmin) * self.start_count
         lead = self.pitch * self.start_count
-        path = helical_path(lead, length, 1, lefthand=self.lefthand)
+        path = helical_path(lead, self.length, 1, lefthand=self.lefthand)
 
         # Sweep into solid
         thread = cross_section.sweep(path, isFrenet=True)
@@ -345,6 +349,14 @@ class Thread(ParametricObject):
         #face = App.ActiveDocument.Face.Shape.copy()
 
         return thread
+
+    def make_simple(self):
+        """
+        Return a cylinder with the thread's outer radius & length
+        """
+        (inner_radius, outer_radius) = self.get_radii()
+        return cadquery.Workplane('XY') \
+            .circle(outer_radius).extrude(self.length)
 
 
 # Thread register

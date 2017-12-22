@@ -121,8 +121,11 @@ class FastenerMalePart(Part):
             raise ValueError("screw's neck (%g) is longer than the thread (%g)" % (
                 self.neck_length, self.length,
             ))
-        thread = self.thread.make((self.length - self.neck_length) + thread_offset)
-        thread = thread.translate((0, 0, -self.length))
+        # (change thread's length before building... not the typical flow, but
+        #  it works all the same)
+        self.thread.length = (self.length - self.neck_length) + thread_offset
+        self.local_obj = None  # clear to force build after parameter change
+        thread = self.thread.local_obj.translate((0, 0, -self.length))
         obj = obj.union(thread)
 
         # apply screw drive (if there is one)
