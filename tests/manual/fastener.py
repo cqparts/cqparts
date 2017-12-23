@@ -19,6 +19,8 @@ from cqparts.fasteners.utils import VectorEvaluator
 #from cqparts.fasteners import Fastener
 from cqparts.fasteners.screws import ScrewFastener
 
+from cqparts.fasteners.nutboltfastener import NutAndBoltFastener
+
 
 # enable logging
 cadquery.freecad_impl.console_logging.enable(logging.INFO)
@@ -33,7 +35,8 @@ class Thing(cqparts.Assembly):
         return {
             'anchor': anchor,
             'plate': plate,
-            'fastener': ScrewFastener(parts=[plate, anchor]),
+            'fastener': NutAndBoltFastener(parts=[plate, anchor]),
+            #'fastener': ScrewFastener(parts=[plate, anchor]),
         }
 
     def make_constraints(self):
