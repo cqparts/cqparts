@@ -8,6 +8,8 @@ import json
 from collections import defaultdict
 import numpy
 
+from cadquery import Vector
+
 from . import Exporter, register_exporter
 from .. import __version__
 from ..part import Component, Part, Assembly
@@ -559,8 +561,14 @@ class GLTFExporter(Exporter):
         # ----- Adding to: buffers
         with measure_time(log, 'buffers'):
             buff = self.part_buffer(part)
-            self.scene_min = _list3_min(self.scene_min, buff.vert_min)
-            self.scene_max = _list3_max(self.scene_max, buff.vert_max)
+            self.scene_min = _list3_min(
+                self.scene_min,
+                (Vector(buff.vert_min) + part.world_coords.origin).toTuple()
+            )
+            self.scene_max = _list3_max(
+                self.scene_max,
+                (Vector(buff.vert_max) + part.world_coords.origin).toTuple()
+            )
 
             buffer_index = len(self.gltf_dict['buffers'])
             buffer_dict = {

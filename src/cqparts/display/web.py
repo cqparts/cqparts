@@ -70,16 +70,16 @@ def web_display(component, port=None):
     with open(os.path.join(host_dir, 'index.html'), 'w') as fh:
         # camera location & target
         cam_t = [
-            (((a + b) / 2.) / 1000)  # midpoint (unit: meters)
+            (((a + b) / 2.0) / 1000)  # midpoint (unit: meters)
             for (a, b) in zip(exporter.scene_min, exporter.scene_max)
         ]
         cam_p = [
-            ((val * 2.) / 1000)  # max point * 200% (unit: meters)
-            for val in exporter.scene_max
+            ((b - a) * 1.0) / 1000 + t  # max point * 200% (unit: meters)
+            for (a, b, t) in zip(exporter.scene_min, exporter.scene_max, cam_t)
         ]
 
         # write
-        xzy = lambda a: (a[0], a[2], a[1])  # x,z,y coordinates (not x,y,z)
+        xzy = lambda a: (a[0], a[2], -a[1])  # x,z,y coordinates (not x,y,z)
         fh.write(index_template.render(
             model_filename='model/out.gltf',
             camera_target=' '.join("%g" % (val) for val in xzy(cam_t)),
