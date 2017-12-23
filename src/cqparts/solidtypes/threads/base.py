@@ -359,7 +359,9 @@ class Thread(Part):
 
     def make_simple(self):
         """
-        Return a cylinder with the thread's outer radius & length
+        Return a cylinder with the thread's average radius & length.
+
+        :math:`radius = (inner_radius + outer_radius) / 2`
         """
         (inner_radius, outer_radius) = self.get_radii()
         radius = (inner_radius + outer_radius) / 2

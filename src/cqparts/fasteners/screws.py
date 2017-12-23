@@ -1,7 +1,8 @@
 
 from ..params import *
 
-from .base import Fastener, FastenerMalePart
+from .male import MaleFastenerPart
+from .base import Fastener
 from .params import HeadType, DriveType, ThreadType
 from .utils import VectorEvaluator, Selector, Applicator
 from ..solidtypes import threads
@@ -12,7 +13,7 @@ import logging
 log = logging.getLogger(__name__)
 
 
-class Screw(FastenerMalePart):
+class Screw(MaleFastenerPart):
     """
     Part representing a single screw
     """

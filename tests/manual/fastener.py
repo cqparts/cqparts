@@ -11,6 +11,7 @@ import cqparts
 from cqparts.params import *
 from cqparts.basic.primatives import Box
 from cqparts.constraint import Fixed, Coincident
+from cqparts.constraint import Mate
 from cqparts.display import display
 from cqparts.utils.geometry import CoordSystem
 
@@ -23,11 +24,12 @@ from cqparts.fasteners.screws import ScrewFastener
 cadquery.freecad_impl.console_logging.enable(logging.INFO)
 log = logging.getLogger(__name__)
 
+alpha = 0.5
 
 class Thing(cqparts.Assembly):
     def make_components(self):
-        anchor = Box(length=15, width=20, height=15)
-        plate = Box(length=25, width=15, height=7)
+        anchor = Box(length=15, width=20, height=15, _render={'alpha':alpha})
+        plate = Box(length=25, width=15, height=7, _render={'alpha':alpha})
         return {
             'anchor': anchor,
             'plate': plate,
@@ -38,7 +40,6 @@ class Thing(cqparts.Assembly):
         return [
             Fixed(
                 self.components['anchor'].mate_origin,
-                CoordSystem(origin=(1, 2, 3), xDir=(0,1,0), normal=(1,0,0))
             ),
             Coincident(
                 self.components['plate'].mate_origin,
@@ -59,6 +60,7 @@ env_name = get_env_name()
 # ------- Models
 thing = Thing()
 thing.world_coords = CoordSystem()
+#thing.world_coords = CoordSystem(origin=(1, 2, 3), xDir=(0,1,-1), normal=(1,0.3,0))
 
 log.info(thing.tree_str(name="thing", prefix='    '))
 

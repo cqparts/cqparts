@@ -2,13 +2,14 @@ import six
 import cadquery
 
 # relative imports
+from ...part import Part
 from ...params import *
 
 import logging
 log = logging.getLogger(__name__)
 
 
-class FastenerHead(ParametricObject):
+class FastenerHead(Part):
     diameter = PositiveFloat(5.2, doc="fastener head diameter")
     height = PositiveFloat(2.0, doc="fastener head height")
     # tool access
@@ -21,12 +22,6 @@ class FastenerHead(ParametricObject):
 
     def _default_access_diameter(self):
         return self.diameter
-
-    def make(self):
-        """
-        Create fastener head solid and return it
-        """
-        raise NotImplementedError("make function not overridden in %r" % self)
 
     def make_cutter(self):
         """

@@ -7,9 +7,11 @@ from ...params import *
 
 
 class DrivenFastenerHead(FastenerHead):
-    chamfer = PositiveFloat(None)  # default to diameter / 10
-    edges = PositiveInt(4)
-    width = PositiveFloat(None)  # defaults based on number of edges, and diameter
+    chamfer = PositiveFloat(None, doc="chamfer value (default: :math:`d/15`)")  # default to diameter / 10
+    chamfer_top = Boolean(True, doc="if chamfer is set, top edges are chamfered")
+    chamfer_base = Boolean(False, doc="if chamfer is set, base edges are chamfered")
+    edges = PositiveInt(4, doc="number of edges on fastener head")
+    width = PositiveFloat(None, doc="distance between flats")  # defaults based on number of edges, and diameter
 
     # Washer (optional)
     washer = Boolean(False)
@@ -23,7 +25,7 @@ class DrivenFastenerHead(FastenerHead):
             # (width is the size of the wrench used to drive it)
             self.diameter = self.width / cos(pi / self.edges)
         if self.chamfer is None:
-            self.chamfer = self.diameter / 10
+            self.chamfer = self.diameter / 15
         if self.washer_height is None:
             self.washer_height = self.height / 6
         if self.washer_diameter is None:
@@ -59,11 +61,23 @@ class DrivenFastenerHead(FastenerHead):
         if self.chamfer:
             cone_height = ((self.diameter / 2.) - self.chamfer) + self.height
             cone_radius = (self.diameter / 2.) + (self.height - self.chamfer)
-            cone = cadquery.Workplane("XY").union(
-                cadquery.CQ(cadquery.Solid.makeCone(cone_radius, 0, cone_height))
-            )
-            #head = head.intersect(cone)  # FIXME: fix is in master
-            head = intersect(head, cone)
+            if self.chamfer_top:
+                cone = cadquery.Workplane('XY').union(cadquery.CQ(cadquery.Solid.makeCone(
+                    cone_radius, 0, cone_height,
+                    pnt=cadquery.Vector(0, 0, 0),
+                    dir=cadquery.Vector(0, 0, 1),
+                )))
+                #head = head.intersect(cone)  # FIXME: fix is in master
+                head = intersect(head, cone)
+
+            if self.chamfer_base:
+                cone = cadquery.Workplane('XY').union(cadquery.CQ(cadquery.Solid.makeCone(
+                    cone_radius, 0, cone_height,
+                    pnt=cadquery.Vector(0, 0, self.height),
+                    dir=cadquery.Vector(0, 0, -1),
+                )))
+                #head = head.intersect(cone)  # FIXME: fix is in master
+                head = intersect(head, cone)
 
         # Washer
         if self.washer:
