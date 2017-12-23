@@ -1,9 +1,14 @@
 import cadquery
+from copy import copy
+
+import logging
 
 from ...utils.geometry import intersect, copy
 from ...utils.geometry import CoordSystem
 from ...utils.misc import property_buffered
 from . import _casting
+
+log = logging.getLogger(__name__)
 
 
 # --------------------- Effect ----------------------
@@ -44,6 +49,21 @@ class VectorEffect(Effect):
         return edge.Vertices()[0].Center()
 
     @property
+    def start_coordsys(self):
+        """
+        Coordinate system at start of effect.
+
+        All axes are parallel to the original vector evaluation location, with
+        the origin moved to this effect's start point.
+
+        :return: coordinate system at start of effect
+        :rtype: :class:`CoordSys`
+        """
+        coordsys = copy(self.location)
+        coordsys.origin = self.start_point
+        return coordsys
+
+    @property
     def end_point(self):
         """
         End vertex of effect
@@ -53,6 +73,21 @@ class VectorEffect(Effect):
         """
         edge = self.result.wire().val().Edges()[-1]
         return edge.Vertices()[-1].Center()
+
+    @property
+    def end_coordsys(self):
+        """
+        Coordinate system at end of effect.
+
+        All axes are parallel to the original vector evaluation location, with
+        the origin moved to this effect's end point.
+
+        :return: coordinate system at end of effect
+        :rtype: :class:`CoordSys`
+        """
+        coordsys = copy(self.location)
+        coordsys.origin = self.end_point
+        return coordsys
 
     @property
     def origin_displacement(self):
@@ -200,7 +235,7 @@ class VectorEvaluator(Evaluator):
             return []
         edge = cadquery.Edge.makeLine(
             self.location.origin,
-            self.location.zDir * -(self.max_effect_length + 1)  # +1 to avoid rounding errors
+            self.location.origin + (self.location.zDir * -(self.max_effect_length + 1))  # +1 to avoid rounding errors
         )
         wire = cadquery.Wire.assembleEdges([edge])
         wp = cadquery.Workplane('XY').newObject([wire])

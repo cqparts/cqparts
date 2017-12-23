@@ -266,7 +266,7 @@ class CoordSystem(cadquery.Plane):
     def __repr__(self):
         return "<{cls_name}: origin={origin} xDir={xDir} zDir={zDir}>".format(
             cls_name=type(self).__name__,
-            origin=self.origin.toTuple(),
-            xDir=self.xDir.toTuple(),
-            zDir=self.zDir.toTuple(),
+            origin="(%s)" % (', '.join("%g" % (round(v, 3)) for v in self.origin.toTuple())),
+            xDir="(%s)" % (', '.join("%g" % (round(v, 3)) for v in self.xDir.toTuple())),
+            zDir="(%s)" % (', '.join("%g" % (round(v, 3)) for v in self.zDir.toTuple())),
         )
