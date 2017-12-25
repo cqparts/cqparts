@@ -134,10 +134,8 @@ class Evaluator(object):
     An evaluator determines which parts may be effected by a fastener, and how.
     """
 
-    effect_class = None
-
     # Constructor
-    def __init__(self, parts, *args, **kwargs):
+    def __init__(self, parts):
         """
         :param parts: parts involved in fastening
         :type parts: list of :class:`cqparts.Part`
@@ -150,22 +148,25 @@ class Evaluator(object):
         Evaluate the given parts using any additional parameters passed
         to this instance.
 
-        Return a list of :class:`Effect` instances.
-
         .. note::
 
             Override this funciton in your *evaluator* class to assess what
             parts are effected, and how.
 
-        Default behaviour, does nothing, returns empty list
+        Default behaviour: do nothing, return nothing
 
-        :return: empty list
-        :rtype: :class:`list` of :class:`Effect`
+        :return: ``None``
         """
-        return []
+        return None
 
     @property_buffered
     def eval(self):
+        """
+        Return the result of :meth:`perform_evaluation`, and buffer it so it's
+        only run once per :class:`Evaluator` instance.
+
+        :return: result from :meth:`perform_evaluation`
+        """
         return self.perform_evaluation()
 
 

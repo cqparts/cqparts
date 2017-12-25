@@ -5,12 +5,12 @@ class Selector(object):
     """
     Facilitates the selection of a Fastener based on an evaluation
     """
-    def __init__(self, evaluation):
+    def __init__(self, evaluator):
         """
-        :param evaluation: evaluation of fastener parts
-        :type evaluation: :class:`Evaluator`
+        :param evaluator: evaluator of fastener parts
+        :type evaluator: :class:`Evaluator`
         """
-        self.evaluation = evaluation
+        self.evaluator = evaluator
 
         self._components = None
         self._constraints = None

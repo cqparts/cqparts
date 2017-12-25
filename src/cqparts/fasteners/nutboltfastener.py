@@ -10,7 +10,7 @@ class NutAndBoltFastener(Fastener):
 
     class Selector(Selector):
         def get_components(self):
-            effect_length = abs(self.evaluation.eval[-1].end_point - self.evaluation.eval[0].start_point)
+            effect_length = abs(self.evaluator.eval[-1].end_point - self.evaluator.eval[0].start_point)
 
             nut = HexNut()
             bolt = HexBolt(
@@ -24,26 +24,27 @@ class NutAndBoltFastener(Fastener):
 
         def get_constraints(self):
             # bind fastener relative to its anchor; the part holding it in.
-            first_part = self.evaluation.eval[0].part
-            last_part = self.evaluation.eval[-1].part  # last effected part
+            first_part = self.evaluator.eval[0].part
+            last_part = self.evaluator.eval[-1].part  # last effected part
 
             return [
                 Coincident(
                     self.components['bolt'].mate_origin,
-                    Mate(first_part, self.evaluation.eval[0].start_coordsys - first_part.world_coords)
+                    Mate(first_part, self.evaluator.eval[0].start_coordsys - first_part.world_coords)
                 ),
                 Coincident(
                     self.components['nut'].mate_origin,
-                    Mate(last_part, self.evaluation.eval[-1].end_coordsys - last_part.world_coords)
+                    Mate(last_part, self.evaluator.eval[-1].end_coordsys - last_part.world_coords)
                 ),
             ]
 
+
     class Applicator(Applicator):
-        def apply(self):
+        def apply_alterations(self):
             bolt = self.selector.components['bolt']
             cutter = bolt.make_cutter()  # cutter in local coords
 
-            for effect in self.evaluation.eval:
+            for effect in self.evaluator.eval:
                 relative_coordsys = bolt.world_coords - effect.part.world_coords
                 local_cutter = relative_coordsys + cutter
                 effect.part.local_obj = effect.part.local_obj.cut(local_cutter)

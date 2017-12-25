@@ -25,26 +25,27 @@ class Fastener(Assembly):
 
     def make_components(self):
         # --- Run evaluation
-        self.evaluation = self.Evaluator(
+        self.evaluator = self.Evaluator(
             parts=self.parts,
             location=self.world_coords,
         )
 
         # --- Select fastener (based on evaluation)
         self.selector = self.Selector(
-            evaluation=self.evaluation,
+            evaluator=self.evaluator,
         )
 
-        # --- add components
+        # --- Add components
         return self.selector.components
 
     def make_constraints(self):
-        # --- Create mates from evaluation results
+        # --- Place fastener parts
         return self.selector.constraints
 
     def make_alterations(self):
+        # --- Make alterations based on evaluation and selection
         self.applicator = self.Applicator(
-            evaluation=self.evaluation,
+            evaluator=self.evaluator,
             selector=self.selector,
         )
-        self.applicator.apply()
+        self.applicator.apply_alterations()
