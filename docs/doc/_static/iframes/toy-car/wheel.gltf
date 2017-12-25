@@ -4,7 +4,7 @@
       "bufferView": 0, 
       "byteOffset": 0, 
       "componentType": 5126, 
-      "count": 956, 
+      "count": 908, 
       "max": [
         15.1, 
         15.098736066637253, 
@@ -21,7 +21,7 @@
       "bufferView": 1, 
       "byteOffset": 0, 
       "componentType": 5123, 
-      "count": 4962, 
+      "count": 5448, 
       "type": "SCALAR"
     }
   ], 
@@ -32,21 +32,21 @@
   "bufferViews": [
     {
       "buffer": 0, 
-      "byteLength": 11472, 
+      "byteLength": 10896, 
       "byteOffset": 0, 
       "byteStride": 12, 
       "target": 34962
     }, 
     {
       "buffer": 0, 
-      "byteLength": 9924, 
-      "byteOffset": 11472, 
+      "byteLength": 10896, 
+      "byteOffset": 10896, 
       "target": 34963
     }
   ], 
   "buffers": [
     {
-      "byteLength": 21396, 
+      "byteLength": 21792, 
       "uri": "wheel.bin"
     }
   ], 
@@ -59,8 +59,8 @@
           0.149, 
           1.0
         ], 
-        "metallicFactor": 0.6, 
-        "roughnessFactor": 0.6
+        "metallicFactor": 0.1, 
+        "roughnessFactor": 0.7
       }
     }
   ], 

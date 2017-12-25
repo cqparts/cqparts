@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../../index.html"/>
         <link rel="up" title="Parts &amp; Assembiles" href="../index.html"/>
-        <link rel="next" title="Built-in Fasteners" href="builtin.html"/>
+        <link rel="next" title="What is a Fastener?" href="what.html"/>
         <link rel="prev" title="Assembly Build Cycle" href="../assembly-build-cycle.html"/> 
 
   
@@ -103,13 +103,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Fasteners</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="builtin.html">Built-in Fasteners</a></li>
-<li class="toctree-l3"><a class="reference internal" href="using.html">Using Fasteners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="what.html">What is a Fastener?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="heads.html">Types : Fastener Head</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screw-drives.html">Types : Screw Drive</a></li>
 <li class="toctree-l3"><a class="reference internal" href="threads.html">Types : Thread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom.html">Create Your Own Fastener</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#definition">Definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#creating-a-fastener">Creating a Fastener</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#making-your-own-fastener">Making your own Fastener</a></li>
 </ul>
@@ -191,11 +190,12 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="builtin.html">Built-in Fasteners</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using.html">Using Fasteners</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="using.html#evaluation">Evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using.html#selection">Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="using.html#application">Application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="what.html">What is a Fastener?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using.html#evaluator">Evaluator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#selector">Selector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#applicator">Applicator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#built-cycle">Built Cycle</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="heads.html">Types : Fastener Head</a></li>
@@ -203,31 +203,6 @@
 <li class="toctree-l1"><a class="reference internal" href="threads.html">Types : Thread</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom.html">Create Your Own Fastener</a></li>
 </ul>
-</div>
-<div class="section" id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
-<p>A fastener is something that mechanically connects 2 or more <em>things</em> together,
-such as a screw, bolt, or nail.
-For us, a <a class="reference internal" href="../../api/cqparts.fasteners.html#cqparts.fasteners.Fastener" title="cqparts.fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> is an
-<a class="reference internal" href="../../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> containing 1 or more
-<a class="reference internal" href="../../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
-<p>For example, nut and bolt with washers either side would be a single fastener
-assembly with a hierarchy of:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>my_bolt_fastener
-   ├─○ bolt
-   ├─○ washer_head
-   ├─○ washer_nut
-   └─○ nut
-</pre></div>
-</div>
-<p>where all of <code class="docutils literal"><span class="pre">nut</span></code>, <code class="docutils literal"><span class="pre">washer_head</span></code>, <code class="docutils literal"><span class="pre">washer_nut</span></code> &amp; <code class="docutils literal"><span class="pre">bolt</span></code> are <code class="xref py py-class docutils literal"><span class="pre">Part</span></code> instances.</p>
-<p>Whereas something like a screw would just have:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>my_screw_fastener
-   └─○ screw
-</pre></div>
-</div>
-<p>Which seems like an unnecessary layer, but programatically it serves very well
-to distinguish between parts that constitute a fastener, and which don’t.</p>
 </div>
 <div class="section" id="creating-a-fastener">
 <h2>Creating a Fastener<a class="headerlink" href="#creating-a-fastener" title="Permalink to this headline">¶</a></h2>
@@ -249,7 +224,7 @@ I’ll try to cover the basics</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="builtin.html" class="btn btn-neutral float-right" title="Built-in Fasteners" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="what.html" class="btn btn-neutral float-right" title="What is a Fastener?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../assembly-build-cycle.html" class="btn btn-neutral" title="Assembly Build Cycle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

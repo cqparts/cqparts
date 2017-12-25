@@ -363,14 +363,14 @@ attributes to union with the axel.</p>
 </div>
 <div class="section" id="rendering">
 <h2>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h2>
-<p>In the above examples, you can see we’re using <a class="reference internal" href="../api/cqparts.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>
-from the <a class="reference internal" href="../api/cqparts.html#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> module.</p>
+<p>In the above examples, you can see we’re using <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>
+from the <a class="reference internal" href="../api/cqparts.display.html#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> module.</p>
 <p>When parts are displayed or exported, their colour, transparency, among other
 attributes are stored with the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 <p>This detail is stored in a hidden property called <code class="docutils literal"><span class="pre">_render</span></code>.</p>
 <p>We can change a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> default render properties by replacing the
 default <code class="docutils literal"><span class="pre">_render</span></code> property with our own using
-<a class="reference internal" href="../api/cqparts.html#cqparts.display.render_props" title="cqparts.display.render_props"><code class="xref py py-meth docutils literal"><span class="pre">render_props()</span></code></a>.</p>
+<a class="reference internal" href="../api/cqparts.display.html#cqparts.display.render_props" title="cqparts.display.render_props"><code class="xref py py-meth docutils literal"><span class="pre">render_props()</span></code></a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span>
 
 <span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>

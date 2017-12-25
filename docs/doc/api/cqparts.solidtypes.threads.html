@@ -108,6 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -117,7 +118,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
@@ -204,7 +204,7 @@
 <span id="cqparts-solidtypes-threads-ball-screw-module"></span><h2>cqparts.solidtypes.threads.ball_screw module<a class="headerlink" href="#module-cqparts.solidtypes.threads.ball_screw" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.ball_screw.</code><code class="descname">BallScrewThread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.ball_screw.</code><code class="descname">BallScrewThread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -217,11 +217,14 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>ball_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – ball’s radius</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s diameter</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s length</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pilothole_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – explicitly set pilothole radius, overrides <code class="docutils literal"><span class="pre">pilothole_ratio</span></code></li>
+<li><strong>pilothole_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – sets thread’s pilot hole using <em>inner</em> and <em>outer</em> thread radii: <span class="math">\(radius = inner + ratio \times (outer-inner)\)</span></li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
@@ -231,6 +234,11 @@
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread.get_radii">
+<code class="descname">get_radii</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread.get_radii" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -251,8 +259,8 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.threads.base.Thread">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
@@ -263,11 +271,14 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s diameter</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s length</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pilothole_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – explicitly set pilothole radius, overrides <code class="docutils literal"><span class="pre">pilothole_ratio</span></code></li>
+<li><strong>pilothole_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – sets thread’s pilot hole using <em>inner</em> and <em>outer</em> thread radii: <span class="math">\(radius = inner + ratio \times (outer-inner)\)</span></li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
@@ -277,7 +288,10 @@
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.base.Thread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire</p>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
+on the <span class="math">\(XZ\)</span> plane.</p>
+<p>It will be used as an input to
+<a class="reference internal" href="#cqparts.solidtypes.threads.base.profile_to_cross_section" title="cqparts.solidtypes.threads.base.profile_to_cross_section"><code class="xref py py-meth docutils literal"><span class="pre">profile_to_cross_section</span></code></a></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This function must be overridden by the inheriting class in order
@@ -296,22 +310,82 @@ to construct a thread.</p>
         <span class="p">]</span>
         <span class="n">profile</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
             <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>  <span class="c1"># .wire() is mandatory</span>
 </pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">thread profile as a wire on the XZ plane</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Wire must be built on the <span class="math">\(XZ\)</span> plane (as shown in the
+example). If it is not, the thread <em>may</em> not be generated correctly.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.base.Thread.get_radii">
+<code class="descname">get_radii</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.get_radii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the inner and outer radii of the thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(&lt;inner radius&gt;, &lt;outer radius&gt;)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ideally this method is overridden in inheriting classes to
+mathematically determine the radii.</p>
+<p class="last">Default action is to generate the profile, then use the
+bounding box to determine min &amp; max radii. However this method is
+prone to small numeric error.</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.base.Thread.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.base.Thread.make_pilothole_cutter">
+<code class="descname">make_pilothole_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.make_pilothole_cutter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a solid to subtract from an interfacing solid to bore a pilot-hole.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.base.Thread.make_simple">
+<code class="descname">make_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.make_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cylinder with the thread’s average radius &amp; length.</p>
+<p><span class="math">\(radius = (inner_radius + outer_radius) / 2\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.solidtypes.threads.base.Thread.profile">
+<code class="descname">profile</code><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread.profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread.build_profile" title="cqparts.solidtypes.threads.base.Thread.build_profile"><code class="xref py py-meth docutils literal"><span class="pre">build_profile()</span></code></a></p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.base.find">
 <code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.find" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Find a registered <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> class by name.</p>
+<p>For details, see <a class="reference internal" href="#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
+</dd></dl>
 
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.base.helical_path">
@@ -388,14 +462,50 @@ where: len(min_vertices) == number of edges in profile</p>
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.base.thread">
 <code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.thread" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Register a thread so it may be found with <a class="reference internal" href="#cqparts.solidtypes.threads.base.find" title="cqparts.solidtypes.threads.base.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">thread</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="nd">@thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;outer radius as ratio of inner&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> \
+            <span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, when creating your thread:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">find</span> <span class="k">as</span> <span class="n">find_thread</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">find_thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)(</span>
+            <span class="n">diameter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Foo</span><span class="p">())</span>  
+</pre></div>
+</div>
+<p>Gives us this:</p>
+<img alt="../_images/solidtypes.threads.base.thread.register01.png" src="../_images/solidtypes.threads.base.thread.register01.png" />
+</dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.solidtypes.threads.iso_262">
-<span id="cqparts-solidtypes-threads-iso-262-module"></span><h2>cqparts.solidtypes.threads.iso_262 module<a class="headerlink" href="#module-cqparts.solidtypes.threads.iso_262" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.solidtypes.threads.iso262">
+<span id="cqparts-solidtypes-threads-iso262-module"></span><h2>cqparts.solidtypes.threads.iso262 module<a class="headerlink" href="#module-cqparts.solidtypes.threads.iso262" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.solidtypes.threads.iso_262.ISO262Thread">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.iso_262.</code><code class="descname">ISO262Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso_262.ISO262Thread" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.solidtypes.threads.iso262.ISO262Thread">
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.iso262.</code><code class="descname">ISO262Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso262.ISO262Thread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -407,11 +517,14 @@ where: len(min_vertices) == number of edges in profile</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s diameter</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s length</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pilothole_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – explicitly set pilothole radius, overrides <code class="docutils literal"><span class="pre">pilothole_ratio</span></code></li>
+<li><strong>pilothole_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – sets thread’s pilot hole using <em>inner</em> and <em>outer</em> thread radii: <span class="math">\(radius = inner + ratio \times (outer-inner)\)</span></li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
 <li><strong>rounding_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
@@ -420,10 +533,15 @@ where: len(min_vertices) == number of edges in profile</p>
 </tbody>
 </table>
 <dl class="method">
-<dt id="cqparts.solidtypes.threads.iso_262.ISO262Thread.build_profile">
-<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso_262.ISO262Thread.build_profile" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.solidtypes.threads.iso262.ISO262Thread.build_profile">
+<code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso262.ISO262Thread.build_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a thread profile in specified by ISO 262</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.iso262.ISO262Thread.get_radii">
+<code class="descname">get_radii</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso262.ISO262Thread.get_radii" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -432,7 +550,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <span id="cqparts-solidtypes-threads-triangular-module"></span><h2>cqparts.solidtypes.threads.triangular module<a class="headerlink" href="#module-cqparts.solidtypes.threads.triangular" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.threads.triangular.TriangularThread">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.triangular.</code><code class="descname">TriangularThread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.triangular.</code><code class="descname">TriangularThread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -444,12 +562,16 @@ where: len(min_vertices) == number of edges in profile</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>angle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – pressure angle of thread</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s diameter</li>
+<li><strong>diameter_core</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diamter of core</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s length</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pilothole_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – explicitly set pilothole radius, overrides <code class="docutils literal"><span class="pre">pilothole_ratio</span></code></li>
+<li><strong>pilothole_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – sets thread’s pilot hole using <em>inner</em> and <em>outer</em> thread radii: <span class="math">\(radius = inner + ratio \times (outer-inner)\)</span></li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
-<li><strong>radius_core</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – radius of valley</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
@@ -461,6 +583,16 @@ where: len(min_vertices) == number of edges in profile</p>
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread.build_profile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.triangular.TriangularThread.get_radii">
+<code class="descname">get_radii</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread.get_radii" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.triangular.TriangularThread.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -468,8 +600,8 @@ where: len(min_vertices) == number of edges in profile</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.solidtypes.threads" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.threads.Thread">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
@@ -480,11 +612,14 @@ where: len(min_vertices) == number of edges in profile</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s diameter</li>
 <li><strong>inner</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is to be cut from a solid to form an inner thread</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, thread is spun in the opposite direction</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s length</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or list(<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>)) – minimum vertices used cross-section’s wire</li>
+<li><strong>pilothole_radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – explicitly set pilothole radius, overrides <code class="docutils literal"><span class="pre">pilothole_ratio</span></code></li>
+<li><strong>pilothole_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – sets thread’s pilot hole using <em>inner</em> and <em>outer</em> thread radii: <span class="math">\(radius = inner + ratio \times (outer-inner)\)</span></li>
 <li><strong>pitch</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread’s pitch</li>
-<li><strong>radius</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – thread radius</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
@@ -494,7 +629,10 @@ where: len(min_vertices) == number of edges in profile</p>
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.Thread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire</p>
+<dd><p>Build the thread’s profile in a cadquery.Workplace as a wire
+on the <span class="math">\(XZ\)</span> plane.</p>
+<p>It will be used as an input to
+<a class="reference internal" href="#cqparts.solidtypes.threads.base.profile_to_cross_section" title="cqparts.solidtypes.threads.base.profile_to_cross_section"><code class="xref py py-meth docutils literal"><span class="pre">profile_to_cross_section</span></code></a></p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This function must be overridden by the inheriting class in order
@@ -513,27 +651,123 @@ to construct a thread.</p>
         <span class="p">]</span>
         <span class="n">profile</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
             <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">profile</span><span class="o">.</span><span class="n">wire</span><span class="p">()</span>  <span class="c1"># .wire() is mandatory</span>
 </pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">thread profile as a wire on the XZ plane</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Wire must be built on the <span class="math">\(XZ\)</span> plane (as shown in the
+example). If it is not, the thread <em>may</em> not be generated correctly.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.Thread.get_radii">
+<code class="descname">get_radii</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.get_radii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the inner and outer radii of the thread.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">(&lt;inner radius&gt;, &lt;outer radius&gt;)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Ideally this method is overridden in inheriting classes to
+mathematically determine the radii.</p>
+<p class="last">Default action is to generate the profile, then use the
+bounding box to determine min &amp; max radii. However this method is
+prone to small numeric error.</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.Thread.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.Thread.make_pilothole_cutter">
+<code class="descname">make_pilothole_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.make_pilothole_cutter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a solid to subtract from an interfacing solid to bore a pilot-hole.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.threads.Thread.make_simple">
+<code class="descname">make_simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.make_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cylinder with the thread’s average radius &amp; length.</p>
+<p><span class="math">\(radius = (inner_radius + outer_radius) / 2\)</span></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.solidtypes.threads.Thread.profile">
+<code class="descname">profile</code><a class="headerlink" href="#cqparts.solidtypes.threads.Thread.profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buffered result of <a class="reference internal" href="#cqparts.solidtypes.threads.Thread.build_profile" title="cqparts.solidtypes.threads.Thread.build_profile"><code class="xref py py-meth docutils literal"><span class="pre">build_profile()</span></code></a></p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.thread">
 <code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.thread" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Register a thread so it may be found with <a class="reference internal" href="#cqparts.solidtypes.threads.find" title="cqparts.solidtypes.threads.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">thread</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="nd">@thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;outer radius as ratio of inner&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> \
+            <span class="o">.</span><span class="n">wire</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then, when creating your thread:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">find</span> <span class="k">as</span> <span class="n">find_thread</span>
+
+<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">find_thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)(</span>
+            <span class="n">diameter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Foo</span><span class="p">())</span>  
+</pre></div>
+</div>
+<p>Gives us this:</p>
+<img alt="../_images/solidtypes.threads.base.thread.register01.png" src="../_images/solidtypes.threads.base.thread.register01.png" />
+</dd></dl>
 
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.find">
 <code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.find" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Find a registered <a class="reference internal" href="#cqparts.solidtypes.threads.Thread" title="cqparts.solidtypes.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> class by name.</p>
+<p>For details, see <a class="reference internal" href="#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
+</dd></dl>
 
 </div>
 </div>

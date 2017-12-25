@@ -40,7 +40,7 @@
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts.fasteners.utils package" href="cqparts.fasteners.utils.html"/>
-        <link rel="prev" title="cqparts.constraint package" href="cqparts.constraint.html"/> 
+        <link rel="prev" title="cqparts.display package" href="cqparts.display.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -108,6 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -117,7 +118,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
@@ -219,23 +219,321 @@
 <dt id="cqparts.fasteners.base.Fastener">
 <em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">Fastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Assembly</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (<em>[</em><em>unknown</em><em>]</em>) – List of parts being fastened</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="cqparts.fasteners.base.Fastener.Applicator">
+<em class="property">class </em><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>The <em>applicator</em> performs 2 roles to <em>apply</em> a fastener to workpieces</p>
+<ol class="arabic simple">
+<li>Translate &amp; rotate given <em>fastener</em></li>
+<li>Change workpieces to suit a given <em>fastener</em></li>
+</ol>
+<p>Translation is done first because the fastener is sometimes used as a
+cutting tool to subtract from mating part(s) (eg: thread tapping).</p>
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Applicator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Applicator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>evaluator</strong> (<a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.Evaluator" title="cqparts.fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a>) – evaluator for fastener</li>
+<li><strong>selector</strong> (<a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.Selector" title="cqparts.fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>) – selector for fastener</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply alterations to relevant parts based on the selected parts</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.fasteners.base.FastenerFemale">
-<em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">FastenerFemale</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerFemale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<dt id="cqparts.fasteners.base.Fastener.Evaluator">
+<em class="property">class </em><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>An evaluator determines which parts may be effected by a fastener, and how.</p>
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Evaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Evaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.Fastener.Evaluator.eval">
+<code class="descname">eval</code><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Evaluator.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the result of <a class="reference internal" href="#cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation" title="cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a>, and buffer it so it’s
+only run once per <code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result from <a class="reference internal" href="#cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation" title="cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Evaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the given parts using any additional parameters passed
+to this instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Override this funciton in your <em>evaluator</em> class to assess what
+parts are effected, and how.</p>
+</div>
+<p>Default behaviour: do nothing, return nothing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.base.Fastener.Selector">
+<em class="property">class </em><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Selector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>evaluator</strong> (<code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code>) – evaluator of fastener parts</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.Fastener.Selector.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.base.Fastener.Selector.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector.constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return components</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.make_alterations">
+<code class="descname">make_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.make_alterations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.make_components">
+<code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.make_components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.base.Fastener.make_constraints">
+<code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.Fastener.make_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.bolts">
+<span id="cqparts-fasteners-bolts-module"></span><h2>cqparts.fasteners.bolts module<a class="headerlink" href="#module-cqparts.fasteners.bolts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.bolts.Bolt">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">Bolt</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.Bolt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.male.MaleFastenerPart</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
+<li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length from xy plane to tip</li>
+<li><strong>neck_diam</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – neck radius, defaults to thread’s outer radius</li>
+<li><strong>neck_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of neck, includes taper</li>
+<li><strong>neck_taper</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – angle of neck’s taper (0 is parallel with neck)</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>tip_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of tip’s point</li>
+<li><strong>tip_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of taper on a pointed tip</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.bolts.HexBolt">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">HexBolt</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.HexBolt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.bolts.Bolt" title="cqparts.fasteners.bolts.Bolt"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.bolts.Bolt</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
+<li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length from xy plane to tip</li>
+<li><strong>neck_diam</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – neck radius, defaults to thread’s outer radius</li>
+<li><strong>neck_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of neck, includes taper</li>
+<li><strong>neck_taper</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – angle of neck’s taper (0 is parallel with neck)</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>tip_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of tip’s point</li>
+<li><strong>tip_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of taper on a pointed tip</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.bolts.SquareBolt">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">SquareBolt</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.SquareBolt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.bolts.Bolt" title="cqparts.fasteners.bolts.Bolt"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.bolts.Bolt</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
+<li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length from xy plane to tip</li>
+<li><strong>neck_diam</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – neck radius, defaults to thread’s outer radius</li>
+<li><strong>neck_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of neck, includes taper</li>
+<li><strong>neck_taper</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – angle of neck’s taper (0 is parallel with neck)</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>tip_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of tip’s point</li>
+<li><strong>tip_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of taper on a pointed tip</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.female">
+<span id="cqparts-fasteners-female-module"></span><h2>cqparts.fasteners.female module<a class="headerlink" href="#module-cqparts.fasteners.female" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.female.FemaleFastenerPart">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.female.</code><code class="descname">FemaleFastenerPart</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.female.FemaleFastenerPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.solidtypes.fastener_heads.html#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of edges on fastener head</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – height of nut</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – width of tool reqiured to fasten nut</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Female fastener part; with an internal thread</p>
 <p>For a <em>nut</em> and <em>bolt</em>:</p>
 <ul class="simple">
 <li><em>nut</em> : female</li>
 <li><em>bolt</em> : male</li>
 </ul>
+<dl class="method">
+<dt id="cqparts.fasteners.female.FemaleFastenerPart.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.female.FemaleFastenerPart.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.female.FemaleFastenerPart.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.female.FemaleFastenerPart.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
+</div>
+<div class="section" id="module-cqparts.fasteners.male">
+<span id="cqparts-fasteners-male-module"></span><h2>cqparts.fasteners.male module<a class="headerlink" href="#module-cqparts.fasteners.male" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.fasteners.base.FastenerMalePart">
-<em class="property">class </em><code class="descclassname">cqparts.fasteners.base.</code><code class="descname">FastenerMalePart</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.fasteners.male.MaleFastenerPart">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.male.</code><code class="descname">MaleFastenerPart</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.male.MaleFastenerPart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -249,34 +547,213 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
 <li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
-<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length from xy plane to tip</li>
+<li><strong>neck_diam</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – neck radius, defaults to thread’s outer radius</li>
+<li><strong>neck_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of neck, includes taper</li>
+<li><strong>neck_taper</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – angle of neck’s taper (0 is parallel with neck)</li>
 <li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>tip_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of tip’s point</li>
+<li><strong>tip_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of taper on a pointed tip</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <p>Male fastener part; with an external thread</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                           <span class="n">_________</span>  <span class="n">__</span> <span class="n">head</span> <span class="n">height</span>
+                          <span class="o">|</span> \<span class="o">/</span>   \<span class="o">/</span> <span class="o">|</span>
+        <span class="n">z</span><span class="o">=</span><span class="mi">0</span> <span class="n">__</span> <span class="n">_________</span>  <span class="o">|</span><span class="n">_</span><span class="o">/</span>\<span class="n">___</span><span class="o">/</span>\<span class="n">_</span><span class="o">|</span> <span class="n">__</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span> <span class="p">(</span><span class="n">on</span> <span class="n">x</span><span class="o">/</span><span class="n">y</span> <span class="n">plane</span><span class="p">,</span> <span class="o">+</span><span class="n">z</span> <span class="ow">is</span> <span class="n">up</span><span class="p">)</span>
+               \       <span class="o">/</span>    <span class="o">|</span>     <span class="o">|</span>
+<span class="n">head</span> <span class="n">height</span> <span class="n">__</span>  \     <span class="o">/</span>     <span class="o">|</span>     <span class="o">|</span>
+                 <span class="o">|</span>   <span class="o">|</span>      <span class="o">|</span>     <span class="o">|</span>   <span class="n">__</span> <span class="n">neck</span> <span class="n">length</span> <span class="p">(</span><span class="n">excludes</span> <span class="n">taper</span><span class="p">)</span>
+                <span class="o">-</span>\<span class="o">---/-</span>     <span class="o">-</span>\<span class="o">---/-</span>
+                <span class="o">-|---|-</span>     <span class="o">-|---|-</span>
+                <span class="o">-|---|-</span>     <span class="o">-|---|-</span>
+                <span class="o">-|---|-</span>     <span class="o">-|---|-</span>   <span class="n">__</span> <span class="n">tip</span> <span class="p">(</span><span class="n">length</span> <span class="kn">from</span> <span class="nn">bottom</span><span class="p">)</span>
+                <span class="o">-</span>\<span class="o">---/-</span>     <span class="o">-</span>\<span class="o">---/-</span>
+                  \<span class="n">_</span><span class="o">/</span>         \<span class="n">_</span><span class="o">/</span>     <span class="n">__</span> <span class="n">length</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Tip thread tapering has not been implemented, except in
+the simplified model.</p>
+</div>
 <dl class="method">
-<dt id="cqparts.fasteners.base.FastenerMalePart.make">
-<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.base.FastenerMalePart.make" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.fasteners.male.MaleFastenerPart.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.male.MaleFastenerPart.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.male.MaleFastenerPart.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.male.MaleFastenerPart.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.male.MaleFastenerPart.make_cutter">
+<code class="descname">make_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.male.MaleFastenerPart.make_cutter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.fasteners.bolts">
-<span id="cqparts-fasteners-bolts-module"></span><h2>cqparts.fasteners.bolts module<a class="headerlink" href="#module-cqparts.fasteners.bolts" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cqparts.fasteners.nutboltfastener">
+<span id="cqparts-fasteners-nutboltfastener-module"></span><h2>cqparts.fasteners.nutboltfastener module<a class="headerlink" href="#module-cqparts.fasteners.nutboltfastener" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cqparts.fasteners.bolts.Bolt">
-<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">Bolt</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.Bolt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.nutboltfastener.</code><code class="descname">NutAndBoltFastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.base.Fastener" title="cqparts.fasteners.base.Fastener"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.base.Fastener</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (<em>[</em><em>unknown</em><em>]</em>) – List of parts being fastened</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Applicator">
+<em class="property">class </em><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.applicator.Applicator" title="cqparts.fasteners.utils.applicator.Applicator"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.utils.applicator.Applicator</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Evaluator">
+<code class="descname">Evaluator</code><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></p>
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.fasteners.bolts.UBolt">
-<em class="property">class </em><code class="descclassname">cqparts.fasteners.bolts.</code><code class="descname">UBolt</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.bolts.UBolt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector">
+<em class="property">class </em><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.selector.Selector" title="cqparts.fasteners.utils.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.utils.selector.Selector</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nutboltfastener.NutAndBoltFastener.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.fasteners.nuts">
+<span id="cqparts-fasteners-nuts-module"></span><h2>cqparts.fasteners.nuts module<a class="headerlink" href="#module-cqparts.fasteners.nuts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.fasteners.nuts.HexFlangeNut">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.nuts.</code><code class="descname">HexFlangeNut</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nuts.HexFlangeNut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.female.FemaleFastenerPart" title="cqparts.fasteners.female.FemaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.female.FemaleFastenerPart</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – height of nut</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – width of tool reqiured to fasten nut</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.nuts.HexNut">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.nuts.</code><code class="descname">HexNut</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nuts.HexNut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.female.FemaleFastenerPart" title="cqparts.fasteners.female.FemaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.female.FemaleFastenerPart</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – height of nut</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – width of tool reqiured to fasten nut</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.nuts.SquareNut">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.nuts.</code><code class="descname">SquareNut</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.nuts.SquareNut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.female.FemaleFastenerPart" title="cqparts.fasteners.female.FemaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.female.FemaleFastenerPart</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – height of nut</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
+<li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – width of tool reqiured to fasten nut</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -419,7 +896,9 @@
 <dl class="staticmethod">
 <dt id="cqparts.fasteners.params.ThreadType.finder_callback">
 <em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.finder_callback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Find a registered <code class="xref py py-class docutils literal"><span class="pre">Thread</span></code> class by name.</p>
+<p>For details, see <a class="reference internal" href="cqparts.solidtypes.threads.html#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="cqparts.fasteners.params.ThreadType.name">
@@ -460,7 +939,7 @@
 <dl class="class">
 <dt id="cqparts.fasteners.screws.Screw">
 <em class="property">class </em><code class="descclassname">cqparts.fasteners.screws.</code><code class="descname">Screw</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.Screw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.male.MaleFastenerPart</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
@@ -471,13 +950,78 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>screw_drive</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – [no description]</li>
-<li><strong>thread</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – [no description]</li>
+<li><strong>drive</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.DriveType.type" title="cqparts.fasteners.params.DriveType.type"><code class="xref py py-meth docutils literal"><span class="pre">DriveType.type</span></code></a>) – screw drive type and parameters</li>
+<li><strong>head</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.HeadType.type" title="cqparts.fasteners.params.HeadType.type"><code class="xref py py-meth docutils literal"><span class="pre">HeadType.type</span></code></a>) – head type and parameters</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – screw’s length</li>
+<li><strong>neck_diam</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – neck radius, defaults to thread’s outer radius</li>
+<li><strong>neck_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of neck</li>
+<li><strong>neck_taper</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – angle of neck’s taper (0 is parallel with neck)</li>
+<li><strong>thread</strong> (<code class="docutils literal"><span class="pre">value</span></code> for <a class="reference internal" href="#cqparts.fasteners.params.ThreadType.type" title="cqparts.fasteners.params.ThreadType.type"><code class="xref py py-meth docutils literal"><span class="pre">ThreadType.type</span></code></a>) – thread type and parameters</li>
+<li><strong>tip_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of tip’s point</li>
+<li><strong>tip_length</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – length of taper on a pointed tip</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Part representing a single screw</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.screws.ScrewFastener">
+<em class="property">class </em><code class="descclassname">cqparts.fasteners.screws.</code><code class="descname">ScrewFastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.fasteners.base.Fastener" title="cqparts.fasteners.base.Fastener"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.base.Fastener</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (<em>[</em><em>unknown</em><em>]</em>) – List of parts being fastened</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Applicator">
+<em class="property">class </em><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.applicator.Applicator" title="cqparts.fasteners.utils.applicator.Applicator"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.utils.applicator.Applicator</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Evaluator">
+<code class="descname">Evaluator</code><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Selector">
+<em class="property">class </em><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.selector.Selector" title="cqparts.fasteners.utils.selector.Selector"><code class="xref py py-class docutils literal"><span class="pre">cqparts.fasteners.utils.selector.Selector</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.screws.ScrewFastener.Selector.ratio">
+<code class="descname">ratio</code><em class="property"> = 0.8</em><a class="headerlink" href="#cqparts.fasteners.screws.ScrewFastener.Selector.ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -487,6 +1031,167 @@
 <dt id="cqparts.fasteners.Fastener">
 <em class="property">class </em><code class="descclassname">cqparts.fasteners.</code><code class="descname">Fastener</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Assembly</span></code></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
+<p class="last">That means the following parameters can be set in the constructor.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (<em>[</em><em>unknown</em><em>]</em>) – List of parts being fastened</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="cqparts.fasteners.Fastener.Applicator">
+<em class="property">class </em><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>The <em>applicator</em> performs 2 roles to <em>apply</em> a fastener to workpieces</p>
+<ol class="arabic simple">
+<li>Translate &amp; rotate given <em>fastener</em></li>
+<li>Change workpieces to suit a given <em>fastener</em></li>
+</ol>
+<p>Translation is done first because the fastener is sometimes used as a
+cutting tool to subtract from mating part(s) (eg: thread tapping).</p>
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Applicator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Applicator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>evaluator</strong> (<a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.Evaluator" title="cqparts.fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a>) – evaluator for fastener</li>
+<li><strong>selector</strong> (<a class="reference internal" href="cqparts.fasteners.utils.html#cqparts.fasteners.utils.Selector" title="cqparts.fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>) – selector for fastener</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply alterations to relevant parts based on the selected parts</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.Fastener.Evaluator">
+<em class="property">class </em><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>An evaluator determines which parts may be effected by a fastener, and how.</p>
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Evaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Evaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.Fastener.Evaluator.eval">
+<code class="descname">eval</code><a class="headerlink" href="#cqparts.fasteners.Fastener.Evaluator.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the result of <a class="reference internal" href="#cqparts.fasteners.Fastener.Evaluator.perform_evaluation" title="cqparts.fasteners.Fastener.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a>, and buffer it so it’s
+only run once per <code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result from <a class="reference internal" href="#cqparts.fasteners.Fastener.Evaluator.perform_evaluation" title="cqparts.fasteners.Fastener.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Evaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Evaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the given parts using any additional parameters passed
+to this instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Override this funciton in your <em>evaluator</em> class to assess what
+parts are effected, and how.</p>
+</div>
+<p>Default behaviour: do nothing, return nothing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.fasteners.Fastener.Selector">
+<em class="property">class </em><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Selector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>evaluator</strong> (<code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code>) – evaluator of fastener parts</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.Fastener.Selector.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.fasteners.Fastener.Selector.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector.constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return components</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.make_alterations">
+<code class="descname">make_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.make_alterations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.make_components">
+<code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.make_components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.fasteners.Fastener.make_constraints">
+<code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.Fastener.make_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -505,7 +1210,7 @@
         <a href="cqparts.fasteners.utils.html" class="btn btn-neutral float-right" title="cqparts.fasteners.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cqparts.constraint.html" class="btn btn-neutral" title="cqparts.constraint package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts.display.html" class="btn btn-neutral" title="cqparts.display package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

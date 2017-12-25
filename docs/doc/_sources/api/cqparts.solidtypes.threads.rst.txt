@@ -20,10 +20,10 @@ cqparts\.solidtypes\.threads\.base module
     :undoc-members:
     :show-inheritance:
 
-cqparts\.solidtypes\.threads\.iso\_262 module
----------------------------------------------
+cqparts\.solidtypes\.threads\.iso262 module
+-------------------------------------------
 
-.. automodule:: cqparts.solidtypes.threads.iso_262
+.. automodule:: cqparts.solidtypes.threads.iso262
     :members:
     :undoc-members:
     :show-inheritance:

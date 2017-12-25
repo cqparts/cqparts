@@ -10,6 +10,7 @@ Subpackages
     cqparts.bearings
     cqparts.codec
     cqparts.constraint
+    cqparts.display
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
@@ -19,14 +20,6 @@ Subpackages
 
 Submodules
 ----------
-
-cqparts\.display module
------------------------
-
-.. automodule:: cqparts.display
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 cqparts\.errors module
 ----------------------

@@ -27,6 +27,38 @@ cqparts\.fasteners\.bolts module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.fasteners\.female module
+---------------------------------
+
+.. automodule:: cqparts.fasteners.female
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cqparts\.fasteners\.male module
+-------------------------------
+
+.. automodule:: cqparts.fasteners.male
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cqparts\.fasteners\.nutboltfastener module
+------------------------------------------
+
+.. automodule:: cqparts.fasteners.nutboltfastener
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cqparts\.fasteners\.nuts module
+-------------------------------
+
+.. automodule:: cqparts.fasteners.nuts
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cqparts\.fasteners\.params module
 ---------------------------------
 

@@ -5,41 +5,13 @@ Fasteners
 .. toctree::
    :caption: Contents:
 
-   builtin
+   what
    using
    heads
    screw-drives
    threads
    custom
 
-Definition
-----------
-
-A fastener is something that mechanically connects 2 or more *things* together,
-such as a screw, bolt, or nail.
-For us, a :class:`Fastener <cqparts.fasteners.Fastener>` is an
-:class:`Assembly <cqparts.part.Assembly>` containing 1 or more
-:class:`Part <cqparts.part.Part>` objects.
-
-For example, nut and bolt with washers either side would be a single fastener
-assembly with a hierarchy of::
-
-   my_bolt_fastener
-      ├─○ bolt
-      ├─○ washer_head
-      ├─○ washer_nut
-      └─○ nut
-
-
-where all of ``nut``, ``washer_head``, ``washer_nut`` & ``bolt`` are :class:`Part` instances.
-
-Whereas something like a screw would just have::
-
-   my_screw_fastener
-      └─○ screw
-
-Which seems like an unnecessary layer, but programatically it serves very well
-to distinguish between parts that constitute a fastener, and which don't.
 
 
 Creating a Fastener

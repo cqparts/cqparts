@@ -108,6 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -117,7 +118,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
@@ -297,11 +297,6 @@ only generate a single buffer.</p>
 instance equality?</p>
 </div>
 <dl class="attribute">
-<dt id="cqparts.codec.gltf.GLTFExporter.SCALE">
-<code class="descname">SCALE</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.SCALE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cqparts.codec.gltf.GLTFExporter.TEMPLATE">
 <code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.1.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -454,6 +449,11 @@ asset binary stream.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="cqparts.codec.gltf.GLTFExporter.scale">
+<code class="descname">scale</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="cqparts.codec.gltf.GLTFExporter.tolerance">
 <code class="descname">tolerance</code><em class="property"> = 0.01</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.tolerance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -462,7 +462,7 @@ asset binary stream.</p>
 
 <dl class="class">
 <dt id="cqparts.codec.gltf.ShapeBuffer">
-<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">ShapeBuffer</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">ShapeBuffer</code><span class="sig-paren">(</span><em>max_index=255</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Write byte buffer for a set of polygons</p>
 <p>To create a buffer for a single polygon:</p>
@@ -488,9 +488,22 @@ asset binary stream.</p>
 </pre></div>
 </div>
 <dl class="method">
+<dt id="cqparts.codec.gltf.ShapeBuffer.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>max_index=255</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_index</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#long" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">long</span></code></a>) – maximum index number, if &gt; 65535, 4-byte integers are used</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.codec.gltf.ShapeBuffer.add_poly_index">
 <code class="descname">add_poly_index</code><span class="sig-paren">(</span><em>i</em>, <em>j</em>, <em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.add_poly_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add 3 <code class="docutils literal"><span class="pre">SCALAR</span></code> of <code class="docutils literal"><span class="pre">uint</span></code> (2 bytes each) to the <code class="docutils literal"><span class="pre">idx_data</span></code> buffer.</p>
+<dd><p>Add 3 <code class="docutils literal"><span class="pre">SCALAR</span></code> of <code class="docutils literal"><span class="pre">uint</span></code> to the <code class="docutils literal"><span class="pre">idx_data</span></code> buffer.</p>
 </dd></dl>
 
 <dl class="method">
@@ -524,8 +537,8 @@ asset binary stream.</p>
 <dl class="attribute">
 <dt id="cqparts.codec.gltf.ShapeBuffer.idx_size">
 <code class="descname">idx_size</code><a class="headerlink" href="#cqparts.codec.gltf.ShapeBuffer.idx_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of <code class="docutils literal"><span class="pre">idx_data</span></code> in UINTs.
-(ie: number of 2 byte groups)</p>
+<dd><p>Number of <code class="docutils literal"><span class="pre">idx_data</span></code> elements.
+(ie: number of 2 or 4 byte groups)</p>
 <p>See <a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size">Accessor Element Size</a>
 in the glTF docs for clarification.</p>
 </dd></dl>
@@ -1094,11 +1107,6 @@ only generate a single buffer.</p>
 instance equality?</p>
 </div>
 <dl class="attribute">
-<dt id="cqparts.codec.GLTFExporter.SCALE">
-<code class="descname">SCALE</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.SCALE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="cqparts.codec.GLTFExporter.TEMPLATE">
 <code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.1.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1249,6 +1257,11 @@ asset binary stream.</p>
 </pre></div>
 </div>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.codec.GLTFExporter.scale">
+<code class="descname">scale</code><em class="property"> = 0.001</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cqparts.codec.GLTFExporter.tolerance">

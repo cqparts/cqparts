@@ -108,6 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
@@ -117,7 +118,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.display">cqparts.display module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
@@ -204,8 +204,8 @@
 <span id="cqparts-solidtypes-fastener-heads-base-module"></span><h2>cqparts.solidtypes.fastener_heads.base module<a class="headerlink" href="#module-cqparts.solidtypes.fastener_heads.base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.base.FastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.base.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.base.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
@@ -216,8 +216,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -230,9 +232,15 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.solidtypes.fastener_heads.base.FastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead.make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create fastener head solid and return it</p>
+<dt id="cqparts.solidtypes.fastener_heads.base.FastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.fastener_heads.base.FastenerHead.make_cutter">
+<code class="descname">make_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead.make_cutter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create solid to subtract from material to make way for the fastener’s
+head (just the head)</p>
 </dd></dl>
 
 </dd></dl>
@@ -252,7 +260,7 @@
 <span id="cqparts-solidtypes-fastener-heads-counter-sunk-module"></span><h2>cqparts.solidtypes.fastener_heads.counter_sunk module<a class="headerlink" href="#module-cqparts.solidtypes.fastener_heads.counter_sunk" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkBugleFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkBugleFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkBugleFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -264,11 +272,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
 <li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 </ul>
 </td>
@@ -279,7 +289,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="cqparts.solidtypes.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.base.FastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -291,11 +301,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
 <li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 </ul>
 </td>
@@ -308,20 +320,26 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_raised">
-<code class="descname">get_raised</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.get_raised" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.make_cutter">
+<code class="descname">make_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead.make_cutter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add countersunk cone to cutter</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkRaisedFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.counter_sunk.</code><code class="descname">CounterSunkRaisedFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkRaisedFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead" title="cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.counter_sunk.CounterSunkFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -333,11 +351,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
 <li><strong>bugle</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>bugle_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>raised</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 </ul>
 </td>
@@ -351,7 +371,7 @@
 <span id="cqparts-solidtypes-fastener-heads-cylindrical-module"></span><h2>cqparts.solidtypes.fastener_heads.cylindrical module<a class="headerlink" href="#module-cqparts.solidtypes.fastener_heads.cylindrical" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.CheeseFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">CheeseFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CheeseFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">CheeseFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CheeseFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -363,11 +383,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -377,7 +399,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">CylindricalFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">CylindricalFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="cqparts.solidtypes.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.base.FastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -389,11 +411,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -406,14 +430,14 @@
 
 <dl class="method">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.DomeFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">DomeFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.DomeFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">DomeFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.DomeFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -425,11 +449,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -439,7 +465,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.PanFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">PanFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.PanFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">PanFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.PanFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -451,11 +477,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -465,7 +493,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.RoundCoachFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">RoundCoachFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundCoachFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">RoundCoachFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundCoachFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead" title="cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -477,15 +505,17 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
 <li><strong>coach_chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>coach_head</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>coach_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>coach_width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -495,7 +525,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">RoundFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">RoundFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead" title="cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.cylindrical.CylindricalFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -507,15 +537,17 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
 <li><strong>coach_chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>coach_head</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>coach_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>coach_width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>dome_ratio</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>domed</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>fillet</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -528,14 +560,14 @@
 
 <dl class="method">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.RoundFastenerHead.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.cylindrical.TrapezoidalFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">TrapezoidalFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.TrapezoidalFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.cylindrical.</code><code class="descname">TrapezoidalFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.cylindrical.TrapezoidalFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="cqparts.solidtypes.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.base.FastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -547,9 +579,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>diameter_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -572,7 +606,7 @@
 <span id="cqparts-solidtypes-fastener-heads-driven-module"></span><h2>cqparts.solidtypes.fastener_heads.driven module<a class="headerlink" href="#module-cqparts.solidtypes.fastener_heads.driven" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">DrivenFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">DrivenFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.base.FastenerHead" title="cqparts.solidtypes.fastener_heads.base.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.base.FastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -584,14 +618,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of edges on fastener head</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – distance between flats</li>
 </ul>
 </td>
 </tr>
@@ -609,14 +647,14 @@
 
 <dl class="method">
 <dt id="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead.make" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead.make" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.driven.HexFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">HexFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.HexFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">HexFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.HexFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -628,14 +666,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – distance between flats</li>
 </ul>
 </td>
 </tr>
@@ -645,7 +687,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.driven.HexFlangeFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">HexFlangeFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.HexFlangeFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">HexFlangeFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.HexFlangeFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -657,14 +699,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – distance between flats</li>
 </ul>
 </td>
 </tr>
@@ -674,7 +720,7 @@
 
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.driven.SquareFastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">SquareFastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.SquareFastenerHead" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.driven.</code><code class="descname">SquareFastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.driven.SquareFastenerHead" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead" title="cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.fastener_heads.driven.DrivenFastenerHead</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -686,14 +732,18 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>chamfer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – chamfer value (default: <span class="math">\(d/15\)</span>)</li>
+<li><strong>chamfer_base</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, base edges are chamfered</li>
+<li><strong>chamfer_top</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if chamfer is set, top edges are chamfered</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
 <li><strong>edges</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 <li><strong>washer</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – [no description]</li>
 <li><strong>washer_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
 <li><strong>washer_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – distance between flats</li>
 </ul>
 </td>
 </tr>
@@ -706,8 +756,8 @@
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.solidtypes.fastener_heads" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.solidtypes.fastener_heads.FastenerHead">
-<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.FastenerHead" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.ParametricObject</span></code></a></p>
+<em class="property">class </em><code class="descclassname">cqparts.solidtypes.fastener_heads.</code><code class="descname">FastenerHead</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.FastenerHead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
@@ -718,8 +768,10 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
-<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>access_diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – diameter of circle alowing tool access above fastener (defaults to diameter)</li>
+<li><strong>access_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – depth of hole providing access (default 1m)</li>
+<li><strong>diameter</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head diameter</li>
+<li><strong>height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – fastener head height</li>
 </ul>
 </td>
 </tr>
@@ -732,9 +784,15 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.solidtypes.fastener_heads.FastenerHead.make">
-<code class="descname">make</code><span class="sig-paren">(</span><em>offset=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.FastenerHead.make" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create fastener head solid and return it</p>
+<dt id="cqparts.solidtypes.fastener_heads.FastenerHead.initialize_parameters">
+<code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.FastenerHead.initialize_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.solidtypes.fastener_heads.FastenerHead.make_cutter">
+<code class="descname">make_cutter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.fastener_heads.FastenerHead.make_cutter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create solid to subtract from material to make way for the fastener’s
+head (just the head)</p>
 </dd></dl>
 
 </dd></dl>

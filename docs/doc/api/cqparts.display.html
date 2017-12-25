@@ -1,0 +1,733 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts.display package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts package" href="cqparts.html"/>
+        <link rel="next" title="cqparts.fasteners package" href="cqparts.fasteners.html"/>
+        <link rel="prev" title="cqparts.constraint package" href="cqparts.constraint.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.display package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">cqparts</a> &raquo;</li>
+        
+          <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
+        
+      <li>cqparts.display package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-display-package">
+<h1>cqparts.display package<a class="headerlink" href="#cqparts-display-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts.display.freecad">
+<span id="cqparts-display-freecad-module"></span><h2>cqparts.display.freecad module<a class="headerlink" href="#module-cqparts.display.freecad" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.display.freecad.freecad_display">
+<code class="descclassname">cqparts.display.freecad.</code><code class="descname">freecad_display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad.freecad_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display given component in FreeCAD</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to render</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.display.material">
+<span id="cqparts-display-material-module"></span><h2>cqparts.display.material module<a class="headerlink" href="#module-cqparts.display.material" title="Permalink to this headline">¶</a></h2>
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderParam">
+<code class="descclassname">cqparts.display.material.</code><code class="descname">RenderParam</code><a class="headerlink" href="#cqparts.display.material.RenderParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cqparts.display.material.RenderProps" title="cqparts.display.material.RenderProps"><code class="xref py py-class docutils literal"><span class="pre">RenderProps</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.display.material.RenderProps">
+<em class="property">class </em><code class="descclassname">cqparts.display.material.</code><code class="descname">RenderProps</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.material.RenderProps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Properties for rendering.</p>
+<p>This class provides a <a class="reference internal" href="#cqparts.display.material.RenderParam" title="cqparts.display.material.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a> instance
+as a <a class="reference internal" href="cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> for a
+<a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderParam</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">COLOR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">RenderParam</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;render params&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(255, 0, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">(</span><span class="n">_render</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">COLOR</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(0, 255, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">dict</span>
+<span class="go">{&#39;color&#39;: (0, 255, 0), &#39;alpha&#39;: 0.5}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">TEMPLATE</span></code> and <code class="docutils literal"><span class="pre">COLOR</span></code> dictionaries provide named templates to
+display your creations quickly, but you can also provide custom properties.</p>
+<dl class="method">
+<dt id="cqparts.display.material.RenderProps.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.material.RenderProps.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>color</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
+where <code class="docutils literal"><span class="pre">0</span></code> is transparent, and <code class="docutils literal"><span class="pre">1</span></code> is opaque</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.dict">
+<code class="descname">dict</code><a class="headerlink" href="#cqparts.display.material.RenderProps.dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#cqparts.display.material.RenderProps.dict" title="cqparts.display.material.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of this instance.
+Can be used to set a property based on the property of another.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of render attributes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.material.RenderProps.dict" title="cqparts.display.material.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.gltf_material">
+<code class="descname">gltf_material</code><a class="headerlink" href="#cqparts.display.material.RenderProps.gltf_material" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materials">glTF Material</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.material.RenderProps.dict" title="cqparts.display.material.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.rgb">
+<code class="descname">rgb</code><a class="headerlink" href="#cqparts.display.material.RenderProps.rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>synonym for <code class="docutils literal"><span class="pre">color</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.rgba">
+<code class="descname">rgba</code><a class="headerlink" href="#cqparts.display.material.RenderProps.rgba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue, Alpha</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, alpha values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderProps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">RenderProps</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">rgba</span>
+<span class="go">(1, 2, 3, 0.2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.rgbt">
+<code class="descname">rgbt</code><a class="headerlink" href="#cqparts.display.material.RenderProps.rgbt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue, Transparency</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, transparency values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderProps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">RenderProps</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">rgbt</span>
+<span class="go">(1, 2, 3, 0.8)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.material.RenderProps.transparency">
+<code class="descname">transparency</code><a class="headerlink" href="#cqparts.display.material.RenderProps.transparency" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">transparency value, 1 is invisible, 0 is opaque</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.display.material.render_props">
+<code class="descclassname">cqparts.display.material.</code><code class="descname">render_props</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.material.render_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid property for cleaner referencing in <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+child classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
+<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">render property instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cqparts.display.material.RenderParam" title="cqparts.display.material.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># let&#39;s make semi-transparent aluminium (it&#39;s a thing!)</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;aluminium&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">rgba</span>
+<span class="go">(192, 192, 192, 0.8)</span>
+</pre></div>
+</div>
+<p>The tools in <a class="reference internal" href="#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> will use this colour and alpha
+information to display the part.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.display.web">
+<span id="cqparts-display-web-module"></span><h2>cqparts.display.web module<a class="headerlink" href="#module-cqparts.display.web" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.display.web.web_display">
+<code class="descclassname">cqparts.display.web.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.web_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.display">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.display" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.display.render_props">
+<code class="descclassname">cqparts.display.</code><code class="descname">render_props</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.render_props" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a valid property for cleaner referencing in <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+child classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
+<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">render property instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cqparts.display.RenderParam" title="cqparts.display.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># let&#39;s make semi-transparent aluminium (it&#39;s a thing!)</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;aluminium&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">rgba</span>
+<span class="go">(192, 192, 192, 0.8)</span>
+</pre></div>
+</div>
+<p>The tools in <a class="reference internal" href="#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> will use this colour and alpha
+information to display the part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.display.RenderProps">
+<em class="property">class </em><code class="descclassname">cqparts.display.</code><code class="descname">RenderProps</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.RenderProps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Properties for rendering.</p>
+<p>This class provides a <a class="reference internal" href="#cqparts.display.RenderParam" title="cqparts.display.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a> instance
+as a <a class="reference internal" href="cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> for a
+<a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderParam</span><span class="p">,</span> <span class="n">TEMPLATE</span><span class="p">,</span> <span class="n">COLOR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">_render</span> <span class="o">=</span> <span class="n">RenderParam</span><span class="p">(</span><span class="n">TEMPLATE</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;render params&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(255, 0, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">(</span><span class="n">_render</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="n">COLOR</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">],</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">color</span>
+<span class="go">(0, 255, 0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">alpha</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">_render</span><span class="o">.</span><span class="n">dict</span>
+<span class="go">{&#39;color&#39;: (0, 255, 0), &#39;alpha&#39;: 0.5}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">TEMPLATE</span></code> and <code class="docutils literal"><span class="pre">COLOR</span></code> dictionaries provide named templates to
+display your creations quickly, but you can also provide custom properties.</p>
+<dl class="method">
+<dt id="cqparts.display.RenderProps.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.RenderProps.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>color</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
+where <code class="docutils literal"><span class="pre">0</span></code> is transparent, and <code class="docutils literal"><span class="pre">1</span></code> is opaque</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.dict">
+<code class="descname">dict</code><a class="headerlink" href="#cqparts.display.RenderProps.dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a <a class="reference internal" href="#cqparts.display.RenderProps.dict" title="cqparts.display.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of this instance.
+Can be used to set a property based on the property of another.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict of render attributes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.RenderProps.dict" title="cqparts.display.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.gltf_material">
+<code class="descname">gltf_material</code><a class="headerlink" href="#cqparts.display.RenderProps.gltf_material" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#materials">glTF Material</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.RenderProps.dict" title="cqparts.display.RenderProps.dict"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.rgb">
+<code class="descname">rgb</code><a class="headerlink" href="#cqparts.display.RenderProps.rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>synonym for <code class="docutils literal"><span class="pre">color</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.rgba">
+<code class="descname">rgba</code><a class="headerlink" href="#cqparts.display.RenderProps.rgba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue, Alpha</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, alpha values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderProps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">RenderProps</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">rgba</span>
+<span class="go">(1, 2, 3, 0.2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.rgbt">
+<code class="descname">rgbt</code><a class="headerlink" href="#cqparts.display.RenderProps.rgbt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Red, Green, Blue, Transparency</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, transparency values</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">RenderProps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">RenderProps</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">rgbt</span>
+<span class="go">(1, 2, 3, 0.8)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderProps.transparency">
+<code class="descname">transparency</code><a class="headerlink" href="#cqparts.display.RenderProps.transparency" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">transparency value, 1 is invisible, 0 is opaque</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts.display.RenderParam">
+<code class="descclassname">cqparts.display.</code><code class="descname">RenderParam</code><a class="headerlink" href="#cqparts.display.RenderParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cqparts.display.RenderProps" title="cqparts.display.RenderProps"><code class="xref py py-class docutils literal"><span class="pre">RenderProps</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.display.display">
+<code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the given component based on the
+<a class="reference internal" href="cqparts.utils.html#cqparts.utils.env.get_env_name" title="cqparts.utils.env.get_env_name"><code class="xref py py-meth docutils literal"><span class="pre">get_env_name()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.display.freecad_display">
+<code class="descclassname">cqparts.display.</code><code class="descname">freecad_display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display given component in FreeCAD</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to render</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.display.web_display">
+<code class="descclassname">cqparts.display.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts.fasteners.html" class="btn btn-neutral float-right" title="cqparts.fasteners package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts.constraint.html" class="btn btn-neutral" title="cqparts.constraint package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

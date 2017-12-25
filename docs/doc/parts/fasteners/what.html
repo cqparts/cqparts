@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Built-in Fasteners &mdash; cqparts 0.1.0 documentation</title>
+  <title>What is a Fastener? &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../../index.html"/>
         <link rel="up" title="Fasteners" href="index.html"/>
-        <link rel="next" title="Using Fasteners" href="using.html"/>
+        <link rel="next" title="Fastener Build Cycle" href="using.html"/>
         <link rel="prev" title="Fasteners" href="index.html"/> 
 
   
@@ -103,13 +103,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Fasteners</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Built-in Fasteners</a></li>
-<li class="toctree-l3"><a class="reference internal" href="using.html">Using Fasteners</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">What is a Fastener?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="heads.html">Types : Fastener Head</a></li>
 <li class="toctree-l3"><a class="reference internal" href="screw-drives.html">Types : Screw Drive</a></li>
 <li class="toctree-l3"><a class="reference internal" href="threads.html">Types : Thread</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom.html">Create Your Own Fastener</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#definition">Definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#creating-a-fastener">Creating a Fastener</a></li>
 <li class="toctree-l3"><a class="reference internal" href="index.html#making-your-own-fastener">Making your own Fastener</a></li>
 </ul>
@@ -171,7 +170,7 @@
         
           <li><a href="index.html">Fasteners</a> &raquo;</li>
         
-      <li>Built-in Fasteners</li>
+      <li>What is a Fastener?</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -188,12 +187,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="built-in-fasteners">
-<h1>Built-in Fasteners<a class="headerlink" href="#built-in-fasteners" title="Permalink to this headline">¶</a></h1>
-<p>The fasteners documented here is a selection of some of the fasteners
-built into the <cite>cqparts</cite> library.</p>
-<p>Additional fasteners can be imported with 3rd party libraries, or you can
-create your own custom fasteners.</p>
+  <div class="section" id="what-is-a-fastener">
+<span id="parts-fasteners-what"></span><h1>What is a Fastener?<a class="headerlink" href="#what-is-a-fastener" title="Permalink to this headline">¶</a></h1>
+<p>A <em>fastener</em> is something that mechanically connects 2 or more <em>things</em> together,
+such as a <em>screw</em>, <em>bolt</em>, or <em>nail</em>.</p>
+<p>For us, a <a class="reference internal" href="../../api/cqparts.fasteners.html#cqparts.fasteners.Fastener" title="cqparts.fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> is an
+<a class="reference internal" href="../../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> containing 1 or more
+<a class="reference internal" href="../../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
+<p>For example, a <em>nut</em> and <em>bolt</em> holidng together 2 parts together:</p>
+<img alt="../../_images/fasteners.nut-and-bolt.01.png" src="../../_images/fasteners.nut-and-bolt.01.png" />
+<p>may be in the hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>thing
+ ├○ part_a
+ ├─ fastener
+ │   ├○ bolt
+ │   └○ nut
+ └○ part_b
+</pre></div>
+</div>
+<p>A <em>fastener</em> is also a convenient way to package relatively complex functionality
+into more of a “point and shoot” implementation.</p>
 </div>
 
 
@@ -206,7 +219,7 @@ create your own custom fasteners.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="using.html" class="btn btn-neutral float-right" title="Using Fasteners" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="using.html" class="btn btn-neutral float-right" title="Fastener Build Cycle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Fasteners" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
