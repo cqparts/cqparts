@@ -2,16 +2,16 @@ import cadquery
 from cadquery import BoxSelector
 from math import pi, cos, sqrt
 
-from .base import ScrewDrive, screw_drive
+from .base import ScrewDrive, register
 from ...utils.geometry import intersect  # FIXME: fix is in master
 from ...params import *
 
 
-@screw_drive('frearson')
+@register(name='frearson')
 class FrearsonScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5)
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         points = [
             (self.diameter / 2., 0),
             (self.width / 2., -self.depth),
@@ -26,10 +26,10 @@ class FrearsonScrewDrive(ScrewDrive):
             .extrude(self.width)
 
         tool = tool_cross_x.union(tool_cross_y)
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
-@screw_drive('phillips')
+@register(name='phillips')
 class PhillipsScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5, doc="blade width")
     chamfer = PositiveFloat(None, "chamfer at top of cross section")
@@ -39,7 +39,7 @@ class PhillipsScrewDrive(ScrewDrive):
         if self.chamfer is None:
             self.chamfer = self.width / 2
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         # Frearson style cross from center
         points = [
             (self.diameter / 2., 0),
@@ -79,10 +79,10 @@ class PhillipsScrewDrive(ScrewDrive):
             .union(tool_cross_x) \
             .union(tool_cross_y) \
             .union(tool_tzpy)
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
-@screw_drive('french_recess')
+@register(name='french_recess')
 class FrenchRecessScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5, doc="blade width")
     step_depth = PositiveFloat(None, doc="depth the step diameter takes effect")  # default to depth / 2
@@ -107,7 +107,7 @@ class FrenchRecessScrewDrive(ScrewDrive):
         return workplane.cut(tool.translate(offset))
 
 
-@screw_drive('mortorq')
+@register(name='mortorq')
 class MortorqScrewDrive(ScrewDrive):
     width = PositiveFloat(1.0)
     count = PositiveInt(4)
@@ -141,7 +141,7 @@ class MortorqScrewDrive(ScrewDrive):
         return workplane.cut(tool.translate(offset))
 
 
-@screw_drive('pozidriv')
+@register(name='pozidriv')
 class PozidrivScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5)
     inset_cut = PositiveFloat(None)  # defaults to width / 2

@@ -1,10 +1,11 @@
 import cadquery
 from math import pi, sin, cos, tan, sqrt
 
-from .base import Thread, thread
+from .base import Thread, register
 from ...params import *
 
-@thread('iso262')
+
+@register(name='iso262')
 class ISO262Thread(Thread):
     # rounding ratio:
     #   0.0 = no rounding; peaks and valeys are flat

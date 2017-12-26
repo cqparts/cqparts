@@ -1,7 +1,7 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from .base import FastenerHead, fastener_head
+from .base import FastenerHead, register
 from ...utils.geometry import intersect
 from ...params import *
 
@@ -9,7 +9,7 @@ from ...params import *
 FreeCAD = cadquery.freecad_impl.FreeCAD
 
 
-@fastener_head('countersunk')
+@register(name='countersunk')
 class CounterSunkFastenerHead(FastenerHead):
     chamfer = PositiveFloat(None)  # default to diameter / 20
     raised = PositiveFloat(0.0)  # if None, defaults to diameter / 10
@@ -94,11 +94,11 @@ class CounterSunkFastenerHead(FastenerHead):
         return (0, 0, self.raised)
 
 
-@fastener_head('countersunk_raised')
+@register(name='countersunk_raised')
 class CounterSunkRaisedFastenerHead(CounterSunkFastenerHead):
     raised = PositiveFloat(None)  # defaults to diameter / 10
 
 
-@fastener_head('countersunk_bugle')
+@register(name='countersunk_bugle')
 class CounterSunkBugleFastenerHead(CounterSunkFastenerHead):
     bugle = Boolean(True)

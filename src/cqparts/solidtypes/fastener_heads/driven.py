@@ -1,7 +1,7 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from .base import FastenerHead, fastener_head
+from .base import FastenerHead, register
 from ...utils.geometry import intersect  # FIXME: fix is in master
 from ...params import *
 
@@ -89,17 +89,17 @@ class DrivenFastenerHead(FastenerHead):
         return head
 
 
-@fastener_head('square')
+@register(name='square')
 class SquareFastenerHead(DrivenFastenerHead):
     edges = PositiveInt(4)
 
 
-@fastener_head('hex')
+@register(name='hex')
 class HexFastenerHead(DrivenFastenerHead):
     edges = PositiveInt(6)
 
 
-@fastener_head('hex_flange')
+@register(name='hex_flange')
 class HexFlangeFastenerHead(DrivenFastenerHead):
     edges = PositiveInt(6)
     washer = Boolean(True)

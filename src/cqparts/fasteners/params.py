@@ -46,7 +46,7 @@ class FastenerComponentParam(Parameter):
             elif isinstance(component_type, six.string_types):
                 # name of component type given, use callback to find it
                 try:
-                    component_class = self.finder_callback(component_type)
+                    component_class = self.finder_callback(name=component_type)
                 except ValueError as e:
                     raise ParameterError(
                         ("{name} type of '{type}' cannot be found. ".format(name=self.name, type=component_type)) +

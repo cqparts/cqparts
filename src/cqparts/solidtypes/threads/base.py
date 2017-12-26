@@ -14,6 +14,7 @@ from ...errors import SolidValidityError
 import logging
 log = logging.getLogger(__name__)
 
+
 # Creating a thread can be done in a number of ways:
 #   - cross-section helical sweep
 #       - can't be tapered
@@ -384,97 +385,19 @@ class Thread(Part):
             .circle(pilothole_radius) \
             .extrude(self.length)
 
-# Thread register
-#   Create your own custom thread like so...
-#
-#       import cadquery
-#       from Helpers import show
-#       from cqparts.params import *
-#       from cqparts.solidtypes.threads import Thread, thread
-#
-#       @thread('my_thread')  # registration is not mandatory, but recommended
-#       class MyThread(Thread):
-#           my_param = FloatRange(0, 5, 2.5)  # for example
-#
-#           def build_profile(self):
-#               points = [
-#                   (self.my_param, 0),
-#                   (self.radius, self.pitch/2),
-#                   (self.my_param, self.pitch),
-#               ]
-#               profile = cadquery.Workplane("XZ") \
-#                   .moveTo(*points[0]).polyline(points[1:])
-#               return profile.wire()
-#
-#       t = MyThread(radius=4, my_param=3.1).make(length=5)
-#       show(t)  # renders thread in FreeCAD
 
-thread_map = {}
+# ------ Registration
+from ...search import (
+    find as _find,
+    search as _search,
+    register as _register,
+)
+from ...search import common_criteria
 
+module_criteria = {
+    'module': __name__,
+}
 
-def thread(*names):
-    r"""
-    Register a thread so it may be found with :meth:`find`
-
-    .. doctest::
-
-        import cadquery
-        from cqparts.solidtypes.threads import Thread, thread
-        from cqparts.params import *
-
-        @thread('my_thread')
-        class MyThread(Thread):
-            ratio = PositiveFloat(1.2, doc="outer radius as ratio of inner")
-            def build_profile(self):
-                radius = self.diameter / 2
-                points = [
-                    (radius, 0),
-                    (radius * self.ratio, self.pitch),
-                    (radius, self.pitch),
-                ]
-                return cadquery.Workplane("XZ") \
-                    .moveTo(*points[0]).polyline(points[1:]) \
-                    .wire()
-
-    Then, when creating your thread:
-
-    .. doctest::
-
-        import cqparts
-        from cqparts.solidtypes.threads import find as find_thread
-
-        class Foo(cqparts.Part):
-            def make(self):
-                return find_thread('my_thread')(
-                    diameter=10, ratio=1.3,
-                ).make(length=10)
-
-        from cqparts.display import display
-        display(Foo())  # doctest: +SKIP
-
-    Gives us this:
-
-    .. image:: /_static/img/solidtypes.threads.base.thread.register01.png
-
-    """
-    assert all(isinstance(n, six.string_types) for n in names), "bad thread name"
-    def inner(cls):
-        """
-        Add thread class to mapping
-        """
-        assert issubclass(cls, Thread), "class must inherit from Thread"
-        for name in names:
-            assert name not in thread_map, "more than one thread named '%s'" % name
-            thread_map[name] = cls
-        return cls
-
-    return inner
-
-
-def find(name):
-    """
-    Find a registered :class:`Thread` class by name.
-
-    For details, see :meth:`thread <cqparts.solidtypes.threads.base.thread>`
-    """
-    return thread_map[name]
+register = common_criteria(**module_criteria)(_register)
+search = common_criteria(**module_criteria)(_search)
+find = common_criteria(**module_criteria)(_find)

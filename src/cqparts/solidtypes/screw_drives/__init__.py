@@ -1,5 +1,5 @@
 __all__ = [
-    'ScrewDrive', 'screw_drive', 'find',
+    'ScrewDrive', 'register', 'find',
 
     # Screw Drive types
     'cruciform',
@@ -9,7 +9,7 @@ __all__ = [
     'tamper_resistant',
 ]
 
-from .base import ScrewDrive, screw_drive, find
+from .base import ScrewDrive, register, find
 
 # Screw Drive types
 from . import cruciform

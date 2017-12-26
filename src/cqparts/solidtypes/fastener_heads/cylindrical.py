@@ -1,7 +1,7 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from .base import FastenerHead, fastener_head
+from .base import FastenerHead, register
 from ...utils.geometry import intersect  # FIXME: fix is in master
 from ...params import *
 
@@ -40,23 +40,23 @@ class CylindricalFastenerHead(FastenerHead):
         return head
 
 
-@fastener_head('cheese')
+@register(name='cheese')
 class CheeseFastenerHead(CylindricalFastenerHead):
     fillet = PositiveFloat(0.0)
     domed = Boolean(False)
 
 
-@fastener_head('pan')
+@register(name='pan')
 class PanFastenerHead(CylindricalFastenerHead):
     domed = Boolean(False)
 
 
-@fastener_head('dome')
+@register(name='dome')
 class DomeFastenerHead(CylindricalFastenerHead):
     domed = Boolean(True)
 
 
-@fastener_head('round')
+@register(name='round')
 class RoundFastenerHead(CylindricalFastenerHead):
     domed = Boolean(True)
     dome_ratio = PositiveFloat(1)
@@ -94,12 +94,12 @@ class RoundFastenerHead(CylindricalFastenerHead):
         return head
 
 
-@fastener_head('round_coach')
+@register(name='round_coach')
 class RoundCoachFastenerHead(RoundFastenerHead):
     coach_head = Boolean(True)
 
 
-@fastener_head('trapezoidal')
+@register(name='trapezoidal')
 class TrapezoidalFastenerHead(FastenerHead):
     diameter_top = PositiveFloat(None)  # default to diameter * 0.75
 

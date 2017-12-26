@@ -1,10 +1,10 @@
 import cadquery
 
-from .base import Thread, thread
+from .base import Thread, register
 from ...params import *
 
 
-@thread('ball_screw')
+@register(name='ball_screw')
 class BallScrewThread(Thread):
     ball_radius = Float(0.25, doc="ball's radius")
 

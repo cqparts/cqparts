@@ -39,38 +39,18 @@ class FastenerHead(Part):
         return (0, 0, self.height)
 
 
-# Fastener Head register
-#   Create your own fastener head like so...
-#
-#       @fastener_head('some_name')
-#       class MyFastenerHead(FastenerHead):
-#           my_param = 1.2
-#
-#           def make(self, offset=(0, 0, 0)):
-#               head = cadquery.Workplane("XY") \
-#                   .circle(self.diameter / 2) \
-#                   .extrude(self.depth) \
-#                   .faces(">Z") \
-#                   .rect(self.my_param, self.my_param).extrude(0.3)
-#               return head.translate(offset)
+# ------ Registration
+from ...search import (
+    find as _find,
+    search as _search,
+    register as _register,
+)
+from ...search import common_criteria
 
-fastener_head_map = {}
+module_criteria = {
+    'module': __name__,
+}
 
-
-def fastener_head(*names):
-    assert all(isinstance(n, six.string_types) for n in names), "bad fastener head name"
-    def inner(cls):
-        """
-        Add fastener head class to mapping
-        """
-        assert issubclass(cls, FastenerHead), "class must inherit from FastenerHead"
-        for name in names:
-            assert name not in fastener_head_map, "more than one fastener_head named '%s'" % name
-            fastener_head_map[name] = cls
-        return cls
-
-    return inner
-
-
-def find(name):
-    return fastener_head_map[name]
+register = common_criteria(**module_criteria)(_register)
+search = common_criteria(**module_criteria)(_search)
+find = common_criteria(**module_criteria)(_find)

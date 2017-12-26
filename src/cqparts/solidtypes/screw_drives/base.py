@@ -1,52 +1,54 @@
 import six
 import cadquery
 
+from ...part import Part
 from ...params import *
 
-class ScrewDrive(ParametricObject):
+from ...utils import CoordSystem
+
+
+class ScrewDrive(Part):
     diameter = PositiveFloat(3.0, doc="screw drive's diameter")
     depth = PositiveFloat(3.0, doc="depth of recess into driven body")
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         """
-        Application of screwdrive indentation into a workplane (centred around it's origin)
+        Make the solid to use as a cutter, to make the screw-drive impression
+        in another solid.
+
+        :return: cutter solid
+        :rtype: :class:`cadquery.Workplane`
         """
-        raise NotImplementedError("apply function not overridden in %r" % self)
+        raise NotImplementedError("%r implements no solid to subtract" % type(self))
 
-
-# Screw Drive register
-#   Create your own screw drive like so...
-#
-#       @screw_drive('some_name')
-#       class MyScrewDrive(ScrewDrive):
-#           my_param = 1.2
-#
-#           def apply(self, workplane, offset):
-#               tool = cadquery.Workplane("XY") \
-#                   .rect(self.diameter, self.diameter) \
-#                   .extrude(-self.depth) \
-#                   .faces(">Z") \
-#                   .rect(self.my_param, self.diameter / 2) \
-#                   .extrude(-self.depth)
-#               return workplane.cut(tool.translate(offset))
-
-screw_drive_map = {}
-
-
-def screw_drive(*names):
-    assert all(isinstance(n, six.string_types) for n in names), "bad screw drive name"
-    def inner(cls):
+    def apply(self, workplane, world_coords=CoordSystem()):
         """
-        Add screw drive class to mapping
+        Application of screwdrive indentation into a workplane
+        (centred on the given world coordinates).
+
+        :param workplane: workplane with solid to alter
+        :type workplane: :class:`cadquery.Workplane`
+        :param world_coords: coorindate system relative to ``workplane`` to move
+                             cutter before it's cut from the ``workplane``
+        :type world_coords: :class:`CoordSystem`
         """
-        assert issubclass(cls, ScrewDrive), "class must inherit from ScrewDrive"
-        for name in names:
-            assert name not in screw_drive_map, "more than one screw_drive named '%s'" % name
-            screw_drive_map[name] = cls
-        return cls
 
-    return inner
+        self.world_coords = world_coords
+        return workplane.cut(self.world_obj)
 
 
-def find(name):
-    return screw_drive_map[name]
+# ------ Registration
+from ...search import (
+    find as _find,
+    search as _search,
+    register as _register,
+)
+from ...search import common_criteria
+
+module_criteria = {
+    'module': __name__,
+}
+
+register = common_criteria(**module_criteria)(_register)
+search = common_criteria(**module_criteria)(_search)
+find = common_criteria(**module_criteria)(_find)

@@ -1,5 +1,5 @@
 __all__ = [
-    'Thread', 'thread', 'find',
+    'Thread', 'register', 'find',
 
     # Thread Types
     'ball_screw',
@@ -7,7 +7,7 @@ __all__ = [
     'triangular',
 ]
 
-from .base import Thread, thread, find
+from .base import Thread, register, find
 
 # Thread Types
 from . import ball_screw

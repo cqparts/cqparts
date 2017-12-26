@@ -2,7 +2,7 @@ import cadquery
 from cadquery import BoxSelector
 from math import pi, cos, sqrt
 
-from .base import ScrewDrive, screw_drive
+from .base import ScrewDrive, register
 
 from ...params import *
 
@@ -17,7 +17,7 @@ class AcentricWedgesScrewDrive(ScrewDrive):
         if self.acentric_radius is None:
             self.acentric_radius = self.width / 2
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         # Start with a cylindrical pin down the center
         tool = cadquery.Workplane("XY") \
             .circle(self.width / 2).extrude(-self.depth)
@@ -40,15 +40,15 @@ class AcentricWedgesScrewDrive(ScrewDrive):
                     .rotate((0, 0, 0), (0, 0, 1), angle)
             )
 
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
-@screw_drive('tri_point')
+@register(name='tri_point')
 class TripointScrewDrive(AcentricWedgesScrewDrive):
     count = IntRange(1, None, 3)
     acentric_radius = PositiveFloat(0.0)  # yeah, not my best class design, but it works
 
 
-@screw_drive('torq_set')
+@register(name='torq_set')
 class TorqsetScrewDrive(AcentricWedgesScrewDrive):
     count = IntRange(1, None, 4)

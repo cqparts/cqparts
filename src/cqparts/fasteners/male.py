@@ -5,9 +5,11 @@ from ..part import Part
 from ..solidtypes import threads
 from ..params import *
 from .params import *
+from ..utils import CoordSystem
 
 import logging
 log = logging.getLogger(__name__)
+
 
 class MaleFastenerPart(Part):
     r"""
@@ -145,7 +147,7 @@ class MaleFastenerPart(Part):
         # apply screw drive (if there is one)
         if self.drive:
             obj = self.drive.apply(obj,
-                offset=self.head.get_face_offset()
+                world_coords=CoordSystem(origin=self.head.get_face_offset())
             )
 
         return obj

@@ -1,11 +1,11 @@
 import cadquery
 from math import radians, tan
 
-from .base import Thread, thread
+from .base import Thread, register
 from ...params import *
 
 
-@thread('triangular')
+@register(name='triangular')
 class TriangularThread(Thread):
     diameter_core = Float(None, doc="diamter of core")
     angle = PositiveFloat(30, doc="pressure angle of thread")

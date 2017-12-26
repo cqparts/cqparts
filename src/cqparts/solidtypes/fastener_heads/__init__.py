@@ -1,5 +1,5 @@
 __all__ = [
-    'FastenerHead', 'fastener_head', 'find',
+    'FastenerHead', 'register', 'find',
 
     # Fastener Head Types
     'counter_sunk',
@@ -7,7 +7,7 @@ __all__ = [
     'driven',
 ]
 
-from .base import FastenerHead, fastener_head, find
+from .base import FastenerHead, register, find
 
 # Fastener Head Types
 from . import counter_sunk

@@ -1,12 +1,13 @@
 import cadquery
 from math import sqrt, pi, sin, cos
 
-from .base import ScrewDrive, screw_drive
+from .base import ScrewDrive, register
 from ...utils.geometry import copy
 from ...params import *
 
 
-@screw_drive('hex', 'allen')
+@register(name='hex')
+@register(name='allen')
 class HexScrewDrive(ScrewDrive):
     diameter = PositiveFloat(None)
     width = PositiveFloat(ScrewDrive.diameter.default * cos(pi / 6))  # if set, defines diameter
@@ -41,7 +42,7 @@ class HexScrewDrive(ScrewDrive):
             points.append((cos(theta) * radius, sin(theta) * radius))
         return points
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         # Single hex as template
         points = self.get_hexagon_vertices()
         tool_template = cadquery.Workplane("XY") \
@@ -60,15 +61,16 @@ class HexScrewDrive(ScrewDrive):
         if self.pin:
             tool = tool.faces("<Z").circle(self.pin_diameter / 2.).cutBlind(self.pin_height)
 
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
-@screw_drive('double_hex', '2hex')
+@register(name='double_hex')
+@register(name='2hex')
 class DoubleHexScrewDrive(HexScrewDrive):
     count = IntRange(1, None, 2)
 
 
-@screw_drive('hexalobular')
+@register(name='hexalobular')
 class HexalobularScrewDrive(ScrewDrive):
     count = IntRange(1, None, 6)
     gap = PositiveFloat(None)  # gap beetween circles at diameter (defaults to diameter / 8)
@@ -90,7 +92,7 @@ class HexalobularScrewDrive(ScrewDrive):
         if self.pin_diameter is None:
             self.pin_diameter = self.diameter / 3
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         # Start with a circle with self.diameter
         tool = cadquery.Workplane("XY") \
             .circle(self.diameter / 2).extrude(-self.depth)
@@ -117,4 +119,4 @@ class HexalobularScrewDrive(ScrewDrive):
         if self.pin:
             tool.faces("<Z").circle(self.pin_diameter / 2.).cutBlind(self.pin_height)
 
-        return workplane.cut(tool.translate(offset))
+        return tool

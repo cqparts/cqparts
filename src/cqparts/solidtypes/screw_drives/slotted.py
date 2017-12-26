@@ -1,26 +1,26 @@
 import cadquery
-from .base import ScrewDrive, screw_drive
+from .base import ScrewDrive, register
 
 from ...params import *
 
 
-@screw_drive('slot')
+@register(name='slot')
 class SlotScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5, doc="slot width")
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         tool = cadquery.Workplane("XY") \
             .rect(self.width, self.diameter).extrude(-self.depth)
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
-@screw_drive('cross')
+@register(name='cross')
 class CrossScrewDrive(ScrewDrive):
     width = PositiveFloat(0.5, doc="slot width")
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         tool = cadquery.Workplane("XY") \
             .rect(self.width, self.diameter).extrude(-self.depth) \
             .faces(">Z") \
             .rect(self.diameter, self.width).extrude(-self.depth)
-        return workplane.cut(tool.translate(offset))
+        return tool
