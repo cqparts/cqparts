@@ -231,10 +231,12 @@
 </tr>
 </tbody>
 </table>
+<img alt="../_images/ball_screw.png" src="../_images/ball_screw.png" />
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><img alt="../_images/ball_screw.profile.png" src="../_images/ball_screw.profile.png" />
+</dd></dl>
 
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread.get_radii">
@@ -381,13 +383,6 @@ prone to small numeric error.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="cqparts.solidtypes.threads.base.find">
-<code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a registered <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> class by name.</p>
-<p>For details, see <a class="reference internal" href="#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
-</dd></dl>
-
-<dl class="function">
 <dt id="cqparts.solidtypes.threads.base.helical_path">
 <code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">helical_path</code><span class="sig-paren">(</span><em>pitch</em>, <em>length</em>, <em>radius</em>, <em>angle=0</em>, <em>lefthand=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.helical_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -459,47 +454,6 @@ where: len(min_vertices) == number of edges in profile</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="cqparts.solidtypes.threads.base.thread">
-<code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.thread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a thread so it may be found with <a class="reference internal" href="#cqparts.solidtypes.threads.base.find" title="cqparts.solidtypes.threads.base.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
-<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">thread</span>
-<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="nd">@thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
-    <span class="n">ratio</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;outer radius as ratio of inner&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
-        <span class="p">]</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
-            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> \
-            <span class="o">.</span><span class="n">wire</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Then, when creating your thread:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">find</span> <span class="k">as</span> <span class="n">find_thread</span>
-
-<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">find_thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)(</span>
-            <span class="n">diameter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Foo</span><span class="p">())</span>  
-</pre></div>
-</div>
-<p>Gives us this:</p>
-<img alt="../_images/solidtypes.threads.base.thread.register01.png" src="../_images/solidtypes.threads.base.thread.register01.png" />
-</dd></dl>
-
 </div>
 <div class="section" id="module-cqparts.solidtypes.threads.iso262">
 <span id="cqparts-solidtypes-threads-iso262-module"></span><h2>cqparts.solidtypes.threads.iso262 module<a class="headerlink" href="#module-cqparts.solidtypes.threads.iso262" title="Permalink to this headline">¶</a></h2>
@@ -532,10 +486,12 @@ where: len(min_vertices) == number of edges in profile</p>
 </tr>
 </tbody>
 </table>
+<img alt="../_images/iso262.png" src="../_images/iso262.png" />
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.iso262.ISO262Thread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso262.ISO262Thread.build_profile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a thread profile in specified by ISO 262</p>
+<img alt="../_images/iso262.profile.png" src="../_images/iso262.profile.png" />
 </dd></dl>
 
 <dl class="method">
@@ -578,10 +534,12 @@ where: len(min_vertices) == number of edges in profile</p>
 </tr>
 </tbody>
 </table>
+<img alt="../_images/triangular.png" src="../_images/triangular.png" />
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.triangular.TriangularThread.build_profile">
 <code class="descname">build_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread.build_profile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><img alt="../_images/triangular.profile.png" src="../_images/triangular.profile.png" />
+</dd></dl>
 
 <dl class="method">
 <dt id="cqparts.solidtypes.threads.triangular.TriangularThread.get_radii">
@@ -722,52 +680,14 @@ prone to small numeric error.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="cqparts.solidtypes.threads.thread">
-<code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">thread</code><span class="sig-paren">(</span><em>*names</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.thread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a thread so it may be found with <a class="reference internal" href="#cqparts.solidtypes.threads.find" title="cqparts.solidtypes.threads.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
-<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">Thread</span><span class="p">,</span> <span class="n">thread</span>
-<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="nd">@thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">MyThread</span><span class="p">(</span><span class="n">Thread</span><span class="p">):</span>
-    <span class="n">ratio</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;outer radius as ratio of inner&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">build_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">radius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">radius</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span>
-        <span class="p">]</span>
-        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s2">&quot;XZ&quot;</span><span class="p">)</span> \
-            <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> \
-            <span class="o">.</span><span class="n">wire</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Then, when creating your thread:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="kn">from</span> <span class="nn">cqparts.solidtypes.threads</span> <span class="k">import</span> <span class="n">find</span> <span class="k">as</span> <span class="n">find_thread</span>
-
-<span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">find_thread</span><span class="p">(</span><span class="s1">&#39;my_thread&#39;</span><span class="p">)(</span>
-            <span class="n">diameter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Foo</span><span class="p">())</span>  
-</pre></div>
-</div>
-<p>Gives us this:</p>
-<img alt="../_images/solidtypes.threads.base.thread.register01.png" src="../_images/solidtypes.threads.base.thread.register01.png" />
-</dd></dl>
+<dt id="cqparts.solidtypes.threads.register">
+<code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">register</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.register" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="cqparts.solidtypes.threads.find">
-<code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">find</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a registered <a class="reference internal" href="#cqparts.solidtypes.threads.Thread" title="cqparts.solidtypes.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> class by name.</p>
-<p>For details, see <a class="reference internal" href="#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
-</dd></dl>
+<code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">find</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>

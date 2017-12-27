@@ -771,7 +771,7 @@ the simplified model.</p>
 
 <dl class="staticmethod">
 <dt id="cqparts.fasteners.params.DriveType.finder_callback">
-<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.DriveType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.DriveType.finder_callback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -795,7 +795,7 @@ the simplified model.</p>
 <li><a class="reference internal" href="cqparts.solidtypes.screw_drives.html#cqparts.solidtypes.screw_drives.ScrewDrive" title="cqparts.solidtypes.screw_drives.ScrewDrive"><code class="xref py py-class docutils literal"><span class="pre">ScrewDrive</span></code></a> instance</li>
 <li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">drive</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where<ul>
 <li><code class="docutils literal"><span class="pre">drive</span> <span class="pre">type</span></code> is one of<ul>
-<li><code class="docutils literal"><span class="pre">str</span></code>: name of screw-drive (registered with <a class="reference internal" href="cqparts.solidtypes.screw_drives.html#cqparts.solidtypes.screw_drives.screw_drive" title="cqparts.solidtypes.screw_drives.screw_drive"><code class="xref py py-meth docutils literal"><span class="pre">screw_drive</span></code></a>)</li>
+<li><code class="docutils literal"><span class="pre">str</span></code>: name of screw-drive (registered with <code class="xref py py-meth docutils literal"><span class="pre">screw_drive</span></code>)</li>
 <li><a class="reference internal" href="cqparts.solidtypes.screw_drives.html#cqparts.solidtypes.screw_drives.ScrewDrive" title="cqparts.solidtypes.screw_drives.ScrewDrive"><code class="xref py py-class docutils literal"><span class="pre">ScrewDrive</span></code></a> subclass</li>
 </ul>
 </li>
@@ -847,7 +847,7 @@ the simplified model.</p>
 
 <dl class="staticmethod">
 <dt id="cqparts.fasteners.params.HeadType.finder_callback">
-<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.HeadType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.HeadType.finder_callback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -871,7 +871,7 @@ the simplified model.</p>
 <li><a class="reference internal" href="cqparts.solidtypes.fastener_heads.html#cqparts.solidtypes.fastener_heads.FastenerHead" title="cqparts.solidtypes.fastener_heads.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">FastenerHead</span></code></a> instance</li>
 <li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">head</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where:<ul>
 <li><code class="docutils literal"><span class="pre">head</span> <span class="pre">type</span></code> is one of<ul>
-<li><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> name of fastener head (registered with <a class="reference internal" href="cqparts.solidtypes.fastener_heads.html#cqparts.solidtypes.fastener_heads.fastener_head" title="cqparts.solidtypes.fastener_heads.fastener_head"><code class="xref py py-meth docutils literal"><span class="pre">fastener_head</span></code></a>)</li>
+<li><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a> name of fastener head (registered with <code class="xref py py-meth docutils literal"><span class="pre">fastener_head</span></code>)</li>
 <li><a class="reference internal" href="cqparts.solidtypes.fastener_heads.html#cqparts.solidtypes.fastener_heads.FastenerHead" title="cqparts.solidtypes.fastener_heads.FastenerHead"><code class="xref py py-class docutils literal"><span class="pre">FastenerHead</span></code></a> subclass</li>
 </ul>
 </li>
@@ -895,10 +895,8 @@ the simplified model.</p>
 
 <dl class="staticmethod">
 <dt id="cqparts.fasteners.params.ThreadType.finder_callback">
-<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.finder_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find a registered <code class="xref py py-class docutils literal"><span class="pre">Thread</span></code> class by name.</p>
-<p>For details, see <a class="reference internal" href="cqparts.solidtypes.threads.html#cqparts.solidtypes.threads.base.thread" title="cqparts.solidtypes.threads.base.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a></p>
-</dd></dl>
+<em class="property">static </em><code class="descname">finder_callback</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.fasteners.params.ThreadType.finder_callback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="cqparts.fasteners.params.ThreadType.name">
@@ -921,7 +919,7 @@ the simplified model.</p>
 <li><a class="reference internal" href="cqparts.solidtypes.threads.html#cqparts.solidtypes.threads.Thread" title="cqparts.solidtypes.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> instance</li>
 <li><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code> of (<code class="docutils literal"><span class="pre">thread</span> <span class="pre">type</span></code>, <code class="docutils literal"><span class="pre">parameters</span></code>) where:<ul>
 <li><code class="docutils literal"><span class="pre">thread</span> <span class="pre">type</span></code> is one of<ul>
-<li><code class="docutils literal"><span class="pre">str</span></code>: name of thread type (registered with <a class="reference internal" href="cqparts.solidtypes.threads.html#cqparts.solidtypes.threads.thread" title="cqparts.solidtypes.threads.thread"><code class="xref py py-meth docutils literal"><span class="pre">thread</span></code></a>)</li>
+<li><code class="docutils literal"><span class="pre">str</span></code>: name of thread type (registered with <code class="xref py py-meth docutils literal"><span class="pre">thread</span></code>)</li>
 <li><a class="reference internal" href="cqparts.solidtypes.threads.html#cqparts.solidtypes.threads.Thread" title="cqparts.solidtypes.threads.Thread"><code class="xref py py-class docutils literal"><span class="pre">Thread</span></code></a> subclass</li>
 </ul>
 </li>
