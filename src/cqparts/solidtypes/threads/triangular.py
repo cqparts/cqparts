@@ -7,6 +7,9 @@ from ...params import *
 
 @register(name='triangular')
 class TriangularThread(Thread):
+    """
+    .. image:: /_static/img/threads/triangular.png
+    """
     diameter_core = Float(None, doc="diamter of core")
     angle = PositiveFloat(30, doc="pressure angle of thread")
 
@@ -16,6 +19,9 @@ class TriangularThread(Thread):
             self.diameter_core = self.diameter * (2. / 3)
 
     def build_profile(self):
+        """
+        .. image:: /_static/img/threads/triangular.profile.png
+        """
         # Determine thread's length along z-axis
         thread_height = tan(radians(self.angle)) * (self.diameter - self.diameter_core)
         if thread_height > self.pitch:

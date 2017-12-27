@@ -6,9 +6,15 @@ from ...params import *
 
 @register(name='ball_screw')
 class BallScrewThread(Thread):
+    """
+    .. image:: /_static/img/threads/ball_screw.png
+    """
     ball_radius = Float(0.25, doc="ball's radius")
 
     def build_profile(self):
+        """
+        .. image:: /_static/img/threads/ball_screw.profile.png
+        """
         profile = cadquery.Workplane("XZ") \
             .moveTo(self.diameter / 2, self.pitch - self.ball_radius)
         # cylindrical face
@@ -17,7 +23,7 @@ class BallScrewThread(Thread):
         # rail for balls
         profile = profile.threePointArc(
                 ((self.diameter / 2) - self.ball_radius, 0),
-                (self.diameter, -self.ball_radius)
+                (self.diameter / 2, -self.ball_radius)
             )
         return profile.wire()
 

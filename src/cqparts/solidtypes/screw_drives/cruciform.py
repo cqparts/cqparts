@@ -9,6 +9,9 @@ from ...params import *
 
 @register(name='frearson')
 class FrearsonScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/frearson.png
+    """
     width = PositiveFloat(0.5)
 
     def make(self):
@@ -31,6 +34,9 @@ class FrearsonScrewDrive(ScrewDrive):
 
 @register(name='phillips')
 class PhillipsScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/phillips.png
+    """
     width = PositiveFloat(0.5, doc="blade width")
     chamfer = PositiveFloat(None, "chamfer at top of cross section")
 
@@ -84,6 +90,9 @@ class PhillipsScrewDrive(ScrewDrive):
 
 @register(name='french_recess')
 class FrenchRecessScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/french_recess.png
+    """
     width = PositiveFloat(0.5, doc="blade width")
     step_depth = PositiveFloat(None, doc="depth the step diameter takes effect")  # default to depth / 2
     step_diameter = PositiveFloat(None, doc="diameter at depth")  # default to 2/3 diameter
@@ -109,6 +118,9 @@ class FrenchRecessScrewDrive(ScrewDrive):
 
 @register(name='mortorq')
 class MortorqScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/mortorq.png
+    """
     width = PositiveFloat(1.0)
     count = PositiveInt(4)
     fillet = PositiveFloat(0.3)
@@ -143,6 +155,9 @@ class MortorqScrewDrive(ScrewDrive):
 
 @register(name='pozidriv')
 class PozidrivScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/pozidriv.png
+    """
     width = PositiveFloat(0.5)
     inset_cut = PositiveFloat(None)  # defaults to width / 2
 

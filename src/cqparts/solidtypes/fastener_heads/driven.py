@@ -19,7 +19,6 @@ class DrivenFastenerHead(FastenerHead):
     washer_diameter = PositiveFloat(None)  # default to diameter * 1.2
 
     def initialize_parameters(self):
-        super(DrivenFastenerHead, self).initialize_parameters()
         if self.width is not None:
             # Set diameter based on witdh (ignore given diameter)
             # (width is the size of the wrench used to drive it)
@@ -30,6 +29,7 @@ class DrivenFastenerHead(FastenerHead):
             self.washer_height = self.height / 6
         if self.washer_diameter is None:
             self.washer_diameter = self.diameter * 1.2
+        super(DrivenFastenerHead, self).initialize_parameters()
 
     def _default_access_diameter(self):
         # driven heads need more clearance
@@ -91,15 +91,24 @@ class DrivenFastenerHead(FastenerHead):
 
 @register(name='square')
 class SquareFastenerHead(DrivenFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/square.png
+    """
     edges = PositiveInt(4)
 
 
 @register(name='hex')
 class HexFastenerHead(DrivenFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/hex.png
+    """
     edges = PositiveInt(6)
 
 
 @register(name='hex_flange')
 class HexFlangeFastenerHead(DrivenFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/hex_flange.png
+    """
     edges = PositiveInt(6)
     washer = Boolean(True)

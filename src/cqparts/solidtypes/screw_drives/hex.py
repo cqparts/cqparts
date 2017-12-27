@@ -9,6 +9,9 @@ from ...params import *
 @register(name='hex')
 @register(name='allen')
 class HexScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/hex.png
+    """
     diameter = PositiveFloat(None)
     width = PositiveFloat(ScrewDrive.diameter.default * cos(pi / 6))  # if set, defines diameter
     count = IntRange(1, None, 1)  # number of hexagon cutouts
@@ -67,11 +70,17 @@ class HexScrewDrive(ScrewDrive):
 @register(name='double_hex')
 @register(name='2hex')
 class DoubleHexScrewDrive(HexScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/double_hex.png
+    """
     count = IntRange(1, None, 2)
 
 
 @register(name='hexalobular')
 class HexalobularScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/hexalobular.png
+    """
     count = IntRange(1, None, 6)
     gap = PositiveFloat(None)  # gap beetween circles at diameter (defaults to diameter / 8)
     fillet = PositiveFloat(None)  # defaults to gap / 2

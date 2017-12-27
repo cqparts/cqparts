@@ -45,10 +45,16 @@ class AcentricWedgesScrewDrive(ScrewDrive):
 
 @register(name='tri_point')
 class TripointScrewDrive(AcentricWedgesScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/tri_point.png
+    """
     count = IntRange(1, None, 3)
     acentric_radius = PositiveFloat(0.0)  # yeah, not my best class design, but it works
 
 
 @register(name='torq_set')
 class TorqsetScrewDrive(AcentricWedgesScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/torq_set.png
+    """
     count = IntRange(1, None, 4)

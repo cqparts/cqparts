@@ -42,22 +42,34 @@ class CylindricalFastenerHead(FastenerHead):
 
 @register(name='cheese')
 class CheeseFastenerHead(CylindricalFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/cheese.png
+    """
     fillet = PositiveFloat(0.0)
     domed = Boolean(False)
 
 
 @register(name='pan')
 class PanFastenerHead(CylindricalFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/pan.png
+    """
     domed = Boolean(False)
 
 
 @register(name='dome')
 class DomeFastenerHead(CylindricalFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/dome.png
+    """
     domed = Boolean(True)
 
 
 @register(name='round')
 class RoundFastenerHead(CylindricalFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/round.png
+    """
     domed = Boolean(True)
     dome_ratio = PositiveFloat(1)
 
@@ -96,11 +108,17 @@ class RoundFastenerHead(CylindricalFastenerHead):
 
 @register(name='round_coach')
 class RoundCoachFastenerHead(RoundFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/round_coach.png
+    """
     coach_head = Boolean(True)
 
 
 @register(name='trapezoidal')
 class TrapezoidalFastenerHead(FastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/trapezoidal.png
+    """
     diameter_top = PositiveFloat(None)  # default to diameter * 0.75
 
     def initialize_parameters(self):

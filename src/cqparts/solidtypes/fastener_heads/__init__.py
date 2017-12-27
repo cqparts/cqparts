@@ -7,7 +7,7 @@ __all__ = [
     'driven',
 ]
 
-from .base import FastenerHead, register, find
+from .base import FastenerHead, register, find, search
 
 # Fastener Head Types
 from . import counter_sunk

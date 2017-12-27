@@ -7,7 +7,7 @@ __all__ = [
     'triangular',
 ]
 
-from .base import Thread, register, find
+from .base import Thread, register, find, search
 
 # Thread Types
 from . import ball_screw

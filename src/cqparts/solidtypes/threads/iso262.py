@@ -7,6 +7,9 @@ from ...params import *
 
 @register(name='iso262')
 class ISO262Thread(Thread):
+    """
+    .. image:: /_static/img/threads/iso262.png
+    """
     # rounding ratio:
     #   0.0 = no rounding; peaks and valeys are flat
     #   1.0 = fillet is flush with thread's edges
@@ -18,6 +21,8 @@ class ISO262Thread(Thread):
     def build_profile(self):
         """
         Build a thread profile in specified by ISO 262
+
+        .. image:: /_static/img/threads/iso262.profile.png
         """
         # height of sawtooth profile (along x axis)
         # (to be trunkated to make a trapezoidal thread)

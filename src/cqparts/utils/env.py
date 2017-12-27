@@ -35,3 +35,6 @@ def get_env_name():
     if 'MYSCRIPT_DIR' in os.environ:
         return 'freecad'
     return 'cmdline'
+
+
+env_name = get_env_name()  # it's unlikely to change

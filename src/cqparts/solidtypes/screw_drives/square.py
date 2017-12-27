@@ -8,6 +8,9 @@ from ...params import *
 @register(name='square')
 @register(name='robertson')
 class SquareScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/square.png
+    """
     width = PositiveFloat(None)
     count = IntRange(1, None, 1)
 
@@ -19,19 +22,21 @@ class SquareScrewDrive(ScrewDrive):
             # Set diameter from square's width (ignore given diameter)
             self.diameter = self.width / cos(pi / 6)
 
-    def make(self):
-        (dX, dY, dZ) = offset
+    def get_square(self, angle=0):
+        return cadquery.Workplane('XY') \
+            .rect(self.width, self.width).extrude(-self.depth) \
+            .rotate((0,0,0), (0,0,1), angle)
 
+    def make(self):
         # Single square as template
         tool_template = cadquery.Workplane("XY") \
             .rect(self.width, self.width).extrude(-self.depth)
 
         # Create tool (rotate & duplicate template)
-        tool = copy(tool_template)
-        for i in range(1, self.count):
-            angle = i * (90.0 / self.count)
+        tool = cadquery.Workplane('XY')
+        for i in range(self.count):
             tool = tool.union(
-                copy(tool_template).rotate((0, 0, 0), (0, 0, 1), angle)
+                self.get_square(angle=i * (90.0 / self.count))
             )
 
         return tool
@@ -40,10 +45,16 @@ class SquareScrewDrive(ScrewDrive):
 @register(name='double_square')
 @register(name='2square')
 class DoubleSquareScrewDrive(SquareScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/double_square.png
+    """
     count = IntRange(1, None, 2)
 
 
-@register(name='tripple_square')
+@register(name='triple_square')
 @register(name='3square')
 class TrippleSquareScrewDrive(SquareScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/triple_square.png
+    """
     count = IntRange(1, None, 3)

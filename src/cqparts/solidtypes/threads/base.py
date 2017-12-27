@@ -236,7 +236,7 @@ class Thread(Part):
     start_count = IntRange(1, None, 1, doc="number of thread starts")
     min_vertices = MinVerticiesParam(20, doc="minimum vertices used cross-section's wire")
     diameter = PositiveFloat(3.0, doc="thread's diameter")
-    length = PositiveFloat(5, doc="thread's length")
+    length = PositiveFloat(2, doc="thread's length")
 
     inner = Boolean(False, doc="if True, thread is to be cut from a solid to form an inner thread")
     lefthand = Boolean(False, doc="if True, thread is spun in the opposite direction")

@@ -6,6 +6,9 @@ from ...params import *
 
 @register(name='slot')
 class SlotScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/slot.png
+    """
     width = PositiveFloat(0.5, doc="slot width")
 
     def make(self):
@@ -16,6 +19,9 @@ class SlotScrewDrive(ScrewDrive):
 
 @register(name='cross')
 class CrossScrewDrive(ScrewDrive):
+    """
+    .. image:: /_static/img/screwdrives/cross.png
+    """
     width = PositiveFloat(0.5, doc="slot width")
 
     def make(self):

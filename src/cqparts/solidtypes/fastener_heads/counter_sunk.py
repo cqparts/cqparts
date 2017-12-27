@@ -11,6 +11,9 @@ FreeCAD = cadquery.freecad_impl.FreeCAD
 
 @register(name='countersunk')
 class CounterSunkFastenerHead(FastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/countersunk.png
+    """
     chamfer = PositiveFloat(None)  # default to diameter / 20
     raised = PositiveFloat(0.0)  # if None, defaults to diameter / 10
     bugle = Boolean(False)
@@ -96,9 +99,15 @@ class CounterSunkFastenerHead(FastenerHead):
 
 @register(name='countersunk_raised')
 class CounterSunkRaisedFastenerHead(CounterSunkFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/countersunk_raised.png
+    """
     raised = PositiveFloat(None)  # defaults to diameter / 10
 
 
 @register(name='countersunk_bugle')
 class CounterSunkBugleFastenerHead(CounterSunkFastenerHead):
+    """
+    .. image:: /_static/img/fastenerheads/countersunk_bugle.png
+    """
     bugle = Boolean(True)

@@ -9,7 +9,7 @@ __all__ = [
     'tamper_resistant',
 ]
 
-from .base import ScrewDrive, register, find
+from .base import ScrewDrive, register, find, search
 
 # Screw Drive types
 from . import cruciform
