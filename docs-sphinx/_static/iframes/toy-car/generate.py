@@ -3,10 +3,6 @@
 # The code here should be representative of that in:
 #   https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html
 
-import sys
-import os
-
-
 # ------------------- Wheel -------------------
 
 import cadquery

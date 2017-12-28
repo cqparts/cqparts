@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import os
-
-
 # -------------------------- Cylinder Part --------------------------
 
 import cadquery
