@@ -122,7 +122,7 @@ class MaleFastenerPart(Part):
     """
     length = PositiveFloat(4.5, doc="length from xy plane to tip")
     neck_length = PositiveFloat(0, doc="length of neck, includes taper")
-    neck_taper = FloatRange(0, 90, 30, doc="angle of neck's taper (0 is parallel with neck)")
+    neck_taper = FloatRange(0, 90, 30, doc="angle of neck's taper (90 is perpendicular to neck)")
     neck_diam = PositiveFloat(None, doc="neck radius, defaults to thread's outer radius")
     tip_length = PositiveFloat(0, doc="length of taper on a pointed tip")
     tip_diameter = PositiveFloat(None, doc="diameter of tip's point")
@@ -193,15 +193,16 @@ class MaleFastenerPart(Part):
             if 0 < self.neck_taper < 90:
                 taper_length = ((self.neck_diam / 2) - inner_radius) / tan(radians(self.neck_taper))
 
-            neck_taper = cadquery.Workplane("XY").union(
-                cadquery.CQ(cadquery.Solid.makeCone(
-                    radius1=(self.neck_diam / 2),
-                    radius2=inner_radius,
-                    height=taper_length,
-                    dir=cadquery.Vector(0,0,-1),
-                )).translate((0, 0, -self.neck_length))
-            )
-            obj = obj.union(neck_taper)
+            if taper_length > 0:
+                neck_taper = cadquery.Workplane("XY").union(
+                    cadquery.CQ(cadquery.Solid.makeCone(
+                        radius1=(self.neck_diam / 2),
+                        radius2=inner_radius,
+                        height=taper_length,
+                        dir=cadquery.Vector(0,0,-1),
+                    )).translate((0, 0, -self.neck_length))
+                )
+                obj = obj.union(neck_taper)
 
         # build thread
         thread = self.thread.local_obj.translate((0, 0, -self.length))
@@ -256,9 +257,13 @@ class MaleFastenerPart(Part):
 
         # neck
         if self.neck_length:
+            # neck cut diameter (if thread is larger than the neck, thread must fit through)
+            (inner_radius, outer_radius) = self.thread.get_radii()
+            neck_cut_radius = max(outer_radius, self.neck_diam / 2)
+
             neck = cadquery.Workplane(
                 'XY', origin=(0, 0, -self.neck_length)
-            ).circle(self.neck_diam / 2).extrude(self.neck_length)
+            ).circle(neck_cut_radius).extrude(self.neck_length)
             obj = obj.union(neck)
 
         # thread (pilot hole)
