@@ -20,7 +20,7 @@
     {
       "bufferView": 1, 
       "byteOffset": 0, 
-      "componentType": 5123, 
+      "componentType": 5121, 
       "count": 84, 
       "type": "SCALAR"
     }
@@ -39,19 +39,21 @@
     }, 
     {
       "buffer": 0, 
-      "byteLength": 168, 
+      "byteLength": 84, 
       "byteOffset": 192, 
       "target": 34963
     }
   ], 
   "buffers": [
     {
-      "byteLength": 360, 
+      "byteLength": 276, 
       "uri": "chassis.bin"
     }
   ], 
   "materials": [
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.9216, 

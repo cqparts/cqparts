@@ -31,15 +31,46 @@ _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 # This would typically be used for testing, or development purposes.
 TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'web-template')
 
-DEFAULT_PORT = 9041
 SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of port
 
 
-def web_display(component, port=None):
-    # Parameter defaults
-    if port is None:
-        port = DEFAULT_PORT
+def web_display(component, port=9041):
+    """
+    Display given component in a browser window
 
+    :param component: the component to render
+    :type component: :class:`Component <cqparts.part.Component>`
+    :param port: port to expose http service on
+    :type port: :class:`int`
+
+    This method exports the model, then exposes a http service on *localhost*
+    for a browser to use.
+    The http service does not know when the browser window has been closed, so
+    it will continue to serve the model's data until the user halts the
+    process with a :class:`KeyboardInterrupt` (by pressing ``Ctrl+C``)
+
+    When run, you should see output similar to::
+
+        >>> from cqparts.display import web_display
+        >>> from cqparts.basic.primatives import Cube
+        >>> web_display(Cube())
+        press [ctrl+c] to stop server
+        127.0.0.1 - - [27/Dec/2017 16:06:37] "GET / HTTP/1.1" 200 -
+        Created new window in existing browser session.
+        127.0.0.1 - - [27/Dec/2017 16:06:39] "GET /model/out.gltf HTTP/1.1" 200 -
+        127.0.0.1 - - [27/Dec/2017 16:06:39] "GET /model/out.bin HTTP/1.1" 200 -
+
+    A new browser window should appear with a render that looks like:
+
+    .. image:: /_static/img/web_display.cube.png
+
+    Then, when you press ``Ctrl+C``, you should see::
+
+        ^C[server shutdown successfully]
+
+    and any further request on the opened browser window will return
+    an errorcode 404 (file not found), because the http service has stopped.
+    """
     # Verify Parameter(s)
     from ..part import Component
 

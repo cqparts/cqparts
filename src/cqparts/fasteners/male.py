@@ -35,8 +35,91 @@ class MaleFastenerPart(Part):
         Tip thread tapering has not been implemented, except in
         the simplified model.
 
-    """
+    This part can be heavily customized to match many common fastener male
+    parts you'll find. The default is a 4.5mm long M3 screw, with a pan head
+    and phillips screw drive:
 
+    .. doctest::
+
+        from cqparts.fasteners.male import MaleFastenerPart
+        from cqparts.display import display
+        male = MaleFastenerPart()
+        display(male)  # doctest: +SKIP
+
+    .. figure:: /_static/img/fastenerpart/male.default.png
+
+        (literally the first screw I found on my desk)
+
+    To simplify rendering, we can also simplify the thread with::
+
+        male = MaleFastenerPart()
+        male.thread._simple = True
+        display(male)
+
+    .. image:: /_static/img/fastenerpart/male.default.simple.png
+
+    This class can be heavily customized during instantiation.
+    For the first example, we can make a screw with a countersunk head, and
+    a neck.
+
+    .. doctest::
+
+        screw = MaleFastenerPart(
+            head=('countersunk_raised', {
+                'diameter': 8,  # mm
+                'height': 3.5,
+                'raised': 2,
+            }),
+            drive=('french_recess', {
+                'diameter': 4,
+                'depth': 3.5,
+                'width': 1,
+            }),
+            thread=('triangular', {
+                'diameter': 4,
+                'angle': 40,
+                'pitch': 2.2,
+            }),
+            neck_diam=4.2,
+            neck_length=5,
+            neck_taper=45,
+            length=12,
+            tip_length=2,
+            _render={'alpha': 0.5},
+        )
+        display(screw)  # doctest: +SKIP
+
+    .. image:: /_static/img/fastenerpart/male.custom01.png
+
+    We can also make a bolt.
+
+    .. doctest::
+
+        bolt = MaleFastenerPart(
+            head=('hex_flange', {
+                'width': 10,
+                'height': 5.3,
+                'washer_diameter': 15,
+                'washer_height': 1.5,
+            }),
+            drive=None,
+            thread=('ball_screw', {
+                'diameter': 6,
+                'ball_radius': 1,
+                'pitch': 5,
+            }),
+            neck_length=12,
+            neck_taper=20,
+            length=20,
+            _render={'alpha': 0.5}
+        )
+        display(bolt)  # doctest: +SKIP
+
+    .. image:: /_static/img/fastenerpart/male.custom02.png
+
+    Although this won't create *every* bolt or screw you find, it's a good
+    starting point.
+    """
     length = PositiveFloat(4.5, doc="length from xy plane to tip")
     neck_length = PositiveFloat(0, doc="length of neck, includes taper")
     neck_taper = FloatRange(0, 90, 30, doc="angle of neck's taper (0 is parallel with neck)")
@@ -156,6 +239,18 @@ class MaleFastenerPart(Part):
     #    pass
 
     def make_cutter(self):
+        """
+        Makes a shape to be used as a negative; it can be cut away from other
+        shapes to make a perfectly shaped pocket for this part.
+
+        For example, for a countersunk screw with a neck, the following
+        cutter would be generated.
+
+        .. image:: /_static/img/fastenerpart/male.cutter.png
+
+        If the head were an externally driven shape (like a hex bolt), then the
+        cutter's head would be wide enough to accomodate a tool to fasten it.
+        """
         # head
         obj = self.head.make_cutter()
 

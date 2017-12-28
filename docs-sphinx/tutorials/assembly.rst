@@ -457,6 +457,10 @@ The chassis was altered after the ``WeeledAxle`` assemblies were placed using
 the ``apply_cutout`` utility methods build into ``WeeledAxle`` class. The
 finished result being:
 
+::
+
+    display(car.find('chassis'))
+
 .. raw:: html
 
     <iframe class="model-display"

@@ -104,7 +104,7 @@ class FrenchRecessScrewDrive(ScrewDrive):
         if self.step_diameter is None:
             self.step_diameter = self.diameter * (2./3)
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         tool = cadquery.Workplane("XY") \
             .rect(self.width, self.diameter).extrude(-self.step_depth) \
             .faces(">Z") \
@@ -113,7 +113,7 @@ class FrenchRecessScrewDrive(ScrewDrive):
             .rect(self.width, self.step_diameter).extrude(-(self.depth - self.step_depth)) \
             .faces("<Z") \
             .rect(self.step_diameter, self.width).extrude(self.depth - self.step_depth)
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
 @register(name='mortorq')
@@ -125,7 +125,7 @@ class MortorqScrewDrive(ScrewDrive):
     count = PositiveInt(4)
     fillet = PositiveFloat(0.3)
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         points = [
             (self.width / 2, self.width / 2),
             (self.width / 2, -self.width / 2),
@@ -150,7 +150,7 @@ class MortorqScrewDrive(ScrewDrive):
         if self.fillet:
             tool = tool.edges("|Z").fillet(self.fillet)
 
-        return workplane.cut(tool.translate(offset))
+        return tool
 
 
 @register(name='pozidriv')
@@ -171,7 +171,7 @@ class PozidrivScrewDrive(ScrewDrive):
         if self.inset_cut is None:
             self.inset_cut = self.width / 2
 
-    def apply(self, workplane, offset=(0, 0, 0)):
+    def make(self):
         # Frearson style cross from center
         points = [
             (self.diameter / 2., 0),
@@ -219,4 +219,4 @@ class PozidrivScrewDrive(ScrewDrive):
                 .rotate((0, 0, 0), (0, 0, 1), 45)
             tool = tool.union(markings)
 
-        return workplane.cut(tool.translate(offset))
+        return tool

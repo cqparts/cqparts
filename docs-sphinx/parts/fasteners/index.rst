@@ -7,9 +7,6 @@ Fasteners
 
    what
    using
-   heads
-   screw-drives
-   threads
    custom
 
 

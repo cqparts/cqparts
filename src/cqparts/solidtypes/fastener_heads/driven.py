@@ -8,8 +8,8 @@ from ...params import *
 
 class DrivenFastenerHead(FastenerHead):
     chamfer = PositiveFloat(None, doc="chamfer value (default: :math:`d/15`)")  # default to diameter / 10
-    chamfer_top = Boolean(True, doc="if chamfer is set, top edges are chamfered")
-    chamfer_base = Boolean(False, doc="if chamfer is set, base edges are chamfered")
+    chamfer_top = Boolean(True, doc="if chamfer is set, top edges are chamfered (conical)")
+    chamfer_base = Boolean(False, doc="if chamfer is set, base edges are chamfered (conical)")
     edges = PositiveInt(4, doc="number of edges on fastener head")
     width = PositiveFloat(None, doc="distance between flats")  # defaults based on number of edges, and diameter
 

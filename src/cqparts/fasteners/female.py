@@ -9,12 +9,48 @@ from ..solidtypes.fastener_heads.driven import DrivenFastenerHead
 
 class FemaleFastenerPart(DrivenFastenerHead):
     """
-    Female fastener part; with an internal thread
+    Female fastener part; with an internal thread.
 
-    For a *nut* and *bolt*:
+    A female fastener part can only be externally driven, which is why this
+    object inherits from :class:`DrivenFastenerHead`.
 
-    * *nut* : female
-    * *bolt* : male
+    .. doctest::
+
+        from cqparts.fasteners.female import FemaleFastenerPart
+        from cqparts.display import display
+        nut = FemaleFastenerPart()
+        display(nut)  # doctest: +SKIP
+
+    .. image:: /_static/img/fastenerpart/female.default.png
+
+    You can also simplify the internal thread for rendering purposes with::
+
+        nut.thread._simple = True
+
+    .. image:: /_static/img/fastenerpart/female.default.simple.png
+
+    Instances of this class can also be customized during instantiation.
+
+    For example::
+
+        nut = FemaleFastenerPart(
+            width=8.1,  # distance between parallel edges
+            edges=6,  # hex bolt
+            washer=True,  # washer as part of the bolt
+            washer_diameter=11,
+            washer_height=0.5,
+            chamfer_base=False,  # don't chamfer under the washer
+            thread=('triangular', {
+                'diameter': 6,
+                'diameter_core': 4.5,
+                'pitch': 1.3,
+                'angle': 20,
+            }),
+        )
+        display(nut)
+
+    .. image:: /_static/img/fastenerpart/female.hex_flange.png
+
     """
 
     width = PositiveFloat(8, doc="width of tool reqiured to fasten nut")
@@ -32,14 +68,17 @@ class FemaleFastenerPart(DrivenFastenerHead):
 
     def initialize_parameters(self):
         super(FemaleFastenerPart, self).initialize_parameters()
-        # force thread to be inner
+
+        # force thread parameters
         self.thread.inner = True
-        # force thread height to that of the nut
-        self.thread.length = self.height
+        self.thread.length = self.height + 0.001
+        if self._simple:  # if nut is simplified, thread must also be simplified
+            self.thread._simple = True
 
     def make(self):
         # mirror inherited object
-        nut = super(FemaleFastenerPart, self).make().mirror(mirrorPlane="XY")
+        nut = super(FemaleFastenerPart, self).make() \
+            .rotate((0, 0, 0), (1, 0, 0), 180)
         # +z direction is maintained for male & female parts, but the object
         # resides on the opposite side of the XY plane
 
@@ -47,3 +86,11 @@ class FemaleFastenerPart(DrivenFastenerHead):
         thread = self.thread.local_obj.translate((0, 0, -self.height))
         nut = nut.cut(thread)
         return nut
+
+    def make_simple(self):
+        return super(FemaleFastenerPart, self).make_simple() \
+            .rotate((0, 0, 0), (1, 0, 0), 180)
+
+    def make_cutter(self):
+        return super(FemaleFastenerPart, self).make_cutter() \
+            .rotate((0, 0, 0), (1, 0, 0), 180)

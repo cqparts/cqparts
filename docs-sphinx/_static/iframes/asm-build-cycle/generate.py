@@ -2,13 +2,7 @@
 
 import sys
 import os
-import inspect
 
-if 'MYSCRIPT_DIR' in os.environ:
-    _this_path = os.environ['MYSCRIPT_DIR']
-else:
-    _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.insert(0, os.path.join(_this_path, '..', '..', '..', '..', 'src'))
 
 # -------------------------- Cylinder Part --------------------------
 

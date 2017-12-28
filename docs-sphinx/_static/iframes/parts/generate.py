@@ -6,8 +6,6 @@
 import sys
 import os
 
-sys.path.append('../../../../src')
-
 import cadquery
 import cqparts
 from cqparts.params import *

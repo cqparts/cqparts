@@ -134,6 +134,8 @@
   ], 
   "materials": [
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.6627, 
@@ -146,6 +148,8 @@
       }
     }, 
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.1961, 
@@ -158,6 +162,8 @@
       }
     }, 
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.6627, 

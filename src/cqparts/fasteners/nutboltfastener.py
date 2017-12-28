@@ -42,9 +42,15 @@ class NutAndBoltFastener(Fastener):
     class Applicator(Applicator):
         def apply_alterations(self):
             bolt = self.selector.components['bolt']
-            cutter = bolt.make_cutter()  # cutter in local coords
+            nut = self.selector.components['nut']
+            bolt_cutter = bolt.make_cutter()  # cutter in local coords
+            nut_cutter = nut.make_cutter()
 
             for effect in self.evaluator.eval:
-                relative_coordsys = bolt.world_coords - effect.part.world_coords
-                local_cutter = relative_coordsys + cutter
-                effect.part.local_obj = effect.part.local_obj.cut(local_cutter)
+                # bolt
+                bolt_coordsys = bolt.world_coords - effect.part.world_coords
+                effect.part.local_obj = effect.part.local_obj.cut(bolt_coordsys + bolt_cutter)
+
+                # nut
+                nut_coordsys = nut.world_coords - effect.part.world_coords
+                effect.part.local_obj = effect.part.local_obj.cut(nut_coordsys + nut_cutter)
