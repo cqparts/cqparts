@@ -13,6 +13,8 @@ from cqparts.utils import CoordSystem
 from cqparts.solidtypes.screw_drives import *
 from cqparts.display import display, render_props
 
+from cqparts.utils.env import env_name
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -25,16 +27,21 @@ parser.add_argument('-l', '--list',
                     help="list possible screw drive names")
 parser.add_argument('name', nargs='?',
                     help="name of screw drive")
-parser.add_argument('-a', '--alpha', type=float, default=0.5,
+parser.add_argument('-a', '--alpha', type=float, default=0.5 if env_name == 'freecad' else 1.0,
                     help="alpha of each part")
 
 args = parser.parse_args()
 
-names_list = sorted([
-    cqparts.search.class_criteria[cls].get('name', None)
+
+# Get list of names
+name_sets = [
+    cqparts.search.class_criteria[cls].get('name', set())
     for cls in cqparts.solidtypes.screw_drives.search()
-    if 'name' in cqparts.search.class_criteria[cls]
-])
+]
+names_list = set()
+for name_set in name_sets:
+    names_list |= name_set
+names_list = sorted(names_list)
 
 
 if args.list:

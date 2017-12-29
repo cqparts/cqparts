@@ -14,6 +14,15 @@ from .errors import SearchMultipleFoundError, SearchNoneFoundError
 #       }
 index = defaultdict(lambda: defaultdict(set))
 class_list = set()
+
+# class_criteria, of the format:
+#       class_criteria = {
+#           <Component class>: {
+#               <category>: set([<set of values>]),
+#               ... more categories
+#           },
+#           ... more classes
+#       }
 class_criteria = {}
 
 
@@ -64,7 +73,12 @@ def register(**criteria):
             index[category][value].add(cls)
 
         # Retain search criteria
-        class_criteria[cls] = criteria
+        _entry = dict((k, set([v])) for (k, v) in criteria.items())
+        if cls not in class_criteria:
+            class_criteria[cls] = _entry
+        else:
+            for key in _entry.keys():
+                class_criteria[cls][key] = class_criteria[cls].get(key, set()) | _entry[key]
 
         # Return class
         return cls

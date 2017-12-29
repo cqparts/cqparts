@@ -28,10 +28,11 @@ log = logging.getLogger(__name__)
 
 alpha = 0.5
 
+
 class Thing(cqparts.Assembly):
     def make_components(self):
-        anchor = Box(length=15, width=20, height=15, _render={'alpha':alpha})
-        plate = Box(length=25, width=15, height=7, _render={'alpha':alpha})
+        anchor = Box(length=25, width=30, height=15, _render={'alpha':alpha})
+        plate = Box(length=35, width=25, height=7, _render={'alpha':alpha})
         return {
             'anchor': anchor,
             'plate': plate,

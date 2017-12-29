@@ -30,11 +30,15 @@ parser.add_argument('-a', '--alpha', type=float, default=0.5,
 
 args = parser.parse_args()
 
-names_list = sorted([
-    cqparts.search.class_criteria[cls].get('name', None)
+# Get list of names
+name_sets = [
+    cqparts.search.class_criteria[cls].get('name', set())
     for cls in cqparts.solidtypes.fastener_heads.search()
-    if 'name' in cqparts.search.class_criteria[cls]
-])
+]
+names_list = set()
+for name_set in name_sets:
+    names_list |= name_set
+names_list = sorted(names_list)
 
 
 if args.list:
