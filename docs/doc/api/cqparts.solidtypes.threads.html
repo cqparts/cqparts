@@ -206,11 +206,7 @@
 <dt id="cqparts.solidtypes.threads.ball_screw.BallScrewThread">
 <em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.ball_screw.</code><code class="descname">BallScrewThread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.ball_screw.BallScrewThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
-<p class="last">That means the following parameters can be set in the constructor.</p>
-</div>
+<p><a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -228,6 +224,29 @@
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p><strong>Search Criteria:</strong></p>
+<p>This object can be found with <a class="reference internal" href="cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> 
+and <a class="reference internal" href="cqparts.html#cqparts.search.search" title="cqparts.search.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a> using the following 
+search criteria.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="59%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">module</span></code></td>
+<td><code class="docutils literal"><span class="pre">cqparts.solidtypes.threads.base</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">name</span></code></td>
+<td><code class="docutils literal"><span class="pre">ball_screw</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -263,11 +282,7 @@
 <dt id="cqparts.solidtypes.threads.base.Thread">
 <em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.base.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.base.Thread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
-<p class="last">That means the following parameters can be set in the constructor.</p>
-</div>
+<p><a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -402,7 +417,7 @@ with a pitch of the thread’s “lead” (which is {the height of the given
 profile} * start_count)</p>
 <p><strong>Method:</strong></p>
 <p>Each edge of the profile is converted to a bezier spline, aproximating
-it’s polar plot equivalent.</p>
+its polar plot equivalent.</p>
 <p><strong>Resolution:</strong> (via <cite>min_vertices</cite> parameter)</p>
 <p>Increasing the number of vertices used to define the bezier will
 increase the resulting thread’s accuracy, but cost more to render.</p>
@@ -461,11 +476,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <dt id="cqparts.solidtypes.threads.iso262.ISO262Thread">
 <em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.iso262.</code><code class="descname">ISO262Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.iso262.ISO262Thread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
-<p class="last">That means the following parameters can be set in the constructor.</p>
-</div>
+<p><a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -483,6 +494,29 @@ where: len(min_vertices) == number of edges in profile</p>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p><strong>Search Criteria:</strong></p>
+<p>This object can be found with <a class="reference internal" href="cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> 
+and <a class="reference internal" href="cqparts.html#cqparts.search.search" title="cqparts.search.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a> using the following 
+search criteria.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="59%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">module</span></code></td>
+<td><code class="docutils literal"><span class="pre">cqparts.solidtypes.threads.base</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">name</span></code></td>
+<td><code class="docutils literal"><span class="pre">iso262</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -508,11 +542,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <dt id="cqparts.solidtypes.threads.triangular.TriangularThread">
 <em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.triangular.</code><code class="descname">TriangularThread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.triangular.TriangularThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.solidtypes.threads.base.Thread" title="cqparts.solidtypes.threads.base.Thread"><code class="xref py py-class docutils literal"><span class="pre">cqparts.solidtypes.threads.base.Thread</span></code></a></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
-<p class="last">That means the following parameters can be set in the constructor.</p>
-</div>
+<p><a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -531,6 +561,29 @@ where: len(min_vertices) == number of edges in profile</p>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – number of thread starts</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+<p><strong>Search Criteria:</strong></p>
+<p>This object can be found with <a class="reference internal" href="cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> 
+and <a class="reference internal" href="cqparts.html#cqparts.search.search" title="cqparts.search.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a> using the following 
+search criteria.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="59%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">module</span></code></td>
+<td><code class="docutils literal"><span class="pre">cqparts.solidtypes.threads.base</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">name</span></code></td>
+<td><code class="docutils literal"><span class="pre">triangular</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -560,11 +613,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <dt id="cqparts.solidtypes.threads.Thread">
 <em class="property">class </em><code class="descclassname">cqparts.solidtypes.threads.</code><code class="descname">Thread</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.solidtypes.threads.Thread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>This class is a <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a></p>
-<p class="last">That means the following parameters can be set in the constructor.</p>
-</div>
+<p><a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

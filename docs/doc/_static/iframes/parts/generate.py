@@ -3,18 +3,13 @@
 # The code here should be representative of that in:
 #   https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html
 
-import sys
-import os
 
-sys.path.append('../../../../src')
+# ------------------- Box -------------------
 
 import cadquery
 import cqparts
 from cqparts.params import *
 from cqparts.display import display
-
-
-# ------------------- Box -------------------
 
 class Box(cqparts.Part):
     length = PositiveFloat(10, doc="box length (along x-axis)")

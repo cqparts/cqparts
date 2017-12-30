@@ -3,17 +3,6 @@
 # The code here should be representative of that in:
 #   https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html
 
-import sys
-import os
-import inspect
-
-if 'MYSCRIPT_DIR' in os.environ:
-    _this_path = os.environ['MYSCRIPT_DIR']
-else:
-    _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.insert(0, os.path.join(_this_path, '..', '..', '..', '..', 'src'))
-
-
 # ------------------- Wheel -------------------
 
 import cadquery
@@ -213,10 +202,7 @@ class Car(cqparts.Assembly):
 
 
 # ------------------- Export / Display -------------------
-# ------- Functions
-from cqparts.utils.env import get_env_name
-
-env_name = get_env_name()
+from cqparts.utils.env import env_name
 
 # ------- Models
 wheel = Wheel()

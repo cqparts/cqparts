@@ -541,8 +541,9 @@ configuration.</p>
 <dl class="function">
 <dt id="cqparts.utils.sphinx.add_parametric_object_params">
 <code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_parametric_object_params</code><span class="sig-paren">(</span><em>prepend=False</em>, <em>hide_private=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_parametric_object_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add ParameticObject parameters in a table to the <em>docstring</em></p>
-<p>This is only intended to be used with <em>sphinx autodoc</em></p>
+<dd><p>Add <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> parameters
+in a list to the <em>docstring</em>.</p>
+<p>This is only intended to be used with <em>sphinx autodoc</em>.</p>
 <p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.sphinx</span> <span class="k">import</span> <span class="n">add_parametric_object_params</span>
 <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
@@ -563,6 +564,32 @@ otherwise, they’re appended at the end.</li>
 <li><strong>hide_private</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters with a <code class="docutils literal"><span class="pre">_</span></code> prefix are not documented.</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cqparts.utils.sphinx.add_search_index_criteria">
+<code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_search_index_criteria</code><span class="sig-paren">(</span><em>prepend=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_search_index_criteria" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the search criteria used when calling <a class="reference internal" href="cqparts.html#cqparts.search.register" title="cqparts.search.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a>
+on a <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> as a table to the <em>docstring</em>.</p>
+<p>This is only intended to be used with <em>sphinx autodoc</em>.</p>
+<p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.sphinx</span> <span class="k">import</span> <span class="n">add_search_index_criteria</span>
+<span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;autodoc-process-docstring&quot;</span><span class="p">,</span> <span class="n">add_search_index_criteria</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Then, when documenting your <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> the
+search criteria will also be documented in the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, table is added to the beginning of the <em>docstring</em>.
+otherwise, it’s appended at the end.</td>
 </tr>
 </tbody>
 </table>

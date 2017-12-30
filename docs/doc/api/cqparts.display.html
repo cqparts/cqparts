@@ -208,7 +208,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to render</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</td>
 </tr>
 </tbody>
 </table>
@@ -422,8 +422,45 @@ information to display the part.</p>
 <span id="cqparts-display-web-module"></span><h2>cqparts.display.web module<a class="headerlink" href="#module-cqparts.display.web" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="cqparts.display.web.web_display">
-<code class="descclassname">cqparts.display.web.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.web_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">cqparts.display.web.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=9041</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.web_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display given component in a browser window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method exports the model, then exposes a http service on <em>localhost</em>
+for a browser to use.
+The http service does not know when the browser window has been closed, so
+it will continue to serve the model’s data until the user halts the
+process with a <code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
+<p>When run, you should see output similar to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">web_display</span><span class="p">(</span><span class="n">Cube</span><span class="p">())</span>
+<span class="go">press [ctrl+c] to stop server</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:37] &quot;GET / HTTP/1.1&quot; 200 -</span>
+<span class="go">Created new window in existing browser session.</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.gltf HTTP/1.1&quot; 200 -</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.bin HTTP/1.1&quot; 200 -</span>
+</pre></div>
+</div>
+<p>A new browser window should appear with a render that looks like:</p>
+<img alt="../_images/web_display.cube.png" src="../_images/web_display.cube.png" />
+<p>Then, when you press <code class="docutils literal"><span class="pre">Ctrl+C</span></code>, you should see:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">^</span><span class="n">C</span><span class="p">[</span><span class="n">server</span> <span class="n">shutdown</span> <span class="n">successfully</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and any further request on the opened browser window will return
+an errorcode 404 (file not found), because the http service has stopped.</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-cqparts.display">
@@ -643,7 +680,7 @@ Can be used to set a property based on the property of another.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to render</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</td>
 </tr>
 </tbody>
 </table>
@@ -651,8 +688,45 @@ Can be used to set a property based on the property of another.</p>
 
 <dl class="function">
 <dt id="cqparts.display.web_display">
-<code class="descclassname">cqparts.display.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web_display" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">cqparts.display.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=9041</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display given component in a browser window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This method exports the model, then exposes a http service on <em>localhost</em>
+for a browser to use.
+The http service does not know when the browser window has been closed, so
+it will continue to serve the model’s data until the user halts the
+process with a <code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
+<p>When run, you should see output similar to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">web_display</span><span class="p">(</span><span class="n">Cube</span><span class="p">())</span>
+<span class="go">press [ctrl+c] to stop server</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:37] &quot;GET / HTTP/1.1&quot; 200 -</span>
+<span class="go">Created new window in existing browser session.</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.gltf HTTP/1.1&quot; 200 -</span>
+<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.bin HTTP/1.1&quot; 200 -</span>
+</pre></div>
+</div>
+<p>A new browser window should appear with a render that looks like:</p>
+<img alt="../_images/web_display.cube.png" src="../_images/web_display.cube.png" />
+<p>Then, when you press <code class="docutils literal"><span class="pre">Ctrl+C</span></code>, you should see:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">^</span><span class="n">C</span><span class="p">[</span><span class="n">server</span> <span class="n">shutdown</span> <span class="n">successfully</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and any further request on the opened browser window will return
+an errorcode 404 (file not found), because the http service has stopped.</p>
+</dd></dl>
 
 </div>
 </div>

@@ -20,7 +20,7 @@
     {
       "bufferView": 1, 
       "byteOffset": 0, 
-      "componentType": 5123, 
+      "componentType": 5121, 
       "count": 36, 
       "type": "SCALAR"
     }, 
@@ -44,7 +44,7 @@
     {
       "bufferView": 3, 
       "byteOffset": 0, 
-      "componentType": 5123, 
+      "componentType": 5121, 
       "count": 36, 
       "type": "SCALAR"
     }, 
@@ -68,7 +68,7 @@
     {
       "bufferView": 5, 
       "byteOffset": 0, 
-      "componentType": 5123, 
+      "componentType": 5121, 
       "count": 36, 
       "type": "SCALAR"
     }, 
@@ -111,7 +111,7 @@
     }, 
     {
       "buffer": 0, 
-      "byteLength": 72, 
+      "byteLength": 36, 
       "byteOffset": 96, 
       "target": 34963
     }, 
@@ -124,7 +124,7 @@
     }, 
     {
       "buffer": 1, 
-      "byteLength": 72, 
+      "byteLength": 36, 
       "byteOffset": 96, 
       "target": 34963
     }, 
@@ -137,7 +137,7 @@
     }, 
     {
       "buffer": 2, 
-      "byteLength": 72, 
+      "byteLength": 36, 
       "byteOffset": 96, 
       "target": 34963
     }, 
@@ -157,15 +157,15 @@
   ], 
   "buffers": [
     {
-      "byteLength": 168, 
+      "byteLength": 132, 
       "uri": "block_stack.a.bin"
     }, 
     {
-      "byteLength": 168, 
+      "byteLength": 132, 
       "uri": "block_stack.c.bin"
     }, 
     {
-      "byteLength": 168, 
+      "byteLength": 132, 
       "uri": "block_stack.b.bin"
     }, 
     {
@@ -175,6 +175,8 @@
   ], 
   "materials": [
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7529, 
@@ -187,6 +189,8 @@
       }
     }, 
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7529, 
@@ -199,6 +203,8 @@
       }
     }, 
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7529, 
@@ -211,6 +217,8 @@
       }
     }, 
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7529, 

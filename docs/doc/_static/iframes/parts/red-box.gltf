@@ -20,7 +20,7 @@
     {
       "bufferView": 1, 
       "byteOffset": 0, 
-      "componentType": 5123, 
+      "componentType": 5121, 
       "count": 36, 
       "type": "SCALAR"
     }
@@ -39,19 +39,21 @@
     }, 
     {
       "buffer": 0, 
-      "byteLength": 72, 
+      "byteLength": 36, 
       "byteOffset": 96, 
       "target": 34963
     }
   ], 
   "buffers": [
     {
-      "byteLength": 168, 
-      "uri": "data:application/octet-stream;base64,AACgwAAAoEAAAKBAAACgwAAAoEAAAKDAAACgwAAAoMAAAKBAAACgwAAAoMAAAKDAAACgQAAAoMAAAKBAAACgQAAAoEAAAKDAAACgQAAAoEAAAKBAAACgQAAAoMAAAKDAAAABAAIAAQADAAIABAAFAAYABAAHAAUAAwAHAAQAAgADAAQABgAFAAEABgABAAAAAwABAAUABwADAAUABgAAAAIABgACAAQA"
+      "byteLength": 132, 
+      "uri": "data:application/octet-stream;base64,AACgwAAAoEAAAKBAAACgwAAAoEAAAKDAAACgwAAAoMAAAKBAAACgwAAAoMAAAKDAAACgQAAAoMAAAKBAAACgQAAAoEAAAKDAAACgQAAAoEAAAKBAAACgQAAAoMAAAKDAAAECAQMCBAUGBAcFAwcEAgMEBgUBBgEAAwEFBwMFBgACBgIE"
     }
   ], 
   "materials": [
     {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           1.0, 
