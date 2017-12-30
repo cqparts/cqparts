@@ -217,6 +217,7 @@ def custom_noskip():
 
 
 from cqparts.utils.sphinx import add_parametric_object_params
+from cqparts.utils.sphinx import add_search_index_criteria
 from cqparts.utils.sphinx import skip_class_parameters
 
 def setup(app):
@@ -228,4 +229,5 @@ def setup(app):
     app.connect("autodoc-skip-member", skip_class_parameters())
 
     # Parameter Mapping
+    app.connect("autodoc-process-docstring", add_search_index_criteria(prepend=True))
     app.connect("autodoc-process-docstring", add_parametric_object_params(prepend=True))

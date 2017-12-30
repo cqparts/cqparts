@@ -202,10 +202,7 @@ class Car(cqparts.Assembly):
 
 
 # ------------------- Export / Display -------------------
-# ------- Functions
-from cqparts.utils.env import get_env_name
-
-env_name = get_env_name()
+from cqparts.utils.env import env_name
 
 # ------- Models
 wheel = Wheel()

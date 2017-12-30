@@ -27,7 +27,8 @@ parser.add_argument('-l', '--list',
                     help="list possible screw drive names")
 parser.add_argument('name', nargs='?',
                     help="name of screw drive")
-parser.add_argument('-a', '--alpha', type=float, default=0.5 if env_name == 'freecad' else 1.0,
+parser.add_argument('-a', '--alpha', type=float,
+                    default=0.5 if env_name == 'freecad' else 1.0,
                     help="alpha of each part")
 
 args = parser.parse_args()

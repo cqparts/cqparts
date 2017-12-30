@@ -42,7 +42,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     **Method:**
 
     Each edge of the profile is converted to a bezier spline, aproximating
-    it's polar plot equivalent.
+    its polar plot equivalent.
 
     **Resolution:** (via `min_vertices` parameter)
 

@@ -43,11 +43,13 @@ def _cls_name(cls):
     return "{}.{}".format(cls.__module__, cls.__name__)
 
 
+# -------------- autodoc-process-docstring --------------
 def add_parametric_object_params(prepend=False, hide_private=True):
     """
-    Add ParameticObject parameters in a table to the *docstring*
+    Add :class:`ParametricObject <cqparts.params.ParametricObject>` parameters
+    in a list to the *docstring*.
 
-    This is only intended to be used with *sphinx autodoc*
+    This is only intended to be used with *sphinx autodoc*.
 
     In your *sphinx* ``config.py`` file::
 
@@ -66,6 +68,9 @@ def add_parametric_object_params(prepend=False, hide_private=True):
     :param hide_private: if True, parameters with a ``_`` prefix are not documented.
     :type hide_private: :class:`bool`
     """
+
+    from ..params import ParametricObject
+
     def param_lines(app, obj):
         params = ParametricObject._get_class_params(obj)  # list of names
         if hide_private:
@@ -76,11 +81,7 @@ def add_parametric_object_params(prepend=False, hide_private=True):
         doc_lines = []
         if params:  # only add a header if it's relevant
             doc_lines += [
-                ".. tip::",
-                "",
-                "    This class is a :class:`ParametricObject <cqparts.params.ParametricObject>`",
-                "",
-                "    That means the following parameters can be set in the constructor.",
+                ":class:`ParametricObject <cqparts.params.ParametricObject>` constructor parameters:",
                 "",
             ]
 
@@ -113,6 +114,91 @@ def add_parametric_object_params(prepend=False, hide_private=True):
     return callback
 
 
+def add_search_index_criteria(prepend=False):
+    """
+    Add the search criteria used when calling :meth:`register() <cqparts.search.register>`
+    on a :class:`Component <cqparts.part.Component>` as a table to the *docstring*.
+
+    This is only intended to be used with *sphinx autodoc*.
+
+    In your *sphinx* ``config.py`` file::
+
+        from cqparts.utils.sphinx import add_search_index_criteria
+        def setup(app):
+            app.connect("autodoc-process-docstring", add_search_index_criteria())
+
+    Then, when documenting your :class:`Part <cqparts.part.Part>` or
+    :class:`Assembly <cqparts.part.Assembly>` the
+    search criteria will also be documented in the output.
+
+    :param prepend: if True, table is added to the beginning of the *docstring*.
+                    otherwise, it's appended at the end.
+    :type prepend: :class:`bool`
+    """
+
+    from ..search import class_criteria
+    from ..part import Component
+
+    COLUMN_INFO = [
+        # (<title>, <width>, <method>),
+        ('Key', 50, lambda k, v: "``%s``" % k),
+        ('Value', 10, lambda k, v: ', '.join("``%s``" % w for w in v)),
+    ]  # note: last column width is irrelevant
+
+    def param_lines(app, obj):
+        doc_lines = []
+
+        criteria = class_criteria.get(obj, {})
+        row_seperator = ' '.join(('=' * w) for (_, w, _) in COLUMN_INFO)
+
+        # Header
+        if criteria:  # only add a header if it's relevant
+            doc_lines += [
+                "**Search Criteria:**",
+                "",
+                "This object can be found with :meth:`find() <cqparts.search.find>` ",
+                "and :meth:`search() <cqparts.search.search>` using the following ",
+                "search criteria.",
+                "",
+                row_seperator,
+                ' '.join((("%%-%is" % w) % t) for (t, w, _) in COLUMN_INFO),
+                row_seperator,
+            ]
+
+        # Add criteria
+        for (key, value) in sorted(criteria.items(), key=lambda x: x[0]):
+            doc_lines.append(' '.join(
+                ("%%-%is" % w) % m(key, value)
+                for (_, w, m) in COLUMN_INFO
+            ))
+
+        # Footer
+        if criteria:
+            doc_lines += [
+                row_seperator,
+                "",
+            ]
+
+        return doc_lines
+
+    # Conditions for running above `param_lines` function (in order)
+    conditions = [  # (all conditions must be met)
+        lambda o: type(o) == type,
+        lambda o: o is not Component,
+        lambda o: issubclass(o, Component),
+    ]
+
+    def callback(app, what, name, obj, options, lines):
+        # sphinx callback
+        # (this method is what actually gets sent to the sphinx runtime)
+        if all(c(obj) for c in conditions):
+            new_lines = param_lines(app, obj)
+            _add_lines(lines, new_lines, prepend=prepend)
+
+    return callback
+
+
+# -------------- autodoc-skip-member --------------
 def skip_class_parameters():
     """
     Can be used with :meth:`add_parametric_object_params`, this removes
@@ -126,6 +212,9 @@ def skip_class_parameters():
         def setup(app):
             app.connect("autodoc-skip-member", skip_class_parameters())
     """
+
+    from ..params import Parameter
+
     def callback(app, what, name, obj, skip, options):
         if (what == 'class') and isinstance(obj, Parameter):
             return True  # yes, skip this object
