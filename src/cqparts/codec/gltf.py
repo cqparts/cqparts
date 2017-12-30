@@ -92,7 +92,7 @@ class ShapeBuffer(object):
         >>> (sb.vert_len, sb.vert_offset, sb.vert_size)
         (36L, 0L, 3L)
         >>> (sb.idx_len, sb.idx_offset, sb.idx_size)
-        (6L, 36L, 3L)
+        (3L, 36L, 3L)
     """
     def __init__(self, max_index=0xff):
         """
@@ -498,7 +498,7 @@ class GLTFExporter(Exporter):
             ...     mimetype="application/octet-stream",
             ...     data=base64.b64encode(buff.read()).decode('ascii'),
             ... )}
-            {'uri': 'data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAABAAIAAQADAAIABAAFAAYABAAHAAUAAwAHAAIAAgAHAAQAAAAFAAEABgAFAAAAAwABAAcABwABAAUABAAAAAIABgAAAAQA'}
+            {'uri': 'data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAECAQMCBAUGBAcFAwcCAgcEAAUBBgUAAwEHBwEFBAACBgAE'}
         """
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112

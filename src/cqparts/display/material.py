@@ -49,7 +49,7 @@ class RenderProps(object):
     .. doctest::
 
         >>> from cqparts.params import ParametricObject
-        >>> from cqparts.display import RenderParam, TEMPLATE, COLOR
+        >>> from cqparts.display.material import RenderParam, TEMPLATE, COLOR
         >>> class Thing(ParametricObject):
         ...     _render = RenderParam(TEMPLATE['red'], doc="render params")
         >>> thing = Thing()
