@@ -109,6 +109,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#component-parts">Component Parts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#wood-screw">Wood Screw</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#anchor">Anchor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aligned-together">Aligned Together</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#evaluation-selection-application">Evaluation / Selection / Application</a><ul>
@@ -208,88 +209,242 @@ grouped into a single mechanical fastener.</p>
 </div>
 <div class="section" id="wood-screw">
 <h3>Wood Screw<a class="headerlink" href="#wood-screw" title="Permalink to this headline">¶</a></h3>
-<p>The wood screw will be a simplified version of the one shown in the diagram:</p>
+<p>Wood screw will use <a class="reference internal" href="../api/cqparts.fasteners.html#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>
+as a basis.</p>
 <ul class="simple">
-<li><strong>head</strong> : ‘cheese’ fastener head (<code class="xref py py-class docutils literal"><span class="pre">CheeseFastenerHead</span></code>)</li>
-<li><strong>screw drive</strong> : ‘phillips’ screw drive (<code class="xref py py-class docutils literal"><span class="pre">PhillipsScrewDrive</span></code>)</li>
-<li><strong>shaft</strong> : mostly a thick cylindrical shaft, same diameter as the <em>head</em>, which
-thins to ~1/2 the size closer to the <em>head</em>.</li>
+<li><strong>screw body</strong> : built from
+<a class="reference internal" href="../api/cqparts.fasteners.html#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>, then modified.</li>
+<li><strong>shaft</strong> : we’ll add the bore-sized shaft to the neck of the screw.</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">PositiveFloat</span>
-<span class="c1">#from cqparts.fasteners.params import HeadType, DriveType, ThreadType</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">cqparts.fasteners.params</span> <span class="k">import</span> <span class="n">HeadType</span><span class="p">,</span> <span class="n">DriveType</span><span class="p">,</span> <span class="n">ThreadType</span>
+<span class="kn">from</span> <span class="nn">cqparts.fasteners.male</span> <span class="k">import</span> <span class="n">MaleFastenerPart</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
 
-<span class="k">class</span> <span class="nc">WoodScrew</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-    <span class="n">diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;bore hole diameter&quot;</span><span class="p">)</span>
-    <span class="n">thread_length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;distance the screw bores into part&quot;</span><span class="p">)</span>
-    <span class="c1"># TODO: more parameters</span>
+<span class="k">class</span> <span class="nc">WoodScrew</span><span class="p">(</span><span class="n">MaleFastenerPart</span><span class="p">):</span>
+    <span class="c1"># --- override MaleFastenerPart parameters</span>
+    <span class="c1"># sub-parts</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="n">HeadType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;cheese&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">}),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;screw&#39;s head&quot;</span><span class="p">)</span>
+    <span class="n">drive</span> <span class="o">=</span> <span class="n">DriveType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;phillips&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
+        <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">,</span>
+        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">}),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;screw&#39;s drive&quot;</span><span class="p">)</span>
+    <span class="n">thread</span> <span class="o">=</span> <span class="n">ThreadType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;triangular&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># outer</span>
+        <span class="s1">&#39;diameter_core&#39;</span><span class="p">:</span> <span class="mf">4.3</span><span class="p">,</span>  <span class="c1"># inner</span>
+        <span class="s1">&#39;pitch&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;angle&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="p">}),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;screw&#39;s thread&quot;</span><span class="p">)</span>
+
+    <span class="c1"># scalars</span>
+    <span class="n">neck_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;neck diameter&quot;</span><span class="p">)</span>
+    <span class="n">neck_length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;length from base of head to end of neck&quot;</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;length from base of head to end of thread&quot;</span><span class="p">)</span>
+
+    <span class="c1"># --- parameters unique for this class</span>
+    <span class="n">neck_exposed</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;length of neck exposed below head&quot;</span><span class="p">)</span>
+    <span class="n">bore_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;diameter of screw&#39;s bore&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">initialize_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WoodScrew</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize_parameters</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">TODO</span><span class="p">:</span> <span class="n">code</span> <span class="k">for</span> <span class="n">wood</span> <span class="n">screw</span> <span class="n">make</span><span class="p">()</span>
+        <span class="n">screw</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">WoodScrew</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+
+        <span class="c1"># add bore cylinder</span>
+        <span class="n">bore</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_length</span><span class="p">))</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bore_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">neck_exposed</span><span class="p">)</span>
+        <span class="c1"># cut out sides from bore so it takes less material</span>
+        <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="mi">360</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]:</span>
+            <span class="n">slice_obj</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span>
+                <span class="s1">&#39;XY&#39;</span><span class="p">,</span>
+                <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bore_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_exposed</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bore_diam</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_length</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">neck_exposed</span> <span class="o">-</span> <span class="mi">4</span><span class="p">))</span> \
+                <span class="o">.</span><span class="n">rotate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">angle</span><span class="p">)</span>
+            <span class="n">bore</span> <span class="o">=</span> <span class="n">bore</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">slice_obj</span><span class="p">)</span>
+        <span class="n">screw</span> <span class="o">=</span> <span class="n">screw</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">bore</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">screw</span>
+
+    <span class="k">def</span> <span class="nf">make_cutter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># we won&#39;t use MaleFastenerPart.make_cutter() because it</span>
+        <span class="c1"># implements an access hole that we don&#39;t need.</span>
+        <span class="n">cutter</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bore_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_length</span><span class="p">)</span>
+        <span class="n">cutter</span> <span class="o">=</span> <span class="n">cutter</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">make_pilothole_cutter</span><span class="p">()</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+            <span class="p">))</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">cutter</span>
+
+    <span class="k">def</span> <span class="nf">make_simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># in this case, the cutter solid serves as a good simplified</span>
+        <span class="c1"># model of the screw.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_cutter</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">finish above woodscrew code</p>
-</div>
 <p>So to illustrate what we’ve just made:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_mylib.easyinstall</span> <span class="k">import</span> <span class="n">WoodScrew</span>  <span class="c1"># pretending it&#39;s there</span>
-
-<span class="n">screw</span> <span class="o">=</span> <span class="n">WoodScrew</span><span class="p">(</span><span class="n">thread_length</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="c1"># with a thread length just to show we</span>
-<span class="c1"># can change any of the parameters</span>
-
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">screw</span> <span class="o">=</span> <span class="n">Screw</span><span class="p">()</span>
 <span class="n">display</span><span class="p">(</span><span class="n">screw</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">replace woodscrew placeholder with real screw</p>
-</div>
-<img alt="../_images/easy-install-woodscrew.png" src="../_images/easy-install-woodscrew.png" />
-</div>
+<iframe class="model-display"
+    src="../_static/iframes/easy-install/screw.html"
+    height="300px" width="100%"
+></iframe></div>
 <div class="section" id="anchor">
 <h3>Anchor<a class="headerlink" href="#anchor" title="Permalink to this headline">¶</a></h3>
-<p>Similarly, the anchor will be simplified</p>
+<p>The anchor is composed of:</p>
 <ul class="simple">
 <li><strong>main body</strong> : the anchor will be cut from a large cylindrical block.</li>
-<li><strong>screw drive</strong> : ‘cross’ screw drive (<code class="xref py py-class docutils literal"><span class="pre">CrossScrewDrive</span></code>)</li>
-<li><strong>initial slot</strong> : a rectangle the width of the woodscrew’s diameter will be cut
-from the <em>main body</em></li>
-<li><strong>rotary slot</strong> : 270 degrees of a coin shape will be subtracted from the center
-of the <em>main body</em> (to accomodate the <em>wood screw</em> shaft just below it’s <em>head</em>)</li>
-<li><strong>circular wedge</strong> : an eccentric cylinder is cut from the <em>main body</em></li>
+<li><strong>neck slot</strong> : slot alowing woodscrew’s neck access.</li>
+<li><strong>head slot</strong> : conical wedge to pull on screwhead when installed.</li>
+<li><strong>access port</strong> : 1 quadrant cut out to to alow screwhead access.</li>
+<li><strong>screw drive</strong> : to allow user to apply a screwdriver to install.</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">PositiveFloat</span><span class="p">,</span> <span class="n">Boolean</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
 
 <span class="k">class</span> <span class="nc">Anchor</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
-    <span class="n">diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;bore diameter for anchor&quot;</span><span class="p">)</span>
-    <span class="nb">reversed</span> <span class="o">=</span> <span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;if True, screw drive is put on the reverse side&quot;</span><span class="p">)</span>
-    <span class="c1"># TODO more parameters</span>
+    <span class="c1"># sub-parts</span>
+    <span class="n">drive</span> <span class="o">=</span> <span class="n">DriveType</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;cross&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;depth&#39;</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="p">}),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;anchor&#39;s drive&quot;</span><span class="p">)</span>
+
+    <span class="c1"># scalars</span>
+    <span class="n">diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;diameter of anchor&quot;</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;height of anchor&quot;</span><span class="p">)</span>
+    <span class="n">neck_diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;width of screw neck&quot;</span><span class="p">)</span>
+    <span class="n">head_diameter</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;width of screw head&quot;</span><span class="p">)</span>
+    <span class="n">spline_point_count</span> <span class="o">=</span> <span class="n">IntRange</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;number of spiral spline points&quot;</span><span class="p">)</span>
+    <span class="n">ratio_start</span> <span class="o">=</span> <span class="n">FloatRange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;radius ratio of wedge start&quot;</span><span class="p">)</span>
+    <span class="n">ratio_end</span> <span class="o">=</span> <span class="n">FloatRange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;radius ratio of wedge end&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">conical_radii</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_start</span><span class="p">,</span>  <span class="c1"># start radius</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_end</span>  <span class="c1"># end radius</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: code to build anchor</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="c1"># neck slot</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
+            <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_diameter</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span> \
+                <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">threePointArc</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="p">)</span> \
+                <span class="o">.</span><span class="n">close</span><span class="p">()</span> \
+                <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">neck_diameter</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># head slot (forms a conical wedge)</span>
+        <span class="p">(</span><span class="n">start_r</span><span class="p">,</span> <span class="n">end_r</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conical_radii</span>
+        <span class="n">angles_radius</span> <span class="o">=</span> <span class="p">(</span>  <span class="c1"># as generator</span>
+            <span class="p">(</span>
+                <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">spline_point_count</span><span class="p">)),</span>  <span class="c1"># angle</span>
+                <span class="n">start_r</span> <span class="o">+</span> <span class="p">((</span><span class="n">end_r</span> <span class="o">-</span> <span class="n">start_r</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spline_point_count</span><span class="p">)))</span>  <span class="c1"># radius</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">spline_point_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># avoid zero angle</span>
+        <span class="p">)</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="n">cos</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="ow">in</span> <span class="n">angles_radius</span><span class="p">]</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
+            <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">head_diameter</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)))</span> \
+                <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">start_r</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">spline</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">close</span><span class="p">()</span> \
+                <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head_diameter</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># access port</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
+            <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_diameter</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> \
+                <span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">centered</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># screw drive</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drive</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drive</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">make_simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_screwhead</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">(</span><span class="n">start_r</span><span class="p">,</span> <span class="n">end_r</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conical_radii</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span>
+            <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">((</span><span class="n">start_r</span> <span class="o">+</span> <span class="n">end_r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">))</span>
 </pre></div>
 </div>
-<p>So to illustrate what we’ve just made:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_mylib.easyinstall</span> <span class="k">import</span> <span class="n">Anchor</span>  <span class="c1"># pretending it&#39;s there</span>
-
-<span class="n">anchor</span> <span class="o">=</span> <span class="n">Anchor</span><span class="p">(</span><span class="n">diameter</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="c1"># with a changed diameter just to show we</span>
-<span class="c1"># can change any of the parameters</span>
-
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<p>What we’ve made isn’t perfect, but it will do for this tutorial.
+Besides, that’s more than enough code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">anchor</span> <span class="o">=</span> <span class="n">Anchor</span><span class="p">()</span>
 <span class="n">display</span><span class="p">(</span><span class="n">anchor</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">replace placeholder of anchor with real render</p>
+<iframe class="model-display"
+    src="../_static/iframes/easy-install/anchor.html"
+    height="300px" width="100%"
+></iframe></div>
+<div class="section" id="aligned-together">
+<h3>Aligned Together<a class="headerlink" href="#aligned-together" title="Permalink to this headline">¶</a></h3>
+<p>Just to demonstrate what we’ve made, let’s create a temporary
+<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> aligning the 2 together:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
+
+<span class="k">class</span> <span class="nc">_Together</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;screw&#39;</span><span class="p">:</span> <span class="n">WoodScrew</span><span class="p">(</span><span class="n">neck_exposed</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+            <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="n">Anchor</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;screw&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+            <span class="n">Coincident</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_screwhead</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;screw&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
 </div>
-<img alt="../_images/easy-install-anchor.png" src="../_images/easy-install-anchor.png" />
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">together</span> <span class="o">=</span> <span class="n">_Together</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">together</span><span class="p">)</span>
+</pre></div>
 </div>
+<iframe class="model-display"
+    src="../_static/iframes/easy-install/together.html"
+    height="300px" width="100%"
+></iframe></div>
 </div>
 <div class="section" id="evaluation-selection-application">
 <h2>Evaluation / Selection / Application<a class="headerlink" href="#evaluation-selection-application" title="Permalink to this headline">¶</a></h2>
@@ -331,7 +486,7 @@ be applied:</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">anchor_plane</span><span class="o">.</span><span class="n">zDir</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p>image of evaluation, showing:</p>
 <ul class="last simple">

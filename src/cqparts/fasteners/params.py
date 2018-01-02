@@ -86,13 +86,12 @@ class HeadType(FastenerComponentParam):
 
           - ``head type`` is one of
 
-            - :class:`str` name of fastener head (registered with :meth:`fastener_head <cqparts.solidtypes.fastener_heads.fastener_head>`)
+            - :class:`str` name of fastener head (registered with :meth:`register <cqparts.solidtypes.fastener_heads.register>`)
             - :class:`FastenerHead <cqparts.solidtypes.fastener_heads.FastenerHead>` subclass
 
           - ``parameters`` is a :class:`dict`
         """
         return super(HeadType, self).type(value)
-
 
 
 class DriveType(FastenerComponentParam):
@@ -114,7 +113,7 @@ class DriveType(FastenerComponentParam):
 
           - ``drive type`` is one of
 
-            - ``str``: name of screw-drive (registered with :meth:`screw_drive <cqparts.solidtypes.screw_drives.screw_drive>`)
+            - ``str``: name of screw-drive (registered with :meth:`register <cqparts.solidtypes.screw_drives.register>`)
             - :class:`ScrewDrive <cqparts.solidtypes.screw_drives.ScrewDrive>` subclass
 
           - ``parameters`` is a :class:`dict`
@@ -141,7 +140,7 @@ class ThreadType(FastenerComponentParam):
 
           - ``thread type`` is one of
 
-            - ``str``: name of thread type (registered with :meth:`thread <cqparts.solidtypes.threads.thread>`)
+            - ``str``: name of thread type (registered with :meth:`register <cqparts.solidtypes.threads.register>`)
             - :class:`Thread <cqparts.solidtypes.threads.Thread>` subclass
 
           - ``parameters`` is a :class:`dict`
