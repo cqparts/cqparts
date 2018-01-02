@@ -82,7 +82,7 @@ def web_display(component, port=9041):
     # Create temporary file to host files
     temp_dir = tempfile.mkdtemp()
     host_dir = os.path.join(temp_dir, 'html')
-    log.info("host temp folder: %s", host_dir)
+    print("host temp folder: %s" % host_dir)
 
     # Copy template content to temporary location
     shutil.copytree(TEMPLATE_CONTENT_DIR, host_dir)
@@ -128,14 +128,14 @@ def web_display(component, port=9041):
             with working_dir(host_dir):
                 server.serve_forever()
 
-        log.info("serving: %s", server_addr)
+        print("serving: %s" % server_addr)
         sys.stdout.flush()
         server_thread = threading.Thread(target=thread_target)
         server_thread.daemon = True
         server_thread.start()
 
         # Open in browser
-        log.info("opening in browser: %s", server_addr)
+        print("opening in browser: %s" % server_addr)
         sys.stdout.flush()
         webbrowser.open(server_addr)
 
