@@ -72,10 +72,7 @@ def add_parametric_object_params(prepend=False, hide_private=True):
     from ..params import ParametricObject
 
     def param_lines(app, obj):
-        params = ParametricObject._get_class_params(obj)  # list of names
-        if hide_private:
-            # remove parameter names with a '_' prefix
-            params = [p for p in params if not p.startswith('_')]
+        params = obj.class_params(hidden=(not hide_private))
 
         # Header
         doc_lines = []
@@ -85,14 +82,12 @@ def add_parametric_object_params(prepend=False, hide_private=True):
                 "",
             ]
 
-        # Add parameters
-        for key in sorted(params):
-            param_def = getattr(obj, key)
+        for (name, param) in sorted(params.items(), key=lambda x: x[0]):  # sort by name
             doc_lines.append(':param {name}: {doc}'.format(
-                name=key, doc=param_def._param(),
+                name=name, doc=param._param(),
             ))
             doc_lines.append(':type {name}: {doc}'.format(
-                name=key, doc=param_def._type(),
+                name=name, doc=param._type(),
             ))
 
         return doc_lines
