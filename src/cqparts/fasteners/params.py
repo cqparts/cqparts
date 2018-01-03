@@ -66,6 +66,19 @@ class FastenerComponentParam(Parameter):
             # Create instance & return it
             return component_class(**params)
 
+    # Serialize / Deserialize
+    @classmethod
+    def serialize(cls, value):
+        if value is None:
+            return value
+        return value.serialize()  # divert to ParametricObject's serialize()
+
+    @classmethod
+    def deserialize(cls, value):
+        if value is None:
+            return value
+        return ParametricObject.deserialize(value)
+
 
 class HeadType(FastenerComponentParam):
     name = 'head'

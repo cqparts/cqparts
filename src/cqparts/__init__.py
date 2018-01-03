@@ -18,7 +18,7 @@ __email__ = "peter.boin@gmail.com"
 __license__ = "GPLv3"
 
 # not text-parsable
-__copyright__ = "Copyright 2017 {0}".format(__author__)
+__copyright__ = "Copyright 2018 {0}".format(__author__)
 
 
 # =========================== Imports ===========================

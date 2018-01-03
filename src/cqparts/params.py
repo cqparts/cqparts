@@ -2,6 +2,7 @@ import six
 from copy import copy
 from importlib import import_module
 
+from . import __version__
 from .errors import ParameterError
 
 import logging
@@ -157,6 +158,121 @@ class ParametricObject(object):
         """
         pass
 
+    # Serialize / Deserialize
+    def serialize(self):
+        """
+        Encode a :class:`ParametricObject` instance to an object that can be
+        encoded by the :mod:`json` module.
+
+        :return: a dict of the format:
+        :rtype: :class:`dict`
+
+        ::
+
+            {
+                'lib': {  # library information
+                    'name': 'cqparts',
+                    'version': '0.1.0',
+                },
+                'class': {  # importable class
+                    'module': 'yourpartslib.submodule',  # module containing class
+                    'name': 'AwesomeThing',  # class being serialized
+                },
+                'params': {  # serialized parameters of AwesomeThing
+                    'x': 10,
+                    'y': 20,
+                }
+            }
+
+        value of ``params`` key comes from :meth:`serialize_parameters`
+
+        .. important::
+
+            Serialize pulls the class name from the classes ``__name__`` parameter.
+
+            This must be the same name of the object holding the class data, or
+            the instance cannot be re-instantiated by :meth:`deserialize`.
+
+        **Examples (good / bad)**
+
+        .. doctest::
+
+            >>> from cqparts.params import ParametricObject, Int
+
+            >>> # GOOD Example
+            >>> class A(ParametricObject):
+            ...     x = Int(10)
+            >>> A().serialize()['class']['name']
+            'A'
+
+            >>> # BAD Example
+            >>> B = type('Foo', (ParametricObject,), {'x': Int(10)})
+            >>> B().serialize()['class']['name']  # doctest: +SKIP
+            'Foo'
+
+        In the second example, the classes import name is expected to be ``B``.
+        But instead, the *name* ``Foo`` is recorded. This missmatch will be
+        irreconcilable when attempting to :meth:`deserialize`.
+        """
+        return {
+            # Encode library information (future-proofing)
+            'lib': {
+                'name': 'cqparts',
+                'version': __version__,
+            },
+            # class & name record, for automated import when decoding
+            'class': {
+                'module': type(self).__module__,
+                'name': type(self).__name__,
+            },
+            'params': self.serialize_parameters(),
+        }
+
+    def serialize_parameters(self):
+        """
+        Get the parameter data in its serialized form.
+
+        Data is serialized by each parameter's :meth:`Parameter.serialize`
+        implementation.
+
+        :return: serialized parameter data in the form: ``{<name>: <serial data>, ...}``
+        :rtype: :class:`dict`
+        """
+
+        # Get parameter data
+        class_params = self.class_params()
+        instance_params = self.params()
+
+        # Serialize each parameter
+        serialized = {}
+        for name in class_params.keys():
+            param = class_params[name]
+            value = instance_params[name]
+            serialized[name] = param.serialize(value)
+        return serialized
+
+    @staticmethod
+    def deserialize(data):
+        """
+        Create instance from serial data
+        """
+        # Import module & get class
+        try:
+            module = import_module(data['class']['module'])
+            cls = getattr(module, data['class']['name'])
+        except ImportError:
+            raise ImportError("No module named: %r" % data['class']['module'])
+        except AttributeError:
+            raise ImportError("module %r does not contain class %r" % (
+                data['class']['module'], data['class']['name']
+            ))
+
+        # Instantiate new instance
+        return cls(**data['params'])
+
+    #@staticmethod
+    #def deserialized_class(data):
+
 
 # ========================  Parameter Types  ========================
 class Parameter(object):
@@ -262,7 +378,7 @@ class Parameter(object):
 
     # Serializing / Deserializing
     @classmethod
-    def serialize(self, value):
+    def serialize(cls, value):
         r"""
         Converts value to something serializable by :mod:`json`.
 
@@ -386,7 +502,7 @@ class Parameter(object):
         return value
 
     @classmethod
-    def deserialize(self, value):
+    def deserialize(cls, value):
         """
         Converts :mod:`json` deserialized value to its python equivalent.
 

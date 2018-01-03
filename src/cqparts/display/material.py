@@ -1,5 +1,5 @@
 
-from ..params import as_parameter
+from ..params import NonNullParameter
 
 
 # Templates (may be used optionally)
@@ -175,7 +175,17 @@ class RenderProps(object):
             #"name": "red",
         }
 
-RenderParam = as_parameter(nullable=False)(RenderProps)
+
+class RenderParam(NonNullParameter):
+    _doc_type = "kwargs for :class:`RenderProps <cqparts.display.material.RenderProps>`"
+
+    def type(selv, value):
+        return RenderProps(**value)
+
+    # Serialize / Deserialize
+    @classmethod
+    def serialize(cls, value):
+        return value.dict
 
 
 def render_props(**kwargs):
