@@ -14,6 +14,7 @@ Subpackages
     cqparts.fasteners
     cqparts.gears
     cqparts.motors
+    cqparts.params
     cqparts.solidtypes
     cqparts.torque_limiters
     cqparts.utils
@@ -25,14 +26,6 @@ cqparts\.errors module
 ----------------------
 
 .. automodule:: cqparts.errors
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-cqparts\.params module
-----------------------
-
-.. automodule:: cqparts.params
     :members:
     :undoc-members:
     :show-inheritance:
