@@ -267,8 +267,15 @@ class ParametricObject(object):
                 data['class']['module'], data['class']['name']
             ))
 
+        # Deserialize parameters
+        class_params = cls.class_params(hidden=True)
+        params = dict(
+            (name, class_params[name].deserialize(value))
+            for (name, value) in data['params'].items()
+        )
+
         # Instantiate new instance
-        return cls(**data['params'])
+        return cls(**params)
 
     #@staticmethod
     #def deserialized_class(data):
