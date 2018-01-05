@@ -28,8 +28,8 @@ class_criteria = {}
 
 def register(**criteria):
     """
-    class decorator to add :class:`Part <cqparts.part.Part>` or
-    :class:`Assembly <cqparts.part.Assembly>` to the ``cqparts`` search index:
+    class decorator to add :class:`Part <cqparts.Part>` or
+    :class:`Assembly <cqparts.Assembly>` to the ``cqparts`` search index:
 
     .. testcode::
 

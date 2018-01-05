@@ -9,12 +9,12 @@ import cqparts
 from cqparts.params import PositiveFloat, Boolean
 
 # cqparts: fasteners
-from cqparts.fasteners import Fastener
-from cqparts.fasteners.utils.evaluator import VectorEvaluator
-from cqparts.fasteners.utils.selector import Selector
-from cqparts.fasteners.utils.applicator import Applicator
+from cqparts_fasteners import Fastener
+from cqparts_fasteners.utils.evaluator import VectorEvaluator
+from cqparts_fasteners.utils.selector import Selector
+from cqparts_fasteners.utils.applicator import Applicator
 
-# from cqparts.fasteners.params import HeadType, DriveType, ThreadType
+# from cqparts_fasteners.params import HeadType, DriveType, ThreadType
 
 
 # -------------------------- Parts --------------------------

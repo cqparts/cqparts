@@ -15,7 +15,7 @@ def solver(constraints, coord_sys=None):
     :param coord_sys: coordinate system to offset solutions (default: no offset)
     :type coord_sys: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
 
-    :return: generator of (:class:`Component <cqparts.part.Component>`,
+    :return: generator of (:class:`Component <cqparts.Component>`,
              :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`) tuples.
     """
 

@@ -54,7 +54,7 @@ class Coincident(Constraint):
     must be solvable.
 
     .. note::
-        An :class:`Assembly <cqparts.part.Assembly>` **cannot** solely rely
+        An :class:`Assembly <cqparts.Assembly>` **cannot** solely rely
         on relative locks to place its components.
         This is because every component will be waiting for another component
         to be placed, a circular problem.

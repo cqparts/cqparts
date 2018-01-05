@@ -23,52 +23,31 @@ __copyright__ = "Copyright 2018 {0}".format(__author__)
 
 # =========================== Imports ===========================
 __all__ = [
-    'basic',
-    'bearings',
-    'fasteners',
-    'gears',
-    'motors',
-    'torque_limiters',
-
-    'solidtypes',
-
-    'display',
-    'errors',
-    'params',
-    'part',
-    'search',
-    'utils',
-
-    'constraint',
-    'codec'
-
     # Sub-modules
     # bringing scope closer to cqparts for commonly used classes
     'Component',
     'Part',
     'Assembly',
+
+    # Modules
+    'codec',
+    'constraint',
+    'display',
+    'errors',
+    'params',
+    'search',
+    'utils',
 ]
 
-from . import basic
-from . import bearings
-from . import fasteners
-from . import gears
-from . import motors
-from . import torque_limiters
+# Sub-modules
+from .component import Component
+from .part import Part
+from .assembly import Assembly
 
-from . import solidtypes
-
+from . import codec
+from . import constraint
 from . import display
 from . import errors
 from . import params
-from . import part
 from . import search
 from . import utils
-
-from . import constraint
-from . import codec
-
-# Sub-modules
-from .part import Component
-from .part import Part
-from .part import Assembly

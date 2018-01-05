@@ -109,7 +109,7 @@ class Thing(cqparts.Assembly):
 
 # -------------------------- Multiple Cycles --------------------------
 
-from cqparts.basic.primatives import Cube, Box, Sphere
+from cqparts_misc.basic.primatives import Cube, Box, Sphere
 
 class BlockStack(cqparts.Assembly):
     def make_components(self):

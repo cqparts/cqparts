@@ -8,17 +8,17 @@ log = logging.getLogger(__name__)
 import cadquery
 
 from . import Exporter, register_exporter
-from ..part import Component, Part, Assembly
+from .. import Component, Part, Assembly
 
 
 @register_exporter('json', Part)
 class ThreejsJSONExporter(Exporter):
     """
-    Export the :class:`Part <cqparts.part.Part>` to a *three.js JSON v3* file format.
+    Export the :class:`Part <cqparts.Part>` to a *three.js JSON v3* file format.
 
     =============== ======================
     **Name**        ``json``
-    **Exports**     :class:`Part <cqparts.part.Part>`
+    **Exports**     :class:`Part <cqparts.Part>`
     **Spec**        `three.js JSON model format v3 specification <https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3>`_
     =============== ======================
 

@@ -4,7 +4,7 @@ import re
 import cadquery
 
 from . import Exporter, register_exporter
-from ..part import Part
+from .. import Part
 
 
 @register_exporter('stl', Part)

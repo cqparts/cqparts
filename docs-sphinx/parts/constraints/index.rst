@@ -6,8 +6,8 @@
 Constraints
 ===========
 
-Constraints limit the location & orientation of a :class:`Component <cqparts.part.Component>`
-relative to its parent :class:`Assembly <cqparts.part.Assembly>`.
+Constraints limit the location & orientation of a :class:`Component <cqparts.Component>`
+relative to its parent :class:`Assembly <cqparts.Assembly>`.
 
 A completely unconstrained *component* could be anywhere, and with any rotation.
 Conversely, a fully constrained *component* can only be at one specific location
@@ -15,7 +15,7 @@ Conversely, a fully constrained *component* can only be at one specific location
 
 Constraints consist of, at a minimum:
 
-* the :class:`Component <cqparts.part.Component>` being constrained.
+* the :class:`Component <cqparts.Component>` being constrained.
 * one or more :class:`Mate` instances.
 * constraint specific parameters (if any)
 

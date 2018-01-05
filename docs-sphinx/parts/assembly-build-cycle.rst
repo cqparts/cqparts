@@ -233,11 +233,11 @@ by stacking some primative shapes using only
 restriction, but it serves as a good example).
 
 To simplify things, we're going to use the :class:`Part` classes registered in
-the :mod:`cqparts.basic` module.
+the :mod:`cqparts_misc.basic` module.
 
 .. testcode::
 
-    from cqparts.basic.primatives import Cube, Box, Sphere
+    from cqparts_misc.basic.primatives import Cube, Box, Sphere
 
     class BlockStack(cqparts.Assembly):
         def make_components(self):

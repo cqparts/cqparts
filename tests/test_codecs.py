@@ -8,7 +8,7 @@ from base import CQPartsTest
 from cqparts import codec
 from cqparts import Part
 
-from cqparts.basic.primatives import Cube
+from cqparts_misc.basic.primatives import Cube
 
 
 class CodecTest(CQPartsTest):

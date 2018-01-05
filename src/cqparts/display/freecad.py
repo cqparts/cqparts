@@ -9,10 +9,10 @@ def freecad_display(component):
     Display given component in FreeCAD
 
     :param component: the component to render
-    :type component: :class:`Component <cqparts.part.Component>`
+    :type component: :class:`Component <cqparts.Component>`
     """
 
-    from ..part import Part, Assembly
+    from .. import Part, Assembly
     import cadquery
     from Helpers import show
 

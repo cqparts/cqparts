@@ -6,8 +6,8 @@
 import cadquery
 import cqparts
 from cqparts.params import *
-from cqparts.fasteners.params import HeadType, DriveType, ThreadType
-from cqparts.fasteners.male import MaleFastenerPart
+from cqparts_fasteners.params import HeadType, DriveType, ThreadType
+from cqparts_fasteners.male import MaleFastenerPart
 from cqparts.display import display, render_props
 
 class WoodScrew(MaleFastenerPart):
@@ -205,6 +205,7 @@ class _Together(cqparts.Assembly):
 
 
 # ------------------- Catalogue -------------------
+
 
 
 

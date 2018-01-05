@@ -39,7 +39,7 @@ def web_display(component, port=9041):
     Display given component in a browser window
 
     :param component: the component to render
-    :type component: :class:`Component <cqparts.part.Component>`
+    :type component: :class:`Component <cqparts.Component>`
     :param port: port to expose http service on
     :type port: :class:`int`
 
@@ -52,7 +52,7 @@ def web_display(component, port=9041):
     When run, you should see output similar to::
 
         >>> from cqparts.display import web_display
-        >>> from cqparts.basic.primatives import Cube
+        >>> from cqparts_misc.basic.primatives import Cube
         >>> web_display(Cube())
         press [ctrl+c] to stop server
         127.0.0.1 - - [27/Dec/2017 16:06:37] "GET / HTTP/1.1" 200 -
@@ -72,7 +72,7 @@ def web_display(component, port=9041):
     an errorcode 404 (file not found), because the http service has stopped.
     """
     # Verify Parameter(s)
-    from ..part import Component
+    from .. import Component
 
     if not isinstance(component, Component):
         raise TypeError("given component must be a %r, not a %r" % (

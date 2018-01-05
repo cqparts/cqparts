@@ -190,7 +190,7 @@ class RenderParam(NonNullParameter):
 
 def render_props(**kwargs):
     """
-    Return a valid property for cleaner referencing in :class:`Part <cqparts.part.Part>`
+    Return a valid property for cleaner referencing in :class:`Part <cqparts.Part>`
     child classes.
 
     :param template: name of template to use (any of ``TEMPLATE.keys()``)

@@ -1,7 +1,7 @@
 
 def as_part(func):
     """
-    Converts a function to a :class:`Part <cqparts.part.Part>` instance.
+    Converts a function to a :class:`Part <cqparts.Part>` instance.
 
     So the conventionally defined *part*::
 
@@ -29,9 +29,9 @@ def as_part(func):
 
         box = make_box(x=6, y=3, z=1)
 
-    In both cases, ``box`` is a :class:`Part <cqparts.part.Part>` instance.
+    In both cases, ``box`` is a :class:`Part <cqparts.Part>` instance.
     """
-    from ..part import Part
+    from .. import Part
     
     def inner(*args, **kwargs):
         part_class = type(func.__name__, (Part,), {

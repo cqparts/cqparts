@@ -6,21 +6,30 @@ Subpackages
 
 .. toctree::
 
-    cqparts.basic
-    cqparts.bearings
     cqparts.codec
     cqparts.constraint
     cqparts.display
-    cqparts.fasteners
-    cqparts.gears
-    cqparts.motors
     cqparts.params
-    cqparts.solidtypes
-    cqparts.torque_limiters
     cqparts.utils
 
 Submodules
 ----------
+
+cqparts\.assembly module
+------------------------
+
+.. automodule:: cqparts.assembly
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cqparts\.component module
+-------------------------
+
+.. automodule:: cqparts.component
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 cqparts\.errors module
 ----------------------

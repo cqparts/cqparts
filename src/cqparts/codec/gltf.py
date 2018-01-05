@@ -12,7 +12,7 @@ from cadquery import Vector
 
 from . import Exporter, register_exporter
 from .. import __version__
-from ..part import Component, Part, Assembly
+from .. import Component, Part, Assembly
 from ..utils import CoordSystem, measure_time
 
 import logging
@@ -243,12 +243,12 @@ class ShapeBuffer(object):
 @register_exporter('gltf', Component)
 class GLTFExporter(Exporter):
     u"""
-    Export :class:`Part <cqparts.part.Part>` or
-    :class:`Assembly <cqparts.part.Assembly>` to a *glTF 2.0* format.
+    Export :class:`Part <cqparts.Part>` or
+    :class:`Assembly <cqparts.Assembly>` to a *glTF 2.0* format.
 
     =============== ======================
     **Name**        ``gltf``
-    **Exports**     :class:`Part <cqparts.part.Part>` & :class:`Assembly <cqparts.part.Assembly>`
+    **Exports**     :class:`Part <cqparts.Part>` & :class:`Assembly <cqparts.Assembly>`
     **Spec**        `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
     =============== ======================
 
@@ -277,7 +277,7 @@ class GLTFExporter(Exporter):
             \u2514\u25cb right_wheel
 
     When exported, a ``.bin`` file will be created for each
-    :class:`Part <cqparts.part.Part>` (denoted by a ``\u25cb``).
+    :class:`Part <cqparts.Part>` (denoted by a ``\u25cb``).
 
     So the following files will be generated::
 
@@ -300,7 +300,7 @@ class GLTFExporter(Exporter):
         In this example, all *wheels* and *axles* are the same, they should
         only generate a single buffer.
 
-        But how to definitively determine :class:`Part <cqparts.part.Part>`
+        But how to definitively determine :class:`Part <cqparts.Part>`
         instance equality?
 
 
@@ -452,7 +452,7 @@ class GLTFExporter(Exporter):
         Convert a part's object to a mesh.
 
         :param part: part being converted to a mesh
-        :type part: :class:`Part <cqparts.part.Part>`
+        :type part: :class:`Part <cqparts.Part>`
         :param world: if True, world coordinates are used
         :type world: :class:`bool`
         :return: list of (<vertices>, <indexes>)
@@ -488,7 +488,7 @@ class GLTFExporter(Exporter):
         .. doctest::
 
             >>> import cqparts
-            >>> from cqparts.basic.primatives import Cube
+            >>> from cqparts_misc.basic.primatives import Cube
 
             >>> cube = Cube()
             >>> buff = cube.exporter('gltf').part_buffer(cube)
@@ -524,7 +524,7 @@ class GLTFExporter(Exporter):
         Adds the given ``part`` to ``self.gltf_dict``.
 
         :param part: part to add to gltf export
-        :type part: :class:`Part <cqparts.part.Part>`
+        :type part: :class:`Part <cqparts.Part>`
         :param filename: name of binary file to store buffer, if ``None``,
                          binary data is embedded in the *buffer's 'uri'*
         :type filename: :class:`str`

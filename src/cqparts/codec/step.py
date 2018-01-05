@@ -5,7 +5,7 @@ import cadquery
 
 from . import Exporter, register_exporter
 from . import Importer, register_importer
-from ..part import Part
+from .. import Part
 
 
 @register_exporter('step', Part)

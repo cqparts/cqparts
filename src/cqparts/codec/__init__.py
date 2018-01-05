@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from ..part import Component
+from .. import Component
 
 # ----------------- Exporting -----------------
 class Exporter(object):
@@ -16,16 +16,16 @@ exporter_index = defaultdict(dict)
 
 def register_exporter(name, base_class):
     """
-    Register an exporter to use for a :class:`Part <cqparts.part.Part>`,
-    :class:`Assembly <cqparts.part.Assembly>`, or both
-    (with :class:`Component <cqparts.part.Component>`).
+    Register an exporter to use for a :class:`Part <cqparts.Part>`,
+    :class:`Assembly <cqparts.Assembly>`, or both
+    (with :class:`Component <cqparts.Component>`).
 
     Registration is necessary to use with
-    :meth:`Component.exporter() <cqparts.part.Component.exporter>`.
+    :meth:`Component.exporter() <cqparts.Component.exporter>`.
 
     :param name: name (or 'key') of exporter
     :type name: :class:`str`
-    :param base_class: class of :class:`Component <cqparts.part.Component>` to export
+    :param base_class: class of :class:`Component <cqparts.Component>` to export
     :type base_class: :class:`type`
 
     .. doctest::
@@ -38,7 +38,7 @@ def register_exporter(name, base_class):
         ...     def __call__(self, filename='out.mytype'):
         ...         print("export %r to %s" % (self.obj, filename))
 
-        >>> from cqparts.basic.primatives import Sphere
+        >>> from cqparts_misc.basic.primatives import Sphere
         >>> thing = Sphere(radius=5)
         >>> thing.exporter('my_type')('some-file.mytype')
         export <Sphere: radius=5.0> to some-file.mytype
@@ -79,7 +79,7 @@ def get_exporter(obj, name):
     Get an exporter for the
 
     :param obj: object to export
-    :type obj: :class:`Component <cqparts.part.Component>`
+    :type obj: :class:`Component <cqparts.Component>`
     :param name: registered name of exporter
     :type name: :class:`str`
     :return: an exporter instance of the given type

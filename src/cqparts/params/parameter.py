@@ -3,7 +3,7 @@ import six
 
 class Parameter(object):
     """
-    Used to set parameters of a :class:`ParametricObject <.ParametricObject>`.
+    Used to set parameters of a :class:`ParametricObject <parametric_object.ParametricObject>`.
 
     All instances of this class defined in a class' ``__dict__`` will be
     valid input to the object's constructor.
@@ -24,7 +24,7 @@ class Parameter(object):
         ...     def type(self, value):
         ...         return int(value) * 10
 
-    Now to use it in a :class:`ParametricObject <.ParametricObject>`
+    Now to use it in a :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>`
 
     .. doctest::
 
@@ -64,7 +64,7 @@ class Parameter(object):
         If ``value`` is ``None``, :meth:`type` is not called to cast the value
         further.
 
-        :param value: the value given to the :class:`ParametricObject <.ParametricObject>`'s constructor
+        :param value: the value given to the :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>`'s constructor
         :return: ``value`` or ``None``
         :raises ParameterError: if type is invalid
         """
@@ -81,7 +81,7 @@ class Parameter(object):
 
         Raise a :class:`ParameterError` on errors.
 
-        :param value: the value given to the :class:`ParametricObject <.ParametricObject>`'s constructor
+        :param value: the value given to the :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>`'s constructor
         :return: ``value`` cast to parameter's type
         :raises ParameterError: if type is invalid
         """
@@ -167,9 +167,9 @@ class Parameter(object):
         (which is ultimately passed to :meth:`type`)
 
         This is because when the values are deserialized, they're used as the
-        default values for a newly created :class:`ParametricObject <.ParametricObject>` class.
+        default values for a newly created :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>` class.
 
-        So now when we use them in a :class:`ParametricObject <.ParametricObject>`:
+        So now when we use them in a :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>`:
 
         .. doctest::
 
@@ -219,10 +219,10 @@ class Parameter(object):
             null
             all good
 
-        These are used to serialize and deserialize :class:`ParametricObject <.ParametricObject>`
+        These are used to serialize and deserialize :class:`ParametricObject <cqparts.params.parametric_object.ParametricObject>`
         instances, so they may be added to a catalogue, then re-created.
 
-        To learn more, go to :meth:`ParametricObject.serialize() <.ParametricObject.serialize>`
+        To learn more, go to :meth:`ParametricObject.serialize() <cqparts.params.parametric_object.ParametricObject.serialize>`
 
         """
         return value

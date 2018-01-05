@@ -9,17 +9,17 @@ import cadquery
 import cqparts
 
 from cqparts.params import *
-from cqparts.basic.primatives import Box
+from cqparts_misc.basic.primatives import Box
 from cqparts.constraint import Fixed, Coincident
 from cqparts.constraint import Mate
 from cqparts.display import display
 from cqparts.utils.geometry import CoordSystem
 
-from cqparts.fasteners.utils import VectorEvaluator
-#from cqparts.fasteners import Fastener
-from cqparts.fasteners.screws import ScrewFastener
+from cqparts_fasteners.utils import VectorEvaluator
+#from cqparts_fasteners import Fastener
+from cqparts_fasteners.screws import ScrewFastener
 
-from cqparts.fasteners.nutboltfastener import NutAndBoltFastener
+from cqparts_fasteners.nutboltfastener import NutAndBoltFastener
 
 
 # enable logging

@@ -26,11 +26,11 @@ grouped into a single mechanical fastener.
 Wood Screw
 ^^^^^^^^^^
 
-Wood screw will use :class:`MaleFastenerPart <cqparts.fasteners.male.MaleFastenerPart>`
+Wood screw will use :class:`MaleFastenerPart <cqparts_fasteners.male.MaleFastenerPart>`
 as a basis.
 
 * **screw body** : built from
-  :class:`MaleFastenerPart <cqparts.fasteners.male.MaleFastenerPart>`, then modified.
+  :class:`MaleFastenerPart <cqparts_fasteners.male.MaleFastenerPart>`, then modified.
 * **shaft** : we'll add the bore-sized shaft to the neck of the screw.
 
 ::
@@ -38,8 +38,8 @@ as a basis.
     import cadquery
     import cqparts
     from cqparts.params import *
-    from cqparts.fasteners.params import HeadType, DriveType, ThreadType
-    from cqparts.fasteners.male import MaleFastenerPart
+    from cqparts_fasteners.params import HeadType, DriveType, ThreadType
+    from cqparts_fasteners.male import MaleFastenerPart
     from cqparts.display import display
 
     class WoodScrew(MaleFastenerPart):
@@ -248,7 +248,7 @@ Aligned Together
 ^^^^^^^^^^^^^^^^^^^^^
 
 Just to demonstrate what we've made, let's create a temporary
-:class:`Assembly <cqparts.part.Assembly>` aligning the 2 together:
+:class:`Assembly <cqparts.Assembly>` aligning the 2 together:
 
 .. doctest::
 
@@ -286,7 +286,7 @@ Just to demonstrate what we've made, let's create a temporary
 Evaluation / Selection / Application
 ------------------------------------
 
-.. currentmodule:: cqparts.fasteners.utils
+.. currentmodule:: cqparts_fasteners.utils
 
 Now we need to assess the logic behind the application of this
 fastening mechanism.
@@ -322,7 +322,7 @@ So we also need to give the evaluator a face through which the anchor's bore wil
 be applied::
 
 
-    from cqparts.fasteners.utils.evaluator import VectorEvaluator
+    from cqparts_fasteners.utils.evaluator import VectorEvaluator
     class EasyInstallEvaluator(VectorEvaluator):
         def __init__(self, parts, start, dir, anchor_plane):
             super(EasyInstallEvaluator, self).__init__(parts, start, dir)
@@ -359,7 +359,7 @@ that taps into <= 80% of the adjoining piece.
 
 ::
 
-    from cqparts.fasteners.utils.selector import Selector
+    from cqparts_fasteners.utils.selector import Selector
 
     class EasyInstallSelector(Selector):
         #TODO: code for selector
@@ -382,7 +382,7 @@ each part.
 
 ::
 
-    from cqparts.fasteners.utils.applicator import Applicator
+    from cqparts_fasteners.utils.applicator import Applicator
 
     class EasyInstallApplicator(Applicator):
         # TODO: code for applicator
@@ -393,11 +393,11 @@ Fastener Assembly
 -----------------
 
 So now we have the 2 components, we can combine these into a
-:class:`Fastener <cqparts.fasteners.base.Fastener>`.
+:class:`Fastener <cqparts_fasteners.base.Fastener>`.
 
 ::
 
-    from cqparts.fasteners import Fastener
+    from cqparts_fasteners import Fastener
 
     class EasyInstallFastener(Fastener):
         EVALUATOR_CLASS = EasyInstallEvaluator

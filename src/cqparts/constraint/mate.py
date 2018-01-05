@@ -10,7 +10,7 @@ class Mate(object):
     def __init__(self, component, local_coords=None):
         """
         :param component: component the mate is relative to
-        :type component: :class:`Component <cqparts.part.Component>`
+        :type component: :class:`Component <cqparts.Component>`
         :param local_coords: coordinate system of mate relative to component's origin
         :type local_coords: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
 
@@ -21,7 +21,7 @@ class Mate(object):
         coords at ``0,0,0``, with no rotation)
 
         """
-        from cqparts.part import Component  # avoids circular dependency
+        from ..component import Component  # avoids circular dependency
 
         # component
         if isinstance(component, Component):

@@ -57,8 +57,8 @@ def add_parametric_object_params(prepend=False, hide_private=True):
         def setup(app):
             app.connect("autodoc-process-docstring", add_parametric_object_params())
 
-    Then, when documenting your :class:`Part <cqparts.part.Part>` or
-    :class:`Assembly <cqparts.part.Assembly>` the
+    Then, when documenting your :class:`Part <cqparts.Part>` or
+    :class:`Assembly <cqparts.Assembly>` the
     :class:`ParametricObject <cqparts.params.ParametricObject>` parameters
     will also be documented in the output.
 
@@ -112,7 +112,7 @@ def add_parametric_object_params(prepend=False, hide_private=True):
 def add_search_index_criteria(prepend=False):
     """
     Add the search criteria used when calling :meth:`register() <cqparts.search.register>`
-    on a :class:`Component <cqparts.part.Component>` as a table to the *docstring*.
+    on a :class:`Component <cqparts.Component>` as a table to the *docstring*.
 
     This is only intended to be used with *sphinx autodoc*.
 
@@ -122,8 +122,8 @@ def add_search_index_criteria(prepend=False):
         def setup(app):
             app.connect("autodoc-process-docstring", add_search_index_criteria())
 
-    Then, when documenting your :class:`Part <cqparts.part.Part>` or
-    :class:`Assembly <cqparts.part.Assembly>` the
+    Then, when documenting your :class:`Part <cqparts.Part>` or
+    :class:`Assembly <cqparts.Assembly>` the
     search criteria will also be documented in the output.
 
     :param prepend: if True, table is added to the beginning of the *docstring*.
@@ -132,7 +132,7 @@ def add_search_index_criteria(prepend=False):
     """
 
     from ..search import class_criteria
-    from ..part import Component
+    from .. import Component
 
     COLUMN_INFO = [
         # (<title>, <width>, <method>),

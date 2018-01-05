@@ -17,7 +17,7 @@ import logging
 log = logging.getLogger(__name__)
 
 # Make cantilever parts
-class Anchor(cqparts.part.Part):
+class Anchor(cqparts.Part):
     def make(self):
         return cadquery.Workplane('XY', origin=(0, 0, -10)) \
             .box(10, 30, 10, centered=(True, True, False))
@@ -57,7 +57,7 @@ show(make_line(s1, d1))
 
 
 # ----- Fastener Evaluation
-from cqparts.fasteners.utils import VectorEvaluator
+from cqparts_fasteners.utils import VectorEvaluator
 
 evaluator = VectorEvaluator([thing, anchor, cantilever], s1, d1)
 for e in evaluator.eval:
