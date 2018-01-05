@@ -4,4 +4,4 @@
 DIR=$(dirname $0)
 
 rm ${DIR}/*.rst
-sphinx-apidoc $* -o ${DIR} ${DIR}/../../src/cqparts
+sphinx-apidoc $* -o ${DIR} ${DIR}/../../src

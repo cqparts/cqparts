@@ -23,7 +23,18 @@ import re
 
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'src')))
 
+# --- Import documented libs
 import cqparts
+
+# parts libs
+import cqparts_bearings
+import cqparts_fasteners
+import cqparts_gearboxes
+import cqparts_gears
+import cqparts_misc
+import cqparts_motors
+import cqparts_springs
+import cqparts_torquelimiters
 
 
 # -- General configuration ------------------------------------------------

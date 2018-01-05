@@ -1,7 +1,7 @@
 
 .. _tutorial_assembly:
 
-.. currentmodule:: cqparts.part
+.. currentmodule:: cqparts
 
 Make your own ``Assembly``
 ======================================

@@ -1,5 +1,5 @@
 
-.. currentmodule:: cqparts.part
+.. currentmodule:: cqparts
 
 .. _parts_assembly-build-cycle:
 

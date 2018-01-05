@@ -1,4 +1,7 @@
 
+from .parameter import Parameter
+from .types import NonNullParameter
+
 # ------------ decorator(s) ---------------
 def as_parameter(nullable=True, strict=True):
     """

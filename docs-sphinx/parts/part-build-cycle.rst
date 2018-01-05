@@ -1,7 +1,7 @@
 
 .. _parts_part-build-cycle:
 
-.. currentmodule:: cqparts.part
+.. currentmodule:: cqparts
 
 
 ``Part`` Build Cycle

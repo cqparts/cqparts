@@ -3,7 +3,7 @@
 Part vs Assembly
 ================
 
-.. currentmodule:: cqparts.part
+.. currentmodule:: cqparts
 
 A :class:`Part` is a :class:`Component`.
 

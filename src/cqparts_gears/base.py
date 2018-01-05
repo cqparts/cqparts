@@ -1,7 +1,7 @@
 
-from .. import Part
+import cqparts
 
 
-class Gear(Part):
+class Gear(cqparts.Part):
     radius = 10.0
     teeth = 10
