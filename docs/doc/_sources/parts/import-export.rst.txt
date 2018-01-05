@@ -6,7 +6,7 @@
 Import / Export
 ===================
 
-:class:`Part <cqparts.part.Part>` and :class:`Assembly <cqparts.part.Assembly>`
+:class:`Part <cqparts.Part>` and :class:`Assembly <cqparts.Assembly>`
 instances can be exported to file, and created by importing from file.
 
 For any of the importers or exporters below,
@@ -14,18 +14,18 @@ For any of the importers or exporters below,
 Getting an Exporter
 -------------------------
 
-An exporter will get an existing :class:`Part <cqparts.part.Part>` or
-:class:`Assembly <cqparts.part.Assembly>` and write it to file.
+An exporter will get an existing :class:`Part <cqparts.Part>` or
+:class:`Assembly <cqparts.Assembly>` and write it to file.
 
-An :class:`Exporter` can be instantiated from a :class:`Part <cqparts.part.Part>`
-or :class:`Assembly <cqparts.part.Assembly>` instance with the use of
-:meth:`exporter() <cqparts.part.Component.exporter>`.
+An :class:`Exporter` can be instantiated from a :class:`Part <cqparts.Part>`
+or :class:`Assembly <cqparts.Assembly>` instance with the use of
+:meth:`exporter() <cqparts.Component.exporter>`.
 
 For example, exporting a ``.json`` file may be done with:
 
 .. doctest::
 
-    >>> from cqparts.basic.primatives import Cube
+    >>> from cqparts_misc.basic.primatives import Cube
     >>> cube = Cube(size=2)
 
     >>> json_exporter = cube.exporter('json')
@@ -41,12 +41,12 @@ parameters.
 Getting an Importer
 ------------------------
 
-Importers create a new instance of a :class:`Part <cqparts.part.Part>` or
-:class:`Assembly <cqparts.part.Assembly>` from the data in the file being
+Importers create a new instance of a :class:`Part <cqparts.Part>` or
+:class:`Assembly <cqparts.Assembly>` from the data in the file being
 imported.
 
-So an :class:`Importer` is instantiated from :class:`Part <cqparts.part.Part>`
-or :class:`Assembly <cqparts.part.Assembly>` *class* (not an instance of that class).
+So an :class:`Importer` is instantiated from :class:`Part <cqparts.Part>`
+or :class:`Assembly <cqparts.Assembly>` *class* (not an instance of that class).
 
 For example, importing a ``.STEP`` file may be achieved with:
 

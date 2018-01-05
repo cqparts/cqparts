@@ -208,6 +208,7 @@ class _Together(cqparts.Assembly):
 
 
 
+
 # ------------------- Catalogue -------------------
 # TODO: upon completion of #39
 

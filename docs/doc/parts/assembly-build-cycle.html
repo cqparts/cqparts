@@ -119,7 +119,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -186,27 +186,27 @@
             
   <div class="section" id="assembly-build-cycle">
 <span id="parts-assembly-build-cycle"></span><h1><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle<a class="headerlink" href="#assembly-build-cycle" title="Permalink to this headline">¶</a></h1>
-<p>If a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> component, then an
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a blueprint for, not just where those components fit together,
+<p>If a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> component, then an
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a blueprint for, not just where those components fit together,
 but also the routine to determining <em>how</em> they fit together, and how
 they may be <em>altered</em> to be assembled.</p>
-<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is built in the following order:</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is built in the following order:</p>
 <ol class="arabic simple">
-<li>add components (with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_components" title="cqparts.part.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a>)</li>
-<li>add constraints (with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_constraints" title="cqparts.part.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a>)</li>
+<li>add components (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a>)</li>
+<li>add constraints (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a>)</li>
 <li>solve constraints (places components)</li>
-<li>alter parts (with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_alterations" title="cqparts.part.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a>)</li>
+<li>alter parts (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_alterations" title="cqparts.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a>)</li>
 <li>go back to step 1 (more on this in <a class="reference internal" href="#parts-assembly-build-cycle-multiple"><span class="std std-ref">Multiple build cycles</span></a>)</li>
 </ol>
 <div class="section" id="single-build-cycle">
 <h2>Single build cycle<a class="headerlink" href="#single-build-cycle" title="Permalink to this headline">¶</a></h2>
 <p>For a single build cycle, we implement:</p>
 <ul class="simple">
-<li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_components" title="cqparts.part.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a> to return a
-<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> values.</li>
-<li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_constraints" title="cqparts.part.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a> to return a
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a> to return a
+<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> values.</li>
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a> to return a
 <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> isntances.</li>
-<li><a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_alterations" title="cqparts.part.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a> to (optionally) make
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_alterations" title="cqparts.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a> to (optionally) make
 changes to components.</li>
 </ul>
 <p>To illustrate let’s make a plate with cylinder sticking out of it.
@@ -353,9 +353,9 @@ its local part coordinates:</p>
 <iframe class="model-display"
     src="../_static/iframes/asm-build-cycle/plate-altered.html"
     height="300px" width="100%"
-></iframe><p>The <code class="docutils literal"><span class="pre">Plate</span></code> geometry is altered when used in the <code class="docutils literal"><span class="pre">Thing</span></code> <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>,
+></iframe><p>The <code class="docutils literal"><span class="pre">Plate</span></code> geometry is altered when used in the <code class="docutils literal"><span class="pre">Thing</span></code> <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>,
 and the changes to <code class="docutils literal"><span class="pre">Plate</span></code> could be completely different if used in a different
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 <p><strong>But Why?</strong>: Consider a builder constructing a wall, a <em>part</em> they may use is a length of
 timber. During the wall’s construction, the timber gets holes in it, from nails,
 screws, bolts, or perhaps water pipes are threaded through. All of this detail
@@ -373,9 +373,9 @@ a <code class="docutils literal"><span class="pre">return</span></code> statemen
 by stacking some primative shapes using only
 <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Fixed" title="cqparts.constraint.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a> (a needless
 restriction, but it serves as a good example).</p>
-<p>To simplify things, we’re going to use the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> classes registered in
-the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts.basic" title="cqparts.basic"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.basic</span></code></a> module.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Sphere</span>
+<p>To simplify things, we’re going to use the <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> classes registered in
+the <a class="reference internal" href="../api/cqparts_misc.basic.html#module-cqparts_misc.basic" title="cqparts_misc.basic"><code class="xref py py-mod docutils literal"><span class="pre">cqparts_misc.basic</span></code></a> module.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Sphere</span>
 
 <span class="k">class</span> <span class="nc">BlockStack</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -422,7 +422,7 @@ the <a class="reference internal" href="../api/cqparts.basic.html#module-cqparts
 </div>
 <p>Note that in the 2nd and 3rd <code class="docutils literal"><span class="pre">yield</span></code> statements of <code class="docutils literal"><span class="pre">make_constraints()</span></code>
 we reference the <code class="docutils literal"><span class="pre">.world_coords</span></code> of some <em>components</em>. That’s because
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.solve" title="cqparts.part.Assembly.solve"><code class="xref py py-meth docutils literal"><span class="pre">solve()</span></code></a> is run after each list of constraints is yielded.</p>
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.solve" title="cqparts.Assembly.solve"><code class="xref py py-meth docutils literal"><span class="pre">solve()</span></code></a> is run after each list of constraints is yielded.</p>
 <p>When the assembly is built, we can see the print statements occur in the order:</p>
 <div class="highlight-none"><div class="highlight"><pre><span></span>make Box &#39;a&#39;
 place &#39;a&#39; at origin
@@ -467,7 +467,7 @@ third round alteration(s)
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

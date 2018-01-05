@@ -1,10 +1,10 @@
-cqparts\.motors package
-=======================
+cqparts\_bearings package
+=========================
 
 Module contents
 ---------------
 
-.. automodule:: cqparts.motors
+.. automodule:: cqparts_bearings
     :members:
     :undoc-members:
     :show-inheritance:

@@ -11,8 +11,8 @@ Render Methods
 
 A render of your model can be observed using the :meth:`display` method.
 
-This will pick how to display a :class:`Part <cqparts.part.Part>` or
-:class:`Assembly <cqparts.part.Assembly>` based on the environment in which it's
+This will pick how to display a :class:`Part <cqparts.Part>` or
+:class:`Assembly <cqparts.Assembly>` based on the environment in which it's
 run (see :meth:`get_env_name <cqparts.utils.env.get_env_name>` for details).
 
 You may also explicitly set how you'd like your model displayed by calling
@@ -25,7 +25,7 @@ Look at :mod:`cqparts.display` for more information, and options.
 Rendered Materials
 ----------------------
 
-Each :class:`Part <cqparts.part.Part>` can be made to look different
+Each :class:`Part <cqparts.Part>` can be made to look different
 based on its material.
 
 A basic render may simply display everything in a grey matt finish, whereas
@@ -34,7 +34,7 @@ finishes to make a model look more impressive.
 
 The properties of a solid's render is stored in the a :class:`RenderProps`
 instance, stored in the ``_render`` attribute of each
-:class:`Part <cqparts.part.Part>` instance.
+:class:`Part <cqparts.Part>` instance.
 
 .. warning::
 

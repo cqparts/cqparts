@@ -1,14 +1,14 @@
 
 .. _parts_fasteners_using:
 
-.. currentmodule:: cqparts.fasteners.utils
+.. currentmodule:: cqparts_fasteners.utils
 
 ``Fastener`` Build Cycle
 ================================
 
 As stated in :ref:`parts_fasteners_what`, a
-:class:`Fastener <cqparts.fasteners.Fastener>` is an
-:class:`Assemly <cqparts.part.Assembly>`, so it's highly recommended you
+:class:`Fastener <cqparts_fasteners.Fastener>` is an
+:class:`Assemly <cqparts.Assembly>`, so it's highly recommended you
 understand :ref:`parts_assembly-build-cycle` before reading this section.
 
 A *fastener* still uses the *assembly* build cycle, but abstracts it further
@@ -25,7 +25,7 @@ with the use of 3 utility classes:
     You can always achieve the same effects by picking a *bolt*, *screw*, or
     anything else as a part, and adding that to your assembly manually.
 
-    The :class:`Fastener <cqparts.fasteners.Fastener>` class is intended to
+    The :class:`Fastener <cqparts_fasteners.Fastener>` class is intended to
     make building easier. If it's more trouble than it's worth for your
     *assembly*, don't use one.
 
@@ -44,7 +44,7 @@ An :class:`Evaluator` instance is required to instantiate a
 :class:`Selector`, and an :class:`Applicator`.
 
 There is very little gouverning the structure of an :class:`Evaluator`, only
-that is is passed a list of :class:`Part <cqparts.part.Part>` instances, and
+that is is passed a list of :class:`Part <cqparts.Part>` instances, and
 that the overridden :class:`perform_evaluation() <Evaluator.perform_evaluation>`
 method is buffered in the :meth:`eval <Evaluator.eval>` attribute.
 
@@ -80,7 +80,7 @@ The :class:`Applicator` makes alterations to existing parts to either:
 **Why doesn't the applicator place parts?**
 
 It may seem logical for the :class:`Applicator` to choose where parts fit into
-the :class:`Fastener <cqparts.fasteners.Fastener>` assembly.
+the :class:`Fastener <cqparts_fasteners.Fastener>` assembly.
 
 Instead, the :class:`Selector` sets the part placement for 2 reasons:
 
@@ -96,26 +96,26 @@ Instead, the :class:`Selector` sets the part placement for 2 reasons:
 Built Cycle
 ---------------
 
-Putting all the above utilities together, a :class:`Fastener <cqparts.fasteners.Fastener>`
+Putting all the above utilities together, a :class:`Fastener <cqparts_fasteners.Fastener>`
 build cycle is outlined below. Please reference :ref:`parts_assembly-build-cycle`
 if needed.
 
-In the *fastener's* :meth:`make_components() <cqparts.part.Assembly.make_components>` call:
+In the *fastener's* :meth:`make_components() <cqparts.Assembly.make_components>` call:
 
 1. An ``evaluator`` is instantiated.
 2. A ``selector`` is instantiated, given the ``evaluator``
 3. The *selector* returns the *parts* that will be part of this *assembly*
 
-In the *fastener's* :meth:`make_constraints() <cqparts.part.Assembly.make_constraints>` call:
+In the *fastener's* :meth:`make_constraints() <cqparts.Assembly.make_constraints>` call:
 
 4. The ``selector`` returns the *constraints* that set the part's placement.
 
 Then as part of the *assembly's* normal build cycle:
 
-5. :meth:`solve() <cqparts.part.Assembly.solve>` is run, setting component
+5. :meth:`solve() <cqparts.Assembly.solve>` is run, setting component
    world coordinates.
 
-And finally, in the *fastener's* :meth:`make_alterations() <cqparts.part.Assembly.make_alterations>` call:
+And finally, in the *fastener's* :meth:`make_alterations() <cqparts.Assembly.make_alterations>` call:
 
 6. The ``applicator`` is instantiated, given both the ``evaluator`` and the ``selector``.
 7. The ``applicator`` will make alterations to the geometry of the parts

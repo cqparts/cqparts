@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cqparts_fasteners.utils package &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts_fasteners package" href="cqparts_fasteners.html"/>
+        <link rel="next" title="cqparts_gears package" href="cqparts_gears.html"/>
+        <link rel="prev" title="cqparts_fasteners.solidtypes.threads package" href="cqparts_fasteners.solidtypes.threads.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cqparts.html">cqparts package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cqparts_fasteners.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts_fasteners.solidtypes.html">cqparts_fasteners.solidtypes package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts_fasteners.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.base">cqparts_fasteners.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.bolts">cqparts_fasteners.bolts module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.female">cqparts_fasteners.female module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.male">cqparts_fasteners.male module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.nutboltfastener">cqparts_fasteners.nutboltfastener module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.nuts">cqparts_fasteners.nuts module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.params">cqparts_fasteners.params module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners.screws">cqparts_fasteners.screws module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts_fasteners.html#module-cqparts_fasteners">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_motors.html">cqparts_motors package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">src</a> &raquo;</li>
+        
+          <li><a href="cqparts_fasteners.html">cqparts_fasteners package</a> &raquo;</li>
+        
+      <li>cqparts_fasteners.utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cqparts-fasteners-utils-package">
+<h1>cqparts_fasteners.utils package<a class="headerlink" href="#cqparts-fasteners-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts_fasteners.utils.applicator">
+<span id="cqparts-fasteners-utils-applicator-module"></span><h2>cqparts_fasteners.utils.applicator module<a class="headerlink" href="#module-cqparts_fasteners.utils.applicator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_fasteners.utils.applicator.Applicator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.applicator.</code><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.applicator.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>The <em>applicator</em> performs 2 roles to <em>apply</em> a fastener to workpieces</p>
+<ol class="arabic simple">
+<li>Translate &amp; rotate given <em>fastener</em></li>
+<li>Change workpieces to suit a given <em>fastener</em></li>
+</ol>
+<p>Translation is done first because the fastener is sometimes used as a
+cutting tool to subtract from mating part(s) (eg: thread tapping).</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.applicator.Applicator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.applicator.Applicator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>evaluator</strong> (<a class="reference internal" href="#cqparts_fasteners.utils.Evaluator" title="cqparts_fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a>) – evaluator for fastener</li>
+<li><strong>selector</strong> (<a class="reference internal" href="#cqparts_fasteners.utils.Selector" title="cqparts_fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>) – selector for fastener</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.applicator.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.applicator.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply alterations to relevant parts based on the selected parts</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts_fasteners.utils.evaluator">
+<span id="cqparts-fasteners-utils-evaluator-module"></span><h2>cqparts_fasteners.utils.evaluator module<a class="headerlink" href="#module-cqparts_fasteners.utils.evaluator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_fasteners.utils.evaluator.CylinderEvaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.evaluator.</code><code class="descname">CylinderEvaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.CylinderEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="cqparts_fasteners.utils.evaluator.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">cqparts_fasteners.utils.evaluator.Evaluator</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.CylinderEvaluator.effect_class">
+<code class="descname">effect_class</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.CylinderEvaluator.effect_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.VectorEffect" title="cqparts_fasteners.utils.evaluator.VectorEffect"><code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.evaluator.Effect">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.evaluator.</code><code class="descname">Effect</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.Effect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.evaluator.Evaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.evaluator.</code><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>An evaluator determines which parts may be effected by a fastener, and how.</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.evaluator.Evaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.Evaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.Evaluator.eval">
+<code class="descname">eval</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.Evaluator.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the result of <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation" title="cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a>, and buffer it so it’s
+only run once per <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="cqparts_fasteners.utils.evaluator.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result from <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation" title="cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.Evaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the given parts using any additional parameters passed
+to this instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Override this funciton in your <em>evaluator</em> class to assess what
+parts are effected, and how.</p>
+</div>
+<p>Default behaviour: do nothing, return nothing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.evaluator.</code><code class="descname">VectorEffect</code><span class="sig-paren">(</span><em>location</em>, <em>part</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Effect" title="cqparts_fasteners.utils.evaluator.Effect"><code class="xref py py-class docutils literal"><span class="pre">cqparts_fasteners.utils.evaluator.Effect</span></code></a></p>
+<p>An evaluator effect is the conclusion to an evaluation with regard to
+a single solid.</p>
+<p>Effects are sortable (based on proximity to evaluation origin)</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>location</em>, <em>part</em>, <em>result</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>location</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – where the fastener is to be applied (eg: for a screw
+application will be along the -Z axis)</li>
+<li><strong>part</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><em>cadquery.Workplane</em></a>) – effected solid</li>
+<li><strong>result</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><em>cadquery.Workplane</em></a>) – result of evaluation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.end_coordsys">
+<code class="descname">end_coordsys</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.end_coordsys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate system at end of effect.</p>
+<p>All axes are parallel to the original vector evaluation location, with
+the origin moved to this effect’s end point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system at end of effect</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">CoordSys</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.end_point">
+<code class="descname">end_point</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.end_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>End vertex of effect</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">vertex (as vector)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.origin_displacement">
+<code class="descname">origin_displacement</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.origin_displacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>planar distance of start point from self.location along <span class="math">\(-Z\)</span> axis</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.start_coordsys">
+<code class="descname">start_coordsys</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.start_coordsys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coordinate system at start of effect.</p>
+<p>All axes are parallel to the original vector evaluation location, with
+the origin moved to this effect’s start point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">coordinate system at start of effect</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">CoordSys</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.start_point">
+<code class="descname">start_point</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.start_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start vertex of effect</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">vertex (as vector)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEffect.wire">
+<code class="descname">wire</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEffect.wire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEvaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.evaluator.</code><code class="descname">VectorEvaluator</code><span class="sig-paren">(</span><em>parts</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="cqparts_fasteners.utils.evaluator.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">cqparts_fasteners.utils.evaluator.Evaluator</span></code></a></p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEvaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEvaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</li>
+<li><strong>location</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – where the fastener is to be applied (eg: for a screw
+application will be along the -Z axis)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Location</strong></p>
+<p>The orientation of <code class="docutils literal"><span class="pre">location</span></code> may not be important; it may be for a
+basic application of a screw, in which case the <span class="math">\(-Z\)</span> axis will be
+used to perform the evaluation, and the <span class="math">\(X\)</span> and :math`Y` axes are
+of no consequence.</p>
+<p>For <em>some</em> fasteners, the orientation of <code class="docutils literal"><span class="pre">location</span></code> will be
+important.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEvaluator.effect_class">
+<code class="descname">effect_class</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEvaluator.effect_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.VectorEffect" title="cqparts_fasteners.utils.evaluator.VectorEffect"><code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEvaluator.max_effect_length">
+<code class="descname">max_effect_length</code><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEvaluator.max_effect_length" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The longest possible effect vector length.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+<p>In other words, the <em>radius</em> of a sphere:</p>
+<blockquote>
+<div><ul class="simple">
+<li>who’s center is at <code class="docutils literal"><span class="pre">start</span></code>.</li>
+<li>all <code class="docutils literal"><span class="pre">parts</span></code> are contained within the sphere.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.evaluator.VectorEvaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.evaluator.VectorEvaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine which parts lie along the given vector, and what length</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">effects on the given parts (in order of the distance from
+the start point)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<a class="reference internal" href="#cqparts_fasteners.utils.evaluator.VectorEffect" title="cqparts_fasteners.utils.evaluator.VectorEffect"><code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts_fasteners.utils.selector">
+<span id="cqparts-fasteners-utils-selector-module"></span><h2>cqparts_fasteners.utils.selector module<a class="headerlink" href="#module-cqparts_fasteners.utils.selector" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_fasteners.utils.selector.Selector">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.selector.</code><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.selector.Selector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>evaluator</strong> (<code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code>) – evaluator of fastener parts</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.selector.Selector.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.selector.Selector.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.selector.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return components</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.selector.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts_fasteners.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts_fasteners.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_fasteners.utils.Evaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>An evaluator determines which parts may be effected by a fastener, and how.</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Evaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Evaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.Evaluator.eval">
+<code class="descname">eval</code><a class="headerlink" href="#cqparts_fasteners.utils.Evaluator.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the result of <a class="reference internal" href="#cqparts_fasteners.utils.Evaluator.perform_evaluation" title="cqparts_fasteners.utils.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a>, and buffer it so it’s
+only run once per <a class="reference internal" href="#cqparts_fasteners.utils.Evaluator" title="cqparts_fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">result from <a class="reference internal" href="#cqparts_fasteners.utils.Evaluator.perform_evaluation" title="cqparts_fasteners.utils.Evaluator.perform_evaluation"><code class="xref py py-meth docutils literal"><span class="pre">perform_evaluation()</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Evaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Evaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the given parts using any additional parameters passed
+to this instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Override this funciton in your <em>evaluator</em> class to assess what
+parts are effected, and how.</p>
+</div>
+<p>Default behaviour: do nothing, return nothing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">None</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.VectorEvaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">VectorEvaluator</code><span class="sig-paren">(</span><em>parts</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.VectorEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="cqparts_fasteners.utils.evaluator.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">cqparts_fasteners.utils.evaluator.Evaluator</span></code></a></p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.VectorEvaluator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parts</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.VectorEvaluator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parts</strong> (list of <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.Part</span></code></a>) – parts involved in fastening</li>
+<li><strong>location</strong> (<code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code>) – where the fastener is to be applied (eg: for a screw
+application will be along the -Z axis)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Location</strong></p>
+<p>The orientation of <code class="docutils literal"><span class="pre">location</span></code> may not be important; it may be for a
+basic application of a screw, in which case the <span class="math">\(-Z\)</span> axis will be
+used to perform the evaluation, and the <span class="math">\(X\)</span> and :math`Y` axes are
+of no consequence.</p>
+<p>For <em>some</em> fasteners, the orientation of <code class="docutils literal"><span class="pre">location</span></code> will be
+important.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.VectorEvaluator.effect_class">
+<code class="descname">effect_class</code><a class="headerlink" href="#cqparts_fasteners.utils.VectorEvaluator.effect_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.VectorEvaluator.max_effect_length">
+<code class="descname">max_effect_length</code><a class="headerlink" href="#cqparts_fasteners.utils.VectorEvaluator.max_effect_length" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The longest possible effect vector length.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)">float</a></td>
+</tr>
+</tbody>
+</table>
+<p>In other words, the <em>radius</em> of a sphere:</p>
+<blockquote>
+<div><ul class="simple">
+<li>who’s center is at <code class="docutils literal"><span class="pre">start</span></code>.</li>
+<li>all <code class="docutils literal"><span class="pre">parts</span></code> are contained within the sphere.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.VectorEvaluator.perform_evaluation">
+<code class="descname">perform_evaluation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.VectorEvaluator.perform_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine which parts lie along the given vector, and what length</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">effects on the given parts (in order of the distance from
+the start point)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(<code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.CylinderEvaluator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">CylinderEvaluator</code><span class="sig-paren">(</span><em>parts</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.CylinderEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts_fasteners.utils.evaluator.Evaluator" title="cqparts_fasteners.utils.evaluator.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">cqparts_fasteners.utils.evaluator.Evaluator</span></code></a></p>
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.CylinderEvaluator.effect_class">
+<code class="descname">effect_class</code><a class="headerlink" href="#cqparts_fasteners.utils.CylinderEvaluator.effect_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.Selector">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Selector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>evaluator</strong> (<a class="reference internal" href="#cqparts_fasteners.utils.Evaluator" title="cqparts_fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a>) – evaluator of fastener parts</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.Selector.components">
+<code class="descname">components</code><a class="headerlink" href="#cqparts_fasteners.utils.Selector.components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_fasteners.utils.Selector.constraints">
+<code class="descname">constraints</code><a class="headerlink" href="#cqparts_fasteners.utils.Selector.constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Selector.get_components">
+<code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.get_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return components</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Selector.get_constraints">
+<code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts_fasteners.utils.Applicator">
+<em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">Applicator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Applicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>The <em>applicator</em> performs 2 roles to <em>apply</em> a fastener to workpieces</p>
+<ol class="arabic simple">
+<li>Translate &amp; rotate given <em>fastener</em></li>
+<li>Change workpieces to suit a given <em>fastener</em></li>
+</ol>
+<p>Translation is done first because the fastener is sometimes used as a
+cutting tool to subtract from mating part(s) (eg: thread tapping).</p>
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Applicator.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em>, <em>selector</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Applicator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>evaluator</strong> (<a class="reference internal" href="#cqparts_fasteners.utils.Evaluator" title="cqparts_fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a>) – evaluator for fastener</li>
+<li><strong>selector</strong> (<a class="reference internal" href="#cqparts_fasteners.utils.Selector" title="cqparts_fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a>) – selector for fastener</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts_fasteners.utils.Applicator.apply_alterations">
+<code class="descname">apply_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Applicator.apply_alterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply alterations to relevant parts based on the selected parts</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cqparts_gears.html" class="btn btn-neutral float-right" title="cqparts_gears package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cqparts_fasteners.solidtypes.threads.html" class="btn btn-neutral" title="cqparts_fasteners.solidtypes.threads package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

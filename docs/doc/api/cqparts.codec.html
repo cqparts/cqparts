@@ -40,7 +40,7 @@
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts.constraint package" href="cqparts.constraint.html"/>
-        <link rel="prev" title="cqparts.bearings package" href="cqparts.bearings.html"/> 
+        <link rel="prev" title="cqparts package" href="cqparts.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -101,30 +101,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.params.html">cqparts.params package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.assembly">cqparts.assembly module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.component">cqparts.component module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_motors.html">cqparts_motors package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -172,7 +173,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">cqparts</a> &raquo;</li>
+          <li><a href="modules.html">src</a> &raquo;</li>
         
           <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
         
@@ -233,8 +234,8 @@ for exporting.</p>
 <dt id="cqparts.codec.gltf.GLTFExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.gltf.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
+<p>Export <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -245,7 +246,7 @@ for exporting.</p>
 <td><code class="docutils literal"><span class="pre">gltf</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a></td>
@@ -274,7 +275,7 @@ with the hierarchy:</p>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
-<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
+<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
 <p>So the following files will be generated:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">car</span><span class="o">.</span><span class="n">gltf</span>
 <span class="n">car</span><span class="o">.</span><span class="n">chassis</span><span class="o">.</span><span class="n">bin</span>
@@ -293,7 +294,7 @@ the scene correctly.</p>
 <p class="first admonition-title">Todo</p>
 <p>In this example, all <em>wheels</em> and <em>axles</em> are the same, they should
 only generate a single buffer.</p>
-<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
 instance equality?</p>
 </div>
 <dl class="attribute">
@@ -327,7 +328,7 @@ instance equality?</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
 <li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of binary file to store buffer, if <code class="docutils literal"><span class="pre">None</span></code>,
 binary data is embedded in the <em>buffer’s ‘uri’</em></li>
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name given to exported mesh (optional)</li>
@@ -402,7 +403,7 @@ asset binary stream.</p>
 </table>
 <p>To embed binary model data into a ‘uri’, you can:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buff</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">part_buffer</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
@@ -426,7 +427,7 @@ asset binary stream.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
 <li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, world coordinates are used</li>
 </ul>
 </td>
@@ -824,7 +825,7 @@ least, not as far as I can tell).</p>
 <dt id="cqparts.codec.threejs_json.ThreejsJSONExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.threejs_json.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.threejs_json.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export the <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
+<p>Export the <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
@@ -835,7 +836,7 @@ least, not as far as I can tell).</p>
 <td><code class="docutils literal"><span class="pre">json</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
@@ -915,18 +916,18 @@ of choice:</p>
 <dl class="function">
 <dt id="cqparts.codec.register_exporter">
 <code class="descclassname">cqparts.codec.</code><code class="descname">register_exporter</code><span class="sig-paren">(</span><em>name</em>, <em>base_class</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.register_exporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register an exporter to use for a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>,
-<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, or both
-(with <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>).</p>
+<dd><p>Register an exporter to use for a <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>,
+<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, or both
+(with <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>).</p>
 <p>Registration is necessary to use with
-<a class="reference internal" href="cqparts.html#cqparts.part.Component.exporter" title="cqparts.part.Component.exporter"><code class="xref py py-meth docutils literal"><span class="pre">Component.exporter()</span></code></a>.</p>
+<a class="reference internal" href="cqparts.html#cqparts.Component.exporter" title="cqparts.Component.exporter"><code class="xref py py-meth docutils literal"><span class="pre">Component.exporter()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name (or ‘key’) of exporter</li>
-<li><strong>base_class</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">type</span></code></a>) – class of <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> to export</li>
+<li><strong>base_class</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#type" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">type</span></code></a>) – class of <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> to export</li>
 </ul>
 </td>
 </tr>
@@ -940,7 +941,7 @@ of choice:</p>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;out.mytype&#39;</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;export </span><span class="si">%r</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Sphere</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Sphere</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span> <span class="o">=</span> <span class="n">Sphere</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">thing</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;my_type&#39;</span><span class="p">)(</span><span class="s1">&#39;some-file.mytype&#39;</span><span class="p">)</span>
 <span class="go">export &lt;Sphere: radius=5.0&gt; to some-file.mytype</span>
@@ -957,7 +958,7 @@ of choice:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – object to export</li>
+<li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – object to export</li>
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – registered name of exporter</li>
 </ul>
 </td>
@@ -1043,8 +1044,8 @@ for exporting.</p>
 <dt id="cqparts.codec.GLTFExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">GLTFExporter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.GLTFExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
+<p>Export <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to a <em>glTF 2.0</em> format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -1055,7 +1056,7 @@ for exporting.</p>
 <td><code class="docutils literal"><span class="pre">gltf</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> &amp; <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/KhronosGroup/glTF/tree/master/specification/2.0">glTF 2.0</a></td>
@@ -1084,7 +1085,7 @@ with the hierarchy:</p>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
-<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
+<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> (denoted by a <code class="docutils literal"><span class="pre">○</span></code>).</p>
 <p>So the following files will be generated:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">car</span><span class="o">.</span><span class="n">gltf</span>
 <span class="n">car</span><span class="o">.</span><span class="n">chassis</span><span class="o">.</span><span class="n">bin</span>
@@ -1103,7 +1104,7 @@ the scene correctly.</p>
 <p class="first admonition-title">Todo</p>
 <p>In this example, all <em>wheels</em> and <em>axles</em> are the same, they should
 only generate a single buffer.</p>
-<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+<p class="last">But how to definitively determine <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
 instance equality?</p>
 </div>
 <dl class="attribute">
@@ -1137,7 +1138,7 @@ instance equality?</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part to add to gltf export</li>
 <li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of binary file to store buffer, if <code class="docutils literal"><span class="pre">None</span></code>,
 binary data is embedded in the <em>buffer’s ‘uri’</em></li>
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name given to exported mesh (optional)</li>
@@ -1212,7 +1213,7 @@ asset binary stream.</p>
 </table>
 <p>To embed binary model data into a ‘uri’, you can:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cqparts</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">buff</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">part_buffer</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
@@ -1236,7 +1237,7 @@ asset binary stream.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
+<li><strong>part</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part being converted to a mesh</li>
 <li><strong>world</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, world coordinates are used</li>
 </ul>
 </td>
@@ -1378,7 +1379,7 @@ for exporting.</p>
 <dt id="cqparts.codec.ThreejsJSONExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">ThreejsJSONExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.ThreejsJSONExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
-<p>Export the <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
+<p>Export the <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to a <em>three.js JSON v3</em> file format.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="12%" />
@@ -1389,7 +1390,7 @@ for exporting.</p>
 <td><code class="docutils literal"><span class="pre">json</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 <tr class="row-odd"><td><strong>Spec</strong></td>
 <td><a class="reference external" href="https://github.com/mrdoob/three.js/wiki/JSON-Model-format-3">three.js JSON model format v3 specification</a></td>
@@ -1505,7 +1506,7 @@ least, not as far as I can tell).</p>
         <a href="cqparts.constraint.html" class="btn btn-neutral float-right" title="cqparts.constraint package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cqparts.bearings.html" class="btn btn-neutral" title="cqparts.bearings package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts.html" class="btn btn-neutral" title="cqparts package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1514,7 +1515,7 @@ least, not as far as I can tell).</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

@@ -125,7 +125,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -209,18 +209,18 @@ grouped into a single mechanical fastener.</p>
 </div>
 <div class="section" id="wood-screw">
 <h3>Wood Screw<a class="headerlink" href="#wood-screw" title="Permalink to this headline">¶</a></h3>
-<p>Wood screw will use <a class="reference internal" href="../api/cqparts.fasteners.html#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>
+<p>Wood screw will use <a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.male.MaleFastenerPart" title="cqparts_fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>
 as a basis.</p>
 <ul class="simple">
 <li><strong>screw body</strong> : built from
-<a class="reference internal" href="../api/cqparts.fasteners.html#cqparts.fasteners.male.MaleFastenerPart" title="cqparts.fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>, then modified.</li>
+<a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.male.MaleFastenerPart" title="cqparts_fasteners.male.MaleFastenerPart"><code class="xref py py-class docutils literal"><span class="pre">MaleFastenerPart</span></code></a>, then modified.</li>
 <li><strong>shaft</strong> : we’ll add the bore-sized shaft to the neck of the screw.</li>
 </ul>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">import</span> <span class="nn">cqparts</span>
 <span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">cqparts.fasteners.params</span> <span class="k">import</span> <span class="n">HeadType</span><span class="p">,</span> <span class="n">DriveType</span><span class="p">,</span> <span class="n">ThreadType</span>
-<span class="kn">from</span> <span class="nn">cqparts.fasteners.male</span> <span class="k">import</span> <span class="n">MaleFastenerPart</span>
+<span class="kn">from</span> <span class="nn">cqparts_fasteners.params</span> <span class="k">import</span> <span class="n">HeadType</span><span class="p">,</span> <span class="n">DriveType</span><span class="p">,</span> <span class="n">ThreadType</span>
+<span class="kn">from</span> <span class="nn">cqparts_fasteners.male</span> <span class="k">import</span> <span class="n">MaleFastenerPart</span>
 <span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
 
 <span class="k">class</span> <span class="nc">WoodScrew</span><span class="p">(</span><span class="n">MaleFastenerPart</span><span class="p">):</span>
@@ -417,7 +417,7 @@ Besides, that’s more than enough code:</p>
 <div class="section" id="aligned-together">
 <h3>Aligned Together<a class="headerlink" href="#aligned-together" title="Permalink to this headline">¶</a></h3>
 <p>Just to demonstrate what we’ve made, let’s create a temporary
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> aligning the 2 together:</p>
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> aligning the 2 together:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
 
 <span class="k">class</span> <span class="nc">_Together</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
@@ -467,15 +467,15 @@ insert the anchor, and then put it all together.</li>
 </ul>
 <div class="section" id="evaluator">
 <h3>Evaluator<a class="headerlink" href="#evaluator" title="Permalink to this headline">¶</a></h3>
-<p>We can use the <a class="reference internal" href="../api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.VectorEvaluator" title="cqparts.fasteners.utils.VectorEvaluator"><code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></a> to do most of the work for us.</p>
-<p>If we give the <a class="reference internal" href="../api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.VectorEvaluator" title="cqparts.fasteners.utils.VectorEvaluator"><code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></a> a vector through the middle of the
+<p>We can use the <a class="reference internal" href="../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.VectorEvaluator" title="cqparts_fasteners.utils.VectorEvaluator"><code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></a> to do most of the work for us.</p>
+<p>If we give the <a class="reference internal" href="../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.VectorEvaluator" title="cqparts_fasteners.utils.VectorEvaluator"><code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></a> a vector through the middle of the
 vertical part, with a starting point at, or above, the anchor’s desired location,
 then it will give us the maximum length of the screw (not including it’s thread),
 and the available depth for the wood-screw’s thread.</p>
 <p>However, what this <em>doesn’t</em> give us is the orientation of the <em>anchor</em>.
 So we also need to give the evaluator a face through which the anchor’s bore will
 be applied:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.fasteners.utils.evaluator</span> <span class="k">import</span> <span class="n">VectorEvaluator</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.evaluator</span> <span class="k">import</span> <span class="n">VectorEvaluator</span>
 <span class="k">class</span> <span class="nc">EasyInstallEvaluator</span><span class="p">(</span><span class="n">VectorEvaluator</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">,</span> <span class="n">anchor_plane</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">EasyInstallEvaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="nb">dir</span><span class="p">)</span>
@@ -510,7 +510,7 @@ for this fastener:</p>
 </ol>
 <p>The selector will choose a <em>wood screw</em> with the longest shaft, with a thread
 that taps into &lt;= 80% of the adjoining piece.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.fasteners.utils.selector</span> <span class="k">import</span> <span class="n">Selector</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.selector</span> <span class="k">import</span> <span class="n">Selector</span>
 
 <span class="k">class</span> <span class="nc">EasyInstallSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
     <span class="c1">#TODO: code for selector</span>
@@ -529,9 +529,9 @@ that taps into &lt;= 80% of the adjoining piece.</p>
 <div class="section" id="application">
 <h3>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
 <p>The evaluation should result in 2
-<a class="reference internal" href="../api/cqparts.fasteners.utils.html#cqparts.fasteners.utils.evaluator.VectorEffect" title="cqparts.fasteners.utils.evaluator.VectorEffect"><code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></a> instances, one for
+<a class="reference internal" href="../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.evaluator.VectorEffect" title="cqparts_fasteners.utils.evaluator.VectorEffect"><code class="xref py py-class docutils literal"><span class="pre">VectorEffect</span></code></a> instances, one for
 each part.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.fasteners.utils.applicator</span> <span class="k">import</span> <span class="n">Applicator</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.applicator</span> <span class="k">import</span> <span class="n">Applicator</span>
 
 <span class="k">class</span> <span class="nc">EasyInstallApplicator</span><span class="p">(</span><span class="n">Applicator</span><span class="p">):</span>
     <span class="c1"># TODO: code for applicator</span>
@@ -543,8 +543,8 @@ each part.</p>
 <div class="section" id="fastener-assembly">
 <h2>Fastener Assembly<a class="headerlink" href="#fastener-assembly" title="Permalink to this headline">¶</a></h2>
 <p>So now we have the 2 components, we can combine these into a
-<a class="reference internal" href="../api/cqparts.fasteners.html#cqparts.fasteners.base.Fastener" title="cqparts.fasteners.base.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a>.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.fasteners</span> <span class="k">import</span> <span class="n">Fastener</span>
+<a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.base.Fastener" title="cqparts_fasteners.base.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners</span> <span class="k">import</span> <span class="n">Fastener</span>
 
 <span class="k">class</span> <span class="nc">EasyInstallFastener</span><span class="p">(</span><span class="n">Fastener</span><span class="p">):</span>
     <span class="n">EVALUATOR_CLASS</span> <span class="o">=</span> <span class="n">EasyInstallEvaluator</span>
@@ -618,7 +618,7 @@ each part.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

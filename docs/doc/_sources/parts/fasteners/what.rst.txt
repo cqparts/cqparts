@@ -7,9 +7,9 @@ What is a Fastener?
 A *fastener* is something that mechanically connects 2 or more *things* together,
 such as a *screw*, *bolt*, or *nail*.
 
-For us, a :class:`Fastener <cqparts.fasteners.Fastener>` is an
-:class:`Assembly <cqparts.part.Assembly>` containing 1 or more
-:class:`Part <cqparts.part.Part>` objects.
+For us, a :class:`Fastener <cqparts_fasteners.Fastener>` is an
+:class:`Assembly <cqparts.Assembly>` containing 1 or more
+:class:`Part <cqparts.Part>` objects.
 
 For example, a *nut* and *bolt* holidng together 2 parts together:
 

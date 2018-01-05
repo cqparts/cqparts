@@ -116,7 +116,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -183,18 +183,18 @@
             
   <div class="section" id="import-export">
 <span id="parts-import-export"></span><h1>Import / Export<a class="headerlink" href="#import-export" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>
+<p><a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>
 instances can be exported to file, and created by importing from file.</p>
 <p>For any of the importers or exporters below,</p>
 <div class="section" id="getting-an-exporter">
 <h2>Getting an Exporter<a class="headerlink" href="#getting-an-exporter" title="Permalink to this headline">¶</a></h2>
-<p>An exporter will get an existing <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> and write it to file.</p>
-<p>An <a class="reference internal" href="../api/cqparts.codec.html#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">Exporter</span></code></a> can be instantiated from a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
-or <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instance with the use of
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Component.exporter" title="cqparts.part.Component.exporter"><code class="xref py py-meth docutils literal"><span class="pre">exporter()</span></code></a>.</p>
+<p>An exporter will get an existing <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> and write it to file.</p>
+<p>An <a class="reference internal" href="../api/cqparts.codec.html#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">Exporter</span></code></a> can be instantiated from a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+or <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instance with the use of
+<a class="reference internal" href="../api/cqparts.html#cqparts.Component.exporter" title="cqparts.Component.exporter"><code class="xref py py-meth docutils literal"><span class="pre">exporter()</span></code></a>.</p>
 <p>For example, exporting a <code class="docutils literal"><span class="pre">.json</span></code> file may be done with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">json_exporter</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span>
@@ -209,11 +209,11 @@ parameters.</p>
 </div>
 <div class="section" id="getting-an-importer">
 <h2>Getting an Importer<a class="headerlink" href="#getting-an-importer" title="Permalink to this headline">¶</a></h2>
-<p>Importers create a new instance of a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> from the data in the file being
+<p>Importers create a new instance of a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> from the data in the file being
 imported.</p>
-<p>So an <a class="reference internal" href="../api/cqparts.codec.html#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">Importer</span></code></a> is instantiated from <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
-or <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <em>class</em> (not an instance of that class).</p>
+<p>So an <a class="reference internal" href="../api/cqparts.codec.html#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">Importer</span></code></a> is instantiated from <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+or <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <em>class</em> (not an instance of that class).</p>
 <p>For example, importing a <code class="docutils literal"><span class="pre">.STEP</span></code> file may be achieved with:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
 
@@ -267,7 +267,7 @@ you can do it, and register it!</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

@@ -128,7 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -196,13 +196,13 @@
   <div class="section" id="parametric-object">
 <span id="tutorials-parametricobject"></span><h1>Parametric Object<a class="headerlink" href="#parametric-object" title="Permalink to this headline">¶</a></h1>
 <p>The <em>parametric object</em> is a fundamental part of the <code class="docutils literal"><span class="pre">cqparts</span></code> library.</p>
-<p><a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> is a class to be (indirectly) inherited by your classes,
-it uses <a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances defined in the class to make assigning
+<p><a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> is a class to be (indirectly) inherited by your classes,
+it uses <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances defined in the class to make assigning
 class parameters transparent, and easy.</p>
 <p>Although, for those of you well versed with Python, they may confuse you instead.</p>
 <div class="section" id="create-a-parametric-object">
 <h2>Create a Parametric Object<a class="headerlink" href="#create-a-parametric-object" title="Permalink to this headline">¶</a></h2>
-<p>Let’s create some <a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> classes that use <a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a>.</p>
+<p>Let’s create some <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> classes that use <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a>.</p>
 <div class="section" id="basic">
 <h3>Basic<a class="headerlink" href="#basic" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span>
@@ -220,10 +220,10 @@ class parameters transparent, and easy.</p>
 <span class="go">(1.0, -5)</span>
 </pre></div>
 </div>
-<p>In the above code <code class="docutils literal"><span class="pre">Thing</span></code> is a <a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>, with
-<a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances defined in the class.</p>
-<p>The <code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code> attributes are set as <a class="reference internal" href="../api/cqparts.html#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">Float</span></code></a> and <a class="reference internal" href="../api/cqparts.html#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">Int</span></code></a>
-respectively, both of which are <a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> classes.</p>
+<p>In the above code <code class="docutils literal"><span class="pre">Thing</span></code> is a <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>, with
+<a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances defined in the class.</p>
+<p>The <code class="docutils literal"><span class="pre">a</span></code> and <code class="docutils literal"><span class="pre">b</span></code> attributes are set as <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">Float</span></code></a> and <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Int" title="cqparts.params.Int"><code class="xref py py-class docutils literal"><span class="pre">Int</span></code></a>
+respectively, both of which are <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> classes.</p>
 <p>When we instantiate a <code class="docutils literal"><span class="pre">Thing</span></code>, everything passed in the constructor is
 verified, and assigned to the instance as the given type.</p>
 </div>
@@ -249,10 +249,10 @@ verified, and assigned to the instance as the given type.</p>
 </div>
 <p>Here you can notice:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">a</span></code> was replaced by another <a class="reference internal" href="../api/cqparts.html#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">Float</span></code></a>, with the default value changed.</li>
+<li><code class="docutils literal"><span class="pre">a</span></code> was replaced by another <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Float" title="cqparts.params.Float"><code class="xref py py-class docutils literal"><span class="pre">Float</span></code></a>, with the default value changed.</li>
 <li><code class="docutils literal"><span class="pre">a</span></code>’s value is “nullable”, which is true for most parameter types.</li>
 <li><code class="docutils literal"><span class="pre">b</span></code> attribute was inherited from <code class="docutils literal"><span class="pre">Thing</span></code>.</li>
-<li><code class="docutils literal"><span class="pre">c</span></code> was added as a <a class="reference internal" href="../api/cqparts.html#cqparts.params.Boolean" title="cqparts.params.Boolean"><code class="xref py py-class docutils literal"><span class="pre">Boolean</span></code></a> parameter.</li>
+<li><code class="docutils literal"><span class="pre">c</span></code> was added as a <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Boolean" title="cqparts.params.Boolean"><code class="xref py py-class docutils literal"><span class="pre">Boolean</span></code></a> parameter.</li>
 <li><code class="docutils literal"><span class="pre">c</span></code>’s value was cast from <code class="docutils literal"><span class="pre">123</span></code> to a <a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>.</li>
 </ul>
 </div>
@@ -260,7 +260,7 @@ verified, and assigned to the instance as the given type.</p>
 <h3>Initializing Parameters<a class="headerlink" href="#initializing-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes parameters need to be aware of each other’s value so an instance can
 initialize correctly, and be fully verified before continuing.</p>
-<p>This is when <a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject.initialize_parameters" title="cqparts.params.ParametricObject.initialize_parameters"><code class="xref py py-meth docutils literal"><span class="pre">initialize_parameters</span></code></a>
+<p>This is when <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject.initialize_parameters" title="cqparts.params.ParametricObject.initialize_parameters"><code class="xref py py-meth docutils literal"><span class="pre">initialize_parameters</span></code></a>
 can be utilised.</p>
 <p>In the following example, the <code class="docutils literal"><span class="pre">Bar</span></code> class parameter <code class="docutils literal"><span class="pre">foo</span></code> will be prefixed
 with “&gt; ” if the <code class="docutils literal"><span class="pre">stuff</span></code> parameter is &gt;= 10.</p>
@@ -283,8 +283,8 @@ with “&gt; ” if the <code class="docutils literal"><span class="pre">stuff</
 </div>
 <div class="section" id="mixing-with-non-parameters">
 <h3>Mixing with Non-Parameters<a class="headerlink" href="#mixing-with-non-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Through the magic of Python you can use a <a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> with non
-<a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances as well.</p>
+<p>Through the magic of Python you can use a <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> with non
+<a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> instances as well.</p>
 <p>Just remember to call super’s <code class="docutils literal"><span class="pre">__init__</span></code> like so.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span><span class="p">,</span> <span class="n">Int</span>
 
@@ -311,14 +311,14 @@ with “&gt; ” if the <code class="docutils literal"><span class="pre">stuff</
 </div>
 <div class="section" id="builtin-parameters">
 <h2>Builtin Parameters<a class="headerlink" href="#builtin-parameters" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../api/cqparts.html#module-cqparts.params" title="cqparts.params"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.params</span></code></a> has a number of <a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> types, many have some
+<p><a class="reference internal" href="../api/cqparts.params.html#module-cqparts.params" title="cqparts.params"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.params</span></code></a> has a number of <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> types, many have some
 form of verification, and most are “nullable”, meaning they can be validly set
 to <code class="docutils literal"><span class="pre">None</span></code>.</p>
 <div class="section" id="parameter-verification">
 <h3>Parameter Verification<a class="headerlink" href="#parameter-verification" title="Permalink to this headline">¶</a></h3>
-<p>Different <a class="reference internal" href="../api/cqparts.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> types don’t just provide type casting, but
+<p>Different <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> types don’t just provide type casting, but
 verification.</p>
-<p>One example of this is the <a class="reference internal" href="../api/cqparts.html#cqparts.params.PositiveFloat" title="cqparts.params.PositiveFloat"><code class="xref py py-class docutils literal"><span class="pre">PositiveFloat</span></code></a> parameter type.</p>
+<p>One example of this is the <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.PositiveFloat" title="cqparts.params.PositiveFloat"><code class="xref py py-class docutils literal"><span class="pre">PositiveFloat</span></code></a> parameter type.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">ParametricObject</span><span class="p">,</span> <span class="n">PositiveFloat</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Blah</span><span class="p">(</span><span class="n">ParametricObject</span><span class="p">):</span>
@@ -367,7 +367,7 @@ intuitive parameter formats for your creations.</p>
 <h3>With <code class="docutils literal"><span class="pre">&#64;as_parameter</span></code><a class="headerlink" href="#with-as-parameter" title="Permalink to this headline">¶</a></h3>
 <p>One obvious use-case for a <em>parameter</em> is to pass parameter values to a container
 class, sort of like a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> that uses <em>attributes</em> as opposed to <em>items</em>.</p>
-<p>You can do this with a single class using the <a class="reference internal" href="../api/cqparts.html#cqparts.params.as_parameter" title="cqparts.params.as_parameter"><code class="xref py py-meth docutils literal"><span class="pre">as_parameter()</span></code></a> decorator.</p>
+<p>You can do this with a single class using the <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.as_parameter" title="cqparts.params.as_parameter"><code class="xref py py-meth docutils literal"><span class="pre">as_parameter()</span></code></a> decorator.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="n">as_parameter</span><span class="p">,</span> <span class="n">ParametricObject</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@as_parameter</span><span class="p">(</span><span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -439,7 +439,7 @@ and <code class="docutils literal"><span class="pre">doc</span></code> to your <
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

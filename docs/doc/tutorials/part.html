@@ -118,7 +118,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -185,8 +185,8 @@
             
   <div class="section" id="make-your-own-part">
 <span id="tutorial-part"></span><h1>Make your own <code class="docutils literal"><span class="pre">Part</span></code><a class="headerlink" href="#make-your-own-part" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> solid to be placed into an
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> solid to be placed into an
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 <p>Before continuing here, it’s highly recommend you read
 <a class="reference internal" href="../parts/part_vs_assembly.html#part-vs-assembly"><span class="std std-ref">Part vs Assembly</span></a> and <a class="reference internal" href="parametric-object.html#tutorials-parametricobject"><span class="std std-ref">Parametric Object</span></a>.</p>
 <p>Let’s start with a simple variably sized rectangle.</p>
@@ -218,16 +218,16 @@
     height="300px" width="100%"
 ></iframe><div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Remember, your <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a Python class, so you can take advantage
+<p class="last">Remember, your <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a Python class, so you can take advantage
 of everything Python has to offer.</p>
 </div>
 <div class="section" id="adding-mates">
 <h2>Adding <code class="docutils literal"><span class="pre">Mates</span></code><a class="headerlink" href="#adding-mates" title="Permalink to this headline">¶</a></h2>
 <p>A <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.mate.Mate" title="cqparts.constraint.mate.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> defines a coordinate system
-relative to the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> origin.</p>
-<p>A <em>mate</em> is used by an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to help place parts. More on this
+relative to the <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> origin.</p>
+<p>A <em>mate</em> is used by an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> to help place parts. More on this
 in the <a class="reference internal" href="assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a> chapter.</p>
-<p>A <em>mate</em> is often best defined by a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> because they’re placement is
+<p>A <em>mate</em> is often best defined by a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> because they’re placement is
 highly dependent on the <em>part’s</em> parameters.</p>
 <p>So to elaborate on the box example above:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
@@ -366,9 +366,9 @@ attributes to union with the axel.</p>
 <p>In the above examples, you can see we’re using <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>
 from the <a class="reference internal" href="../api/cqparts.display.html#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> module.</p>
 <p>When parts are displayed or exported, their colour, transparency, among other
-attributes are stored with the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+attributes are stored with the <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 <p>This detail is stored in a hidden property called <code class="docutils literal"><span class="pre">_render</span></code>.</p>
-<p>We can change a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> default render properties by replacing the
+<p>We can change a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> default render properties by replacing the
 default <code class="docutils literal"><span class="pre">_render</span></code> property with our own using
 <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.render_props" title="cqparts.display.render_props"><code class="xref py py-meth docutils literal"><span class="pre">render_props()</span></code></a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">render_props</span>
@@ -415,7 +415,7 @@ and other rendering methods.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

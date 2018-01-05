@@ -119,7 +119,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -186,8 +186,8 @@
             
   <div class="section" id="make-your-own-assembly">
 <span id="tutorial-assembly"></span><h1>Make your own <code class="docutils literal"><span class="pre">Assembly</span></code><a class="headerlink" href="#make-your-own-assembly" title="Permalink to this headline">¶</a></h1>
-<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a container for 1 to many <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and/or
-nested <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a container for 1 to many <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and/or
+nested <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances.</p>
 <p>Today we’re going to make a toy car, and put it into an assembly.</p>
 <p>This tutorial assumes you’ve been through the <a class="reference internal" href="part.html#tutorial-part"><span class="std std-ref">Make your own Part</span></a> tutorial.</p>
 <iframe class="model-display"
@@ -427,17 +427,17 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
 </pre></div>
 </div>
 <p><strong>Parameters</strong></p>
-<p>Just like a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>, the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> class makes use of <em>parameters</em>.</p>
+<p>Just like a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>, the <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> class makes use of <em>parameters</em>.</p>
 <p>These parameters can be passed directly or indirectly to <em>sub-assemblies</em>, or
 to child <em>parts</em>. Note how <code class="docutils literal"><span class="pre">axel_track</span></code> is used to define the axle’s length.</p>
 <p><strong>Components</strong></p>
-<p>The <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_components" title="cqparts.part.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_components()</span></code></a> method is overridden above, to return
-a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of named <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
+<p>The <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_components()</span></code></a> method is overridden above, to return
+a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of named <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
 <p>Each component requires a name that’s unique for the particular <em>assembly</em>.</p>
 <p><em>Components</em> may be added, or omitted based on the <em>assembly’s</em> parameters
 if necessary.</p>
 <p><strong>Constraints</strong></p>
-<p>The <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly.make_constraints" title="cqparts.part.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_constraints()</span></code></a> method is overridden to return a
+<p>The <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_constraints()</span></code></a> method is overridden to return a
 <code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-meth docutils literal"><span class="pre">Constraint</span></code></a> instances.</p>
 <p>Each <em>constraint</em> references, at least:</p>
 <ul class="simple">
@@ -447,7 +447,7 @@ if necessary.</p>
 <p>see <a class="reference internal" href="../parts/constraints/index.html#parts-constraints"><span class="std std-ref">Constraints</span></a> for more details.</p>
 <p><strong>Extra Functions</strong></p>
 <p>We’ve added <code class="docutils literal"><span class="pre">apply_cutout</span></code> as a utility for the next stage of assembly.
-It will subtract geometry away from a given <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to alow placement
+It will subtract geometry away from a given <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to alow placement
 of the axle, and freedom for the wheels to spin.</p>
 <p>The <code class="docutils literal"><span class="pre">apply_cutout</span></code> method is not part of the normal assembly build cycle; at
 this stage it’s simply another method in the class.</p>
@@ -546,10 +546,10 @@ this stage it’s simply another method in the class.</p>
 <span class="go">    └○ right_wheel</span>
 </pre></div>
 </div>
-<p>Note that the components in this <em>assembly</em> are both <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances. The nested <em>assemblies</em> gives us the 2nd layer of
+<p>Note that the components in this <em>assembly</em> are both <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances. The nested <em>assemblies</em> gives us the 2nd layer of
 parts.</p>
-<p>Also note that we have 2 of the same <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> class, but 2 different
+<p>Also note that we have 2 of the same <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> class, but 2 different
 instances, much like the 2 wheels in the previous <code class="docutils literal"><span class="pre">WheeledAxle</span></code> <em>assembly</em>.</p>
 <p>The chassis was altered after the <code class="docutils literal"><span class="pre">WeeledAxle</span></code> assemblies were placed using
 the <code class="docutils literal"><span class="pre">apply_cutout</span></code> utility methods build into <code class="docutils literal"><span class="pre">WeeledAxle</span></code> class. The
@@ -585,7 +585,7 @@ finished result being:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

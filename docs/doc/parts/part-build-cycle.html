@@ -116,7 +116,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -183,20 +183,20 @@
             
   <div class="section" id="part-build-cycle">
 <span id="parts-part-build-cycle"></span><h1><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle<a class="headerlink" href="#part-build-cycle" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is just a container for a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is just a container for a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
 <p>So the “building” of a <em>part</em> is more to help placement in the world, and to
 facilitate changes made to that object.</p>
 <p>For more information on how to create solids as a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>,
 read more in the <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> documentation.</p>
 <div class="section" id="instantiation">
 <h2>Instantiation<a class="headerlink" href="#instantiation" title="Permalink to this headline">¶</a></h2>
-<p>When a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is created, it initializes its parameters.</p>
+<p>When a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is created, it initializes its parameters.</p>
 <p>Most of the work here is done by its parent class
-<a class="reference internal" href="../api/cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
+<a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>.</p>
 <p>This is covered in detail in <a class="reference internal" href="../tutorials/parametric-object.html#tutorials-parametricobject"><span class="std std-ref">Parametric Object</span></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.make" title="cqparts.part.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> is <strong>not</strong> called when <strong>instantiating</strong> a <em>part</em>; it’s
+<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> is <strong>not</strong> called when <strong>instantiating</strong> a <em>part</em>; it’s
 called later.</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
@@ -224,7 +224,7 @@ called later.</p>
 <div class="section" id="getting-local-obj">
 <h2>Getting <code class="docutils literal"><span class="pre">local_obj</span></code><a class="headerlink" href="#getting-local-obj" title="Permalink to this headline">¶</a></h2>
 <p>When a <em>part’s</em> <code class="docutils literal"><span class="pre">local_obj</span></code> is requested, the instance’s
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.make" title="cqparts.part.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> result is returned.</p>
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> result is returned.</p>
 <p>Note that in the above test, the <code class="docutils literal"><span class="pre">print</span></code> statement in <code class="docutils literal"><span class="pre">make()</span></code> doesn’t show.
 However, when we request <code class="docutils literal"><span class="pre">local_obj</span></code>…</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
@@ -238,7 +238,7 @@ However, when we request <code class="docutils literal"><span class="pre">local_
 <p>However nothing is printed on the 2nd call. This is because the result is
 buffered, so when <code class="docutils literal"><span class="pre">local_obj</span></code> is requested a second time, it is
 not re-made.</p>
-<p>Most uses of a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> will get the local object by referencing
+<p>Most uses of a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> will get the local object by referencing
 <code class="docutils literal"><span class="pre">local_obj</span></code>, but you can forcefully remake the object in 2 ways:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
 <span class="go">initializing parameters...</span>
@@ -260,10 +260,10 @@ not re-made.</p>
 </div>
 <div class="section" id="world-coords-and-world-obj">
 <h2><code class="docutils literal"><span class="pre">world_coords</span></code> and <code class="docutils literal"><span class="pre">world_obj</span></code><a class="headerlink" href="#world-coords-and-world-obj" title="Permalink to this headline">¶</a></h2>
-<p>If <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component.world_coords" title="cqparts.part.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> has been set, getting
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> will create a copy of
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> that has been transformed to
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Component.world_coords" title="cqparts.part.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a>.</p>
+<p>If <a class="reference internal" href="../api/cqparts.html#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> has been set, getting
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> will create a copy of
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> that has been transformed to
+<a class="reference internal" href="../api/cqparts.html#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a>.</p>
 <p>That is to say that it is translated, and rotated so the object’s local
 coordinates are equal to the world coordinates, relative to the object itself.</p>
 <p>Let’s re-define <code class="docutils literal"><span class="pre">Box</span></code> without those print statements…</p>
@@ -276,7 +276,7 @@ coordinates are equal to the world coordinates, relative to the object itself.</
 </pre></div>
 </div>
 <p>Now let’s create a box, then set its location in the world by
-setting <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component.world_coords" title="cqparts.part.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a>.</p>
+setting <a class="reference internal" href="../api/cqparts.html#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">val</span><span class="p">()</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">()</span><span class="o">.</span><span class="n">ymin</span>
 <span class="go">-5.0</span>
@@ -298,11 +298,11 @@ setting <a class="reference internal" href="../api/cqparts.html#cqparts.part.Com
 </div>
 <div class="section" id="changing-local-obj-or-world-coords">
 <h2>Changing <code class="docutils literal"><span class="pre">local_obj</span></code> or <code class="docutils literal"><span class="pre">world_coords</span></code><a class="headerlink" href="#changing-local-obj-or-world-coords" title="Permalink to this headline">¶</a></h2>
-<p>If <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> or
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Component.world_coords" title="cqparts.part.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> is changed,
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is reset.</p>
-<p>Then when <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is requested again,
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> is copied and moved,
+<p>If <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> or
+<a class="reference internal" href="../api/cqparts.html#cqparts.Component.world_coords" title="cqparts.Component.world_coords"><code class="xref py py-meth docutils literal"><span class="pre">world_coords</span></code></a> is changed,
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is reset.</p>
+<p>Then when <a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is requested again,
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a> is copied and moved,
 just as it is explained above.</p>
 <p>So the obvious thing to do now is to drill a hole through the box… right?</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
@@ -314,12 +314,12 @@ just as it is explained above.</p>
 <span class="go">7</span>
 </pre></div>
 </div>
-<p>Note that we changed <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, but we tested the number of faces on
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a>. So we can conclude from this that when any changes are
-made to the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, the
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is re-created using <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>
+<p>Note that we changed <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, but we tested the number of faces on
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a>. So we can conclude from this that when any changes are
+made to the <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, the
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is re-created using <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>
 as reference.</p>
-<p>Let’s try the same thing by changing <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a>:</p>
+<p>Let’s try the same thing by changing <a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">=</span> <span class="n">CoordSystem</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">world_obj</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">world_obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">hole</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
@@ -329,15 +329,15 @@ as reference.</p>
 <p>We get an exception instead</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> cannot be changed directly, but it can be
-changed indirectly via <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>.</p>
+<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> cannot be changed directly, but it can be
+changed indirectly via <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Remember: when changing the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.local_obj" title="cqparts.part.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, if your
+<p>Remember: when changing the <a class="reference internal" href="../api/cqparts.html#cqparts.Part.local_obj" title="cqparts.Part.local_obj"><code class="xref py py-meth docutils literal"><span class="pre">local_obj</span></code></a>, if your
 alterations are based on world coordinates, you must convert back to the
 object’s local coordinates before the changes will match your expectations.</p>
-<p class="last">Also remember that the <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part.world_obj" title="cqparts.part.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is likely rotated
+<p class="last">Also remember that the <a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is likely rotated
 to fit into an <em>assembly</em>, so using queries like
 <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ.faces" title="(in CadQuery v1.0)"><code class="xref py py-meth docutils literal"><span class="pre">faces(&quot;&gt;Z&quot;)</span></code></a> (for example) may not give you
 the information you’re expecting.</p>
@@ -367,7 +367,7 @@ the information you’re expecting.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

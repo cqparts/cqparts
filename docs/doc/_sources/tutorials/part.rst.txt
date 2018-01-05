@@ -1,7 +1,7 @@
 
 .. _tutorial_part:
 
-.. currentmodule:: cqparts.part
+.. currentmodule:: cqparts
 
 Make your own ``Part``
 ======================

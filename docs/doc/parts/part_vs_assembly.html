@@ -116,7 +116,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -183,18 +183,18 @@
             
   <div class="section" id="part-vs-assembly">
 <span id="id1"></span><h1>Part vs Assembly<a class="headerlink" href="#part-vs-assembly" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
-<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is also a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
-<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is an <em>atomic</em> component; it cannot be disassembled, and it
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is also a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is an <em>atomic</em> component; it cannot be disassembled, and it
 is typically made of a single material.</p>
-<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a collection of <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Components</span></code></a>.</p>
-<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would typically hold itself together, as an intermedite
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a collection of <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Components</span></code></a>.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would typically hold itself together, as an intermedite
 step of construction.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is to <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> as <code class="docutils literal"><span class="pre">file</span></code> is to <code class="docutils literal"><span class="pre">folder</span></code>.</p>
+<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is to <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> as <code class="docutils literal"><span class="pre">file</span></code> is to <code class="docutils literal"><span class="pre">folder</span></code>.</p>
 </div>
-<p><a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is not to be confused with a <em>primative</em> (like a <em>cube</em>, <em>sphere</em>,
+<p><a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is not to be confused with a <em>primative</em> (like a <em>cube</em>, <em>sphere</em>,
 or <em>cylinder</em> to name a few), nor is it to be confused with constructive
 geometry</p>
 <p>For a detailed example of a hierarchy, have a look at the
@@ -202,11 +202,11 @@ geometry</p>
 <div class="section" id="constructive-analogy">
 <h2>Constructive Analogy<a class="headerlink" href="#constructive-analogy" title="Permalink to this headline">¶</a></h2>
 <p>If you were to make something from scratch, from raw materials, each
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is each individual object after material processing
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is each individual object after material processing
 (such as <em>forging</em>, <em>printing</em>, or <em>milling</em>, just to name a few).</p>
-<p>Each <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would be a component that has reached an intermediate
+<p>Each <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would be a component that has reached an intermediate
 step of assembly. Such as a motor, or a PCB.
-The final <em>thing</em> being constructed is also an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></p>
+The final <em>thing</em> being constructed is also an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></p>
 <p>Or put another way…</p>
 </div>
 <div class="section" id="destructive-analogy">
@@ -215,32 +215,32 @@ The final <em>thing</em> being constructed is also an <a class="reference intern
 (this may involve <em>unscrewing</em>, <em>prying apart</em>, <em>de-soldering</em>, just to name a few).</p>
 <p>Each time you pull out a <em>smaller thing</em>:</p>
 <ul class="simple">
-<li>if it <em>can</em> be disassembled further, that is an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</li>
-<li>if it <em>cannot</em> be pulled apart, then it’s a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</li>
+<li>if it <em>can</em> be disassembled further, that is an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</li>
+<li>if it <em>cannot</em> be pulled apart, then it’s a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</li>
 </ul>
 <p>When you have recursively disassembled everything, you will only be left
-with <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
+with <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
 </div>
 <div class="section" id="exceptions-to-the-rule">
 <h2>Exceptions to the rule<a class="headerlink" href="#exceptions-to-the-rule" title="Permalink to this headline">¶</a></h2>
 <p>Just like any other <em>rule</em>, there are exceptions:</p>
 <p>For example, an <em>SD Card</em> has many components inside it, but since it can be
 assumed that it won’t be pulled apart, or need to be constructed, an <em>SD Card</em>
-will most likely be represented by a single <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</p>
+will most likely be represented by a single <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</p>
 <p>Conversely, a <em>sticker</em> (like a branding sticker) cannot be disassembled.
 But visually you may want its orientation to be recognisable, or
-you just want it to render properly. This is where a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is limited,
-because it can only be one color. So the <em>sticker</em> may be 2 <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
-instances in an <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, one for the backing, and one for the text,
+you just want it to render properly. This is where a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is limited,
+because it can only be one color. So the <em>sticker</em> may be 2 <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+instances in an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, one for the backing, and one for the text,
 or logo.</p>
 </div>
 <div class="section" id="design">
 <h2>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
-<p>A well designed <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is something that can be used in others’
+<p>A well designed <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is something that can be used in others’
 creations.</p>
-<p>That sentiment does <em>not</em> only apply to the highest level <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, but
-also lower level <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes used to create the high level object.</p>
-<p>Consider how others may want to use your <a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, and empower the
+<p>That sentiment does <em>not</em> only apply to the highest level <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, but
+also lower level <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes used to create the high level object.</p>
+<p>Consider how others may want to use your <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, and empower the
 class with the tools necessary to make their job easy.</p>
 <p>More discussion on this in <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>.</p>
 </div>
@@ -268,7 +268,7 @@ class with the tools necessary to make their job easy.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

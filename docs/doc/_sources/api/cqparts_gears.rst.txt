@@ -1,13 +1,13 @@
-cqparts\.gears package
+cqparts\_gears package
 ======================
 
 Submodules
 ----------
 
-cqparts\.gears\.base module
+cqparts\_gears\.base module
 ---------------------------
 
-.. automodule:: cqparts.gears.base
+.. automodule:: cqparts_gears.base
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ cqparts\.gears\.base module
 Module contents
 ---------------
 
-.. automodule:: cqparts.gears
+.. automodule:: cqparts_gears
     :members:
     :undoc-members:
     :show-inheritance:

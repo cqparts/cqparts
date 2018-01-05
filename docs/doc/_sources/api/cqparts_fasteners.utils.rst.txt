@@ -1,29 +1,29 @@
-cqparts\.fasteners\.utils package
+cqparts\_fasteners\.utils package
 =================================
 
 Submodules
 ----------
 
-cqparts\.fasteners\.utils\.applicator module
+cqparts\_fasteners\.utils\.applicator module
 --------------------------------------------
 
-.. automodule:: cqparts.fasteners.utils.applicator
+.. automodule:: cqparts_fasteners.utils.applicator
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.utils\.evaluator module
+cqparts\_fasteners\.utils\.evaluator module
 -------------------------------------------
 
-.. automodule:: cqparts.fasteners.utils.evaluator
+.. automodule:: cqparts_fasteners.utils.evaluator
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.utils\.selector module
+cqparts\_fasteners\.utils\.selector module
 ------------------------------------------
 
-.. automodule:: cqparts.fasteners.utils.selector
+.. automodule:: cqparts_fasteners.utils.selector
     :members:
     :undoc-members:
     :show-inheritance:
@@ -32,7 +32,7 @@ cqparts\.fasteners\.utils\.selector module
 Module contents
 ---------------
 
-.. automodule:: cqparts.fasteners.utils
+.. automodule:: cqparts_fasteners.utils
     :members:
     :undoc-members:
     :show-inheritance:

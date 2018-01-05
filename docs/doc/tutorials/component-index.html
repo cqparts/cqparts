@@ -121,7 +121,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">cqparts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -188,7 +188,7 @@
             
   <div class="section" id="component-index">
 <span id="tutorial-component-index"></span><h1>Component Index<a class="headerlink" href="#component-index" title="Permalink to this headline">¶</a></h1>
-<p>Any <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> class can be added to the
+<p>Any <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> class can be added to the
 <code class="docutils literal"><span class="pre">cqparts</span></code> search index, allowing it to be found by other modules with
 concise code</p>
 <p>This includes anything we’ve made in <a class="reference internal" href="part.html#tutorial-part"><span class="std std-ref">Make your own Part</span></a> and
@@ -196,7 +196,7 @@ concise code</p>
 <p>Registering, and searching is all done by the <a class="reference internal" href="../api/cqparts.html#module-cqparts.search" title="cqparts.search"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.search</span></code></a> module.</p>
 <div class="section" id="registering">
 <h2>Registering<a class="headerlink" href="#registering" title="Permalink to this headline">¶</a></h2>
-<p>Adding a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> to the search index is done
+<p>Adding a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> to the search index is done
 in one of 2 ways.</p>
 <div class="section" id="decorator">
 <h3>Decorator<a class="headerlink" href="#decorator" title="Permalink to this headline">¶</a></h3>
@@ -217,10 +217,10 @@ in one of 2 ways.</p>
 <p>This has added thse two <em>components</em> to the <code class="docutils literal"><span class="pre">cqparts</span></code> search index.</p>
 <p>Note that:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">SomeThing</span></code> is a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>, and <code class="docutils literal"><span class="pre">AnotherThing</span></code> is an
-<a class="reference internal" href="../api/cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.
+<li><code class="docutils literal"><span class="pre">SomeThing</span></code> is a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>, and <code class="docutils literal"><span class="pre">AnotherThing</span></code> is an
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.
 It actually doesn’t matter what they are, they will be added to the index, but
-they should be a <a class="reference internal" href="../api/cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> of some sort.</li>
+they should be a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> of some sort.</li>
 <li>Both <code class="docutils literal"><span class="pre">SomeThing</span></code> and <code class="docutils literal"><span class="pre">AnotherThing</span></code> have a common criteria <code class="docutils literal"><span class="pre">a='one'</span></code></li>
 </ul>
 <div class="admonition tip">
@@ -317,7 +317,7 @@ mostly this is intended as an indexing tool, not a searching tool.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

@@ -1,4 +1,4 @@
-cqparts\.fasteners package
+cqparts\_fasteners package
 ==========================
 
 Subpackages
@@ -6,71 +6,72 @@ Subpackages
 
 .. toctree::
 
-    cqparts.fasteners.utils
+    cqparts_fasteners.solidtypes
+    cqparts_fasteners.utils
 
 Submodules
 ----------
 
-cqparts\.fasteners\.base module
+cqparts\_fasteners\.base module
 -------------------------------
 
-.. automodule:: cqparts.fasteners.base
+.. automodule:: cqparts_fasteners.base
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.bolts module
+cqparts\_fasteners\.bolts module
 --------------------------------
 
-.. automodule:: cqparts.fasteners.bolts
+.. automodule:: cqparts_fasteners.bolts
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.female module
+cqparts\_fasteners\.female module
 ---------------------------------
 
-.. automodule:: cqparts.fasteners.female
+.. automodule:: cqparts_fasteners.female
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.male module
+cqparts\_fasteners\.male module
 -------------------------------
 
-.. automodule:: cqparts.fasteners.male
+.. automodule:: cqparts_fasteners.male
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.nutboltfastener module
+cqparts\_fasteners\.nutboltfastener module
 ------------------------------------------
 
-.. automodule:: cqparts.fasteners.nutboltfastener
+.. automodule:: cqparts_fasteners.nutboltfastener
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.nuts module
+cqparts\_fasteners\.nuts module
 -------------------------------
 
-.. automodule:: cqparts.fasteners.nuts
+.. automodule:: cqparts_fasteners.nuts
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.params module
+cqparts\_fasteners\.params module
 ---------------------------------
 
-.. automodule:: cqparts.fasteners.params
+.. automodule:: cqparts_fasteners.params
     :members:
     :undoc-members:
     :show-inheritance:
 
-cqparts\.fasteners\.screws module
+cqparts\_fasteners\.screws module
 ---------------------------------
 
-.. automodule:: cqparts.fasteners.screws
+.. automodule:: cqparts_fasteners.screws
     :members:
     :undoc-members:
     :show-inheritance:
@@ -79,7 +80,7 @@ cqparts\.fasteners\.screws module
 Module contents
 ---------------
 
-.. automodule:: cqparts.fasteners
+.. automodule:: cqparts_fasteners
     :members:
     :undoc-members:
     :show-inheritance:

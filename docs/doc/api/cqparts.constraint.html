@@ -101,30 +101,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.params.html">cqparts.params package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.assembly">cqparts.assembly module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.component">cqparts.component module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_motors.html">cqparts_motors package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -172,7 +173,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">cqparts</a> &raquo;</li>
+          <li><a href="modules.html">src</a> &raquo;</li>
         
           <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
         
@@ -222,7 +223,7 @@ components within an assembly.</p>
 must be solvable.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
+<p>An <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
 on relative locks to place its components.
 This is because every component will be waiting for another component
 to be placed, a circular problem.</p>
@@ -320,7 +321,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
 <li><strong>local_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – coordinate system of mate relative to component’s origin</li>
 </ul>
 </td>
@@ -372,7 +373,7 @@ world coordinates.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">generator of (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>,
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">generator of (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>,
 <a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) tuples.</p>
 </td>
 </tr>
@@ -420,7 +421,7 @@ world coordinates.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component the mate is relative to</li>
 <li><strong>local_coords</strong> (<a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) – coordinate system of mate relative to component’s origin</li>
 </ul>
 </td>
@@ -505,7 +506,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 must be solvable.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>An <a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
+<p>An <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> <strong>cannot</strong> solely rely
 on relative locks to place its components.
 This is because every component will be waiting for another component
 to be placed, a circular problem.</p>
@@ -555,7 +556,7 @@ to be placed, a circular problem.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
-        <link rel="next" title="TODO List" href="../todo.html"/>
-        <link rel="prev" title="cqparts.torque_limiters package" href="cqparts.torque_limiters.html"/> 
+        <link rel="next" title="cqparts_bearings package" href="cqparts_bearings.html"/>
+        <link rel="prev" title="cqparts.params package" href="cqparts.params.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -101,30 +101,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">cqparts</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="cqparts.basic.html">cqparts.basic package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.bearings.html">cqparts.bearings package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.fasteners.html">cqparts.fasteners package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.gears.html">cqparts.gears package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.motors.html">cqparts.motors package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.solidtypes.html">cqparts.solidtypes package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cqparts.torque_limiters.html">cqparts.torque_limiters package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cqparts.params.html">cqparts.params package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">cqparts.utils package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.assembly">cqparts.assembly module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.component">cqparts.component module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.errors">cqparts.errors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.params">cqparts.params module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.part">cqparts.part module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts.search">cqparts.search module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cqparts.html#module-cqparts">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_motors.html">cqparts_motors package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -172,7 +173,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">cqparts</a> &raquo;</li>
+          <li><a href="modules.html">src</a> &raquo;</li>
         
           <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
         
@@ -541,7 +542,7 @@ configuration.</p>
 <dl class="function">
 <dt id="cqparts.utils.sphinx.add_parametric_object_params">
 <code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_parametric_object_params</code><span class="sig-paren">(</span><em>prepend=False</em>, <em>hide_private=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_parametric_object_params" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add <a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> parameters
+<dd><p>Add <a class="reference internal" href="cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> parameters
 in a list to the <em>docstring</em>.</p>
 <p>This is only intended to be used with <em>sphinx autodoc</em>.</p>
 <p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
@@ -550,9 +551,9 @@ in a list to the <em>docstring</em>.</p>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;autodoc-process-docstring&quot;</span><span class="p">,</span> <span class="n">add_parametric_object_params</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>Then, when documenting your <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> the
-<a class="reference internal" href="cqparts.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> parameters
+<p>Then, when documenting your <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> the
+<a class="reference internal" href="cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> parameters
 will also be documented in the output.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -573,7 +574,7 @@ otherwise, they’re appended at the end.</li>
 <dt id="cqparts.utils.sphinx.add_search_index_criteria">
 <code class="descclassname">cqparts.utils.sphinx.</code><code class="descname">add_search_index_criteria</code><span class="sig-paren">(</span><em>prepend=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.sphinx.add_search_index_criteria" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add the search criteria used when calling <a class="reference internal" href="cqparts.html#cqparts.search.register" title="cqparts.search.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a>
-on a <a class="reference internal" href="cqparts.html#cqparts.part.Component" title="cqparts.part.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> as a table to the <em>docstring</em>.</p>
+on a <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> as a table to the <em>docstring</em>.</p>
 <p>This is only intended to be used with <em>sphinx autodoc</em>.</p>
 <p>In your <em>sphinx</em> <code class="docutils literal"><span class="pre">config.py</span></code> file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.sphinx</span> <span class="k">import</span> <span class="n">add_search_index_criteria</span>
@@ -581,8 +582,8 @@ on a <a class="reference internal" href="cqparts.html#cqparts.part.Component" ti
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;autodoc-process-docstring&quot;</span><span class="p">,</span> <span class="n">add_search_index_criteria</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>Then, when documenting your <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
-<a class="reference internal" href="cqparts.html#cqparts.part.Assembly" title="cqparts.part.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> the
+<p>Then, when documenting your <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> the
 search criteria will also be documented in the output.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -615,7 +616,7 @@ duplicate variables cluttering the sphinx docs.</p>
 <dl class="function">
 <dt id="cqparts.utils.wrappers.as_part">
 <code class="descclassname">cqparts.utils.wrappers.</code><code class="descname">as_part</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.wrappers.as_part" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a function to a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<dd><p>Converts a function to a <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 <p>So the conventionally defined <em>part</em>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
@@ -642,7 +643,7 @@ duplicate variables cluttering the sphinx docs.</p>
 <span class="n">box</span> <span class="o">=</span> <span class="n">make_box</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In both cases, <code class="docutils literal"><span class="pre">box</span></code> is a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<p>In both cases, <code class="docutils literal"><span class="pre">box</span></code> is a <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 </dd></dl>
 
 </div>
@@ -965,7 +966,7 @@ assist tree displays of hierarchical content.</p>
 <dl class="function">
 <dt id="cqparts.utils.as_part">
 <code class="descclassname">cqparts.utils.</code><code class="descname">as_part</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.as_part" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a function to a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<dd><p>Converts a function to a <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 <p>So the conventionally defined <em>part</em>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span>
@@ -992,7 +993,7 @@ assist tree displays of hierarchical content.</p>
 <span class="n">box</span> <span class="o">=</span> <span class="n">make_box</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In both cases, <code class="docutils literal"><span class="pre">box</span></code> is a <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<p>In both cases, <code class="docutils literal"><span class="pre">box</span></code> is a <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
 </dd></dl>
 
 </div>
@@ -1008,10 +1009,10 @@ assist tree displays of hierarchical content.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../todo.html" class="btn btn-neutral float-right" title="TODO List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cqparts_bearings.html" class="btn btn-neutral float-right" title="cqparts_bearings package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cqparts.torque_limiters.html" class="btn btn-neutral" title="cqparts.torque_limiters package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts.params.html" class="btn btn-neutral" title="cqparts.params package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1020,7 +1021,7 @@ assist tree displays of hierarchical content.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017 Peter Boin.
+        &copy; Copyright 2018 Peter Boin.
 
     </p>
   </div>

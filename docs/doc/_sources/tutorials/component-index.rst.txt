@@ -6,7 +6,7 @@
 Component Index
 ===============
 
-Any :class:`Component <cqparts.part.Component>` class can be added to the
+Any :class:`Component <cqparts.Component>` class can be added to the
 ``cqparts`` search index, allowing it to be found by other modules with
 concise code
 
@@ -19,7 +19,7 @@ Registering, and searching is all done by the :mod:`cqparts.search` module.
 Registering
 -------------
 
-Adding a :class:`Component <cqparts.part.Component>` to the search index is done
+Adding a :class:`Component <cqparts.Component>` to the search index is done
 in one of 2 ways.
 
 
@@ -46,10 +46,10 @@ This has added thse two *components* to the ``cqparts`` search index.
 
 Note that:
 
-* ``SomeThing`` is a :class:`Part <cqparts.part.Part>`, and ``AnotherThing`` is an
-  :class:`Assembly <cqparts.part.Assembly>`.
+* ``SomeThing`` is a :class:`Part <cqparts.Part>`, and ``AnotherThing`` is an
+  :class:`Assembly <cqparts.Assembly>`.
   It actually doesn't matter what they are, they will be added to the index, but
-  they should be a :class:`Component <cqparts.part.Component>` of some sort.
+  they should be a :class:`Component <cqparts.Component>` of some sort.
 * Both ``SomeThing`` and ``AnotherThing`` have a common criteria ``a='one'``
 
 .. tip::
