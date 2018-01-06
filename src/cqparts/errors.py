@@ -21,9 +21,9 @@ class SolidValidityError(Exception):
 # Search Exceptions
 class SearchError(Exception):
     """
-    Raised by :meth:`cqparts.search.find`
+    Raised by search algithms, for example :meth:`cqparts.search.find`
 
-    parent of both :class:`SearchNoneFoundError` & :class:`SearchMultipleFoundError`
+    Parent of both :class:`SearchNoneFoundError` & :class:`SearchMultipleFoundError`
 
     .. doctest::
 

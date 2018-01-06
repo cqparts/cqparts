@@ -200,6 +200,7 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
     'cadquery': ('http://dcowden.github.io/cadquery/', None),
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+    'tinydb': ('http://tinydb.readthedocs.io/en/latest/', None),
 }
 
 # If true, links to the reST sources are added to the pages.

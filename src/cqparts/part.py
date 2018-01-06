@@ -95,8 +95,9 @@ class Part(Component):
     @property
     def local_obj(self):
         """
-        Buffered result of :meth:`cqparts.Part.make` which is (probably) a
-        :class:`cadquery.Workplane` instance.
+        Buffered result of :meth:`make` which is (probably) a
+        :class:`cadquery.Workplane` instance. If ``_simple`` is ``True``, then
+        :meth:`make_simple` is returned instead.
 
         .. note::
             This is usually the correct way to get your part's object

@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    cqparts.catalogue
     cqparts.codec
     cqparts.constraint
     cqparts.display
