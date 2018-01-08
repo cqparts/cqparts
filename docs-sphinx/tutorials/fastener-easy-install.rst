@@ -295,7 +295,7 @@ fastening mechanism.
 
     *Evaluation*, *selection*, and *application* are fundamental concepts for
     using fasteners as more than just floating objects, read
-    :ref:`parts_fasteners_using` to learn more.
+    :ref:`cqparts_fasteners.build_cycle` to learn more.
 
 To do this manually, we'd have to:
 

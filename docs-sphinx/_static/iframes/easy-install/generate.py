@@ -9,6 +9,12 @@ from cqparts.params import *
 from cqparts_fasteners.params import HeadType, DriveType, ThreadType
 from cqparts_fasteners.male import MaleFastenerPart
 from cqparts.display import display, render_props
+from cqparts.constraint import Mate
+from cqparts.utils import CoordSystem
+
+import logging
+cadquery.freecad_impl.console_logging.enable(logging.INFO)
+
 
 class WoodScrew(MaleFastenerPart):
     # --- override MaleFastenerPart parameters
@@ -81,12 +87,14 @@ class WoodScrew(MaleFastenerPart):
         # model of the screw.
         return self.make_cutter()
 
+    @property
+    def mate_threadstart(self):
+        return Mate(self, CoordSystem(origin=(0, 0, -self.neck_length)))
+
 
 # ------------------- Anchor -------------------
 
 from math import sin, cos, pi
-from cqparts.utils import CoordSystem
-from cqparts.constraint import Mate
 
 class Anchor(cqparts.Part):
     # sub-parts
@@ -119,7 +127,7 @@ class Anchor(cqparts.Part):
             .circle(self.diameter / 2) \
             .extrude(-self.height)
 
-        # neck slot
+        # neck slot : eliminate screw neck interference
         obj = obj.cut(
             cadquery.Workplane('XY', origin=(0, 0, -((self.neck_diameter + self.height) / 2))) \
                 .moveTo(0, 0) \
@@ -132,7 +140,7 @@ class Anchor(cqparts.Part):
                 .extrude(self.neck_diameter)
         )
 
-        # head slot (forms a circular wedge)
+        # head slot : form a circular wedge with remaining material
         (start_r, end_r) = self.wedge_radii
         angles_radius = (  # as generator
             (
@@ -150,37 +158,51 @@ class Anchor(cqparts.Part):
                 .extrude(self.head_diameter)
         )
 
-        # access port
+        # access port : remove a quadrant to alow screw's head through
         obj = obj.cut(
             cadquery.Workplane('XY', origin=(0, 0, -(self.height - self.head_diameter) / 2)) \
                 .rect(self.diameter / 2, self.diameter / 2, centered=False) \
                 .extrude(-self.height)
         )
 
-        # screw drive
+        # screw drive : to apply torque to anchor for installation
         if self.drive:
-            obj = self.drive.apply(obj)
+            obj = self.drive.apply(obj)  # top face is on origin XY plane
 
         return obj
 
     def make_simple(self):
+        # Just return the core cylinder
         return cadquery.Workplane('XY') \
             .circle(self.diameter / 2) \
             .extrude(-self.height)
 
     def make_cutter(self):
+        # A solid to cut away from another; makes room to install the anchor
         return cadquery.Workplane('XY', origin=(0, 0, -self.height)) \
             .circle(self.diameter / 2) \
             .extrude(self.height + 1000)  # 1m bore depth
 
     @property
     def mate_screwhead(self):
+        # The location of the screwhead in it's theoretical tightened mid-point
+        #   (well, not really, but this is just a demo)
         (start_r, end_r) = self.wedge_radii
         return Mate(self, CoordSystem(
             origin=(0, -((start_r + end_r) / 2), -self.height / 2),
             xDir=(1, 0, 0),
             normal=(0, 1, 0)
         ))
+
+    @property
+    def mate_center(self):
+        # center of object, along screw's rotation axis
+        return Mate(self, CoordSystem(origin=(0, 0, -self.height / 2)))
+
+    @property
+    def mate_base(self):
+        # base of object (for 3d printing placement, maybe)
+        return Mate(self, CoordSystem(origin=(0, 0, -self.height)))
 
 
 # ------------------- Screw & Anchor -------------------
@@ -204,13 +226,216 @@ class _Together(cqparts.Assembly):
         ]
 
 
+# ------------------- Fastener -------------------
+
+from cqparts_fasteners import Fastener
+from cqparts_fasteners.utils import VectorEvaluator, Selector, Applicator
+
+from cqparts.constraint import Fixed, Coincident
+
+
+class EasyInstallFastener(Fastener):
+    # The origin of the evaluation is to be the target center for the anchor.
+    Evaluator = VectorEvaluator
+
+    class Selector(Selector):
+        def get_components(self):
+            anchor = Anchor()  # we'll just use the default anchor
+
+            # --- Define the screw's dimensions
+            # Get distance from anchor's center to screwhead's base
+            #   (we'll call that the "anchor's slack")
+            v_rel_center = anchor.mate_center.local_coords.origin
+            v_rel_screwhead = anchor.mate_base.local_coords.origin
+            anchor_slack = abs(v_rel_screwhead - v_rel_center)
+            # The slack is along the evaluation vector, which is the same
+            # as the woodscrew's axis of rotation.
+
+            # Find the screw's neck length
+            #   This will be the length of all but the last evaluator effect,
+            #   minus the anchor's slack.
+            effect_length = abs(self.evaluator.eval[-1].start_point - self.evaluator.eval[0].start_point)
+            neck_length = effect_length - anchor_slack
+
+            # Get thread's length : 80% of maximum
+            thread_maxlength = abs(self.evaluator.eval[-1].end_point - self.evaluator.eval[-1].start_point)
+            thread_length = thread_maxlength * 0.8
+
+            # Create screw
+            screw = WoodScrew(
+                neck_length=neck_length,
+                length=neck_length + thread_length,
+            )
+
+            return {
+                'anchor': anchor,
+                'screw': screw,
+            }
+
+        def get_constraints(self):
+            last_part = self.evaluator.eval[-1].part
+            return [
+                Coincident(
+                    self.components['screw'].mate_threadstart,
+                    Mate(last_part, self.evaluator.eval[-1].start_coordsys - last_part.world_coords),
+                ),
+                Coincident(
+                    self.components['anchor'].mate_screwhead,
+                    self.components['screw'].mate_origin,
+                ),
+            ]
+
+    class Applicator(Applicator):
+        def apply_alterations(self):
+            screw = self.selector.components['screw']
+            anchor = self.selector.components['anchor']
+            screw_cutter = screw.make_cutter()  # cutter in local coords
+            anchor_cutter = anchor.make_cutter()
+
+            # screw : cut from all effected parts
+            for effect in self.evaluator.eval:
+                screw_coordsys = screw.world_coords - effect.part.world_coords
+                effect.part.local_obj = effect.part.local_obj.cut(screw_coordsys + screw_cutter)
+
+            # anchor : all but last piece
+            for effect in self.evaluator.eval[:-1]:
+                anchor_coordsys = anchor.world_coords - effect.part.world_coords
+                effect.part.local_obj = effect.part.local_obj.cut(anchor_coordsys + anchor_cutter)
+
+
+# ------------------- Joined Planks -------------------
+
+class WoodPanel(cqparts.Part):
+    thickness = PositiveFloat(15, doc="thickness of panel")
+    width = PositiveFloat(100, doc="panel width")
+    length = PositiveFloat(100, doc="panel length")
+
+    def make(self):
+        return cadquery.Workplane('XY') \
+            .box(self.length, self.width, self.thickness)
+
+    @property
+    def mate_end(self):
+        # center of +x face
+        return Mate(self, CoordSystem(
+            origin=(self.length / 2, 0, 0),
+            xDir=(0, 0, -1),
+            normal=(-1, 0, 0),
+        ))
+
+    def get_mate_edge(self, thickness):
+        return Mate(self, CoordSystem(
+            origin=((self.length / 2) - (thickness / 2), 0, self.thickness / 2)
+        ))
+
+
+class ConnectedPlanks(cqparts.Assembly):
+    def make_components(self):
+        p1 = WoodPanel(
+            length=40, width=30,
+            _render={'alpha': 0.5}
+        )
+        p2 = WoodPanel(
+            length=40, width=30,
+            _render={'alpha': 0.5}
+        )
+        return {
+            'p1': p1,
+            'p2': p2,
+            'fastener': EasyInstallFastener(parts=[p1, p2]),
+        }
+
+    def make_constraints(self):
+        p1 = self.components['p1']
+        p2 = self.components['p2']
+        fastener = self.components['fastener']
+        return [
+            Fixed(p1.mate_origin),
+            Coincident(
+                p2.mate_end,
+                p1.get_mate_edge(p2.thickness),
+            ),
+            Coincident(
+                fastener.mate_origin,
+                p2.mate_end + CoordSystem(origin=(0, 0, 25), xDir=(0, -1, 0)),
+            ),
+        ]
+
 # ------------------- Catalogue -------------------
 
+from cqparts.catalogue import JSONCatalogue
+import tempfile
+
+# Temporary catalogue (just for this script)
+catalogue_filename = tempfile.mktemp()
+catalogue = JSONCatalogue(catalogue_filename)
+
+# Add screws to catalogue
+#   note: this is the kind of information you'd store in a csv
+#   file, then import with a script similar to this one, to convert that
+#   information to a Catalogue.
+screws = [
+    {
+        'id': 'screw_30',
+        'obj_params': {  # parameters to WoodScrew constructor
+            'neck_exposed': 5,
+            'length': 40,  # exposing 10mm of thread
+            'neck_length': 30,
+        },
+        'criteria': {
+            'type': 'screw',
+            'thread_length': 10,
+            'compatible_anchor': 'anchor_10',
+        },
+    },
+    {
+        'id': 'screw_50',
+        'obj_params': {
+            'neck_exposed': 6,
+            'length': 65,  # exposing 15mm of thread
+            'neck_length': 50,
+
+        },
+        'criteria': {
+            'type': 'screw',
+            'thread_length': 15,
+            'compatible_anchor': 'anchor_15',
+        },
+    },
+]
+for screw in screws:
+    obj = WoodScrew(**screw['obj_params'])
+    catalogue.add(id=screw['id'], criteria=screw['criteria'], obj=obj)
 
 
+# Add anchors to catalogue
+anchors = [
+    {
+        'id': 'anchor_10',
+        'obj_params': {  # parameters to WoodScrew constructor
+            'diameter': 10,
+            'height': 7,
+        },
+        'criteria': {'type': 'anchor'},
+    },
+    {
+        'id': 'anchor_15',
+        'obj_params': {  # parameters to WoodScrew constructor
+            'diameter': 15,
+            'height': 10,
+        },
+        'criteria': {'type': 'anchor'},
+    },
+]
+for anchor in anchors:
+    obj = Anchor(**anchor['obj_params'])
+    catalogue.add(id=anchor['id'], criteria=anchor['criteria'], obj=obj)
 
-# ------------------- Catalogue -------------------
-# TODO: upon completion of #39
+
+# Cleanup catalogue file (just for this script)
+import os
+os.unlink(catalogue_filename)
+#print('catalogue: %s' % catalogue_filename)
 
 
 # ------------------- Export / Display -------------------
@@ -226,11 +451,15 @@ if env_name == 'cmdline':
     anchor.exporter('gltf')('anchor.gltf')
     together.exporter('gltf')('together.gltf')
 
-    display(together)
+    #display(together)
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
     #display(screw)
     #display(screw.make_cutter())
     #display(anchor)
-    display(together)
+    #display(together)
+
+    cp = ConnectedPlanks()
+    cp.world_coords = CoordSystem.random(span=20)
+    display(cp)

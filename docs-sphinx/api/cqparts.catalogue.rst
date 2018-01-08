@@ -12,6 +12,14 @@ cqparts\.catalogue\.catalogue module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.catalogue\.json module
+-------------------------------
+
+.. automodule:: cqparts.catalogue.json
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

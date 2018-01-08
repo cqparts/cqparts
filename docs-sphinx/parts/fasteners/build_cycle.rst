@@ -1,7 +1,8 @@
 
-.. _parts_fasteners_using:
+.. _cqparts_fasteners.build_cycle:
 
 .. currentmodule:: cqparts_fasteners.utils
+
 
 ``Fastener`` Build Cycle
 ================================
@@ -104,11 +105,13 @@ In the *fastener's* :meth:`make_components() <cqparts.Assembly.make_components>`
 
 1. An ``evaluator`` is instantiated.
 2. A ``selector`` is instantiated, given the ``evaluator``
-3. The *selector* returns the *parts* that will be part of this *assembly*
+3. The :meth:`Selector.get_components` call returns the *components* that will
+   be part of this *assembly*
 
 In the *fastener's* :meth:`make_constraints() <cqparts.Assembly.make_constraints>` call:
 
-4. The ``selector`` returns the *constraints* that set the part's placement.
+4. The :meth:`Selector.get_constraints` call returns the *constraints* that set
+   each *component's* placement.
 
 Then as part of the *assembly's* normal build cycle:
 
@@ -117,6 +120,6 @@ Then as part of the *assembly's* normal build cycle:
 
 And finally, in the *fastener's* :meth:`make_alterations() <cqparts.Assembly.make_alterations>` call:
 
-6. The ``applicator`` is instantiated, given both the ``evaluator`` and the ``selector``.
+6. The ``applicator`` is instantiated. It is given both the ``evaluator`` and the ``selector``.
 7. The ``applicator`` will make alterations to the geometry of the parts
-   passed to the evaluator (if necessary).
+   passed to the *evaluator* (if necessary).

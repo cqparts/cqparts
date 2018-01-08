@@ -3,7 +3,12 @@ from .evaluator import Evaluator
 
 class Selector(object):
     """
-    Facilitates the selection of a Fastener based on an evaluation
+    Facilitates the selection and placement of a *fastener's* components
+    based on an *evaluation*.
+
+    Each *selector* instance has an :class:`Evaluator` for reference,
+    and must have both the methods :meth:`get_components` and
+    :meth:`get_constraints` overridden.
     """
     def __init__(self, evaluator):
         """
@@ -15,9 +20,20 @@ class Selector(object):
         self._components = None
         self._constraints = None
 
+    # ---- Components
     def get_components(self):
         """
-        Return components
+        Return fastener's components
+
+        .. note::
+
+            Must be overridden by inheriting class.
+
+            Read :ref:`cqparts_fasteners.build_cycle` to learn more.
+
+        :return: components for the *fastener*
+        :rtype: :class:`dict` of :class:`Component <cqparts.Component>` instances
+
         """
         return {}
 
@@ -27,7 +43,20 @@ class Selector(object):
             self._components = self.get_components()
         return self._components
 
+    # ---- Constraints
     def get_constraints(self):
+        """
+        Return fastener's constraints
+
+        .. note::
+
+            Must be overridden by inheriting class.
+
+            Read :ref:`cqparts_fasteners.build_cycle` to learn more.
+
+        :return: list of *constraints*
+        :rtype: :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` instances
+        """
         return []
 
     @property

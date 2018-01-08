@@ -17,6 +17,8 @@ Welcome to cqparts's documentation!
    api/modules
    todo
 
+   fasteners/index
+
 
 Indices and tables
 ==================
