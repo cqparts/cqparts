@@ -53,7 +53,7 @@ class CoordSysIndicator(cqparts.Assembly):
 
     def make_constraints(self):
         return [
-            Fixed(self.components[k], Mate())
+            Fixed(self.components[k].mate_origin)
             for k in 'xyz'
         ]
 

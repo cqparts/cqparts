@@ -1,4 +1,5 @@
 import cadquery
+import random
 
 # FIXME: remove freecad dependency from this module...
 #        right now I'm just trying to get it working.
@@ -165,6 +166,58 @@ class CoordSystem(cadquery.Plane):
             xDir=vect_tuple(x_axis),
             normal=vect_tuple(z_axis),
         )
+
+    @classmethod
+    def random(cls, span=1, seed=None):
+        """
+        Creates a randomized coordinate system.
+
+        Useful for confirming that an *assembly* does not rely on its
+        origin coordinate system to remain intact.
+
+        For example, the :class:`CoordSysIndicator` *assembly* aligns 3 boxes
+        along each of the :math:`XYZ` axes.
+        Positioning it randomly by setting its ``world_coords`` shows that each
+        box is always positioned orthogonally to the other two.
+
+        .. doctest::
+
+            from cqparts_misc.basic.indicators import CoordSysIndicator
+            from cqparts.display import display
+            from cqparts.utils import CoordSystem
+
+            cs = CoordSysIndicator()
+            cs.world_coords = CoordSystem.random()
+
+            display(cs)  # doctest: +SKIP
+
+
+        :param span: origin of return will be :math:`\pm span` per axis
+        :param seed: if supplied, return is psudorandom (repeatable)
+        :type seed: hashable object
+        :return: randomized coordinate system
+        :rtype: :class:`CoordSystem`
+        """
+        if seed is not None:
+            random.seed(seed)
+
+        def rand_vect(min, max):
+            return (
+                random.uniform(min, max),
+                random.uniform(min, max),
+                random.uniform(min, max),
+            )
+
+        while True:
+            try:
+                return cls(
+                    origin=rand_vect(-span, span),
+                    xDir=rand_vect(-1, 1),
+                    normal=rand_vect(-1, 1),
+                )
+            except ZeroDivisionError:
+                # the chance is very low, but it could happen
+                continue
 
     @property
     def world_to_local_transform(self):
