@@ -72,9 +72,9 @@ class WoodScrew(MaleFastenerPart):
     def make_cutter(self):
         # we won't use MaleFastenerPart.make_cutter() because it
         # implements an access hole that we don't need.
-        cutter = cadquery.Workplane('XY') \
+        cutter = cadquery.Workplane('XY', origin=(0, 0, self.head.height)) \
             .circle(self.bore_diam / 2) \
-            .extrude(-self.neck_length)
+            .extrude(-(self.neck_length + self.head.height))
         cutter = cutter.union(
             self.thread.make_pilothole_cutter().translate((
                 0, 0, -self.length
@@ -240,13 +240,15 @@ class EasyInstallFastener(Fastener):
 
     class Selector(Selector):
         def get_components(self):
-            anchor = Anchor()  # we'll just use the default anchor
+            anchor = Anchor(
+                height=10,
+            )
 
             # --- Define the screw's dimensions
             # Get distance from anchor's center to screwhead's base
             #   (we'll call that the "anchor's slack")
             v_rel_center = anchor.mate_center.local_coords.origin
-            v_rel_screwhead = anchor.mate_base.local_coords.origin
+            v_rel_screwhead = anchor.mate_screwhead.local_coords.origin
             anchor_slack = abs(v_rel_screwhead - v_rel_center)
             # The slack is along the evaluation vector, which is the same
             # as the woodscrew's axis of rotation.
@@ -331,6 +333,7 @@ class WoodPanel(cqparts.Part):
 
 class ConnectedPlanks(cqparts.Assembly):
     def make_components(self):
+        # Wood panels
         p1 = WoodPanel(
             length=40, width=30,
             _render={'alpha': 0.5}
@@ -339,25 +342,37 @@ class ConnectedPlanks(cqparts.Assembly):
             length=40, width=30,
             _render={'alpha': 0.5}
         )
+
+        # Fastener
+        fastener = EasyInstallFastener(parts=[p1, p2])
+
         return {
-            'p1': p1,
-            'p2': p2,
-            'fastener': EasyInstallFastener(parts=[p1, p2]),
+            'panel1': p1,
+            'panel2': p2,
+            'fastener': fastener,
         }
 
     def make_constraints(self):
-        p1 = self.components['p1']
-        p2 = self.components['p2']
+        # Pull out component references
+        p1 = self.components['panel1']
+        p2 = self.components['panel2']
         fastener = self.components['fastener']
+
         return [
+            # Assembly's origin on panel1
             Fixed(p1.mate_origin),
+            # Join panel at the corner
             Coincident(
                 p2.mate_end,
                 p1.get_mate_edge(p2.thickness),
             ),
+            # Fastener assembly in the middle of a 
             Coincident(
-                fastener.mate_origin,
-                p2.mate_end + CoordSystem(origin=(0, 0, 25), xDir=(0, -1, 0)),
+                fastener.mate_origin,  # mate_origin's -Z axis is used for evaluation
+                p2.mate_end + CoordSystem(
+                    origin=(0, 0, 25),  # 25mm above panel1 surface
+                    xDir=(0, -1, 0)  # rotate so anchor faces inside
+                ),
             ),
         ]
 
@@ -445,13 +460,17 @@ from cqparts.utils.env import env_name
 screw = WoodScrew()
 anchor = Anchor()
 together = _Together()
+connected = ConnectedPlanks()
 
 if env_name == 'cmdline':
     screw.exporter('gltf')('screw.gltf')
     anchor.exporter('gltf')('anchor.gltf')
     together.exporter('gltf')('together.gltf')
 
-    #display(together)
+    connected.exporter('gltf')('connected.gltf')
+    print(connected.tree_str(name='connected'))
+
+    #display(connected)
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
@@ -460,6 +479,4 @@ elif env_name == 'freecad':
     #display(anchor)
     #display(together)
 
-    cp = ConnectedPlanks()
-    cp.world_coords = CoordSystem.random(span=20)
-    display(cp)
+    display(connected)

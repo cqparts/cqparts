@@ -11,112 +11,27 @@ from .catalogue import Catalogue
 
 class JSONCatalogue(Catalogue):
     """
-    A catalogue is a simple file-based database to store parametric combinations
-    for components.
+    Catalogue with JSON storage using :mod:`tinydb`.
 
-    **Analogy**
-
-    If a :class:`Component <cqparts.Component>` is a *blueprint*, the *parameters*
-    of its inherited :class:`ParametricObject <cqparts.params.ParametricObject>`
-    are the *measurements*, or *metrics* corresponding to the *blueprint*.
-
-    A :class:`Catalogue` is an exhaustive list of all parameter combinations,
-    for the context of manufacture, or purchase.
-
-    **Storage**
-
-    A catalogue is represented in a single ``json`` file, using :mod:`tinydb`
-    to read & write.
-
-    **Usage**
-
-    .. doctest::
-
-        >>> # temporary file (for demonstration purposes)
-        >>> import tempfile
-        >>> filename = tempfile.mktemp()
-
-        >>> # Instantiate Catalogue
-        >>> from cqparts.catalogue import JSONCatalogue
-        >>> catalogue = JSONCatalogue(filename)
-
-        >>> # Add a couple of items
-        >>> from cqparts_misc.basic.primatives import Box
-        >>> for length in [10, 20, 30]:
-        ...     name = "box_L%g" % length
-        ...     box = Box(length=length)
-        ...     index = catalogue.add(
-        ...         id=name,
-        ...         criteria={
-        ...             'type': 'box',
-        ...             'lengthcode': 'L%g' % length,
-        ...         },
-        ...         obj=box
-        ...     )
-
-        >>> # Searching
-        >>> item = catalogue.get_query()
-        >>> result = catalogue.find(item.id == 'box_L20')
-        >>> result.keys()
-        [u'obj', u'id', u'criteria']
-        >>> result['obj']['params']['length']
-        20.0
-
-        >>> # Creating object
-        >>> catalogue.deserialize_result(result)
-        <Box: height=1.0, length=20.0, width=1.0>
-
-        >>> # Search and deserialize in one line
-        >>> catalogue.get(item.obj.params.length > 25)
-        <Box: height=1.0, length=30.0, width=1.0>
-
-        >>> # cleanup temporary file
-        >>> import os
-        >>> os.unlink(filename)
-
-    .. note::
-
-        All searching is done by :mod:`tinydb`, so :meth:`search`, :meth:`find`
-        and :meth:`get_query` are simply pass-throughs to the underlying
-        :class:`tinydb.TinyDB` instance in the ``db`` attribute of this class.
-
-        Please read the :mod:`tinydb` documentation, and query the database
-        directly with this classes ``db`` attribute.
-
-    Each catalogue item is stored in an ``items`` table within the database.
-
-    The ``items`` *table* is stored as a list, one of the elements stored in the
-    above example may be stored like this::
-
-        {
-            'id': 'box_L20',
-            'criteria': {'lengthcode': 'L20', 'type': 'box'},
-            'obj': {
-                'class': {
-                    'module': 'cqparts_misc.basic.primatives',
-                    'name': 'Box',
-                },
-                'lib': {
-                    'name': 'cqparts',
-                    'version': '0.1.0',
-                },
-                'params': {
-                    '_render': {'alpha': 1.0, 'color': [192, 192, 192]},
-                    '_simple': False,
-                    'height': 1.0,
-                    'length': 20.0,
-                    'width': 1.0,
-                }
-            }
-        }
-
+    For more information, read :ref:`cqparts.catalogue`.
     """
 
     # database information
+    assert __version__ == '0.1.0', "confirm JSONCatalogue version"
+    # remember: before aligning the above version, check information below...
+    # if changes have been made to this class, the below version should
+    # be incremented.
     _version = '0.1'
     _dbinfo_name = '_dbinfo'
 
     def __init__(self, filename):
+        """
+        :param filename: name of catalogue file
+        :type filename: :class:`str`
+
+        If a new database is created, a ``_dbinfo`` table is added with
+        version & module information to assist backward compatability.
+        """
         self.db = tinydb.TinyDB(filename)
         self.items = self.db.table('items')
 
@@ -185,16 +100,16 @@ class JSONCatalogue(Catalogue):
         return result[0]
 
     # ------- Adding items -------
-    def add(self, id, criteria, obj, force=False):
+    def add(self, id, obj, criteria={}, force=False):
         """
         Add a :class:`Component <cqparts.Component>` instance to the database.
 
         :param id: unique id of entry, can be anything
         :type id: :class:`str`
-        :param criteria: arbitrary search criteria for the entry
-        :type criteria: :class:`dict`
         :param obj: component to be serialized, then added to the catalogue
         :type obj: :class:`Component <cqparts.Component>`
+        :param criteria: arbitrary search criteria for the entry
+        :type criteria: :class:`dict`
         :param force: if ``True``, entry is forcefully overwritten if it already
                       exists. Otherwise an exception is raised
         :type force: :class:`bool`

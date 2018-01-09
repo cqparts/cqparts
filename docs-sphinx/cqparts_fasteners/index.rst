@@ -1,14 +1,12 @@
 
-Fasteners
-=========
+``cqparts_fasteners`` Library
+====================================
 
 .. toctree::
    :caption: Contents:
 
    what
    build_cycle
-   custom
-
 
 
 Creating a Fastener

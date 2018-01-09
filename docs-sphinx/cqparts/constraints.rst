@@ -23,10 +23,10 @@ Constraints consist of, at a minimum:
 Types of Constraints
 -----------------------
 
-Lock
+Fixed
 ^^^^^^^^
 
-The :class:`Fixed <lock.Fixed>` explicitly sets a *component's* location
+The :class:`Fixed` explicitly sets a *component's* location
 and orientation relative to its parent's origin:
 
 .. testcode::
@@ -65,10 +65,10 @@ and orientation relative to its parent's origin:
     thing.build()  # creates and places all components recursively
 
 
-RelativeLock
+Coincident
 ^^^^^^^^^^^^^^^
 
-The :class:`Coincident <lock.Coincident>` sets a
+The :class:`Coincident` sets a
 *component's* coordinate system relative to another part's world coordinate
 system.
 
@@ -129,7 +129,7 @@ More...
 
 .. warning::
 
-    At this time only *lock* constraints are available.
+    At this time only 6dof locking constraints are available.
 
     More are planned to be introduced in
     `issue #30 <https://github.com/fragmuffin/cqparts/issues/30>`_.

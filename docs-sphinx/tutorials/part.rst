@@ -68,12 +68,13 @@ highly dependent on the *part's* parameters.
 So to elaborate on the box example above::
 
     from cqparts.constraint import Mate
+    from cqparts.utils import CoordSystem
 
     class Box(cqparts.Part):
         # ... (content as above)
         @property
         def mate_top(self):
-            return Mate((0, 0, self.height))
+            return Mate(self, CoordSystem(origin=(0, 0, self.height)))
 
     box = Box()
     box.mate_top
@@ -87,7 +88,7 @@ But wait... :mod:`cadquery` offers another way to achieve the same result::
         @property
         def mate_top(self):
             plane = self.local_obj.faces(">Z").workplane().plane
-            return Mate.from_plane(plane)
+            return Mate(self, CoordSystem.from_plane(plane))
 
     box = Box()
     box.mate_top
@@ -135,7 +136,7 @@ Let's re-invent the wheel:
 ::
 
     wheel = Wheel()
-    display(wheel) # doctest: +SKIP
+    display(wheel)
 
 .. raw:: html
 
@@ -185,7 +186,7 @@ Now you want 2 wheels connected by an axel, all in 1 (injection moulded) part.
 Each wheel (left and right) can have their own radius, and width.
 
 We can't use inheritance for this example because we need to instantiate 2
-different wheels, thea union them:
+different wheels, then union them:
 
 .. testcode::
 
@@ -233,6 +234,7 @@ attributes to union with the axel.
         height="300px" width="100%"
     ></iframe>
 
+
 Rendering
 -----------
 
@@ -274,3 +276,14 @@ Gives us a red appearance with an 80% transparency.
 
 Have a read of :ref:`parts_rendering` for more details on rendering properties,
 and other rendering methods.
+
+
+Further Reading
+--------------------
+
+To learn more about how a :class:`Part` works, read :ref:`parts_part-build-cycle`.
+
+Browse the :mod:`cadquery` documentation to learn about how to create geometry.
+
+If you're comfortable with the above content, you may want to move to learn about
+how to create an :class:`Assembly` in :ref:`tutorial_assembly`.

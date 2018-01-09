@@ -191,6 +191,10 @@ We get an exception instead
     :meth:`world_obj <Part.world_obj>` cannot be changed directly, but it can be
     changed indirectly via :meth:`local_obj <Part.local_obj>`.
 
+**But Why?**: This is to avoid bad practices that encourage accumulated errors; if
+the part can only be modified in its native coordinates, there is no possibility
+of accumulated numerical error.
+
 .. note::
 
     Remember: when changing the :meth:`local_obj <Part.local_obj>`, if your
