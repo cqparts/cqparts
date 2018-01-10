@@ -1,7 +1,6 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from cqparts.utils.geometry import intersect  # FIXME: fix is in master
 from cqparts.params import *
 
 from .base import FastenerHead, register
@@ -68,8 +67,7 @@ class DrivenFastenerHead(FastenerHead):
                     pnt=cadquery.Vector(0, 0, 0),
                     dir=cadquery.Vector(0, 0, 1),
                 )))
-                #head = head.intersect(cone)  # FIXME: fix is in master
-                head = intersect(head, cone)
+                head = head.intersect(cone)
 
             if self.chamfer_base:
                 cone = cadquery.Workplane('XY').union(cadquery.CQ(cadquery.Solid.makeCone(
@@ -77,8 +75,7 @@ class DrivenFastenerHead(FastenerHead):
                     pnt=cadquery.Vector(0, 0, self.height),
                     dir=cadquery.Vector(0, 0, -1),
                 )))
-                #head = head.intersect(cone)  # FIXME: fix is in master
-                head = intersect(head, cone)
+                head = head.intersect(cone)
 
         # Washer
         if self.washer:

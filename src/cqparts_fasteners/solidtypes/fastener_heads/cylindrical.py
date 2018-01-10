@@ -1,7 +1,6 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from cqparts.utils.geometry import intersect  # FIXME: fix is in master
 from cqparts.params import *
 
 from .base import FastenerHead, register
@@ -30,8 +29,7 @@ class CylindricalFastenerHead(FastenerHead):
                 .workplane(offset=self.height - sphere_radius) \
                 .sphere(sphere_radius)
 
-            #head = head.intersect(sphere)  # FIXME: fix is in master
-            head = intersect(head, sphere)
+            head = head.intersect(sphere)
 
         else:
             # Fillet top face

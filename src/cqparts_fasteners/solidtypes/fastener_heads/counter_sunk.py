@@ -1,7 +1,6 @@
 import cadquery
 from math import pi, cos, sin, sqrt
 
-from cqparts.utils.geometry import intersect
 from cqparts.params import *
 
 from .base import FastenerHead, register
@@ -42,8 +41,7 @@ class CounterSunkFastenerHead(FastenerHead):
         cylinder = cadquery.Workplane("XY") \
             .circle(cylinder_radius).extrude(-cylinder_height)
 
-        #head = cone.intersect(cylinder)  # FIXME: fix is in master
-        head = intersect(cone, cylinder)
+        head = cone.intersect(cylinder)
 
         # Raised bubble (if given)
         if self.raised:
@@ -54,8 +52,7 @@ class CounterSunkFastenerHead(FastenerHead):
             raised_cylinder = cadquery.Workplane("XY").circle(cylinder_radius).extrude(self.raised)
             from Helpers import show
 
-            #raised_bubble = sphere.intersect(raised_cylinder)  # FIXME: fix is in master
-            raised_bubble = intersect(sphere, raised_cylinder)
+            raised_bubble = sphere.intersect(raised_cylinder)
             head = head.union(raised_bubble)
 
         # Bugle Head

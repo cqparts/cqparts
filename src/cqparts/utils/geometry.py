@@ -8,35 +8,6 @@ import FreeCAD
 from copy import copy as builtin_copy
 
 
-def intersect(wp1, wp2, combine=True, clean=True):
-    r"""
-    Return geometric intersection between 2 :class:`cadquery.Workplane` instances by
-    exploiting :math:`A \cap B = (A \cup B) - \left((A - B) \cup (B - A)\right)`.
-    """
-    solidRef = wp1.findSolid(searchStack=True, searchParents=True)
-
-    if solidRef is None:
-        raise ValueError("Cannot find solid to intersect with")
-    solidToIntersect = None
-
-    if isinstance(wp2, cadquery.CQ):
-        solidToIntersect = wp2.val()
-    elif isinstance(wp2, cadquery.Solid):
-        solidToIntersect = wp2
-    else:
-        raise ValueError("Cannot intersect type '{}'".format(type(wp2)))
-
-    newS = solidRef.intersect(solidToIntersect)
-
-    if clean:
-        newS = newS.clean()
-
-    if combine:
-        solidRef.wrapped = newS.wrapped
-
-    return wp1.newObject([newS])
-
-
 def copy(obj):
     # FIXME: remove when in cadquery
     if isinstance(obj, cadquery.Workplane):

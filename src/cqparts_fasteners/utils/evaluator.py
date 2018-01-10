@@ -3,7 +3,7 @@ from copy import copy
 
 import logging
 
-from cqparts.utils.geometry import intersect, copy
+from cqparts.utils.geometry import copy
 from cqparts.utils import CoordSystem
 from cqparts.utils.misc import property_buffered
 from . import _casting
@@ -244,8 +244,7 @@ class VectorEvaluator(Evaluator):
         effect_list = []  # list of self.effect_class instances
         for part in self.parts:
             solid = part.world_obj.translate((0, 0, 0))
-            #intersection = solid.intersect(copy(wp))  # FIXME: fix is in cadquery master
-            intersection = intersect(solid, copy(wp))
+            intersection = solid.intersect(copy(wp))
             effect = self.effect_class(
                 location=self.location,
                 part=part,
