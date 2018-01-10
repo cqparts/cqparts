@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Assembly Build Cycle &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts Library" href="index.html"/>
+        <link rel="next" title="Constraints" href="constraints.html"/>
+        <link rel="prev" title="Part Build Cycle" href="part-build-cycle.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#single-build-cycle">Single build cycle</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cylinder-part">Cylinder Part</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plate-part">Plate Part</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#demo-assembly">Demo Assembly</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-build-cycles">Multiple build cycles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catalogue.html">Catalogue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import-export.html">Import / Export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a> &raquo;</li>
+        
+      <li><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="assembly-build-cycle">
+<span id="parts-assembly-build-cycle"></span><h1><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle<a class="headerlink" href="#assembly-build-cycle" title="Permalink to this headline">¶</a></h1>
+<p>If a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> component, then an
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a blueprint for, not just where those components fit together,
+but also the routine to determining <em>how</em> they fit together, and how
+they may be <em>altered</em> to be assembled.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is built in the following order:</p>
+<ol class="arabic simple">
+<li>add components (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a>)</li>
+<li>add constraints (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a>)</li>
+<li>solve constraints (places components)</li>
+<li>alter parts (with <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_alterations" title="cqparts.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a>)</li>
+<li>go back to step 1 (more on this in <a class="reference internal" href="#parts-assembly-build-cycle-multiple"><span class="std std-ref">Multiple build cycles</span></a>)</li>
+</ol>
+<div class="section" id="single-build-cycle">
+<h2>Single build cycle<a class="headerlink" href="#single-build-cycle" title="Permalink to this headline">¶</a></h2>
+<p>For a single build cycle, we implement:</p>
+<ul class="simple">
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a> to return a
+<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> with <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> values.</li>
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">make_constraints()</span></code></a> to return a
+<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> isntances.</li>
+<li><a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_alterations" title="cqparts.Assembly.make_alterations"><code class="xref py py-meth docutils literal"><span class="pre">make_alterations()</span></code></a> to (optionally) make
+changes to components.</li>
+</ul>
+<p>To illustrate let’s make a plate with cylinder sticking out of it.
+The plate will have a hole to fasten the cylinder.
+The hole will be in a configurable location, and mounted at an angle.</p>
+<div class="section" id="cylinder-part">
+<h3>Cylinder Part<a class="headerlink" href="#cylinder-part" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">render_props</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
+
+<span class="k">class</span> <span class="nc">Cylinder</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cylinder&#39;s diameter&quot;</span><span class="p">)</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cylinder&#39;s length&quot;</span><span class="p">)</span>
+    <span class="n">embed</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;embedding distance&quot;</span><span class="p">)</span>
+    <span class="n">hole_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mf">2.72</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;pilot hole diam&quot;</span><span class="p">)</span>
+
+    <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_base_cylinder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is used as a basis for make() and cutaway()</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diam</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embed</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Use the base cylindrical shape, and cut a hole through it</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_base_cylinder</span><span class="p">()</span> \
+            <span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">hole</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hole_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cutaway</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Use the base cylindrical shape, no alterations</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_base_cylinder</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_embedded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Cylinder</span><span class="p">())</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/cylinder.html"
+    height="300px" width="100%"
+></iframe></div>
+<div class="section" id="plate-part">
+<h3>Plate Part<a class="headerlink" href="#plate-part" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">radians</span>
+
+<span class="k">class</span> <span class="nc">Plate</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;plate length&quot;</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;plate width&quot;</span><span class="p">)</span>
+    <span class="n">thickness</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;plate thickness&quot;</span><span class="p">)</span>
+    <span class="n">hole_diam</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;hole diameter&quot;</span><span class="p">)</span>
+    <span class="n">connection_offset</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;hole&#39;s offset from plate center along x-axis&quot;</span><span class="p">)</span>
+    <span class="n">connection_angle</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;angle of mate point&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">plate</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span><span class="p">)</span>
+        <span class="n">hole_tool</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span> <span class="o">*</span> <span class="mi">5</span><span class="p">))</span> \
+            <span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hole_diam</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">hole_tool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mate_hole</span><span class="o">.</span><span class="n">local_coords</span> <span class="o">+</span> <span class="n">hole_tool</span>
+        <span class="k">return</span> <span class="n">plate</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">hole_tool</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_hole</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span>
+            <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">thickness</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">normal</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_angle</span><span class="p">)),</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_angle</span><span class="p">))),</span>
+        <span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that the hole through the plate is at an angle (by default <span class="math">\(15°\)</span>)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Plate</span><span class="p">())</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/plate.html"
+    height="300px" width="100%"
+></iframe></div>
+<div class="section" id="demo-assembly">
+<h3>Demo Assembly<a class="headerlink" href="#demo-assembly" title="Permalink to this headline">¶</a></h3>
+<p>And finally, lets combine the two to fully utilise a single build cycle.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
+
+<span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c1"># Components are updated to self.components first</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;pla&#39;</span><span class="p">:</span> <span class="n">Plate</span><span class="p">(),</span>
+            <span class="s1">&#39;cyl&#39;</span><span class="p">:</span> <span class="n">Cylinder</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+    <span class="c1"># Then constraints are appended to self.constraints (second)</span>
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">plate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span>
+        <span class="n">cylinder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span>
+                <span class="n">mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">world_coords</span><span class="o">=</span><span class="n">CoordSystem</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="n">xDir</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># a bit of random placement</span>
+            <span class="p">),</span>
+            <span class="n">Coincident</span><span class="p">(</span>
+                <span class="n">mate</span><span class="o">=</span><span class="n">cylinder</span><span class="o">.</span><span class="n">mate_embedded</span><span class="p">,</span>
+                <span class="n">to_mate</span><span class="o">=</span><span class="n">plate</span><span class="o">.</span><span class="n">mate_hole</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+    <span class="c1"># In between updating components, and adding constraints:</span>
+    <span class="c1">#   self.solve() is run.</span>
+    <span class="c1"># This gives each component a valid world_coords value, so</span>
+    <span class="c1"># we can use it in the next step...</span>
+
+    <span class="c1"># Lastly, this function is run (any return is ignored)</span>
+    <span class="k">def</span> <span class="nf">make_alterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># get Cylinder&#39;s location relative to the Plate</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">world_coords</span>
+        <span class="c1"># apply that to the &quot;cutout&quot; we want to subtract from the plate</span>
+        <span class="n">cutout</span> <span class="o">=</span> <span class="n">coords</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;cyl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cutaway</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">local_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;pla&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I got a bit lazy with the parameters there; <code class="docutils literal"><span class="pre">Thing</span></code> doesn’t take any.</p>
+<p>But in the end we get:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">thing</span><span class="p">)</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/thing.html"
+    height="300px" width="100%"
+></iframe><p>But more importantly, the plate’s geometry now looks like this; displayed in
+its local part coordinates:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">thing</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;pla&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/plate-altered.html"
+    height="300px" width="100%"
+></iframe><p>The <code class="docutils literal"><span class="pre">Plate</span></code> geometry is altered when used in the <code class="docutils literal"><span class="pre">Thing</span></code> <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>,
+and the changes to <code class="docutils literal"><span class="pre">Plate</span></code> could be completely different if used in a different
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<p><strong>But Why?</strong>: Consider a builder constructing a wall, a <em>part</em> they may use is a length of
+timber. During the wall’s construction, the timber gets holes in it, from nails,
+screws, bolts, or perhaps water pipes are threaded through. All of this detail
+has <strong>nothing</strong> to do with the timber <em>part</em> before it’s assembled. The alterations
+to the length of timber is the onus of the <em>assembly</em>; the wall itself.</p>
+</div>
+</div>
+<div class="section" id="multiple-build-cycles">
+<span id="parts-assembly-build-cycle-multiple"></span><h2>Multiple build cycles<a class="headerlink" href="#multiple-build-cycles" title="Permalink to this headline">¶</a></h2>
+<p>The cycles that make an <em>assembly</em> can be run multiple times in one build.</p>
+<p>To do this, an assembly can return a generator using <code class="docutils literal"><span class="pre">yield</span></code> as opposed to
+a <code class="docutils literal"><span class="pre">return</span></code> statement.</p>
+<p>To demonstrate, let’s replace the role of the
+<a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Coincident" title="cqparts.constraint.Coincident"><code class="xref py py-class docutils literal"><span class="pre">Coincident</span></code></a>
+by stacking some primative shapes using only
+<a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Fixed" title="cqparts.constraint.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a> (a needless
+restriction, but it serves as a good example).</p>
+<p>To simplify things, we’re going to use the <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> classes registered in
+the <a class="reference internal" href="../api/cqparts_misc.basic.html#module-cqparts_misc.basic" title="cqparts_misc.basic"><code class="xref py py-mod docutils literal"><span class="pre">cqparts_misc.basic</span></code></a> module.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">Sphere</span>
+
+<span class="k">class</span> <span class="nc">BlockStack</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make Box &#39;a&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)}</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make 2 Cubes &#39;b&#39;, and &#39;c&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span>
+            <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">Cube</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
+            <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="n">Cube</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;make sphere &#39;d&#39;&quot;</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">Sphere</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">3</span><span class="p">)}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;a&#39; at origin&quot;</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">Fixed</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">)))]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;&quot;</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">mate_neg_y</span><span class="o">.</span><span class="n">local_coords</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;place sphere &#39;d&#39; on cube &#39;b&#39;&quot;</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="p">[</span><span class="n">Fixed</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="n">mate_pos_x</span><span class="o">.</span><span class="n">local_coords</span><span class="p">)]</span>
+
+    <span class="k">def</span> <span class="nf">make_alterations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;first round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;second round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;third round alteration(s)&quot;</span><span class="p">)</span>
+        <span class="k">yield</span>
+
+<span class="n">block_stack</span> <span class="o">=</span> <span class="n">BlockStack</span><span class="p">()</span>
+<span class="n">block_stack</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that in the 2nd and 3rd <code class="docutils literal"><span class="pre">yield</span></code> statements of <code class="docutils literal"><span class="pre">make_constraints()</span></code>
+we reference the <code class="docutils literal"><span class="pre">.world_coords</span></code> of some <em>components</em>. That’s because
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.solve" title="cqparts.Assembly.solve"><code class="xref py py-meth docutils literal"><span class="pre">solve()</span></code></a> is run after each list of constraints is yielded.</p>
+<p>When the assembly is built, we can see the print statements occur in the order:</p>
+<div class="highlight-none"><div class="highlight"><pre><span></span>make Box &#39;a&#39;
+place &#39;a&#39; at origin
+first round alteration(s)
+make 2 Cubes &#39;b&#39;, and &#39;c&#39;
+place &#39;b&#39; &amp; &#39;c&#39; relative to &#39;a&#39;
+second round alteration(s)
+make sphere &#39;d&#39;
+place sphere &#39;d&#39; on cube &#39;b&#39;
+third round alteration(s)
+</pre></div>
+</div>
+<p>And the final result:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">block_stack</span><span class="p">)</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../_static/iframes/asm-build-cycle/block_stack.html"
+    height="300px" width="100%"
+></iframe></div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="constraints.html" class="btn btn-neutral float-right" title="Constraints" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="part-build-cycle.html" class="btn btn-neutral" title="Part Build Cycle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

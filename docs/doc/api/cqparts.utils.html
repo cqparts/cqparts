@@ -98,12 +98,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="cqparts.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cqparts.catalogue.html">cqparts.catalogue package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.codec.html">cqparts.codec package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a></li>
@@ -173,7 +175,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">src</a> &raquo;</li>
+          <li><a href="modules.html">Module APIs</a> &raquo;</li>
         
           <li><a href="cqparts.html">cqparts package</a> &raquo;</li>
         
@@ -443,6 +445,46 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 </tbody>
 </table>
 <p>For matrix structure, see <a class="reference internal" href="#cqparts.utils.geometry.CoordSystem.from_transform" title="cqparts.utils.geometry.CoordSystem.from_transform"><code class="xref py py-meth docutils literal"><span class="pre">from_transform()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.utils.geometry.CoordSystem.random">
+<em class="property">classmethod </em><code class="descname">random</code><span class="sig-paren">(</span><em>span=1</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.CoordSystem.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a randomized coordinate system.</p>
+<p>Useful for confirming that an <em>assembly</em> does not rely on its
+origin coordinate system to remain intact.</p>
+<p>For example, the <code class="xref py py-class docutils literal"><span class="pre">CoordSysIndicator</span></code> <em>assembly</em> aligns 3 boxes
+along each of the <span class="math">\(XYZ\)</span> axes.
+Positioning it randomly by setting its <code class="docutils literal"><span class="pre">world_coords</span></code> shows that each
+box is always positioned orthogonally to the other two.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.indicators</span> <span class="k">import</span> <span class="n">CoordSysIndicator</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CoordSysIndicator</span><span class="p">()</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">=</span> <span class="n">CoordSystem</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>  
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>span</strong> – origin of return will be <span class="math">\(\pm span\)</span> per axis</li>
+<li><strong>seed</strong> (<em>hashable object</em>) – if supplied, return is psudorandom (repeatable)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">randomized coordinate system</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -888,6 +930,46 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 </tbody>
 </table>
 <p>For matrix structure, see <a class="reference internal" href="#cqparts.utils.CoordSystem.from_transform" title="cqparts.utils.CoordSystem.from_transform"><code class="xref py py-meth docutils literal"><span class="pre">from_transform()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.utils.CoordSystem.random">
+<em class="property">classmethod </em><code class="descname">random</code><span class="sig-paren">(</span><em>span=1</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.CoordSystem.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a randomized coordinate system.</p>
+<p>Useful for confirming that an <em>assembly</em> does not rely on its
+origin coordinate system to remain intact.</p>
+<p>For example, the <code class="xref py py-class docutils literal"><span class="pre">CoordSysIndicator</span></code> <em>assembly</em> aligns 3 boxes
+along each of the <span class="math">\(XYZ\)</span> axes.
+Positioning it randomly by setting its <code class="docutils literal"><span class="pre">world_coords</span></code> shows that each
+box is always positioned orthogonally to the other two.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.indicators</span> <span class="k">import</span> <span class="n">CoordSysIndicator</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+
+<span class="n">cs</span> <span class="o">=</span> <span class="n">CoordSysIndicator</span><span class="p">()</span>
+<span class="n">cs</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">=</span> <span class="n">CoordSystem</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>  
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>span</strong> – origin of return will be <span class="math">\(\pm span\)</span> per axis</li>
+<li><strong>seed</strong> (<em>hashable object</em>) – if supplied, return is psudorandom (repeatable)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">randomized coordinate system</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">

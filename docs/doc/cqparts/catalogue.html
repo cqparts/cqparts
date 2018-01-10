@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Catalogue &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts Library" href="index.html"/>
+        <link rel="next" title="Rendering" href="rendering.html"/>
+        <link rel="prev" title="Constraints" href="constraints.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Catalogue</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#analogy">Analogy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#storage">Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-new-catalogue">Create a new Catalogue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#add-items">Add items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#searching-items">Searching items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deserialize-items">Deserialize items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#item-database-example">Item database example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import-export.html">Import / Export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a> &raquo;</li>
+        
+      <li>Catalogue</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="catalogue">
+<span id="cqparts-catalogue"></span><h1>Catalogue<a class="headerlink" href="#catalogue" title="Permalink to this headline">¶</a></h1>
+<p>A catalogue is a simple file-based database to store parametric combinations
+for components.</p>
+<div class="section" id="analogy">
+<h2>Analogy<a class="headerlink" href="#analogy" title="Permalink to this headline">¶</a></h2>
+<p>If a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> is a <em>blueprint</em>, the <em>parameters</em>
+of its inherited <a class="reference internal" href="../api/cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a>
+are the <em>measurements</em>, or <em>metrics</em> corresponding to the <em>blueprint</em>.</p>
+<p>A <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.Catalogue" title="cqparts.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">Catalogue</span></code></a> is an exhaustive list of all parameter combinations,
+for the context of manufacture, or purchase.</p>
+<p>Each catalogued item can also contain information about the item that
+aren’t necessarily in the <em>blueprint</em>. Such as <em>make</em>, <em>model</em>, and
+<em>product code</em>, as well as ids for <em>compatible items</em>, and even calculated
+metrics like <em>area</em> (from <em>length</em> and <em>width</em> parameters).</p>
+</div>
+<div class="section" id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h2>
+<p>A catalogue is represented in a single <code class="docutils literal"><span class="pre">json</span></code> file, using <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code>
+to read &amp; write.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">More cataloguing methods may exist in future, but at this time only
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue" title="cqparts.catalogue.JSONCatalogue"><code class="xref py py-class docutils literal"><span class="pre">JSONCatalogue</span></code></a> is implemented.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create an empty <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue" title="cqparts.catalogue.JSONCatalogue"><code class="xref py py-class docutils literal"><span class="pre">JSONCatalogue</span></code></a>, and push some
+<a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances into it.</p>
+<div class="section" id="create-a-new-catalogue">
+<h3>Create a new Catalogue<a class="headerlink" href="#create-a-new-catalogue" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say you’d like to save your catalogue in the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;my_catalogue.json&#39;</span>
+</pre></div>
+</div>
+<p>Then create the empty database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Instantiate Catalogue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.catalogue</span> <span class="k">import</span> <span class="n">JSONCatalogue</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalogue</span> <span class="o">=</span> <span class="n">JSONCatalogue</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-items">
+<h3>Add items<a class="headerlink" href="#add-items" title="Permalink to this headline">¶</a></h3>
+<p>Now let’s create a few <a class="reference internal" href="../api/cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a> parts,
+of varying lengths, and add them to the <code class="docutils literal"><span class="pre">catalogue</span></code>.</p>
+<p>Using the <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.add" title="cqparts.catalogue.JSONCatalogue.add"><code class="xref py py-meth docutils literal"><span class="pre">JSONCatalogue.add()</span></code></a> method, we give each <em>box</em> a unique <code class="docutils literal"><span class="pre">id</span></code>,
+some <code class="docutils literal"><span class="pre">criteria</span></code>, and of course the <code class="docutils literal"><span class="pre">obj</span></code>
+<a class="reference internal" href="../api/cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a> instance we’d like to add.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add a few items</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;box_L</span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">length</span>
+<span class="gp">... </span>    <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">index</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="nb">id</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">criteria</span><span class="o">=</span><span class="p">{</span>
+<span class="gp">... </span>            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;box&#39;</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="s1">&#39;lengthcode&#39;</span><span class="p">:</span> <span class="s1">&#39;L</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="p">},</span>
+<span class="gp">... </span>        <span class="n">obj</span><span class="o">=</span><span class="n">box</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point, we can close the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catalogue</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>which will commit the data to disk, ready for another script to read the
+catalogue to search and instantiate the recorded <em>items</em>.</p>
+<p>For this tutorial, we’ll leave it open though. If you ran the above
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.close" title="cqparts.catalogue.JSONCatalogue.close"><code class="xref py py-meth docutils literal"><span class="pre">close()</span></code></a> code, you can just re-open it with:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catalogue</span> <span class="o">=</span> <span class="n">JSONCatalogue</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="searching-items">
+<h3>Searching items<a class="headerlink" href="#searching-items" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have items in our <code class="docutils literal"><span class="pre">catalogue</span></code>, we can search them with
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.search" title="cqparts.catalogue.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a>, and <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>.</p>
+<p><a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> will search the <em>catalogue</em>, and assert that
+1, and only 1 result is returned.  Otherwise an exception is raised.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get_query</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s1">&#39;box_L20&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[u&#39;obj&#39;, u&#39;id&#39;, u&#39;criteria&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;obj&#39;</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+<span class="go">20.0</span>
+</pre></div>
+</div>
+<p>If you’re less certain that your query will yield a single result,
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.search" title="cqparts.catalogue.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a> will return a list of positively
+matching <em>items</em>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Search</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get_query</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">criteria</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>  <span class="c1"># all 3 boxes</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>To learn more about a catalogue’s content, you can see its contents quite
+easily from the <em>items</em> table:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">catalogue</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>  <span class="c1"># everything in the catalogue</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">all</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;obj&#39;</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+<span class="go">10.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="go">u&#39;box_L10&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># from this we&#39;ve learnt that we can search with:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">item</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get_query</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;obj&#39;</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;length&#39;</span><span class="p">]</span>
+<span class="go">10.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>  <span class="c1"># the same item we got earlier</span>
+<span class="go">u&#39;box_L10&#39;</span>
+</pre></div>
+</div>
+<p>To learn more about searching, read the <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code> docs.</p>
+</div>
+<div class="section" id="deserialize-items">
+<h3>Deserialize items<a class="headerlink" href="#deserialize-items" title="Permalink to this headline">¶</a></h3>
+<p>Once an <em>item</em> has been selected from a catalogue, it can be instantiated
+by deserializing it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get our catalogued 20mm long box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s1">&#39;box_L20&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Creating object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalogue</span><span class="o">.</span><span class="n">deserialize_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">&lt;Box: height=1.0, length=20.0, width=1.0&gt;</span>
+</pre></div>
+</div>
+<p>To streamline things, we can also do all of this in one line with the
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.get" title="cqparts.catalogue.JSONCatalogue.get"><code class="xref py py-meth docutils literal"><span class="pre">get()</span></code></a> method”</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Search and deserialize in one line</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">catalogue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">)</span>
+<span class="go">&lt;Box: height=1.0, length=30.0, width=1.0&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All searching is done by <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code>, so
+<a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.search" title="cqparts.catalogue.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a>, <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>
+and <a class="reference internal" href="../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.get_query" title="cqparts.catalogue.JSONCatalogue.get_query"><code class="xref py py-meth docutils literal"><span class="pre">get_query()</span></code></a> are simply pass-throughs
+to the underlying <code class="xref py py-class docutils literal"><span class="pre">tinydb.TinyDB</span></code> instance in the <code class="docutils literal"><span class="pre">db</span></code> attribute
+of this class.</p>
+<p class="last">Please read the <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code> documentation, and query the database
+directly with this classes <code class="docutils literal"><span class="pre">db</span></code> attribute.</p>
+</div>
+</div>
+<div class="section" id="item-database-example">
+<h3>Item database example<a class="headerlink" href="#item-database-example" title="Permalink to this headline">¶</a></h3>
+<p>Each catalogue item is stored in an <code class="docutils literal"><span class="pre">items</span></code> table within the database.</p>
+<p>The <code class="docutils literal"><span class="pre">items</span></code> <em>table</em> is stored as a list, one of the elements stored in the
+above example may be stored like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;box_L20&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;lengthcode&#39;</span><span class="p">:</span> <span class="s1">&#39;L20&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;box&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;obj&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;module&#39;</span><span class="p">:</span> <span class="s1">&#39;cqparts_misc.basic.primatives&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Box&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;lib&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;cqparts&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="s1">&#39;0.1.0&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;_render&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">192</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">192</span><span class="p">]},</span>
+            <span class="s1">&#39;_simple&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">,</span>
+            <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rendering.html" class="btn btn-neutral float-right" title="Rendering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="constraints.html" class="btn btn-neutral" title="Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

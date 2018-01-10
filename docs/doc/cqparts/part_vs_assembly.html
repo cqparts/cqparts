@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Part vs Assembly &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts Library" href="index.html"/>
+        <link rel="next" title="Part Build Cycle" href="part-build-cycle.html"/>
+        <link rel="prev" title="cqparts Library" href="index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Part vs Assembly</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructive-analogy">Constructive Analogy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#destructive-analogy">Destructive Analogy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exceptions-to-the-rule">Exceptions to the rule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#design">Design</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catalogue.html">Catalogue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import-export.html">Import / Export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a> &raquo;</li>
+        
+      <li>Part vs Assembly</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="part-vs-assembly">
+<span id="id1"></span><h1>Part vs Assembly<a class="headerlink" href="#part-vs-assembly" title="Permalink to this headline">¶</a></h1>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is also a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is an <em>atomic</em> component; it cannot be disassembled, and it
+is typically made of a single material.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is a collection of <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Components</span></code></a>.</p>
+<p>An <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would typically hold itself together, as an intermedite
+step of construction.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last"><a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is to <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> as <code class="docutils literal"><span class="pre">file</span></code> is to <code class="docutils literal"><span class="pre">folder</span></code>.</p>
+</div>
+<p><a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is not to be confused with a <em>primative</em> (like a <em>cube</em>, <em>sphere</em>,
+or <em>cylinder</em> to name a few), nor is it to be confused with constructive
+geometry</p>
+<p>For a detailed example of a hierarchy, have a look at the
+<a class="reference internal" href="../examples/servo.html#examples-servo-hierarchy"><span class="std std-ref">example servo motor</span></a>.</p>
+<div class="section" id="constructive-analogy">
+<h2>Constructive Analogy<a class="headerlink" href="#constructive-analogy" title="Permalink to this headline">¶</a></h2>
+<p>If you were to make something from scratch, from raw materials, each
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is each individual object after material processing
+(such as <em>forging</em>, <em>printing</em>, or <em>milling</em>, just to name a few).</p>
+<p>Each <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> would be a component that has reached an intermediate
+step of assembly. Such as a motor, or a PCB.
+The final <em>thing</em> being constructed is also an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></p>
+<p>Or put another way…</p>
+</div>
+<div class="section" id="destructive-analogy">
+<h2>Destructive Analogy<a class="headerlink" href="#destructive-analogy" title="Permalink to this headline">¶</a></h2>
+<p>If you had a <em>thing</em> with you, and you pulled it apart as much as possible
+(this may involve <em>unscrewing</em>, <em>prying apart</em>, <em>de-soldering</em>, just to name a few).</p>
+<p>Each time you pull out a <em>smaller thing</em>:</p>
+<ul class="simple">
+<li>if it <em>can</em> be disassembled further, that is an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</li>
+<li>if it <em>cannot</em> be pulled apart, then it’s a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</li>
+</ul>
+<p>When you have recursively disassembled everything, you will only be left
+with <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
+</div>
+<div class="section" id="exceptions-to-the-rule">
+<h2>Exceptions to the rule<a class="headerlink" href="#exceptions-to-the-rule" title="Permalink to this headline">¶</a></h2>
+<p>Just like any other <em>rule</em>, there are exceptions:</p>
+<p>For example, an <em>SD Card</em> has many components inside it, but since it can be
+assumed that it won’t be pulled apart, or need to be constructed, an <em>SD Card</em>
+will most likely be represented by a single <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</p>
+<p>Conversely, a <em>sticker</em> (like a branding sticker) cannot be disassembled.
+But visually you may want its orientation to be recognisable, or
+you just want it to render properly. This is where a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is limited,
+because it can only be one color. So the <em>sticker</em> may be 2 <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>
+instances in an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, one for the backing, and one for the text,
+or logo.</p>
+</div>
+<div class="section" id="design">
+<h2>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
+<p>A well designed <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> is something that can be used in others’
+creations.</p>
+<p>That sentiment does <em>not</em> only apply to the highest level <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, but
+also lower level <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> classes used to create the high level object.</p>
+<p>Consider how others may want to use your <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>, and empower the
+class with the tools necessary to make their job easy.</p>
+<p>More discussion on this in <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="part-build-cycle.html" class="btn btn-neutral float-right" title="Part Build Cycle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="cqparts Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

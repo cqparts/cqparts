@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to cqparts’s documentation! &mdash; cqparts 0.1.0 documentation</title>
+  <title>Welcome to cqparts’ Documentation! &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="#"/>
-        <link rel="next" title="Parts &amp; Assembiles" href="parts/index.html"/> 
+        <link rel="next" title="cqparts Library" href="cqparts/index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -96,10 +96,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">Module APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">TODO List</a></li>
 </ul>
 
@@ -145,7 +146,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to cqparts’s documentation!</li>
+      <li>Welcome to <code class="docutils literal"><span class="pre">cqparts</span></code>’ Documentation!</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -162,19 +163,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-cqparts-s-documentation">
-<h1>Welcome to cqparts’s documentation!<a class="headerlink" href="#welcome-to-cqparts-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="welcome-to-cqparts-documentation">
+<h1>Welcome to <code class="docutils literal"><span class="pre">cqparts</span></code>’ Documentation!<a class="headerlink" href="#welcome-to-cqparts-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-cqparts">
+<h2>What is <code class="docutils literal"><span class="pre">cqparts</span></code>?<a class="headerlink" href="#what-is-cqparts" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">cqparts</span></code> is CAD for Python programmers, short for “<a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> parts”.</p>
+<p>Using <code class="docutils literal"><span class="pre">cqparts</span></code> you can wrap geometry made with <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> to build
+complex and deeply parametric models.</p>
+</div>
+<div class="section" id="what-can-i-do-with-cqparts">
+<h2>What can I do with <code class="docutils literal"><span class="pre">cqparts</span></code>?<a class="headerlink" href="#what-can-i-do-with-cqparts" title="Permalink to this headline">¶</a></h2>
+<p>You can build solid geometry in the same way you write an application; your
+geometry can be <em>built</em> on a headless system, automated, and revision controlled
+to your hearts content.</p>
+<p>You can export your models ready to be processed for 3d printing, or milling,
+or to be displayed / imported to another 3d app.</p>
+</div>
+<div class="section" id="what-you-should-know">
+<h2>What you should know<a class="headerlink" href="#what-you-should-know" title="Permalink to this headline">¶</a></h2>
+<p>As this library is an extension of <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a>, it’s highly recommended you
+have an understanding of what <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> is, and how to use it first.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="parts/index.html">Parts &amp; Assembiles</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="parts/part_vs_assembly.html">Part vs Assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/fasteners/index.html">Fasteners</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/constraints/index.html">Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/rendering.html">Rendering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parts/import-export.html">Import / Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/constraints.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/catalogue.html">Catalogue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/rendering.html">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts/import-export.html">Import / Export</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
@@ -183,7 +202,14 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials/assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/fastener-biscuit.html">Fastener : Biscuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/fastener-easy-install.html">Fastener : Easy Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners/what.html">What is a Fastener?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners/build_cycle.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners/easy-install/index.html">Example: Easy Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners/index.html#creating-a-fastener">Creating a Fastener</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners/index.html#making-your-own-fastener">Making your own Fastener</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples/index.html">Examples</a><ul>
@@ -191,7 +217,7 @@
 <li class="toctree-l2"><a class="reference internal" href="examples/servo.html">Servo Motor</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api/modules.html">src</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api/modules.html">Module APIs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/cqparts.html">cqparts package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/cqparts_bearings.html">cqparts_bearings package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/cqparts_fasteners.html">cqparts_fasteners package</a></li>
@@ -203,6 +229,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">TODO List</a></li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -224,7 +251,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="parts/index.html" class="btn btn-neutral float-right" title="Parts &amp; Assembiles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cqparts/index.html" class="btn btn-neutral float-right" title="cqparts Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

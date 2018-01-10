@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Constraints &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts Library" href="index.html"/>
+        <link rel="next" title="Catalogue" href="catalogue.html"/>
+        <link rel="prev" title="Assembly Build Cycle" href="assembly-build-cycle.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#types-of-constraints">Types of Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fixed">Fixed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#coincident">Coincident</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#more">More…</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="catalogue.html">Catalogue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rendering.html">Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import-export.html">Import / Export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a> &raquo;</li>
+        
+      <li>Constraints</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="constraints">
+<span id="parts-constraints"></span><h1>Constraints<a class="headerlink" href="#constraints" title="Permalink to this headline">¶</a></h1>
+<p>Constraints limit the location &amp; orientation of a <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>
+relative to its parent <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
+<p>A completely unconstrained <em>component</em> could be anywhere, and with any rotation.
+Conversely, a fully constrained <em>component</em> can only be at one specific location
+&amp; orientation.</p>
+<p>Constraints consist of, at a minimum:</p>
+<ul class="simple">
+<li>the <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> being constrained.</li>
+<li>one or more <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Mate" title="cqparts.constraint.Mate"><code class="xref py py-class docutils literal"><span class="pre">Mate</span></code></a> instances.</li>
+<li>constraint specific parameters (if any)</li>
+</ul>
+<div class="section" id="types-of-constraints">
+<h2>Types of Constraints<a class="headerlink" href="#types-of-constraints" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fixed">
+<h3>Fixed<a class="headerlink" href="#fixed" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Fixed" title="cqparts.constraint.Fixed"><code class="xref py py-class docutils literal"><span class="pre">Fixed</span></code></a> explicitly sets a <em>component’s</em> location
+and orientation relative to its parent’s origin:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># a unit cube centered on 0,0,0</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span>  <span class="c1"># boxA 10mm up, no change to rotation</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="p">),</span>
+
+            <span class="n">Fixed</span><span class="p">(</span>  <span class="c1"># boxB at origin, rotate around z 45deg ccw</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="n">CoordSystem</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+<span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="coincident">
+<h3>Coincident<a class="headerlink" href="#coincident" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Coincident" title="cqparts.constraint.Coincident"><code class="xref py py-class docutils literal"><span class="pre">Coincident</span></code></a> sets a
+<em>component’s</em> coordinate system relative to another part’s world coordinate
+system.</p>
+<p>In order to solve a relative offset, the relative coordinates need to be
+solved first. So for the coordinates <code class="docutils literal"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">B</span> <span class="pre">=</span> <span class="pre">C</span></code>, where:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">A</span></code> is the <code class="docutils literal"><span class="pre">relative_to</span></code> object’s coordinate system.</li>
+<li><code class="docutils literal"><span class="pre">B</span></code> is the offset (explicitly set; always known)</li>
+<li><code class="docutils literal"><span class="pre">C</span></code> is the coordinate system being solved.</li>
+</ul>
+<p>We can only know what <code class="docutils literal"><span class="pre">C</span></code> is if we know the values of both <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Assembly</span><span class="p">,</span> <span class="n">Part</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span><span class="p">,</span> <span class="n">Mate</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.geometry</span> <span class="k">import</span> <span class="n">CoordSystem</span>
+
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># a unit cube placed on top of XY plane</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">centered</span><span class="o">=</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">workplane</span><span class="p">()</span><span class="o">.</span><span class="n">plane</span>
+        <span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">Thing</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;box_a&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+            <span class="s1">&#39;box_b&#39;</span><span class="p">:</span> <span class="n">Box</span><span class="p">(),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="c1"># boxA at zero, no rotation</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+            <span class="c1"># boxB at on top of boxA, using boxA&#39;s mate_top attribute</span>
+            <span class="n">Coincident</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_b&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;box_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_top</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+<span class="n">thing</span> <span class="o">=</span> <span class="n">Thing</span><span class="p">()</span>
+<span class="n">thing</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>  <span class="c1"># creates and places all components recursively</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more">
+<h3>More…<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>At this time only 6dof locking constraints are available.</p>
+<p>More are planned to be introduced in
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/issues/30">issue #30</a>.</p>
+<p>Please feel free to post your interest there to help us gauge how high the
+priority should be on this improvement.</p>
+<p class="last">Examples are most welcome.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="catalogue.html" class="btn btn-neutral float-right" title="Catalogue" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="assembly-build-cycle.html" class="btn btn-neutral" title="Assembly Build Cycle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

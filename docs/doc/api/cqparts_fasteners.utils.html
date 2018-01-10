@@ -98,10 +98,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module APIs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cqparts.html">cqparts package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a><ul class="current">
@@ -173,7 +174,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">src</a> &raquo;</li>
+          <li><a href="modules.html">Module APIs</a> &raquo;</li>
         
           <li><a href="cqparts_fasteners.html">cqparts_fasteners package</a> &raquo;</li>
         
@@ -504,7 +505,11 @@ the start point)</td>
 <dt id="cqparts_fasteners.utils.selector.Selector">
 <em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.selector.</code><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<p>Facilitates the selection and placement of a <em>fastener’s</em> components
+based on an <em>evaluation</em>.</p>
+<p>Each <em>selector</em> instance has an <code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code> for reference,
+and must have both the methods <a class="reference internal" href="#cqparts_fasteners.utils.selector.Selector.get_components" title="cqparts_fasteners.utils.selector.Selector.get_components"><code class="xref py py-meth docutils literal"><span class="pre">get_components()</span></code></a> and
+<a class="reference internal" href="#cqparts_fasteners.utils.selector.Selector.get_constraints" title="cqparts_fasteners.utils.selector.Selector.get_constraints"><code class="xref py py-meth docutils literal"><span class="pre">get_constraints()</span></code></a> overridden.</p>
 <dl class="method">
 <dt id="cqparts_fasteners.utils.selector.Selector.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.__init__" title="Permalink to this definition">¶</a></dt>
@@ -531,13 +536,44 @@ the start point)</td>
 <dl class="method">
 <dt id="cqparts_fasteners.utils.selector.Selector.get_components">
 <code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.get_components" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return components</p>
+<dd><p>Return fastener’s components</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Must be overridden by inheriting class.</p>
+<p class="last">Read <a class="reference internal" href="../cqparts_fasteners/build_cycle.html#cqparts-fasteners-build-cycle"><span class="std std-ref">Fastener Build Cycle</span></a> to learn more.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">components for the <em>fastener</em></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="cqparts_fasteners.utils.selector.Selector.get_constraints">
 <code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.selector.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return fastener’s constraints</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Must be overridden by inheriting class.</p>
+<p class="last">Read <a class="reference internal" href="../cqparts_fasteners/build_cycle.html#cqparts-fasteners-build-cycle"><span class="std std-ref">Fastener Build Cycle</span></a> to learn more.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of <em>constraints</em></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -692,7 +728,11 @@ the start point)</td>
 <dt id="cqparts_fasteners.utils.Selector">
 <em class="property">class </em><code class="descclassname">cqparts_fasteners.utils.</code><code class="descname">Selector</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p>Facilitates the selection of a Fastener based on an evaluation</p>
+<p>Facilitates the selection and placement of a <em>fastener’s</em> components
+based on an <em>evaluation</em>.</p>
+<p>Each <em>selector</em> instance has an <a class="reference internal" href="#cqparts_fasteners.utils.Evaluator" title="cqparts_fasteners.utils.Evaluator"><code class="xref py py-class docutils literal"><span class="pre">Evaluator</span></code></a> for reference,
+and must have both the methods <a class="reference internal" href="#cqparts_fasteners.utils.Selector.get_components" title="cqparts_fasteners.utils.Selector.get_components"><code class="xref py py-meth docutils literal"><span class="pre">get_components()</span></code></a> and
+<a class="reference internal" href="#cqparts_fasteners.utils.Selector.get_constraints" title="cqparts_fasteners.utils.Selector.get_constraints"><code class="xref py py-meth docutils literal"><span class="pre">get_constraints()</span></code></a> overridden.</p>
 <dl class="method">
 <dt id="cqparts_fasteners.utils.Selector.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.__init__" title="Permalink to this definition">¶</a></dt>
@@ -719,13 +759,44 @@ the start point)</td>
 <dl class="method">
 <dt id="cqparts_fasteners.utils.Selector.get_components">
 <code class="descname">get_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.get_components" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return components</p>
+<dd><p>Return fastener’s components</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Must be overridden by inheriting class.</p>
+<p class="last">Read <a class="reference internal" href="../cqparts_fasteners/build_cycle.html#cqparts-fasteners-build-cycle"><span class="std std-ref">Fastener Build Cycle</span></a> to learn more.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">components for the <em>fastener</em></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="cqparts_fasteners.utils.Selector.get_constraints">
 <code class="descname">get_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_fasteners.utils.Selector.get_constraints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return fastener’s constraints</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Must be overridden by inheriting class.</p>
+<p class="last">Read <a class="reference internal" href="../cqparts_fasteners/build_cycle.html#cqparts-fasteners-build-cycle"><span class="std std-ref">Fastener Build Cycle</span></a> to learn more.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of <em>constraints</em></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">Constraint</span></code></a> instances</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

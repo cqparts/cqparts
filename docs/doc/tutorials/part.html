@@ -98,7 +98,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../parts/index.html">Parts &amp; Assembiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a><ul>
@@ -109,16 +109,17 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#rendering">Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#further-reading">Further Reading</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fastener-easy-install.html">Fastener : Easy Install</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -188,7 +189,7 @@
 <p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is a blueprint for an <em>atomic</em> solid to be placed into an
 <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>.</p>
 <p>Before continuing here, it’s highly recommend you read
-<a class="reference internal" href="../parts/part_vs_assembly.html#part-vs-assembly"><span class="std std-ref">Part vs Assembly</span></a> and <a class="reference internal" href="parametric-object.html#tutorials-parametricobject"><span class="std std-ref">Parametric Object</span></a>.</p>
+<a class="reference internal" href="../cqparts/part_vs_assembly.html#part-vs-assembly"><span class="std std-ref">Part vs Assembly</span></a> and <a class="reference internal" href="parametric-object.html#tutorials-parametricobject"><span class="std std-ref">Parametric Object</span></a>.</p>
 <p>Let’s start with a simple variably sized rectangle.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
 <span class="kn">import</span> <span class="nn">cqparts</span>
@@ -231,12 +232,13 @@ in the <a class="reference internal" href="assembly.html#tutorial-assembly"><spa
 highly dependent on the <em>part’s</em> parameters.</p>
 <p>So to elaborate on the box example above:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Mate</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">CoordSystem</span>
 
 <span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># ... (content as above)</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Mate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)))</span>
 
 <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
 <span class="n">box</span><span class="o">.</span><span class="n">mate_top</span>
@@ -249,7 +251,7 @@ highly dependent on the <em>part’s</em> parameters.</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mate_top</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">plane</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">faces</span><span class="p">(</span><span class="s2">&quot;&gt;Z&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">workplane</span><span class="p">()</span><span class="o">.</span><span class="n">plane</span>
-        <span class="k">return</span> <span class="n">Mate</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Mate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">CoordSystem</span><span class="o">.</span><span class="n">from_plane</span><span class="p">(</span><span class="n">plane</span><span class="p">))</span>
 
 <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
 <span class="n">box</span><span class="o">.</span><span class="n">mate_top</span>
@@ -285,7 +287,7 @@ other parts you’re using, it will make your code confusing.</p>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wheel</span> <span class="o">=</span> <span class="n">Wheel</span><span class="p">()</span>
-<span class="n">display</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span> <span class="c1"># doctest: +SKIP</span>
+<span class="n">display</span><span class="p">(</span><span class="n">wheel</span><span class="p">)</span>
 </pre></div>
 </div>
 <iframe class="model-display"
@@ -319,7 +321,7 @@ still in effect.</p>
 <p>Now you want 2 wheels connected by an axel, all in 1 (injection moulded) part.</p>
 <p>Each wheel (left and right) can have their own radius, and width.</p>
 <p>We can’t use inheritance for this example because we need to instantiate 2
-different wheels, thea union them:</p>
+different wheels, then union them:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">JoinedWheel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
     <span class="n">l_radius</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;left wheel&#39;s radius&quot;</span><span class="p">)</span>
@@ -388,8 +390,15 @@ default <code class="docutils literal"><span class="pre">_render</span></code> p
 <iframe class="model-display"
     src="../_static/iframes/parts/red-box.html"
     height="300px" width="100%"
-></iframe><p>Have a read of <a class="reference internal" href="../parts/rendering.html#parts-rendering"><span class="std std-ref">Rendering</span></a> for more details on rendering properties,
+></iframe><p>Have a read of <a class="reference internal" href="../cqparts/rendering.html#parts-rendering"><span class="std std-ref">Rendering</span></a> for more details on rendering properties,
 and other rendering methods.</p>
+</div>
+<div class="section" id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<p>To learn more about how a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> works, read <a class="reference internal" href="../cqparts/part-build-cycle.html#parts-part-build-cycle"><span class="std std-ref">Part Build Cycle</span></a>.</p>
+<p>Browse the <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> documentation to learn about how to create geometry.</p>
+<p>If you’re comfortable with the above content, you may want to move to learn about
+how to create an <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> in <a class="reference internal" href="assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>.</p>
 </div>
 </div>
 

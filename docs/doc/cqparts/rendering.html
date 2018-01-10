@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rendering &mdash; cqparts 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cqparts Library" href="index.html"/>
+        <link rel="next" title="Import / Export" href="import-export.html"/>
+        <link rel="prev" title="Catalogue" href="catalogue.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cqparts
+          
+
+          
+            
+            <img src="../_static/dark.svg" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="part_vs_assembly.html">Part vs Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part-build-cycle.html"><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assembly-build-cycle.html"><code class="docutils literal"><span class="pre">Assembly</span></code> Build Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constraints.html">Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="catalogue.html">Catalogue</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#render-methods">Render Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rendered-materials">Rendered Materials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="import-export.html">Import / Export</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">cqparts</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a> &raquo;</li>
+        
+      <li>Rendering</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rendering">
+<span id="parts-rendering"></span><h1>Rendering<a class="headerlink" href="#rendering" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="render-methods">
+<h2>Render Methods<a class="headerlink" href="#render-methods" title="Permalink to this headline">¶</a></h2>
+<p>A render of your model can be observed using the <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a> method.</p>
+<p>This will pick how to display a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> or
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> based on the environment in which it’s
+run (see <a class="reference internal" href="../api/cqparts.utils.html#cqparts.utils.env.get_env_name" title="cqparts.utils.env.get_env_name"><code class="xref py py-meth docutils literal"><span class="pre">get_env_name</span></code></a> for details).</p>
+<p>You may also explicitly set how you’d like your model displayed by calling
+another display method, such as <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.freecad_display" title="cqparts.display.freecad_display"><code class="xref py py-meth docutils literal"><span class="pre">freecad_display()</span></code></a>, <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.web_display" title="cqparts.display.web_display"><code class="xref py py-meth docutils literal"><span class="pre">web_display()</span></code></a>,
+and so on.</p>
+<p>Look at <a class="reference internal" href="../api/cqparts.display.html#module-cqparts.display" title="cqparts.display"><code class="xref py py-mod docutils literal"><span class="pre">cqparts.display</span></code></a> for more information, and options.</p>
+</div>
+<div class="section" id="rendered-materials">
+<h2>Rendered Materials<a class="headerlink" href="#rendered-materials" title="Permalink to this headline">¶</a></h2>
+<p>Each <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> can be made to look different
+based on its material.</p>
+<p>A basic render may simply display everything in a grey matt finish, whereas
+a more thoroughly designed model may use colours, transparencies, and metalic
+finishes to make a model look more impressive.</p>
+<p>The properties of a solid’s render is stored in the a <a class="reference internal" href="../api/cqparts.display.html#cqparts.display.RenderProps" title="cqparts.display.RenderProps"><code class="xref py py-class docutils literal"><span class="pre">RenderProps</span></code></a>
+instance, stored in the <code class="docutils literal"><span class="pre">_render</span></code> attribute of each
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> instance.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>At this time the only properties of a render are its colour (RGB) and alpha
+values.
+This may increase in future to support more advanced rendering, for things
+like reflectance, diffusion, ambiance, I don’t know, I’m not a graphics guy.</p>
+<p class="last">For progress regarding this, keep an eye on
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/issues/36">issue #36</a>, and feel free
+to voice your opinion, and/or support there.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="import-export.html" class="btn btn-neutral float-right" title="Import / Export" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="catalogue.html" class="btn btn-neutral" title="Catalogue" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 Peter Boin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
