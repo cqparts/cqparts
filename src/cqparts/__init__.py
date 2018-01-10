@@ -30,6 +30,7 @@ __all__ = [
     'Assembly',
 
     # Modules
+    'catalogue',
     'codec',
     'constraint',
     'display',
@@ -44,6 +45,7 @@ from .component import Component
 from .part import Part
 from .assembly import Assembly
 
+from . import catalogue
 from . import codec
 from . import constraint
 from . import display

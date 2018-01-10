@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
 
+import cadquery
+import logging
+cadquery.freecad_impl.console_logging.enable(logging.INFO)
+
+
 # ------------------- Wood Screw -------------------
 
 import cadquery
@@ -11,9 +16,6 @@ from cqparts_fasteners.male import MaleFastenerPart
 from cqparts.display import display, render_props
 from cqparts.constraint import Mate
 from cqparts.utils import CoordSystem
-
-import logging
-cadquery.freecad_impl.console_logging.enable(logging.INFO)
 
 
 class WoodScrew(MaleFastenerPart):
@@ -226,6 +228,34 @@ class _Together(cqparts.Assembly):
         ]
 
 
+# ------------------- WoodPanel -------------------
+
+class WoodPanel(cqparts.Part):
+    thickness = PositiveFloat(15, doc="thickness of panel")
+    width = PositiveFloat(100, doc="panel width")
+    length = PositiveFloat(100, doc="panel length")
+
+    _render = render_props(template='wood')  # wooden
+
+    def make(self):
+        return cadquery.Workplane('XY') \
+            .box(self.length, self.width, self.thickness)
+
+    @property
+    def mate_end(self):
+        # center of +x face
+        return Mate(self, CoordSystem(
+            origin=(self.length / 2, 0, 0),
+            xDir=(0, 0, -1),
+            normal=(-1, 0, 0),
+        ))
+
+    def get_mate_edge(self, thickness):
+        return Mate(self, CoordSystem(
+            origin=((self.length / 2) - (thickness / 2), 0, self.thickness / 2)
+        ))
+
+
 # ------------------- Fastener -------------------
 
 from cqparts_fasteners import Fastener
@@ -305,33 +335,13 @@ class EasyInstallFastener(Fastener):
                 effect.part.local_obj = effect.part.local_obj.cut(anchor_coordsys + anchor_cutter)
 
 
+
+
 # ------------------- Joined Planks -------------------
 
-class WoodPanel(cqparts.Part):
-    thickness = PositiveFloat(15, doc="thickness of panel")
-    width = PositiveFloat(100, doc="panel width")
-    length = PositiveFloat(100, doc="panel length")
-
-    def make(self):
-        return cadquery.Workplane('XY') \
-            .box(self.length, self.width, self.thickness)
-
-    @property
-    def mate_end(self):
-        # center of +x face
-        return Mate(self, CoordSystem(
-            origin=(self.length / 2, 0, 0),
-            xDir=(0, 0, -1),
-            normal=(-1, 0, 0),
-        ))
-
-    def get_mate_edge(self, thickness):
-        return Mate(self, CoordSystem(
-            origin=((self.length / 2) - (thickness / 2), 0, self.thickness / 2)
-        ))
-
-
 class ConnectedPlanks(cqparts.Assembly):
+    fastener_class = EasyInstallFastener
+
     def make_components(self):
         # Wood panels
         p1 = WoodPanel(
@@ -344,7 +354,7 @@ class ConnectedPlanks(cqparts.Assembly):
         )
 
         # Fastener
-        fastener = EasyInstallFastener(parts=[p1, p2])
+        fastener = self.fastener_class(parts=[p1, p2])
 
         return {
             'panel1': p1,
@@ -366,7 +376,7 @@ class ConnectedPlanks(cqparts.Assembly):
                 p2.mate_end,
                 p1.get_mate_edge(p2.thickness),
             ),
-            # Fastener assembly in the middle of a 
+            # Fastener assembly in the middle of a
             Coincident(
                 fastener.mate_origin,  # mate_origin's -Z axis is used for evaluation
                 p2.mate_end + CoordSystem(
@@ -382,7 +392,8 @@ from cqparts.catalogue import JSONCatalogue
 import tempfile
 
 # Temporary catalogue (just for this script)
-catalogue_filename = tempfile.mktemp()
+catalogue_filename = tempfile.mkstemp()[1]
+#catalogue_filename = '/tmp/db.json'
 catalogue = JSONCatalogue(catalogue_filename)
 
 # Add screws to catalogue
@@ -447,10 +458,50 @@ for anchor in anchors:
     catalogue.add(id=anchor['id'], criteria=anchor['criteria'], obj=obj)
 
 
-# Cleanup catalogue file (just for this script)
-import os
-os.unlink(catalogue_filename)
-#print('catalogue: %s' % catalogue_filename)
+catalogue.close()
+
+
+# ------------------- Catalogue : Fastener -------------------
+
+from cqparts.catalogue import JSONCatalogue
+from cqparts.utils import property_buffered
+
+class EasyInstallCatalogueFastener(EasyInstallFastener):
+
+    class Selector(EasyInstallFastener.Selector):
+
+        def get_components(self):
+            # Find minimum neck length (total effect length, minus last effect)
+            neck_length_min = abs(self.evaluator.eval[-1].start_point - self.evaluator.eval[0].start_point)
+            thread_length_max = abs(self.evaluator.eval[-1].end_point - self.evaluator.eval[-1].start_point)
+
+            # Get the catalogue of available items
+            catalogue = JSONCatalogue(catalogue_filename)
+            item = catalogue.get_query()
+
+            # Find viably sized wood-screw
+            screw_item = sorted(
+                catalogue.search(
+                    # eval sets minimum evaluation length
+                    (item.obj.params.neck_length >= neck_length_min) &
+                    # thread shouldn't pierce through last part
+                    (item.criteria.thread_length < thread_length_max)
+                ),
+                # sort by shortest first
+                key=lambda x: x['obj']['params']['neck_length']
+            )[0]  # first result; shortest screw
+
+            return {
+                'screw': catalogue.deserialize_result(screw_item),
+                'anchor': catalogue.get(
+                    item.id == screw_item['criteria']['compatible_anchor']
+                ),
+            }
+
+
+class ConnectedPlanksCatalogue(ConnectedPlanks):
+    fastener_class = EasyInstallCatalogueFastener
+
 
 
 # ------------------- Export / Display -------------------
@@ -459,18 +510,20 @@ from cqparts.utils.env import env_name
 # ------- Models
 screw = WoodScrew()
 anchor = Anchor()
-together = _Together()
-connected = ConnectedPlanks()
+panel = WoodPanel()
+
+connected_exact = ConnectedPlanks()
+connected_catalogue = ConnectedPlanksCatalogue()
 
 if env_name == 'cmdline':
     screw.exporter('gltf')('screw.gltf')
     anchor.exporter('gltf')('anchor.gltf')
-    together.exporter('gltf')('together.gltf')
+    panel.exporter('gltf')('panel.gltf')
 
-    connected.exporter('gltf')('connected.gltf')
-    print(connected.tree_str(name='connected'))
+    connected_exact.exporter('gltf')('connected_exact.gltf')
+    print(connected_exact.tree_str(name='connected'))
 
-    #display(connected)
+    display(connected_exact)
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing
@@ -479,4 +532,12 @@ elif env_name == 'freecad':
     #display(anchor)
     #display(together)
 
-    display(connected)
+    display(connected_exact)
+
+
+# ------------------- Catalogue : Cleanup -------------------
+
+# Cleanup catalogue file (just for this script)
+import os
+os.unlink(catalogue_filename)
+#print('catalogue: %s' % catalogue_filename)

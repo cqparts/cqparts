@@ -77,7 +77,7 @@ class RenderProps(object):
                       where ``0`` is transparent, and ``1`` is opaque
         :type alpha: :class:`float`
         """
-        self.color = color
+        self.color = tuple(color)
         self.alpha = max(0., min(float(alpha), 1.))
 
     @property

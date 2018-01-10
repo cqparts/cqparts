@@ -22,4 +22,3 @@ at each step.
    assembly
    component-index
    fastener-biscuit
-   fastener-easy-install

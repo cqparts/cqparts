@@ -1,6 +1,6 @@
 import six
 
-from cqparts.params import Parameter
+from cqparts.params import Parameter, ParametricObject
 
 # Types of things... not parts on their own, but utilised in many
 from .solidtypes import fastener_heads

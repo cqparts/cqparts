@@ -47,8 +47,6 @@ have an understanding of what :mod:`cadquery` is, and how to use it first.
    api/modules
    todo
 
-   fasteners/index
-
 
 Indices and tables
 ==================

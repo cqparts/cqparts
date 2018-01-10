@@ -1,18 +1,9 @@
 
-.. _tutorials_fastener-easy-install:
+.. _fasteners.easy-install.parts:
 
-Fastener : Easy Install
-=======================
-
-This example illustrates how to make the classic *build-it-yourself*
-furniature fastener for wood panels connected at right angels.
-
-.. figure:: img/easy-install-manual-eg.png
-
-    Example of the instructions you may find in a manual.
 
 Component Parts
----------------
+--------------------------
 
 The composition of this fastener is relatively simple; we smiply have 2 parts
 grouped into a single mechanical fastener.
@@ -23,24 +14,31 @@ grouped into a single mechanical fastener.
        ├─○ wood_screw
        └─○ anchor
 
+And to demonstrate its function, these will be used to connect 2 wooden panels.
+So we'll need the panels too.
+
 Wood Screw
-^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 Wood screw will use :class:`MaleFastenerPart <cqparts_fasteners.male.MaleFastenerPart>`
 as a basis.
 
 * **screw body** : built from
   :class:`MaleFastenerPart <cqparts_fasteners.male.MaleFastenerPart>`, then modified.
-* **shaft** : we'll add the bore-sized shaft to the neck of the screw.
+* **shaft** : we'll add the bore-sized shaft (with some cylindrical cut-outs)
+  to the neck of the screw.
 
-::
+.. doctest::
 
     import cadquery
     import cqparts
     from cqparts.params import *
     from cqparts_fasteners.params import HeadType, DriveType, ThreadType
     from cqparts_fasteners.male import MaleFastenerPart
-    from cqparts.display import display
+    from cqparts.display import display, render_props
+    from cqparts.constraint import Mate
+    from cqparts.utils import CoordSystem
+
 
     class WoodScrew(MaleFastenerPart):
         # --- override MaleFastenerPart parameters
@@ -70,6 +68,8 @@ as a basis.
         neck_exposed = PositiveFloat(2, doc="length of neck exposed below head")
         bore_diam = PositiveFloat(6, doc="diameter of screw's bore")
 
+        _render = render_props(template='aluminium')
+
         def initialize_parameters(self):
             super(WoodScrew, self).initialize_parameters()
 
@@ -96,9 +96,9 @@ as a basis.
         def make_cutter(self):
             # we won't use MaleFastenerPart.make_cutter() because it
             # implements an access hole that we don't need.
-            cutter = cadquery.Workplane('XY') \
+            cutter = cadquery.Workplane('XY', origin=(0, 0, self.head.height)) \
                 .circle(self.bore_diam / 2) \
-                .extrude(-self.neck_length)
+                .extrude(-(self.neck_length + self.head.height))
             cutter = cutter.union(
                 self.thread.make_pilothole_cutter().translate((
                     0, 0, -self.length
@@ -111,6 +111,10 @@ as a basis.
             # model of the screw.
             return self.make_cutter()
 
+        @property
+        def mate_threadstart(self):
+            return Mate(self, CoordSystem(origin=(0, 0, -self.neck_length)))
+
 
 So to illustrate what we've just made::
 
@@ -120,13 +124,13 @@ So to illustrate what we've just made::
 .. raw:: html
 
     <iframe class="model-display"
-        src="../_static/iframes/easy-install/screw.html"
+        src="../../_static/iframes/easy-install/screw.html"
         height="300px" width="100%"
     ></iframe>
 
 
 Anchor
-^^^^^^
+^^^^^^^^^^^^^^
 
 The anchor is composed of:
 
@@ -136,11 +140,9 @@ The anchor is composed of:
 * **access port** : 1 quadrant cut out to to alow screwhead access.
 * **screw drive** : to allow user to apply a screwdriver to install.
 
-::
+.. doctest::
 
     from math import sin, cos, pi
-    from cqparts.utils import CoordSystem
-    from cqparts.constraint import Mate
 
     class Anchor(cqparts.Part):
         # sub-parts
@@ -159,8 +161,10 @@ The anchor is composed of:
         ratio_start = FloatRange(0.5, 0.99, 0.99, doc="radius ratio of wedge start")
         ratio_end = FloatRange(0.01, 0.8, 0.7, doc="radius ratio of wedge end")
 
+        _render = render_props(color=(100, 100, 150))  # dark blue
+
         @property
-        def conical_radii(self):
+        def wedge_radii(self):
             return (
                 (self.diameter / 2) * self.ratio_start,  # start radius
                 (self.diameter / 2) * self.ratio_end  # end radius
@@ -171,7 +175,7 @@ The anchor is composed of:
                 .circle(self.diameter / 2) \
                 .extrude(-self.height)
 
-            # neck slot
+            # neck slot : eliminate screw neck interference
             obj = obj.cut(
                 cadquery.Workplane('XY', origin=(0, 0, -((self.neck_diameter + self.height) / 2))) \
                     .moveTo(0, 0) \
@@ -184,8 +188,8 @@ The anchor is composed of:
                     .extrude(self.neck_diameter)
             )
 
-            # head slot (forms a conical wedge)
-            (start_r, end_r) = self.conical_radii
+            # head slot : form a circular wedge with remaining material
+            (start_r, end_r) = self.wedge_radii
             angles_radius = (  # as generator
                 (
                     (i * (pi / self.spline_point_count)),  # angle
@@ -202,32 +206,51 @@ The anchor is composed of:
                     .extrude(self.head_diameter)
             )
 
-            # access port
+            # access port : remove a quadrant to alow screw's head through
             obj = obj.cut(
                 cadquery.Workplane('XY', origin=(0, 0, -(self.height - self.head_diameter) / 2)) \
                     .rect(self.diameter / 2, self.diameter / 2, centered=False) \
                     .extrude(-self.height)
             )
 
-            # screw drive
+            # screw drive : to apply torque to anchor for installation
             if self.drive:
-                obj = self.drive.apply(obj)
+                obj = self.drive.apply(obj)  # top face is on origin XY plane
 
             return obj
 
         def make_simple(self):
+            # Just return the core cylinder
             return cadquery.Workplane('XY') \
                 .circle(self.diameter / 2) \
                 .extrude(-self.height)
 
+        def make_cutter(self):
+            # A solid to cut away from another; makes room to install the anchor
+            return cadquery.Workplane('XY', origin=(0, 0, -self.height)) \
+                .circle(self.diameter / 2) \
+                .extrude(self.height + 1000)  # 1m bore depth
+
         @property
         def mate_screwhead(self):
-            (start_r, end_r) = self.conical_radii
+            # The location of the screwhead in it's theoretical tightened mid-point
+            #   (well, not really, but this is just a demo)
+            (start_r, end_r) = self.wedge_radii
             return Mate(self, CoordSystem(
                 origin=(0, -((start_r + end_r) / 2), -self.height / 2),
                 xDir=(1, 0, 0),
                 normal=(0, 1, 0)
             ))
+
+        @property
+        def mate_center(self):
+            # center of object, along screw's rotation axis
+            return Mate(self, CoordSystem(origin=(0, 0, -self.height / 2)))
+
+        @property
+        def mate_base(self):
+            # base of object (for 3d printing placement, maybe)
+            return Mate(self, CoordSystem(origin=(0, 0, -self.height)))
 
 
 What we've made isn't perfect, but it will do for this tutorial.
@@ -239,210 +262,57 @@ Besides, that's more than enough code::
 .. raw:: html
 
     <iframe class="model-display"
-        src="../_static/iframes/easy-install/anchor.html"
+        src="../../_static/iframes/easy-install/anchor.html"
         height="300px" width="100%"
     ></iframe>
 
 
-Aligned Together
-^^^^^^^^^^^^^^^^^^^^^
+Wood Panel
+^^^^^^^^^^^^^
 
-Just to demonstrate what we've made, let's create a temporary
-:class:`Assembly <cqparts.Assembly>` aligning the 2 together:
+We'll also need to create some wooden panels that we intend to join using
+the *fastener*.
+
+It's essentially just a *box* shape, but we'll add some *mate* points to alow
+easy alignment.
 
 .. doctest::
 
-    from cqparts.constraint import Fixed, Coincident
+    class WoodPanel(cqparts.Part):
+        thickness = PositiveFloat(15, doc="thickness of panel")
+        width = PositiveFloat(100, doc="panel width")
+        length = PositiveFloat(100, doc="panel length")
 
-    class _Together(cqparts.Assembly):
-        def make_components(self):
-            return {
-                'screw': WoodScrew(neck_exposed=5),
-                'anchor': Anchor(height=7),
-            }
+        def make(self):
+            return cadquery.Workplane('XY') \
+                .box(self.length, self.width, self.thickness)
 
-        def make_constraints(self):
-            return [
-                Fixed(self.components['screw'].mate_origin),
-                Coincident(
-                    self.components['anchor'].mate_screwhead,
-                    self.components['screw'].mate_origin,
-                ),
-            ]
+        @property
+        def mate_end(self):
+            # center of +x face
+            return Mate(self, CoordSystem(
+                origin=(self.length / 2, 0, 0),
+                xDir=(0, 0, -1),
+                normal=(-1, 0, 0),
+            ))
+
+        def get_mate_edge(self, thickness):
+            return Mate(self, CoordSystem(
+                origin=((self.length / 2) - (thickness / 2), 0, self.thickness / 2)
+            ))
 
 ::
 
-    together = _Together()
-    display(together)
+    panel = WoodPanel()
+    display(panel)
 
 .. raw:: html
 
     <iframe class="model-display"
-        src="../_static/iframes/easy-install/together.html"
+        src="../../_static/iframes/easy-install/panel.html"
         height="300px" width="100%"
     ></iframe>
 
 
-Evaluation / Selection / Application
-------------------------------------
-
-.. currentmodule:: cqparts_fasteners.utils
-
-Now we need to assess the logic behind the application of this
-fastening mechanism.
-
-.. tip::
-
-    *Evaluation*, *selection*, and *application* are fundamental concepts for
-    using fasteners as more than just floating objects, read
-    :ref:`cqparts_fasteners.build_cycle` to learn more.
-
-To do this manually, we'd have to:
-
-* **evaluate** (or measure) the diameter and depth of the woodscrew's pilot hole, as well
-  as the location and size of the anchor's cylindrical bore on the vertical workpiece.
-* **select** an apropriately sized wood-screw and anchor (based on the
-  evaluation we've made).
-* **apply** the pilot hole, and anchor's bore. Then screw in the wood-screw,
-  insert the anchor, and then put it all together.
-
-
-Evaluator
-^^^^^^^^^
-
-We can use the :class:`VectorEvaluator` to do most of the work for us.
-
-If we give the :class:`VectorEvaluator` a vector through the middle of the
-vertical part, with a starting point at, or above, the anchor's desired location,
-then it will give us the maximum length of the screw (not including it's thread),
-and the available depth for the wood-screw's thread.
-
-However, what this *doesn't* give us is the orientation of the *anchor*.
-So we also need to give the evaluator a face through which the anchor's bore will
-be applied::
-
-
-    from cqparts_fasteners.utils.evaluator import VectorEvaluator
-    class EasyInstallEvaluator(VectorEvaluator):
-        def __init__(self, parts, start, dir, anchor_plane):
-            super(EasyInstallEvaluator, self).__init__(parts, start, dir)
-            self.anchor_plane = anchor_plane
-
-        @property
-        def anchor_norm(self):
-            return self.anchor_plane.zDir
-
-.. todo::
-
-    image of evaluation, showing:
-
-    * input vector
-    * output effect vectors
-
-
-Selection
-^^^^^^^^^
-
-To illustrate the selection mechanic, we'll register 2 types of *wood screw*
-for this fastener:
-
-#. 20mm shaft, 10mm thread
-#. 40mm shaft, 15mm thread
-
-and 2 types of *anchor*:
-
-#. 15mm diameter
-#. 20mm diameter
-
-The selector will choose a *wood screw* with the longest shaft, with a thread
-that taps into <= 80% of the adjoining piece.
-
-::
-
-    from cqparts_fasteners.utils.selector import Selector
-
-    class EasyInstallSelector(Selector):
-        #TODO: code for selector
-        # note: selector must return a wood-screw and anchor
-        #       does it return a Fastener instance?
-        pass
-
-        def get_selection(self):
-            # TODO: returns single Fastener instance
-            # if there are multiple viable choices, it's up to the selector
-            # to narrow it down to a single selection.
-            pass
-
-Application
-^^^^^^^^^^^
-
-The evaluation should result in 2
-:class:`VectorEffect <evaluator.VectorEffect>` instances, one for
-each part.
-
-::
-
-    from cqparts_fasteners.utils.applicator import Applicator
-
-    class EasyInstallApplicator(Applicator):
-        # TODO: code for applicator
-        pass
-
-
-Fastener Assembly
------------------
-
-So now we have the 2 components, we can combine these into a
-:class:`Fastener <cqparts_fasteners.base.Fastener>`.
-
-::
-
-    from cqparts_fasteners import Fastener
-
-    class EasyInstallFastener(Fastener):
-        EVALUATOR_CLASS = EasyInstallEvaluator
-        SELECTOR_CLASS = EasyInstallSelector
-        APPLICATOR_CLASS = EasyInstallApplicator
-
-        def make(self):
-            screw = WoodScrew()  # TODO: parameters + mate
-
-            anchor = Anchor()  # TODO: parameters + mate
-
-            return {
-                'wood_screw': screw,
-                'anchor': anchor,
-            }
-
-
-Using the Fastener
-------------------
-
-Now that we've made it, this is how it can be imported and used.
-
-First let's make some parts to join together::
-
-    # fixme: pretending it's there
-    import cadquery
-    import cqparts
-
-    class Panel1(cqparts.Part):
-        def make(self):
-            return cadquery.Workplane('XY', origin=(0, -50, -10)) \
-                .box(100, 100, 10, centered=(False, False, False))
-
-    class Panel2(cqparts.Part):
-        def make(self):
-            return cadquery.Workplane('XY', origin=(0, -50, 0)) \
-                .box(10, 100, 100, centered=(False, False, False))
-
-Now we import and use the ``EasyinstallFastener`` we've created::
-
-    from cqparts_mylib.easyinstall import EasyInstallFastener
-
-    # TODO: 2 instances of the same panel, different orientation
-    panel1 = Panel1()
-    panel2 = Panel2()
-
-    evaluation = EasyInstallFastener.evaluate(
-        parts
+Now that we have all the parts we need, the next section will work on combining
+these into an *assembly*.

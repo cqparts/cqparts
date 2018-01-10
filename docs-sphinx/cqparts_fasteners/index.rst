@@ -7,6 +7,7 @@
 
    what
    build_cycle
+   easy-install/index
 
 
 Creating a Fastener
