@@ -1,6 +1,7 @@
 from copy import copy
 
 from base import CQPartsTest
+from base import testlabel
 
 # Unit under test
 from cqparts.params import *
