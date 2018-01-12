@@ -4,6 +4,7 @@ import tempfile
 import shutil
 
 from base import CQPartsTest
+from base import testlabel
 
 # Unit(s) under test
 from cqparts import codec
@@ -45,6 +46,7 @@ class CodecFolderTest(CodecTest):
 
 # ------- Tests -------
 
+@testlabel('codec', 'codc_step')
 class TestStep(CodecFileTest):
     def test_export(self):
         cube = Cube()
@@ -59,6 +61,7 @@ class TestStep(CodecFileTest):
         self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
 
 
+@testlabel('codec', 'codec_json')
 @unittest.skip("py3 updates and encoding issues")
 class TestJson(CodecFileTest):
     def test_export(self):
@@ -68,6 +71,7 @@ class TestJson(CodecFileTest):
         self.assertFilesizeNonZero(self.temp.name)
 
 
+@testlabel('codec', 'codec_stl')
 class TestStl(CodecFileTest):
     def test_export(self):
         cube = Cube()
@@ -90,6 +94,7 @@ class TestStl(CodecFileTest):
 #        self.assertGreater(os.stat(self.temp.name).st_size, 0)
 
 
+@testlabel('codec', 'codec_svg')
 class TestSvg(CodecFileTest):
     def test_export(self):
         cube = Cube()
@@ -98,6 +103,7 @@ class TestSvg(CodecFileTest):
         self.assertGreater(os.stat(self.temp.name).st_size, 0)
 
 
+@testlabel('codec', 'codec_gltf')
 class TestGltf(CodecFolderTest):
     def test_basic_not_embedded(self):
         cube = Cube()
@@ -118,6 +124,7 @@ class TestGltf(CodecFolderTest):
         self.assertFalse(os.path.exists(os.path.join(self.temp, 'cube.bin')))
 
 
+@testlabel('codec')
 class TestGltfBuffer(CQPartsTest):
     def test_indices_sizes(self):
         # 1 byte
