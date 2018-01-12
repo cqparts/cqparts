@@ -1,0 +1,4 @@
+[run]
+include =
+    *cqparts/src/cqparts/*
+    *cqparts/src/cqparts_*

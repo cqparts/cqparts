@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+script=runtests.py
 
 
 function show_help() {
@@ -12,13 +13,9 @@ Helper script to run different groups of testing.
 Arguments:
 
     all     run all tests
+    quick   run most tests, skip the slower ones
 
 EOF
-}
-
-
-function all() {
-    python runtests.py
 }
 
 
@@ -29,7 +26,19 @@ case "$1" in
         exit 0
         ;;
 
-    all|"") all ;;
+    all|"")
+        # run all tests (default behaviour)
+        python ${script}
+        ;;
+
+    coverage)
+        coverage run ${script}
+        coverage report
+        ;;
+
+    quick)
+        python ${script} --blacklist "slow"
+        ;;
 
     *)
         show_help >&2
