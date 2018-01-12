@@ -15,7 +15,7 @@ The problem with this strategy is that a screw with those exact dimensions is
 unlikely to exist, and would need to be custom made.
 
 As an alternative, we can change the :class:`Selector` to pick a screw from
-a list.
+a list, more specifically, a :ref:`cqparts.catalogue`.
 
 
 Populate a Catalogue

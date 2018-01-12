@@ -5,6 +5,7 @@ from .. import __version__
 from .. import Component
 from ..errors import SearchError, SearchNoneFoundError, SearchMultipleFoundError
 from ..params import ParametricObject
+from ..utils import property_buffered
 
 from .catalogue import Catalogue
 
@@ -37,8 +38,7 @@ class JSONCatalogue(Catalogue):
 
         if self._dbinfo_name not in self.db.tables():
             # info table does not exist; database is new.
-            dbinfo_table = self.db.table(self._dbinfo_name)
-            dbinfo_table.insert({
+            self._dbinfo_table.insert({
                 'module': type(self).__module__,
                 'name': type(self).__name__,
                 'ver': self._version,
@@ -47,14 +47,25 @@ class JSONCatalogue(Catalogue):
             })
 
     def close(self):
+        """
+        Close the database, and commit any changes to file.
+        """
         self.db.close()
 
     @property
-    def dbinfo_table(self):
+    def _dbinfo_table(self):
         return self.db.table(self._dbinfo_name)
 
     @property
     def dbinfo(self):
+        """
+        Database information (at time of creation), mainly intended
+        for future-proofing.
+
+        :return: information about database's initial creation
+        :rtype: :class:`dict`
+        """
+
         return self.dbinfo_table.all()[0]
 
     def get_query(self):
@@ -71,10 +82,11 @@ class JSONCatalogue(Catalogue):
     # ------- Searching -------
     def search(self, *args, **kwargs):
         """
-        Passthrough to :meth:`Table.search() <tinydb.database.Table.search
+        Passthrough to :meth:`Table.search() <tinydb.database.Table.search>`
         for the ``items`` table.
 
-        So ``c.search(...)`` equivalent to ``c.db.table('items').search(...)``.
+        So ``catalogue.search(...)`` equivalent to
+        ``catalogue.db.table('items').search(...)``.
 
         :return: entries in ``items`` table that positively match given search criteria.
         :rtype: :class:`list` of ``items`` table entries

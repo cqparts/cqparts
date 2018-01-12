@@ -36,7 +36,7 @@ class ParametricObjectTests(CQPartsTest):
         self.assertNotEqual(t1.b, t2.b)
 
 
-class ParameterTests(CQPartsTest):
+class ParameterTypeTests(CQPartsTest):
     def test_float(self):
         p = Float(1.5)
         # default
@@ -168,8 +168,15 @@ class ParameterTests(CQPartsTest):
         self.assertIsNone(p.cast(None))
 
     def test_non_null(self):
+        p1 = NonNullParameter(1)
+        # not nullable
+        self.assertRaises(ParameterError, p1.cast, None)
+
+        # Inherited
         class P(Int, NonNullParameter):
             pass
-        p = NonNullParameter(1)
-        # not nullable
-        self.assertRaises(ParameterError, p.cast, None)
+        p2 = P(1)
+        self.assertRaises(ParameterError, p2.cast, None)
+
+    def test_partslist(self):
+        p = PartsList()
