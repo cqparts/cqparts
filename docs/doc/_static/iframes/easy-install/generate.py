@@ -492,7 +492,7 @@ class EasyInstallCatalogueFastener(EasyInstallFastener):
             )[0]  # first result; shortest screw
 
             return {
-                'screw': catalogue.deserialize_result(screw_item),
+                'screw': catalogue.deserialize_item(screw_item),
                 'anchor': catalogue.get(
                     item.id == screw_item['criteria']['compatible_anchor']
                 ),

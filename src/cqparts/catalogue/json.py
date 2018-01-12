@@ -66,7 +66,7 @@ class JSONCatalogue(Catalogue):
         :rtype: :class:`dict`
         """
 
-        return self.dbinfo_table.all()[0]
+        return self._dbinfo_table.all()[0]
 
     def get_query(self):
         """
@@ -159,7 +159,7 @@ class JSONCatalogue(Catalogue):
         return index
 
     # ------- Getting Items -------
-    def deserialize_result(self, data):
+    def deserialize_item(self, data):
         """
         Create a :class:`Component <cqparts.Component>` from a database
         search result.
@@ -173,7 +173,7 @@ class JSONCatalogue(Catalogue):
 
     def get(self, *args, **kwargs):
         """
-        Combination of :meth:`find` and :meth:`deserialize_result`;
+        Combination of :meth:`find` and :meth:`deserialize_item`;
         the result from :meth:`find` is deserialized and returned.
 
         Input is a :mod:`tinydb` query.
@@ -182,4 +182,4 @@ class JSONCatalogue(Catalogue):
         :rtype: :class:`Component <cqparts.Component>`
         """
         result = self.find(*args, **kwargs)
-        return self.deserialize_result(result)
+        return self.deserialize_item(result)
