@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts_fasteners Library &mdash; cqparts 0.1.0 documentation</title>
+  <title>cqparts_fasteners Module &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="What is a Fastener?" href="what.html"/>
+        <link rel="next" title="Fastener Build Cycle" href="build_cycle.html"/>
         <link rel="prev" title="Fastener : Biscuit" href="../tutorials/fastener-biscuit.html"/> 
 
   
@@ -97,14 +97,11 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="what.html">What is a Fastener?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="build_cycle.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="easy-install/index.html">Example: Easy Install</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-fastener">Creating a Fastener</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#making-your-own-fastener">Making your own Fastener</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
@@ -154,7 +151,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</li>
+      <li><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,12 +168,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cqparts-fasteners-library">
-<h1><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library<a class="headerlink" href="#cqparts-fasteners-library" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cqparts-fasteners-module">
+<h1><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module<a class="headerlink" href="#cqparts-fasteners-module" title="Permalink to this headline">¶</a></h1>
+<p><strong>What is a Fastaner?</strong></p>
+<p>A <em>fastener</em> is something that mechanically connects 2 or more <em>things</em> together,
+such as a <em>screw</em>, <em>bolt</em>, or <em>nail</em>.</p>
+<p>For us, a <a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> is an
+<a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> containing 1 or more
+<a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> objects.</p>
+<p>For example, a <em>nut</em> and <em>bolt</em> holidng together 2 parts together:</p>
+<img alt="../_images/fasteners.nut-and-bolt.01.png" src="../_images/fasteners.nut-and-bolt.01.png" />
+<p>may be in the hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>thing
+ ├○ part_a
+ ├─ fastener
+ │   ├○ bolt
+ │   └○ nut
+ └○ part_b
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> module contains:</p>
+<ul class="simple">
+<li><em>parts</em> used as common <em>fastener</em> components (such as <em>nuts</em>, <em>bolts</em>, and <em>screws</em>)</li>
+<li>sub-parts for fastener components: <a class="reference internal" href="../api/cqparts_fasteners.solidtypes.html#module-cqparts_fasteners.solidtypes" title="cqparts_fasteners.solidtypes"><code class="xref py py-mod docutils literal"><span class="pre">cqparts_fasteners.solidtypes</span></code></a></li>
+<li>utility mechanisms to commonise how fasteners are applied to <em>assemblies</em>: <a class="reference internal" href="../api/cqparts_fasteners.utils.html#module-cqparts_fasteners.utils" title="cqparts_fasteners.utils"><code class="xref py py-mod docutils literal"><span class="pre">cqparts_fasteners.utils</span></code></a></li>
+</ul>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Contents</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="what.html">What is a Fastener?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build_cycle.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="build_cycle.html#evaluator">Evaluator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="build_cycle.html#selector">Selector</a></li>
@@ -188,27 +207,23 @@
 <li class="toctree-l2"><a class="reference internal" href="easy-install/component-parts.html">Component Parts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="easy-install/component-parts.html#wood-screw">Wood Screw</a></li>
 <li class="toctree-l3"><a class="reference internal" href="easy-install/component-parts.html#anchor">Anchor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="easy-install/component-parts.html#aligned-together">Aligned Together</a></li>
+<li class="toctree-l3"><a class="reference internal" href="easy-install/component-parts.html#wood-panel">Wood Panel</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="easy-install/exact-fastener.html">Exactly Sized</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="easy-install/exact-fastener.html#evaluator">Evaluator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="easy-install/exact-fastener.html#selection">Selection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="easy-install/exact-fastener.html#application">Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="easy-install/exact-fastener.html">Exactly Sized Fastener</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="easy-install/exact-fastener.html#fastener">Fastener</a></li>
 <li class="toctree-l3"><a class="reference internal" href="easy-install/exact-fastener.html#using-the-fastener">Using the Fastener</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="easy-install/catalogue-fastener.html">Catalogue Selected Fastener</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="easy-install/catalogue-fastener.html#populate-a-catalogue">Populate a Catalogue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="easy-install/catalogue-fastener.html#catalogue-selector">Catalogue Selector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="easy-install/catalogue-fastener.html#result">Result</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="creating-a-fastener">
-<h2>Creating a Fastener<a class="headerlink" href="#creating-a-fastener" title="Permalink to this headline">¶</a></h2>
-<p>There are many ways to create a fastener, too many to document here, but
-I’ll try to cover the basics</p>
-</div>
-<div class="section" id="making-your-own-fastener">
-<h2>Making your own Fastener<a class="headerlink" href="#making-your-own-fastener" title="Permalink to this headline">¶</a></h2>
+</li>
+</ul>
 </div>
 </div>
 
@@ -222,7 +237,7 @@ I’ll try to cover the basics</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="what.html" class="btn btn-neutral float-right" title="What is a Fastener?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="build_cycle.html" class="btn btn-neutral float-right" title="Fastener Build Cycle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../tutorials/fastener-biscuit.html" class="btn btn-neutral" title="Fastener : Biscuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

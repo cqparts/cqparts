@@ -1,4 +1,6 @@
 
+.. _fasteners.easy-install.exact:
+
 .. currentmodule:: cqparts_fasteners
 
 Exactly Sized Fastener

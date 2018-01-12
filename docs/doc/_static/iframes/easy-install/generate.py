@@ -522,8 +522,9 @@ if env_name == 'cmdline':
 
     connected_exact.exporter('gltf')('connected_exact.gltf')
     print(connected_exact.tree_str(name='connected'))
+    connected_catalogue.exporter('gltf')('connected_catalogue.gltf')
 
-    display(connected_exact)
+    #display(connected_exact)
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing

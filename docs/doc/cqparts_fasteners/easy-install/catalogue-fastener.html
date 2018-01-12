@@ -98,19 +98,21 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../what.html">What is a Fastener?</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../build_cycle.html"><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Example: Easy Install</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="component-parts.html">Component Parts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exact-fastener.html">Exactly Sized Fastener</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Catalogue Selected Fastener</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Catalogue Selected Fastener</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#populate-a-catalogue">Populate a Catalogue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#catalogue-selector">Catalogue Selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#result">Result</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#creating-a-fastener">Creating a Fastener</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../index.html#making-your-own-fastener">Making your own Fastener</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
@@ -160,7 +162,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a> &raquo;</li>
+          <li><a href="../index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a> &raquo;</li>
         
           <li><a href="index.html">Example: Easy Install</a> &raquo;</li>
         
@@ -182,7 +184,149 @@
            <div itemprop="articleBody">
             
   <div class="section" id="catalogue-selected-fastener">
-<h1>Catalogue Selected Fastener<a class="headerlink" href="#catalogue-selected-fastener" title="Permalink to this headline">¶</a></h1>
+<span id="fasteners-easy-install-catalogue"></span><h1>Catalogue Selected Fastener<a class="headerlink" href="#catalogue-selected-fastener" title="Permalink to this headline">¶</a></h1>
+<p>In the last section (<a class="reference internal" href="exact-fastener.html#fasteners-easy-install-exact"><span class="std std-ref">Exactly Sized Fastener</span></a>), we used the analysis
+from the <a class="reference internal" href="../../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.VectorEvaluator" title="cqparts_fasteners.utils.VectorEvaluator"><code class="xref py py-class docutils literal"><span class="pre">VectorEvaluator</span></code></a> to precicely create a <code class="docutils literal"><span class="pre">WoodScrew</span></code> with
+exactly the right dimensions.</p>
+<p>The problem with this strategy is that a screw with those exact dimensions is
+unlikely to exist, and would need to be custom made.</p>
+<p>As an alternative, we can change the <a class="reference internal" href="../../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.Selector" title="cqparts_fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a> to pick a screw from
+a list, more specifically, a <a class="reference internal" href="../../cqparts/catalogue.html#cqparts-catalogue"><span class="std std-ref">Catalogue</span></a>.</p>
+<div class="section" id="populate-a-catalogue">
+<h2>Populate a Catalogue<a class="headerlink" href="#populate-a-catalogue" title="Permalink to this headline">¶</a></h2>
+<p>First we need to create an empty <a class="reference internal" href="../../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue" title="cqparts.catalogue.JSONCatalogue"><code class="xref py py-class docutils literal"><span class="pre">JSONCatalogue</span></code></a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.catalogue</span> <span class="k">import</span> <span class="n">JSONCatalogue</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="c1"># Temporary catalogue (just for this script)</span>
+<span class="n">catalogue_filename</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">catalogue</span> <span class="o">=</span> <span class="n">JSONCatalogue</span><span class="p">(</span><span class="n">catalogue_filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we’ll add some screws to the <em>catalogue</em>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Add screws to catalogue</span>
+<span class="c1">#   note: this is the kind of information you&#39;d store in a csv</span>
+<span class="c1">#   file, then import with a script similar to this one, to convert that</span>
+<span class="c1">#   information to a Catalogue.</span>
+<span class="n">screws</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;screw_30&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;obj_params&#39;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># parameters to WoodScrew constructor</span>
+            <span class="s1">&#39;neck_exposed&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>  <span class="c1"># exposing 10mm of thread</span>
+            <span class="s1">&#39;neck_length&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;screw&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;thread_length&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s1">&#39;compatible_anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor_10&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;screw_50&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;obj_params&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;neck_exposed&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="s1">&#39;length&#39;</span><span class="p">:</span> <span class="mi">65</span><span class="p">,</span>  <span class="c1"># exposing 15mm of thread</span>
+            <span class="s1">&#39;neck_length&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+
+        <span class="p">},</span>
+        <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;screw&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;thread_length&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="s1">&#39;compatible_anchor&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor_15&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">screw</span> <span class="ow">in</span> <span class="n">screws</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">WoodScrew</span><span class="p">(</span><span class="o">**</span><span class="n">screw</span><span class="p">[</span><span class="s1">&#39;obj_params&#39;</span><span class="p">])</span>
+    <span class="n">catalogue</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">screw</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">criteria</span><span class="o">=</span><span class="n">screw</span><span class="p">[</span><span class="s1">&#39;criteria&#39;</span><span class="p">],</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And some <em>anchors</em>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Add anchors to catalogue</span>
+<span class="n">anchors</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor_10&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;obj_params&#39;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># parameters to WoodScrew constructor</span>
+            <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor&#39;</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor_15&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;obj_params&#39;</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># parameters to WoodScrew constructor</span>
+            <span class="s1">&#39;diameter&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;anchor&#39;</span><span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">anchor</span> <span class="ow">in</span> <span class="n">anchors</span><span class="p">:</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">Anchor</span><span class="p">(</span><span class="o">**</span><span class="n">anchor</span><span class="p">[</span><span class="s1">&#39;obj_params&#39;</span><span class="p">])</span>
+    <span class="n">catalogue</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">anchor</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">criteria</span><span class="o">=</span><span class="n">anchor</span><span class="p">[</span><span class="s1">&#39;criteria&#39;</span><span class="p">],</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then <a class="reference internal" href="../../api/cqparts.catalogue.html#cqparts.catalogue.JSONCatalogue.close" title="cqparts.catalogue.JSONCatalogue.close"><code class="xref py py-meth docutils literal"><span class="pre">close()</span></code></a> the <em>catalogue</em> to
+commit the items we’ve added to file.</p>
+<p>To learn more about catalogues, read: <a class="reference internal" href="../../cqparts/catalogue.html#cqparts-catalogue"><span class="std std-ref">Catalogue</span></a>.</p>
+</div>
+<div class="section" id="catalogue-selector">
+<h2>Catalogue Selector<a class="headerlink" href="#catalogue-selector" title="Permalink to this headline">¶</a></h2>
+<p>Our previous implementation of the <a class="reference internal" href="../../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a>
+in <a class="reference internal" href="exact-fastener.html#fasteners-easy-install-exact"><span class="std std-ref">Exactly Sized Fastener</span></a> can mostly be salvaged, so we’ll inherit
+from it, but just change how the <em>screw</em> and <em>anchor</em> components are selected
+and instantiated (in the overridden
+<a class="reference internal" href="../../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.Selector.get_components" title="cqparts_fasteners.utils.Selector.get_components"><code class="xref py py-meth docutils literal"><span class="pre">get_components()</span></code></a> method).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.catalogue</span> <span class="k">import</span> <span class="n">JSONCatalogue</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">property_buffered</span>
+
+<span class="k">class</span> <span class="nc">EasyInstallCatalogueFastener</span><span class="p">(</span><span class="n">EasyInstallFastener</span><span class="p">):</span>
+
+    <span class="k">class</span> <span class="nc">Selector</span><span class="p">(</span><span class="n">EasyInstallFastener</span><span class="o">.</span><span class="n">Selector</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">get_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Find minimum neck length (total effect length, minus last effect)</span>
+            <span class="n">neck_length_min</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">start_point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_point</span><span class="p">)</span>
+            <span class="n">thread_length_max</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_point</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">start_point</span><span class="p">)</span>
+
+            <span class="c1"># Get the catalogue of available items</span>
+            <span class="n">catalogue</span> <span class="o">=</span> <span class="n">JSONCatalogue</span><span class="p">(</span><span class="n">catalogue_filename</span><span class="p">)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get_query</span><span class="p">()</span>
+
+            <span class="c1"># Find viably sized wood-screw</span>
+            <span class="n">screw_item</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">catalogue</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+                    <span class="c1"># eval sets minimum evaluation length</span>
+                    <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">neck_length</span> <span class="o">&gt;=</span> <span class="n">neck_length_min</span><span class="p">)</span> <span class="o">&amp;</span>
+                    <span class="c1"># thread shouldn&#39;t pierce through last part</span>
+                    <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">criteria</span><span class="o">.</span><span class="n">thread_length</span> <span class="o">&lt;</span> <span class="n">thread_length_max</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="c1"># sort by shortest first</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;obj&#39;</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;neck_length&#39;</span><span class="p">]</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first result; shortest screw</span>
+
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;screw&#39;</span><span class="p">:</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">deserialize_result</span><span class="p">(</span><span class="n">screw_item</span><span class="p">),</span>
+                <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">screw_item</span><span class="p">[</span><span class="s1">&#39;criteria&#39;</span><span class="p">][</span><span class="s1">&#39;compatible_anchor&#39;</span><span class="p">]</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<p>Now, to re-use everything else we’ve done, we can inherit from
+<code class="docutils literal"><span class="pre">ConnectedPlanks</span></code> but use a different <em>fastener</em> class:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConnectedPlanksCatalogue</span><span class="p">(</span><span class="n">ConnectedPlanks</span><span class="p">):</span>
+    <span class="n">fastener_class</span> <span class="o">=</span> <span class="n">EasyInstallCatalogueFastener</span>
+</pre></div>
+</div>
+<iframe class="model-display"
+    src="../../_static/iframes/easy-install/connected_catalogue.html"
+    height="300px" width="100%"
+></iframe></div>
 </div>
 
 

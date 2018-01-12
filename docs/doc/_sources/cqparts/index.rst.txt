@@ -1,4 +1,4 @@
-``cqparts`` Library
+``cqparts`` Module
 =============================
 
 
