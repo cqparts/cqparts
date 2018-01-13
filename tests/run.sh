@@ -33,7 +33,14 @@ case "$1" in
 
     coverage)
         coverage run ${script}
-        coverage report
+        case "$2" in
+            text|"")
+                coverage report
+                ;;
+            html)
+                coverage html
+                ;;
+        esac
         ;;
 
     quick)

@@ -5,9 +5,12 @@ __all__ = [
     # Constraints
     'Fixed',
     'Coincident',
+
+    'solver',
 ]
 
 from .mate import Mate
+from . import solver
 
 # Constraints
 from .base import Constraint
