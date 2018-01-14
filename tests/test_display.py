@@ -72,14 +72,10 @@ class FreeCADTests(CQPartsTest):
         mock_show.assert_called_once_with(obj)
 
 
-def raise_kbint(t):
-    raise KeyboardInterrupt()
-
-
 @testlabel('web')
 class WebTests(CQPartsTest):
 
-    @mock.patch('time.sleep', raise_kbint)
+    @mock.patch('time.sleep', mock.Mock(side_effect=KeyboardInterrupt()))
     @mock.patch('webbrowser.open')
     @mock.patch('SocketServer.ThreadingTCPServer')
     def test_basic(self, mock_serverobj, mock_webbrowser_open):
