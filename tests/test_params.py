@@ -36,6 +36,61 @@ class ParametricObjectTests(CQPartsTest):
         self.assertNotEqual(t1.a, t2.a)
         self.assertNotEqual(t1.b, t2.b)
 
+    def test_bad_params(self):
+        class P(ParametricObject):
+            a = Float(1.2)
+            b = Int(3)
+        p1 = P(a=1, b=2)
+        with self.assertRaises(ParameterError):
+            p2 = P(a=1, b=2, c=3)  # no 'c' parameter
+
+
+class DeserializeTestClass(ParametricObject):
+    # class for:
+    #   ParametricObjectSerializeTests.test_deserialize
+    #   ParametricObjectSerializeTests.test_deserialize_baddata
+    a = Float(1.2)
+    b = Int(3)
+
+
+class ParametricObjectSerializeTests(CQPartsTest):
+
+    def test_serialize(self):
+        class P(ParametricObject):
+            a = Float(1.2)
+            b = Int(3)
+
+        data = P().serialize()
+
+        # verify serialized structure
+        self.assertEqual(set(data.keys()), set(['lib', 'class', 'params']))
+        self.assertEqual(set(data['lib'].keys()), set(['name', 'version']))
+        self.assertEqual(set(data['class'].keys()), set(['name', 'module']))
+        self.assertEqual(data['params'], {'a': 1.2, 'b': 3})
+
+    def test_deserialize(self):
+        p1 = DeserializeTestClass()
+        data = p1.serialize()
+        p2 = ParametricObject.deserialize(data)
+
+        # verify deserialized object is equal
+        self.assertEqual(type(p1), type(p2))
+        self.assertEqual((p1.a, p1.b), (p2.a, p2.b))
+
+    def test_deserialize_bad_module(self):
+        data = DeserializeTestClass().serialize()
+        # assumption: test_deserialize passes
+        data['class']['module'] += '__noexist__'
+        with self.assertRaises(ImportError):
+            ParametricObject.deserialize(data)
+
+    def test_deserialize_bad_name(self):
+        data = DeserializeTestClass().serialize()
+        # assumption: test_deserialize passes
+        data['class']['name'] += '__noexist__'
+        with self.assertRaises(ImportError):
+            ParametricObject.deserialize(data)
+
 
 class ParameterTests(CQPartsTest):
     def test_sphinx_param(self):
