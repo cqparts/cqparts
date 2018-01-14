@@ -25,7 +25,7 @@ def solver(constraints, coord_sys=None):
     # Verify list contains constraints
     for constraint in constraints:
         if not isinstance(constraint, Constraint):
-            raise ValueError("{:r} is not a constraint".format(constraint))
+            raise ValueError("{!r} is not a constraint".format(constraint))
 
     solved_count = 0
 
@@ -41,7 +41,7 @@ def solver(constraints, coord_sys=None):
                 indexes_solved.append(i)
                 yield (
                     constraint.mate.component,
-                    coord_sys + constraint.world_coords
+                    coord_sys + constraint.world_coords + (CoordSystem() - constraint.mate.local_coords)
                 )
 
             # Coincident

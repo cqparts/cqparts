@@ -20,23 +20,30 @@ _register = common_criteria(**module_criteria)(register)
 @_register(shape='cube')
 class Cube(cqparts.Part):
     """
-    Cube with its base on the XY plane
+    Cube centered on the XY plane
     """
     size = PositiveFloat(1, doc="length of all sides")
 
     def make(self):
         return cadquery.Workplane('XY').box(
             self.size, self.size, self.size,
-            centered=(True, True, False)
         )
 
     @property
     def mate_top(self):
         """
-        :return: mate at top of cube
+        :return: mate at top of cube, z-axis upward
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem((0, 0, self.size)))
+        return Mate(self, CoordSystem((0, 0, self.size / 2)))
+
+    @property
+    def mate_bottom(self):
+        """
+        :return: mate at base of cube, z-axis upward
+        :rtype: :class:`Mate <cqparts.constraint.Mate>`
+        """
+        return Mate(self, CoordSystem((0, 0, -self.size / 2)))
 
     @property
     def mate_pos_x(self):
@@ -45,7 +52,7 @@ class Cube(cqparts.Part):
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
         return Mate(self, CoordSystem(
-            origin=(self.size/2,0,self.size/2), xDir=(0,0,1), normal=(1,0,0)
+            origin=(self.size/2,0,0), xDir=(0,0,1), normal=(1,0,0)
         ))
 
     @property
@@ -55,7 +62,7 @@ class Cube(cqparts.Part):
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
         return Mate(self, CoordSystem(
-            origin=(-self.size/2,0,self.size/2), xDir=(0,0,1), normal=(-1,0,0)
+            origin=(-self.size/2,0,0), xDir=(0,0,1), normal=(-1,0,0)
         ))
 
     @property
