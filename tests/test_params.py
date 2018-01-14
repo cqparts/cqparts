@@ -37,6 +37,41 @@ class ParametricObjectTests(CQPartsTest):
         self.assertNotEqual(t1.b, t2.b)
 
 
+class ParameterTests(CQPartsTest):
+    def test_sphinx_param(self):
+        class MyParam(Parameter):
+            pass
+
+        # default
+        p1 = MyParam()
+        self.assertIsInstance(p1._param(), str)
+
+        # custom
+        p2 = MyParam(doc="custom doc")
+        self.assertEqual(p2._param(), "custom doc")
+
+    def test_sphinx_type(self):
+        # default
+        class MyParam1(Parameter):
+            pass
+        p1 = MyParam1()
+        self.assertIsInstance(p1._type(), str)
+
+        # custom
+        class MyParam2(Parameter):
+            _doc_type = "custom type"
+        p2 = MyParam2()
+        self.assertEqual(p2._type(), "custom type")
+
+    def test_new(self):
+        class MyParam(Parameter):
+            pass
+        p1 = MyParam(10)
+        p2 = p1.new(20)
+        self.assertIsInstance(p2, MyParam)
+        self.assertEqual(p2.default, 20)
+
+
 class ParameterTypeTests(CQPartsTest):
     def test_float(self):
         p = Float(1.5)
