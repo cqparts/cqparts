@@ -5,6 +5,7 @@ import shutil
 
 from base import CQPartsTest
 from base import testlabel
+from base import suppress_stdout_stderr
 
 # Unit(s) under test
 from cqparts import codec
@@ -56,9 +57,24 @@ class TestStep(CodecFileTest):
 
     def test_import(self):
         filename = 'test-files/cube.step'
-        cube = Part.importer('step')(filename)
-        self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
-        self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+        with suppress_stdout_stderr():
+            cube = Part.importer('step')(filename)
+            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
+            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+
+    def test_import_nofile(self):
+        filename = 'test-files/noexist.step'
+        with self.assertRaises(ValueError):
+            # exception raised before
+            Part.importer('step')(filename)
+
+    def test_import_badformat(self):
+        filename = 'test-files/bad_format.step'
+        thing = Part.importer('step')(filename)
+        # exception not raised before object is formed
+        with self.assertRaises(ValueError):
+            with suppress_stdout_stderr():
+                thing.local_obj
 
 
 @testlabel('codec', 'codec_json')
@@ -84,14 +100,16 @@ class TestStl(CodecFileTest):
 #       getting error on my virtual environment
 #           LookupError: unknown encoding: unicode
 #       cause unknown
-#
-#class TestAmf(CodecFileTest):
-#
-#    def test_export(self):
-#        cube = Cube()
-#        self.assertEqual(os.stat(self.temp.name).st_size, 0)
-#        cube.exporter('amf')(self.temp.name)
-#        self.assertGreater(os.stat(self.temp.name).st_size, 0)
+
+@testlabel('codec', 'codec_amf')
+@unittest.skip("py3 updates and encoding issues")
+class TestAmf(CodecFileTest):
+
+    def test_export(self):
+        cube = Cube()
+        self.assertEqual(os.stat(self.temp.name).st_size, 0)
+        cube.exporter('amf')(self.temp.name)
+        self.assertGreater(os.stat(self.temp.name).st_size, 0)
 
 
 @testlabel('codec', 'codec_svg')
@@ -124,7 +142,7 @@ class TestGltf(CodecFolderTest):
         self.assertFalse(os.path.exists(os.path.join(self.temp, 'cube.bin')))
 
 
-@testlabel('codec')
+@testlabel('codec', 'codec_gltf')
 class TestGltfBuffer(CQPartsTest):
     def test_indices_sizes(self):
         # 1 byte
