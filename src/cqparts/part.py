@@ -161,12 +161,3 @@ class Part(Component):
 
     def _placement_changed(self):
         self._world_obj = None
-
-    def __copy__(self):
-        new_obj = super(Part, self).__copy__()
-        # copy private content
-        new_obj._local_obj = copy_wp(self._local_obj)
-        new_obj._world_coords = copy(self._world_coords)
-        new_obj._world_obj =  copy_wp(self._world_obj)
-
-        return new_obj

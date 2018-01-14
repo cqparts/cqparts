@@ -277,6 +277,3 @@ class ParametricObject(object):
 
         # Instantiate new instance
         return cls(**params)
-
-    #@staticmethod
-    #def deserialized_class(data):
