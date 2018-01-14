@@ -11,7 +11,7 @@ from base import suppress_stdout_stderr
 from cqparts import codec
 from cqparts import Part
 
-from cqparts_misc.basic.primatives import Cube
+from partslib import Box, CubeStack
 
 
 class CodecTest(CQPartsTest):
@@ -50,7 +50,7 @@ class CodecFolderTest(CodecTest):
 @testlabel('codec', 'codc_step')
 class TestStep(CodecFileTest):
     def test_export(self):
-        cube = Cube()
+        cube = Box()
         self.assertFilesizeZero(self.temp.name)
         cube.exporter('step')(self.temp.name)
         self.assertFilesizeNonZero(self.temp.name)
@@ -81,7 +81,7 @@ class TestStep(CodecFileTest):
 @unittest.skip("py3 updates and encoding issues")
 class TestJson(CodecFileTest):
     def test_export(self):
-        cube = Cube()
+        cube = Box()
         self.assertFilesizeZero(self.temp.name)
         cube.exporter('json')(self.temp.name)
         self.assertFilesizeNonZero(self.temp.name)
@@ -90,7 +90,7 @@ class TestJson(CodecFileTest):
 @testlabel('codec', 'codec_stl')
 class TestStl(CodecFileTest):
     def test_export(self):
-        cube = Cube()
+        cube = Box()
         self.assertFilesizeZero(self.temp.name)
         cube.exporter('stl')(self.temp.name)
         self.assertFilesizeNonZero(self.temp.name)
@@ -106,7 +106,7 @@ class TestStl(CodecFileTest):
 class TestAmf(CodecFileTest):
 
     def test_export(self):
-        cube = Cube()
+        cube = Box()
         self.assertEqual(os.stat(self.temp.name).st_size, 0)
         cube.exporter('amf')(self.temp.name)
         self.assertGreater(os.stat(self.temp.name).st_size, 0)
@@ -115,7 +115,7 @@ class TestAmf(CodecFileTest):
 @testlabel('codec', 'codec_svg')
 class TestSvg(CodecFileTest):
     def test_export(self):
-        cube = Cube()
+        cube = Box()
         self.assertFilesizeZero(self.temp.name)
         cube.exporter('svg')(self.temp.name)
         self.assertGreater(os.stat(self.temp.name).st_size, 0)
@@ -123,8 +123,8 @@ class TestSvg(CodecFileTest):
 
 @testlabel('codec', 'codec_gltf')
 class TestGltf(CodecFolderTest):
-    def test_basic_not_embedded(self):
-        cube = Cube()
+    def test_part_not_embedded(self):
+        cube = Box()
         cube.exporter('gltf')(
             os.path.join(self.temp, 'cube.gltf'),
             embed=False,
@@ -132,14 +132,25 @@ class TestGltf(CodecFolderTest):
         self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.gltf'))
         self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.bin'))
 
-    def test_basic_embedded(self):
-        cube = Cube()
+    def test_part_embedded(self):
+        cube = Box()
         cube.exporter('gltf')(
             os.path.join(self.temp, 'cube.gltf'),
             embed=True,
         )
         self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.gltf'))
         self.assertFalse(os.path.exists(os.path.join(self.temp, 'cube.bin')))
+
+    def test_assembly(self):
+        asm = CubeStack()
+        asm.exporter('gltf')(
+            os.path.join(self.temp, 'asm.gltf')
+        )
+        self.assertFilesizeNonZero(os.path.join(self.temp, 'asm.gltf'))
+        for name in asm.components.keys():  # only works because it's a single layer assembly
+            self.assertFilesizeNonZero(
+                os.path.join(self.temp, 'asm.%s.bin' % name)
+            )
 
 
 @testlabel('codec', 'codec_gltf')
