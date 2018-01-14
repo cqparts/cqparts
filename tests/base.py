@@ -29,6 +29,56 @@ def testlabel(*labels):
     return inner
 
 
+# ------------------- Skip Logic -------------------
+def skip_if_no_freecad():
+    import cadquery
+
+    reason = "freecad 'Helpers.show' could not be imported"
+
+    try:
+        from Helpers import show
+    except ImportError:
+        # freecad import problem, skip the test
+        return (True, reason)
+    return (False, reason)
+
+
+class suppress_stdout_stderr(object):
+    """
+    Suppress stdout & stderr from any process::
+
+        >>> from base import suppress_stdout_stderr
+        >>> with suppress_stdout_stderr():
+        ...     print("can't see me")
+
+    a copy of: cadquery.freecad_impl.suppress_stdout_stderr
+    """
+    def __init__(self):
+        # Open null files
+        self.null_stdout = os.open(os.devnull, os.O_RDWR)
+        self.null_stderr = os.open(os.devnull, os.O_RDWR)
+
+        # Save the actual stdout (1) and stderr (2) file descriptors.
+        self.saved_stdout = os.dup(1)
+        self.saved_stderr = os.dup(2)
+
+    def __enter__(self):
+        # Assign the null pointers to stdout and stderr.
+        os.dup2(self.null_stdout, 1)
+        os.dup2(self.null_stderr, 2)
+
+    def __exit__(self, *_):
+        # Re-assign the real stdout/stderr back to (1) and (2)
+        os.dup2(self.saved_stdout, 1)
+        os.dup2(self.saved_stderr, 2)
+
+        # Close all file descriptors
+        os.close(self.null_stdout)
+        os.close(self.null_stderr)
+        os.close(self.saved_stdout)
+        os.close(self.saved_stderr)
+
+
 # ------------------- Core TestCase -------------------
 
 class CQPartsTest(unittest.TestCase):
