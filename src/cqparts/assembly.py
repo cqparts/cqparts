@@ -8,6 +8,8 @@ from .constraint import Constraint
 from .constraint.solver import solver
 from .utils.misc import indicate_last
 
+from .errors import AssemblyFindError
+
 import logging
 log = logging.getLogger(__name__)
 
@@ -143,7 +145,7 @@ class Assembly(Component):
         # check types for (name, component) pairs in dict
         for (name, component) in components.items():
             # name is a string
-            if not isinstance(name, six.string_types):
+            if not isinstance(name, str):
                 raise ValueError((
                     "invalid name from make_components(): (%r, %r) "
                     "(must be a (str, Component))"
@@ -240,6 +242,7 @@ class Assembly(Component):
         while True:
             (s1, s2, s3) = (True, True, True)  # stages
             # Make Components
+            new_components = None
             try:
                 new_components = components_iter.next()
                 self.verify_components(new_components)
@@ -248,6 +251,7 @@ class Assembly(Component):
                 s1 = False
 
             # Make Constraints
+            new_constraints = None
             try:
                 new_constraints = constraints_iter.next()
                 self.verify_constraints(new_constraints)
@@ -256,7 +260,8 @@ class Assembly(Component):
                 s2 = False
 
             # Run solver : sets components' world coordinates
-            self.solve()
+            if new_components or new_constraints:
+                self.solve()
 
             # Make Alterations
             try:
