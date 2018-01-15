@@ -3,6 +3,8 @@ from copy import copy
 from base import CQPartsTest
 from base import testlabel
 
+from partslib import Box
+
 # Unit under test
 from cqparts.params import *
 from cqparts.errors import ParameterError
@@ -128,6 +130,10 @@ class ParameterTests(CQPartsTest):
 
 
 class ParameterTypeTests(CQPartsTest):
+    pass
+
+
+class FloatTests(ParameterTypeTests):
     def test_float(self):
         p = Float(1.5)
         # default
@@ -166,6 +172,8 @@ class ParameterTypeTests(CQPartsTest):
         # nullable
         self.assertIsNone(p.cast(None))
 
+
+class IntTests(ParameterTypeTests):
     def test_int(self):
         p = Int(1)
         # default
@@ -206,6 +214,8 @@ class ParameterTypeTests(CQPartsTest):
         # nullable
         self.assertIsNone(p.cast(None))
 
+
+class BoolTests(ParameterTypeTests):
     def test_bool(self):
         p = Boolean(True)
         # default
@@ -219,6 +229,8 @@ class ParameterTypeTests(CQPartsTest):
         # nullable
         self.assertIsNone(p.cast(None))
 
+
+class StringTests(ParameterTypeTests):
     def test_string(self):
         p = String('abc')
         # default
@@ -258,6 +270,8 @@ class ParameterTypeTests(CQPartsTest):
         # nullable
         self.assertIsNone(p.cast(None))
 
+
+class NonNullTests(ParameterTypeTests):
     def test_non_null(self):
         p1 = NonNullParameter(1)
         # not nullable
@@ -269,5 +283,28 @@ class ParameterTypeTests(CQPartsTest):
         p2 = P(1)
         self.assertRaises(ParameterError, p2.cast, None)
 
+
+class PartsListTests(ParameterTypeTests):
     def test_partslist(self):
         p = PartsList()
+        (b1, b2) = (Box(), Box())
+        v = p.cast([b1, b2])
+        self.assertIsInstance(v, (list, tuple))
+        self.assertEqual([id(x) for x in v], [id(b1), id(b2)])
+
+    def test_partstuple(self):
+        p = PartsList()
+        (b1, b2) = (Box(), Box())
+        v = p.cast((b1, b2))  # tuple
+        self.assertIsInstance(v, (list, tuple))
+        self.assertEqual([id(x) for x in v], [id(b1), id(b2)])
+
+    def test_bad_value(self):
+        p = PartsList()
+        with self.assertRaises(ParameterError):
+            p.cast(1)
+
+    def test_bad_part(self):
+        p = PartsList()
+        with self.assertRaises(ParameterError):
+            p.cast([Box(), 1])
