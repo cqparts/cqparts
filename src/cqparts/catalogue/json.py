@@ -169,7 +169,7 @@ class JSONCatalogue(Catalogue):
         :return: deserialized object instance
         :rtype: :class:`Component <cqparts.Component>`
         """
-        return ParametricObject.deserialize(data['obj'])
+        return ParametricObject.deserialize(data.get('obj'))
 
     def get(self, *args, **kwargs):
         """

@@ -123,6 +123,10 @@ class JSONCatalogueTests(CQPartsTest):
     def test_deserialize(self):
         c = self.get_catalogue()
         c.add('id1', Box())
+        c.close()
+
+        # re-open catalogue
+        c = self.get_catalogue()
         i = c.get_query()
         item = c.find(i.id == 'id1')
         obj = c.deserialize_item(item)
@@ -134,4 +138,3 @@ class JSONCatalogueTests(CQPartsTest):
         i = c.get_query()
         obj = c.get(i.id == 'id1')
         self.assertIsInstance(obj, Box)
-        
