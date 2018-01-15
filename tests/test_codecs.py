@@ -2,6 +2,7 @@ import unittest
 import os
 import tempfile
 import shutil
+from collections import defaultdict
 
 from base import CQPartsTest
 from base import testlabel
@@ -9,7 +10,7 @@ from base import suppress_stdout_stderr
 
 # Unit(s) under test
 from cqparts import codec
-from cqparts import Part
+from cqparts import Part, Assembly, Component
 
 from partslib import Box, CubeStack
 
@@ -45,7 +46,151 @@ class CodecFolderTest(CodecTest):
         shutil.rmtree(self.temp)
 
 
-# ------- Tests -------
+# ------- Register Tests -------
+
+class RegistrationTests(CQPartsTest):
+    def setUp(self):
+        super(RegistrationTests, self).setUp()
+        # Retain mapping
+        self.orig_exporter_index = codec.exporter_index
+        self.orig_importer_index = codec.importer_index
+
+        # Set Mapping
+        codec.exporter_index = defaultdict(dict)
+        codec.importer_index = defaultdict(dict)
+
+    def tearDown(self):
+        super(RegistrationTests, self).tearDown()
+        # Restore mapping
+        codec.exporter_index = self.orig_exporter_index
+        codec.importer_index = self.orig_importer_index
+
+
+class ExporterRegisterTests(RegistrationTests):
+    def test_register(self):
+        @codec.register_exporter('abc', Part)
+        class Abc(codec.Exporter):
+            pass
+        self.assertEqual(codec.exporter_index, {'abc': {Part: Abc}})
+
+    def test_get_registered(self):
+        @codec.register_exporter('abc', Part)
+        class Abc(codec.Exporter):
+            pass
+        self.assertIsInstance(codec.get_exporter(Box(), 'abc'), Abc)
+
+    def test_get_registered_subtype(self):
+        @codec.register_exporter('abc', Component)
+        class Abc(codec.Exporter):
+            pass
+        self.assertIsInstance(codec.get_exporter(Box(), 'abc'), Abc)  # Part
+
+    def test_bad_name(self):
+        with self.assertRaises(TypeError):
+            @codec.register_exporter(123, Part)  # bad name type
+            class Abc(codec.Exporter):
+                pass
+
+    def test_bad_base_class(self):
+        with self.assertRaises(TypeError):
+            @codec.register_exporter('abc', int)  # base_class is not a Component
+            class Abc(codec.Exporter):
+                pass
+
+    def test_re_register(self):
+        @codec.register_exporter('abc', Part)
+        class Abc(codec.Exporter):
+            pass
+        with self.assertRaises(TypeError):
+            @codec.register_exporter('abc', Part)  # duplicate
+            class Def(codec.Exporter):
+                pass
+
+    def test_base_class_conflict(self):
+        @codec.register_exporter('abc', Component)
+        class Abc(codec.Exporter):
+            pass
+        with self.assertRaises(TypeError):
+            @codec.register_exporter('abc', Part)  # Part is a Component
+            class Def(codec.Exporter):
+                pass
+
+    def test_no_exporter(self):
+        with self.assertRaises(TypeError):
+            codec.get_exporter(Box(), 'abc')
+
+    def test_no_exporter_for_type(self):
+        @codec.register_exporter('abc', Part)
+        class Abc(codec.Exporter):
+            pass
+        with self.assertRaises(TypeError):
+            codec.get_exporter(CubeStack(), 'abc')  # assembly
+
+
+class ImporterRegisterTests(RegistrationTests):
+
+    def test_register(self):
+        @codec.register_importer('abc', Part)
+        class Abc(codec.Importer):
+            pass
+        self.assertEqual(codec.importer_index, {'abc': {Part: Abc}})
+
+    def test_get_registered(self):
+        @codec.register_importer('abc', Part)
+        class Abc(codec.Importer):
+            pass
+        self.assertIsInstance(codec.get_importer(Box, 'abc'), Abc)
+
+    def test_get_registered_subtype(self):
+        @codec.register_importer('abc', Component)
+        class Abc(codec.Importer):
+            pass
+        self.assertIsInstance(codec.get_importer(Box, 'abc'), Abc)
+
+    def test_bad_name(self):
+        with self.assertRaises(TypeError):
+            @codec.register_importer(123, Part)  # bad name type
+            class Abc(codec.Importer):
+                pass
+
+    def test_bad_base_class(self):
+        with self.assertRaises(TypeError):
+            @codec.register_importer('abc', str)  # base_class is not a Component
+            class Abc(codec.Importer):
+                pass
+
+    def test_re_register(self):
+        @codec.register_importer('abc', Part)
+        class Abc(codec.Importer):
+            pass
+        with self.assertRaises(TypeError):
+            @codec.register_importer('abc', Part)  # duplicate register
+            class Def(codec.Importer):
+                pass
+
+    def test_base_class_conflict(self):
+        @codec.register_importer('abc', Component)
+        class Abc(codec.Importer):
+            pass
+        with self.assertRaises(TypeError):
+            @codec.register_importer('abc', Part)  # Part is a Component
+            class Def(codec.Importer):
+                pass
+
+    def test_no_importer(self):
+        with self.assertRaises(TypeError):
+            codec.get_importer(Box, 'abc')
+
+    def test_no_importer_for_type(self):
+        @codec.register_importer('abc', Part)
+        class Abc(codec.Importer):
+            pass
+        with self.assertRaises(TypeError):
+            codec.get_importer(CubeStack, 'abc')
+
+
+# ------- Specific Codecs -------
+
 
 @testlabel('codec', 'codc_step')
 class TestStep(CodecFileTest):
@@ -69,7 +214,7 @@ class TestStep(CodecFileTest):
             Part.importer('step')(filename)
 
     def test_import_badformat(self):
-        filename = 'test-files/bad_format.step'
+        filename = 'test-files/bad_format.step'  # file exists, but is not a valid STEP file
         thing = Part.importer('step')(filename)
         # exception not raised before object is formed
         with self.assertRaises(ValueError):
