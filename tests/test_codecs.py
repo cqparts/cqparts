@@ -4,7 +4,7 @@ import tempfile
 import shutil
 from collections import defaultdict
 
-from base import CQPartsTest
+from base import CQPartsTest, CodecRegisterTests
 from base import testlabel
 from base import suppress_stdout_stderr
 
@@ -48,25 +48,7 @@ class CodecFolderTest(CodecTest):
 
 # ------- Register Tests -------
 
-class RegistrationTests(CQPartsTest):
-    def setUp(self):
-        super(RegistrationTests, self).setUp()
-        # Retain mapping
-        self.orig_exporter_index = codec.exporter_index
-        self.orig_importer_index = codec.importer_index
-
-        # Set Mapping
-        codec.exporter_index = defaultdict(dict)
-        codec.importer_index = defaultdict(dict)
-
-    def tearDown(self):
-        super(RegistrationTests, self).tearDown()
-        # Restore mapping
-        codec.exporter_index = self.orig_exporter_index
-        codec.importer_index = self.orig_importer_index
-
-
-class ExporterRegisterTests(RegistrationTests):
+class ExporterRegisterTests(CodecRegisterTests):
     def test_register(self):
         @codec.register_exporter('abc', Part)
         class Abc(codec.Exporter):
@@ -127,7 +109,7 @@ class ExporterRegisterTests(RegistrationTests):
             codec.get_exporter(CubeStack(), 'abc')  # assembly
 
 
-class ImporterRegisterTests(RegistrationTests):
+class ImporterRegisterTests(CodecRegisterTests):
 
     def test_register(self):
         @codec.register_importer('abc', Part)

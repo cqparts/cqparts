@@ -5,9 +5,10 @@ import inspect
 from collections import defaultdict
 from copy import copy
 
-
 _this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
+
+from cqparts import codec
 
 
 # ------------------- TestCase labels -------------------
@@ -89,3 +90,21 @@ class CQPartsTest(unittest.TestCase):
     def assertEqualAndType(self, obj, exp, t):
         self.assertEqual(obj, exp)
         self.assertEqual(type(exp), t)  # explicit test; intentionally not isinstance()
+
+
+class CodecRegisterTests(CQPartsTest):
+    def setUp(self):
+        super(CodecRegisterTests, self).setUp()
+        # Retain mapping
+        self.orig_exporter_index = codec.exporter_index
+        self.orig_importer_index = codec.importer_index
+
+        # Set Mapping
+        codec.exporter_index = defaultdict(dict)
+        codec.importer_index = defaultdict(dict)
+
+    def tearDown(self):
+        super(CodecRegisterTests, self).tearDown()
+        # Restore mapping
+        codec.exporter_index = self.orig_exporter_index
+        codec.importer_index = self.orig_importer_index
