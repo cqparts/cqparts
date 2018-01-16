@@ -186,8 +186,9 @@ class CoordSystem(cadquery.Plane):
                     xDir=rand_vect(-1, 1),
                     normal=rand_vect(-1, 1),
                 )
-            except ZeroDivisionError:
-                # the chance is very low, but it could happen
+            except RuntimeError:  # Base.FreeCADError inherits from RuntimeError
+                # Raised if xDir & normal vectors are parallel.
+                # (the chance is very low, but it could happen)
                 continue
 
     @property
@@ -260,9 +261,8 @@ class CoordSystem(cadquery.Plane):
             ])
 
         else:
-            raise TypeError("adding a {other_cls:r} to a {self_cls:r} is not supported".format(
-                self_cls=type(self),
-                other_cls=type(other),
+            raise TypeError("adding a {other_cls!r} to a {self_cls!r} is not supported".format(
+                self_cls=type(self), other_cls=type(other),
             ))
 
     def __sub__(self, other):
@@ -286,6 +286,11 @@ class CoordSystem(cadquery.Plane):
             return self.from_transform(
                 other_transform.multiply(self_transform)
             )
+
+        else:
+            raise TypeError("subtracting a {other_cls!r} from a {self_cls!r} is not supported".format(
+                self_cls=type(self), other_cls=type(other),
+            ))
 
     def __repr__(self):
         return "<{cls_name}: origin={origin} xDir={xDir} zDir={zDir}>".format(
