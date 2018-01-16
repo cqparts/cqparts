@@ -1,7 +1,7 @@
 import cadquery
 from math import sqrt, pi, sin, cos
+from copy import copy
 
-from cqparts.utils.geometry import copy
 from cqparts.params import *
 
 from .base import ScrewDrive, register

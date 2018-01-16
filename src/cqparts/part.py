@@ -10,7 +10,6 @@ from .display.material import (
 from .errors import MakeError, ParameterError, AssemblyFindError
 from .constraint import Constraint, Mate
 
-from .utils.geometry import copy as copy_wp
 from .utils.geometry import CoordSystem
 
 import logging

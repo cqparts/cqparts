@@ -3,7 +3,6 @@ from copy import copy
 
 import logging
 
-from cqparts.utils.geometry import copy
 from cqparts.utils import CoordSystem
 from cqparts.utils.misc import property_buffered
 from . import _casting

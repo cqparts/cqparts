@@ -5,15 +5,6 @@ import random
 #        right now I'm just trying to get it working.
 import FreeCAD
 
-from copy import copy as builtin_copy
-
-
-def copy(obj):
-    # FIXME: remove when in cadquery
-    if isinstance(obj, cadquery.Workplane):
-        return obj.translate((0, 0, 0))
-    return builtin_copy(obj)
-
 
 class CoordSystem(cadquery.Plane):
     """
