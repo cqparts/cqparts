@@ -8,7 +8,7 @@ from partslib import Box
 # Unit under test
 from cqparts.params import *
 from cqparts.errors import ParameterError
-
+from cqparts.params import as_parameter, ParametricObject
 
 class ParametricObjectTests(CQPartsTest):
     def test_inherited_params(self):
@@ -127,6 +127,49 @@ class ParameterTests(CQPartsTest):
         p2 = p1.new(20)
         self.assertIsInstance(p2, MyParam)
         self.assertEqual(p2.default, 20)
+
+
+class ObjectWrapperTests(CQPartsTest):
+
+    def test_as_parameter_nullable(self):
+
+        class _ContainerParam(object):
+            def __init__(self, a=1, b=2, c=3):
+                self.a = a
+                self.b = b
+                self.c = c
+        ContainerParam = as_parameter(nullable=True)(_ContainerParam)
+
+        self.assertTrue(issubclass(ContainerParam, Parameter))
+
+        class Thing(ParametricObject):
+            foo = ContainerParam({'a': 10, 'b': 100}, doc="controls stuff")
+
+        thing = Thing(foo={'a': 20})
+        self.assertIsInstance(thing.foo, _ContainerParam)
+        self.assertEqual(thing.foo.a, 20)
+        self.assertEqual(thing.foo.b, 2)
+        self.assertEqual(thing.foo.c, 3)
+
+        thing = Thing(foo=None)
+        self.assertIsNone(thing.foo)
+
+    def test_as_parameter_not_nullable(self):
+
+        @as_parameter(nullable=False)
+        class ContainerParam(object):
+            def __init__(self, a=1, b=2, c=3):
+                self.a = a
+                self.b = b
+                self.c = c
+
+        self.assertTrue(issubclass(ContainerParam, Parameter))
+
+        class Thing(ParametricObject):
+            foo = ContainerParam({'a': 10, 'b': 100}, doc="controls stuff")
+
+        with self.assertRaises(ParameterError):
+            Thing(foo=None)
 
 
 class ParameterTypeTests(CQPartsTest):
