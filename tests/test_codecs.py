@@ -238,7 +238,6 @@ class TestStl(CodecFileTest):
 #       cause unknown
 
 @testlabel('codec', 'codec_amf')
-@unittest.skip("py3 updates and encoding issues")
 class TestAmf(CodecFileTest):
 
     def test_export(self):
