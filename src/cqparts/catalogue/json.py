@@ -1,5 +1,7 @@
 
 import tinydb
+import os
+import re
 
 from .. import __version__
 from .. import Component
@@ -33,6 +35,11 @@ class JSONCatalogue(Catalogue):
         If a new database is created, a ``_dbinfo`` table is added with
         version & module information to assist backward compatability.
         """
+        self.filename = filename
+        self.name = re.sub(
+            r'[^a-z0-9\._\-+]', '_',
+            os.path.splitext(os.path.basename(filename))[0]
+        )
         self.db = tinydb.TinyDB(filename)
         self.items = self.db.table('items')
 

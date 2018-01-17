@@ -1,5 +1,6 @@
 import os
 import tempfile
+import mock
 
 from base import CQPartsTest
 from base import testlabel
@@ -35,6 +36,11 @@ class JSONCatalogueTests(CQPartsTest):
         ]))
         self.assertEqual(len(c.db.table('items').all()), 0)
         self.assertEqual(len(c.db.table('_default').all()), 0)
+
+    @mock.patch('tinydb.TinyDB')
+    def test_name(self, mock_tinydb):
+        c = self.get_catalogue()
+        self.assertTrue(bool(c.name))
 
     def test_dbinfo_table(self):
         # open new catalogue
