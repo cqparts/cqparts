@@ -1,6 +1,6 @@
 import os
 import json
-from io import BytesIO
+from io import StringIO
 
 import logging
 log = logging.getLogger(__name__)
@@ -66,7 +66,7 @@ class ThreejsJSONExporter(Exporter):
         :rtype: :class:`dict`
         """
         data = {}
-        with BytesIO() as stream:
+        with StringIO() as stream:
             obj = self.obj.world_obj if world else self.obj.local_obj
             cadquery.exporters.exportShape(obj, 'TJS', stream)
             stream.seek(0)

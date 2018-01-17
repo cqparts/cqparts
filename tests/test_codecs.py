@@ -28,22 +28,21 @@ class CodecTest(CQPartsTest):
 class CodecFileTest(CodecTest):
     def setUp(self):
         # Create a named temporary file to write to
-        self.temp = tempfile.NamedTemporaryFile(delete=False)
-        self.temp.close()  # to be opened and written by test
+        self.filename = tempfile.mkstemp()[1]
 
     def tearDown(self):
         # Remove temporary file
-        os.unlink(self.temp.name)
+        os.unlink(self.filename)
 
 
 class CodecFolderTest(CodecTest):
     def setUp(self):
         # Create a temporary folder to populate, then delete
-        self.temp = tempfile.mkdtemp()
+        self.foldername = tempfile.mkdtemp()
 
     def tearDown(self):
         # Remove temporary folder, and all content recursively
-        shutil.rmtree(self.temp)
+        shutil.rmtree(self.foldername)
 
 
 # ------- Register Tests -------
@@ -178,9 +177,9 @@ class ImporterRegisterTests(CodecRegisterTests):
 class TestStep(CodecFileTest):
     def test_export(self):
         cube = Box()
-        self.assertFilesizeZero(self.temp.name)
-        cube.exporter('step')(self.temp.name)
-        self.assertFilesizeNonZero(self.temp.name)
+        self.assertFilesizeZero(self.filename)
+        cube.exporter('step')(self.filename)
+        self.assertFilesizeNonZero(self.filename)
 
     def test_import(self):
         filename = 'test-files/cube.step'
@@ -205,22 +204,32 @@ class TestStep(CodecFileTest):
 
 
 @testlabel('codec', 'codec_json')
-@unittest.skip("py3 updates and encoding issues")
-class TestJson(CodecFileTest):
+class TestJsonPart(CodecFileTest):
     def test_export(self):
         cube = Box()
-        self.assertFilesizeZero(self.temp.name)
-        cube.exporter('json')(self.temp.name)
-        self.assertFilesizeNonZero(self.temp.name)
+        self.assertFilesizeZero(self.filename)
+        cube.exporter('json')(self.filename)
+        self.assertFilesizeNonZero(self.filename)
+
+
+@testlabel('codec', 'codec_json')
+class TestJsonAssembly(CodecFolderTest):
+    def test_export(self):
+        obj = CubeStack()
+        f = lambda n: os.path.join(self.foldername, n)
+        obj.exporter('json')(f('out.json'))
+        self.assertFalse(os.path.exists(f('out.json')))
+        self.assertFilesizeNonZero(f('out.cube_a.json'))
+        self.assertFilesizeNonZero(f('out.cube_b.json'))
 
 
 @testlabel('codec', 'codec_stl')
 class TestStl(CodecFileTest):
     def test_export(self):
         cube = Box()
-        self.assertFilesizeZero(self.temp.name)
-        cube.exporter('stl')(self.temp.name)
-        self.assertFilesizeNonZero(self.temp.name)
+        self.assertFilesizeZero(self.filename)
+        cube.exporter('stl')(self.filename)
+        self.assertFilesizeNonZero(self.filename)
 
 
 # TODO: temporarily removed
@@ -234,18 +243,18 @@ class TestAmf(CodecFileTest):
 
     def test_export(self):
         cube = Box()
-        self.assertEqual(os.stat(self.temp.name).st_size, 0)
-        cube.exporter('amf')(self.temp.name)
-        self.assertGreater(os.stat(self.temp.name).st_size, 0)
+        self.assertEqual(os.stat(self.filename).st_size, 0)
+        cube.exporter('amf')(self.filename)
+        self.assertGreater(os.stat(self.filename).st_size, 0)
 
 
 @testlabel('codec', 'codec_svg')
 class TestSvg(CodecFileTest):
     def test_export(self):
         cube = Box()
-        self.assertFilesizeZero(self.temp.name)
-        cube.exporter('svg')(self.temp.name)
-        self.assertGreater(os.stat(self.temp.name).st_size, 0)
+        self.assertFilesizeZero(self.filename)
+        cube.exporter('svg')(self.filename)
+        self.assertGreater(os.stat(self.filename).st_size, 0)
 
 
 @testlabel('codec', 'codec_gltf')
@@ -253,30 +262,30 @@ class TestGltf(CodecFolderTest):
     def test_part_not_embedded(self):
         cube = Box()
         cube.exporter('gltf')(
-            os.path.join(self.temp, 'cube.gltf'),
+            os.path.join(self.foldername, 'cube.gltf'),
             embed=False,
         )
-        self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.gltf'))
-        self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.bin'))
+        self.assertFilesizeNonZero(os.path.join(self.foldername, 'cube.gltf'))
+        self.assertFilesizeNonZero(os.path.join(self.foldername, 'cube.bin'))
 
     def test_part_embedded(self):
         cube = Box()
         cube.exporter('gltf')(
-            os.path.join(self.temp, 'cube.gltf'),
+            os.path.join(self.foldername, 'cube.gltf'),
             embed=True,
         )
-        self.assertFilesizeNonZero(os.path.join(self.temp, 'cube.gltf'))
-        self.assertFalse(os.path.exists(os.path.join(self.temp, 'cube.bin')))
+        self.assertFilesizeNonZero(os.path.join(self.foldername, 'cube.gltf'))
+        self.assertFalse(os.path.exists(os.path.join(self.foldername, 'cube.bin')))
 
     def test_assembly(self):
         asm = CubeStack()
         asm.exporter('gltf')(
-            os.path.join(self.temp, 'asm.gltf')
+            os.path.join(self.foldername, 'asm.gltf')
         )
-        self.assertFilesizeNonZero(os.path.join(self.temp, 'asm.gltf'))
+        self.assertFilesizeNonZero(os.path.join(self.foldername, 'asm.gltf'))
         for name in asm.components.keys():  # only works because it's a single layer assembly
             self.assertFilesizeNonZero(
-                os.path.join(self.temp, 'asm.%s.bin' % name)
+                os.path.join(self.foldername, 'asm.%s.bin' % name)
             )
 
 
