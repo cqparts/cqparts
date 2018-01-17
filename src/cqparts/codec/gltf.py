@@ -498,7 +498,7 @@ class GLTFExporter(Exporter):
             ...     mimetype="application/octet-stream",
             ...     data=base64.b64encode(buff.read()).decode('ascii'),
             ... )}
-            {'uri': 'data:application/octet-stream;base64,AAAAvwAAAD8AAIA/AAAAvwAAAD8AAAAAAAAAvwAAAL8AAIA/AAAAvwAAAL8AAAAAAAAAPwAAAL8AAIA/AAAAPwAAAD8AAAAAAAAAPwAAAD8AAIA/AAAAPwAAAL8AAAAAAAECAQMCBAUGBAcFAwcCAgcEAAUBBgUAAwEHBwEFBAACBgAE'}
+            {'uri': 'data:application/octet-stream;base64,AAAAvwAAAD8AAAA/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAC/AAAAPwAAAD8AAAA/AAAAPwAAAL8AAAC/AAECAQMCBAUGBAcFAwcCAgcEAAUBBgUAAwEHBwEFBAACBgAE'}
         """
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
