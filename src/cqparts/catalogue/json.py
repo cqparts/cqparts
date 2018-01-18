@@ -27,10 +27,12 @@ class JSONCatalogue(Catalogue):
     _version = '0.1'
     _dbinfo_name = '_dbinfo'
 
-    def __init__(self, filename):
+    def __init__(self, filename, clean=False):
         """
         :param filename: name of catalogue file
         :type filename: :class:`str`
+        :param clean: if set, catalogue is deleted, to be re-populatd from scratch
+        :type clean: :class:`bool`
 
         If a new database is created, a ``_dbinfo`` table is added with
         version & module information to assist backward compatability.
@@ -38,9 +40,13 @@ class JSONCatalogue(Catalogue):
         self.filename = filename
         self.name = re.sub(
             r'[^a-z0-9\._\-+]', '_',
-            os.path.splitext(os.path.basename(filename))[0]
+            os.path.splitext(os.path.basename(filename))[0],
+            flags=re.IGNORECASE,
         )
-        self.db = tinydb.TinyDB(filename)
+        if clean and os.path.exists(self.filename):
+            with open(self.filename, 'w'):
+                pass  # remove file's content, then close
+        self.db = tinydb.TinyDB(filename, default_table='items')
         self.items = self.db.table('items')
 
         if self._dbinfo_name not in self.db.tables():
@@ -164,6 +170,16 @@ class JSONCatalogue(Catalogue):
         })
 
         return index
+
+    def iter_items(self):
+        """
+        Iterate through all items in the catalogue
+
+        :return: iterator for each item
+        :rtype: generator
+        """
+        for item in self.items.all():
+            yield item
 
     # ------- Getting Items -------
     def deserialize_item(self, data):

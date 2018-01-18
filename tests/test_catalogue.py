@@ -30,12 +30,19 @@ class JSONCatalogueTests(CQPartsTest):
     def test_init_status(self):
         c = self.get_catalogue()
         self.assertEqual(c.db.tables(), set([
-            '_default',
             'items',
             JSONCatalogue._dbinfo_name,
         ]))
         self.assertEqual(len(c.db.table('items').all()), 0)
         self.assertEqual(len(c.db.table('_default').all()), 0)
+
+    def test_clean(self):
+        c = JSONCatalogue(self.filename)
+        self.populate_catalogue(c)
+        self.assertGreater(len(c.items.all()), 0)
+        c.close()
+        c = JSONCatalogue(self.filename, clean=True)  # should clear catalogue
+        self.assertEquals(len(c.items.all()), 0)
 
     @mock.patch('tinydb.TinyDB')
     def test_name(self, mock_tinydb):
