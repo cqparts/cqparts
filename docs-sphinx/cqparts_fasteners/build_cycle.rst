@@ -7,7 +7,7 @@
 ``Fastener`` Build Cycle
 ================================
 
-As stated in :ref:`parts_fasteners_what`, a
+As stated in :ref:`cqparts_fasteners.index`, a
 :class:`Fastener <cqparts_fasteners.Fastener>` is an
 :class:`Assemly <cqparts.Assembly>`, so it's highly recommended you
 understand :ref:`parts_assembly-build-cycle` before reading this section.

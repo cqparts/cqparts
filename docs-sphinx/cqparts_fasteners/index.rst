@@ -1,4 +1,6 @@
 
+.. _cqparts_fasteners.index:
+
 ``cqparts_fasteners`` Module
 ====================================
 
