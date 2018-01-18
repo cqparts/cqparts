@@ -174,7 +174,7 @@ by deserializing it:
     >>> result = catalogue.find(item.id == 'box_L20')
 
     >>> # Creating object
-    >>> catalogue.deserialize_result(result)
+    >>> catalogue.deserialize_item(result)
     <Box: height=1.0, length=20.0, width=1.0>
 
 To streamline things, we can also do all of this in one line with the

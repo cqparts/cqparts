@@ -98,9 +98,9 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module APIs</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="cqparts.html">cqparts package</a><ul class="current">
@@ -505,11 +505,6 @@ box is always positioned orthogonally to the other two.</p>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="cqparts.utils.geometry.copy">
-<code class="descclassname">cqparts.utils.geometry.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.geometry.copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-cqparts.utils.misc">
 <span id="cqparts-utils-misc-module"></span><h2>cqparts.utils.misc module<a class="headerlink" href="#module-cqparts.utils.misc" title="Permalink to this headline">¶</a></h2>
@@ -643,6 +638,187 @@ duplicate variables cluttering the sphinx docs.</p>
     <span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;autodoc-skip-member&quot;</span><span class="p">,</span> <span class="n">skip_class_parameters</span><span class="p">())</span>
 </pre></div>
 </div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.utils.test">
+<span id="cqparts-utils-test-module"></span><h2>cqparts.utils.test module<a class="headerlink" href="#module-cqparts.utils.test" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.utils.test.CatalogueTest">
+<em class="property">class </em><code class="descclassname">cqparts.utils.test.</code><code class="descname">CatalogueTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.CatalogueTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="attribute">
+<dt id="cqparts.utils.test.CatalogueTest.catalogue">
+<code class="descname">catalogue</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.utils.test.CatalogueTest.catalogue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cqparts.utils.test.CatalogueTest.create_from">
+<em class="property">classmethod </em><code class="descname">create_from</code><span class="sig-paren">(</span><em>catalogue</em>, <em>add_to={}</em>, <em>id_mangler=None</em>, <em>include_cond=None</em>, <em>exclude_cond=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.CatalogueTest.create_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a testcase class that will run generic tests on each item
+in the given <a class="reference internal" href="cqparts.catalogue.html#cqparts.catalogue.Catalogue" title="cqparts.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">Catalogue</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>catalogue</strong> (<a class="reference internal" href="cqparts.catalogue.html#cqparts.catalogue.Catalogue" title="cqparts.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">Catalogue</span></code></a>) – catalogue to generatea tests from</li>
+<li><strong>add_to</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – dict to add resulting class to (usually <code class="docutils literal"><span class="pre">globals()</span></code>.</li>
+<li><strong>id_mangler</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – convert item id to a valid python method name</li>
+<li><strong>include_cond</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – returns true if item should be tested</li>
+<li><strong>exclude_cond</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – returns true if item should not be tested</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a testcase class to be discovered and run by <a class="reference external" href="https://docs.python.org/2/library/unittest.html#module-unittest" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">unittest</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/unittest.html#unittest.TestCase" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">unittest.TestCase</span></code></a> sub-class (a class, <strong>not</strong> an instance)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>To create a test-case, and add the class with the catalogue’s
+name to the <code class="docutils literal"><span class="pre">globals()</span></code> namespace:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.test</span> <span class="k">import</span> <span class="n">CatalogueTest</span>
+<span class="kn">from</span> <span class="nn">cqparts.catalogue</span> <span class="k">import</span> <span class="n">JSONCatalogue</span>
+
+<span class="n">catalogue</span> <span class="o">=</span> <span class="n">JSONCatalogue</span><span class="p">(</span><span class="s1">&#39;my_catalogue.json&#39;</span><span class="p">)</span>
+<span class="n">CatalogueTest</span><span class="o">.</span><span class="n">create_from</span><span class="p">(</span><span class="n">catalogue</span><span class="p">,</span> <span class="n">add_to</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Alternatively, to control your class name a bit more traditionally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># alternatively</span>
+<span class="n">MyTestCase</span> <span class="o">=</span> <span class="n">CatalogueTest</span><span class="o">.</span><span class="n">create_from</span><span class="p">(</span><span class="n">catalogue</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Test Names / Catalogue IDs</strong></p>
+<p>Each test is named for its item’s <code class="docutils literal"><span class="pre">id</span></code>. By default, to translate the
+ids into valid python method names, this is done by replacing any
+<em>non-alpha-numeric</em> characters with a <code class="docutils literal"><span class="pre">_</span></code>.</p>
+<p>To illustrate with some examples:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="33%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">id</th>
+<th class="head">mangled id</th>
+<th class="head">test name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">abc123</span></code></td>
+<td><code class="docutils literal"><span class="pre">abc123</span></code> (same)</td>
+<td><code class="docutils literal"><span class="pre">test_abc123</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">3.14159</span></code></td>
+<td><code class="docutils literal"><span class="pre">3_14159</span></code></td>
+<td><code class="docutils literal"><span class="pre">test_3_14159</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">%$#*_yeah!</span></code></td>
+<td><code class="docutils literal"><span class="pre">_____yeah_</span></code></td>
+<td><code class="docutils literal"><span class="pre">test______yeah_</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">_(&#64;&#64;)yeah&amp;</span></code></td>
+<td><code class="docutils literal"><span class="pre">_____yeah_</span></code></td>
+<td><code class="docutils literal"><span class="pre">test______yeah_</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>So you can see why a python method name of <code class="docutils literal"><span class="pre">test_%$#*_yeah!</span></code> might be
+a problem, which is why this is done. But you may also spot that the
+last 2, although their IDs are unique, the test method names are
+the same.</p>
+<p>To change the way ID’s are mangled into test method names, set the
+<code class="docutils literal"><span class="pre">id_mangler</span></code> parameter:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mangle_id</span><span class="p">(</span><span class="n">id_str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">id_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">)</span>
+
+<span class="n">CatalogueTest</span><span class="o">.</span><span class="n">create_from</span><span class="p">(</span>
+    <span class="n">catalogue</span><span class="p">,</span>  <span class="c1"># as defined in the previous example</span>
+    <span class="n">add_to</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span>
+    <span class="n">id_mangler</span><span class="o">=</span><span class="n">mangle_id</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>That would change the first test name to <code class="docutils literal"><span class="pre">test_Xbc123</span></code>.</p>
+<p><strong>Include / Exclude Items</strong></p>
+<p>If you intend on <em>including</em> or <em>excluding</em> certain items from the
+testlist, you can employ the <code class="docutils literal"><span class="pre">include_cond</span></code> and/or <code class="docutils literal"><span class="pre">exclude_cond</span></code>
+parameters:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">include_item</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="c1"># include item if it has a specific id</span>
+    <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">exclude_item</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="c1"># exclude everything with a width &gt; 100</span>
+    <span class="k">return</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span>
+
+<span class="n">CatalogueTest</span><span class="o">.</span><span class="n">create_from</span><span class="p">(</span>
+    <span class="n">catalogue</span><span class="p">,</span>  <span class="c1"># as defined in the previous example</span>
+    <span class="n">add_to</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span>
+    <span class="n">include_cond</span><span class="o">=</span><span class="n">include_item</span><span class="p">,</span>
+    <span class="n">exclude_cond</span><span class="o">=</span><span class="n">exclude_item</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Tests will be created if the following conditions are met:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">excluded</th>
+<th class="head">included</th>
+<th class="head">test case generated?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>n/a</td>
+<td>n/a</td>
+<td>Yes : tests are generated if no include/exclude methods are set</td>
+</tr>
+<tr class="row-odd"><td>n/a</td>
+<td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>n/a</td>
+<td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td>n/a</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td>n/a</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td>No : inclusion take precedence (or lack thereof)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td><code class="docutils literal"><span class="pre">False</span></code></td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td><code class="docutils literal"><span class="pre">True</span></code></td>
+<td>Yes : inclusion take precedence</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>

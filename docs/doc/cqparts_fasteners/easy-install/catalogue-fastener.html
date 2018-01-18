@@ -307,7 +307,7 @@ and instantiated (in the overridden
             <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># first result; shortest screw</span>
 
             <span class="k">return</span> <span class="p">{</span>
-                <span class="s1">&#39;screw&#39;</span><span class="p">:</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">deserialize_result</span><span class="p">(</span><span class="n">screw_item</span><span class="p">),</span>
+                <span class="s1">&#39;screw&#39;</span><span class="p">:</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">deserialize_item</span><span class="p">(</span><span class="n">screw_item</span><span class="p">),</span>
                 <span class="s1">&#39;anchor&#39;</span><span class="p">:</span> <span class="n">catalogue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                     <span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">screw_item</span><span class="p">[</span><span class="s1">&#39;criteria&#39;</span><span class="p">][</span><span class="s1">&#39;compatible_anchor&#39;</span><span class="p">]</span>
                 <span class="p">),</span>

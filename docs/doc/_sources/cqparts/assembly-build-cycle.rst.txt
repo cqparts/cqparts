@@ -242,16 +242,16 @@ the :mod:`cqparts_misc.basic` module.
     class BlockStack(cqparts.Assembly):
         def make_components(self):
             print("make Box 'a'")
-            yield {'a': Box(length=10, width=10, height=20)}
+            yield {'a': Box(length=10, width=10, height=20)}  # grey
 
             print("make 2 Cubes 'b', and 'c'")
             yield {
-                'b': Cube(size=8),
-                'c': Cube(size=3),
+                'b': Cube(size=8, _render={'color': (255, 0, 0)}),  # red
+                'c': Cube(size=3, _render={'color': (0, 255, 0)}),  # green
             }
 
             print("make sphere 'd'")
-            yield {'d': Sphere(radius=3)}
+            yield {'d': Sphere(radius=3, _render={'color': (0, 0, 255)})}  # blue
 
         def make_constraints(self):
             print("place 'a' at origin")
@@ -262,8 +262,8 @@ the :mod:`cqparts_misc.basic` module.
             b = self.components['b']
             c = self.components['c']
             yield [
-                Fixed(b.mate_origin, a.world_coords + a.mate_pos_x.local_coords),
-                Fixed(c.mate_origin, a.world_coords + a.mate_neg_y.local_coords),
+                Fixed(b.mate_bottom, a.world_coords + a.mate_pos_x.local_coords),
+                Fixed(c.mate_bottom, a.world_coords + a.mate_neg_y.local_coords),
             ]
 
             print("place sphere 'd' on cube 'b'")

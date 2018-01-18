@@ -207,6 +207,26 @@
 <dt id="cqparts.catalogue.catalogue.Catalogue">
 <em class="property">class </em><code class="descclassname">cqparts.catalogue.catalogue.</code><code class="descname">Catalogue</code><a class="headerlink" href="#cqparts.catalogue.catalogue.Catalogue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.catalogue.catalogue.Catalogue.iter_items">
+<code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.catalogue.Catalogue.iter_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through every item in the catalogue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">iterator for every item</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">generator</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Must be overridden by inheriting class</p>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -214,18 +234,22 @@
 <span id="cqparts-catalogue-json-module"></span><h2>cqparts.catalogue.json module<a class="headerlink" href="#module-cqparts.catalogue.json" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cqparts.catalogue.json.JSONCatalogue">
-<em class="property">class </em><code class="descclassname">cqparts.catalogue.json.</code><code class="descname">JSONCatalogue</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.catalogue.json.</code><code class="descname">JSONCatalogue</code><span class="sig-paren">(</span><em>filename</em>, <em>clean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.catalogue.catalogue.Catalogue" title="cqparts.catalogue.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">cqparts.catalogue.catalogue.Catalogue</span></code></a></p>
 <p>Catalogue with JSON storage using <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code>.</p>
 <p>For more information, read <a class="reference internal" href="../cqparts/catalogue.html#cqparts-catalogue"><span class="std std-ref">Catalogue</span></a>.</p>
 <dl class="method">
 <dt id="cqparts.catalogue.json.JSONCatalogue.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em>, <em>clean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
+<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -291,8 +315,8 @@ for future-proofing.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.catalogue.json.JSONCatalogue.deserialize_result">
-<code class="descname">deserialize_result</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.deserialize_result" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.catalogue.json.JSONCatalogue.deserialize_item">
+<code class="descname">deserialize_item</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.deserialize_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> from a database
 search result.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -333,7 +357,7 @@ search result.</p>
 <dl class="method">
 <dt id="cqparts.catalogue.json.JSONCatalogue.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combination of <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.find" title="cqparts.catalogue.json.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> and <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.deserialize_result" title="cqparts.catalogue.json.JSONCatalogue.deserialize_result"><code class="xref py py-meth docutils literal"><span class="pre">deserialize_result()</span></code></a>;
+<dd><p>Combination of <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.find" title="cqparts.catalogue.json.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> and <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.deserialize_item" title="cqparts.catalogue.json.JSONCatalogue.deserialize_item"><code class="xref py py-meth docutils literal"><span class="pre">deserialize_item()</span></code></a>;
 the result from <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.find" title="cqparts.catalogue.json.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> is deserialized and returned.</p>
 <p>Input is a <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code> query.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -367,6 +391,22 @@ search the catalogue)</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cqparts.catalogue.json.JSONCatalogue.iter_items">
+<code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.iter_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all items in the catalogue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">iterator for each item</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">generator</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cqparts.catalogue.json.JSONCatalogue.search">
 <code class="descname">search</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Passthrough to <a class="reference external" href="http://tinydb.readthedocs.io/en/latest/api.html#tinydb.database.Table.search" title="(in TinyDB v3.7)"><code class="xref py py-meth docutils literal"><span class="pre">Table.search()</span></code></a>
@@ -394,22 +434,46 @@ for the <code class="docutils literal"><span class="pre">items</span></code> tab
 <dt id="cqparts.catalogue.Catalogue">
 <em class="property">class </em><code class="descclassname">cqparts.catalogue.</code><code class="descname">Catalogue</code><a class="headerlink" href="#cqparts.catalogue.Catalogue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.catalogue.Catalogue.iter_items">
+<code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.Catalogue.iter_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through every item in the catalogue.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">iterator for every item</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">generator</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Must be overridden by inheriting class</p>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="cqparts.catalogue.JSONCatalogue">
-<em class="property">class </em><code class="descclassname">cqparts.catalogue.</code><code class="descname">JSONCatalogue</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cqparts.catalogue.</code><code class="descname">JSONCatalogue</code><span class="sig-paren">(</span><em>filename</em>, <em>clean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.catalogue.catalogue.Catalogue" title="cqparts.catalogue.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">cqparts.catalogue.catalogue.Catalogue</span></code></a></p>
 <p>Catalogue with JSON storage using <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code>.</p>
 <p>For more information, read <a class="reference internal" href="../cqparts/catalogue.html#cqparts-catalogue"><span class="std std-ref">Catalogue</span></a>.</p>
 <dl class="method">
 <dt id="cqparts.catalogue.JSONCatalogue.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filename</em>, <em>clean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
+<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -475,8 +539,8 @@ for future-proofing.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cqparts.catalogue.JSONCatalogue.deserialize_result">
-<code class="descname">deserialize_result</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.deserialize_result" title="Permalink to this definition">¶</a></dt>
+<dt id="cqparts.catalogue.JSONCatalogue.deserialize_item">
+<code class="descname">deserialize_item</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.deserialize_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> from a database
 search result.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -517,7 +581,7 @@ search result.</p>
 <dl class="method">
 <dt id="cqparts.catalogue.JSONCatalogue.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combination of <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> and <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.deserialize_result" title="cqparts.catalogue.JSONCatalogue.deserialize_result"><code class="xref py py-meth docutils literal"><span class="pre">deserialize_result()</span></code></a>;
+<dd><p>Combination of <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> and <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.deserialize_item" title="cqparts.catalogue.JSONCatalogue.deserialize_item"><code class="xref py py-meth docutils literal"><span class="pre">deserialize_item()</span></code></a>;
 the result from <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> is deserialized and returned.</p>
 <p>Input is a <code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code> query.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -545,6 +609,22 @@ search the catalogue)</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><code class="xref py py-mod docutils literal"><span class="pre">tinydb</span></code> query instance</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tinydb.Query</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.catalogue.JSONCatalogue.iter_items">
+<code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.iter_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all items in the catalogue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">iterator for each item</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">generator</td>
 </tr>
 </tbody>
 </table>
