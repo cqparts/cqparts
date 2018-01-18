@@ -36,6 +36,14 @@ cqparts\.utils\.sphinx module
     :undoc-members:
     :show-inheritance:
 
+cqparts\.utils\.test module
+---------------------------
+
+.. automodule:: cqparts.utils.test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cqparts\.utils\.wrappers module
 -------------------------------
 

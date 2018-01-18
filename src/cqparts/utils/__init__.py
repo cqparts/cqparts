@@ -25,3 +25,7 @@ from .misc import working_dir
 from .misc import measure_time
 
 from .wrappers import as_part
+
+#from . import test
+# Nope!, test is only intended to be imported by testcases, so it's not
+# imported automatically when cqparts.utils is referenced
