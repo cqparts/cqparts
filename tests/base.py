@@ -80,6 +80,57 @@ class suppress_stdout_stderr(object):
         os.close(self.saved_stderr)
 
 
+# ------------------- Debugging -------------------
+
+def debug_on_exception(func):
+    """
+    Opens an ``ipdb`` debugging propt at the point of failure
+    when an uncaught exception is raised.
+
+    .. warning::
+
+        must not be in production code... only to be used for
+        debugging purposes.
+
+    Usage::
+
+        from base import debug_on_exception
+
+        @debug_on_exception
+        def foo(a=100):
+            return 1 / a
+
+        foo(0)
+
+    results in an ``ipdb`` prompt::
+
+        Traceback (most recent call last):
+          File "./test.py", line 8, in wrapper
+            func(*args, **kwargs)
+          File "./test.py", line 19, in foo
+            return 1 / a
+        ZeroDivisionError: integer division or modulo by zero
+        > /home/nymphii/temp/test.py(19)foo()
+             18 def foo(a=100):
+        ---> 19     return 1 / a
+             20
+
+        ipdb> !a
+        0
+        ipdb>
+
+    """
+    def pdb_wrapper(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except:
+            import ipdb, traceback, sys
+            type, value, tb = sys.exc_info()
+            traceback.print_exc()
+            ipdb.post_mortem(tb)
+    return pdb_wrapper
+
+
 # ------------------- Core TestCase -------------------
 
 class CQPartsTest(unittest.TestCase):
