@@ -37,11 +37,13 @@ class PhillipsScrewDrive(ScrewDrive):
     """
     .. image:: /_static/img/screwdrives/phillips.png
     """
-    width = PositiveFloat(0.5, doc="blade width")
+    width = PositiveFloat(None, doc="blade width")
     chamfer = PositiveFloat(None, "chamfer at top of cross section")
 
     def initialize_parameters(self):
         super(PhillipsScrewDrive, self).initialize_parameters()
+        if self.width is None:
+            self.width = self.diameter / 6
         if self.chamfer is None:
             self.chamfer = self.width / 2
 

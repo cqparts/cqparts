@@ -6,10 +6,10 @@ from cqparts.params import *
 from .base import Thread, register
 
 
-@register(name='iso262')
-class ISO262Thread(Thread):
+@register(name='iso68')
+class ISO68Thread(Thread):
     """
-    .. image:: /_static/img/threads/iso262.png
+    .. image:: /_static/img/threads/iso68.png
     """
     # rounding ratio:
     #   0.0 = no rounding; peaks and valeys are flat
@@ -21,13 +21,13 @@ class ISO262Thread(Thread):
 
     def build_profile(self):
         """
-        Build a thread profile in specified by ISO 262
+        Build a thread profile in specified by ISO 68
 
-        .. image:: /_static/img/threads/iso262.profile.png
+        .. image:: /_static/img/threads/iso68.profile.png
         """
         # height of sawtooth profile (along x axis)
         # (to be trunkated to make a trapezoidal thread)
-        height = self.pitch * cos(pi/6)  # ISO 262
+        height = self.pitch * cos(pi/6)  # ISO 68
         r_maj = self.diameter / 2
         r_min = r_maj - ((5./8) * height)
 

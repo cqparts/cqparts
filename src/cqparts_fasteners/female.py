@@ -57,7 +57,7 @@ class FemaleFastenerPart(DrivenFastenerHead):
     chamfer_base = Boolean(True, doc="if chamfer is set, base edges are chamfered")
 
     thread = ThreadType(
-        default=('iso262', {  # M5
+        default=('iso68', {  # M5
             'diameter': 5,
             'pitch': 0.5,
         }),

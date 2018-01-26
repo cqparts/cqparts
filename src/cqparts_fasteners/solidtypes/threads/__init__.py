@@ -3,7 +3,7 @@ __all__ = [
 
     # Thread Types
     'ball_screw',
-    'iso262',
+    'iso68',
     'triangular',
 ]
 
@@ -11,5 +11,5 @@ from .base import Thread, register, find, search
 
 # Thread Types
 from . import ball_screw
-from . import iso262
+from . import iso68
 from . import triangular

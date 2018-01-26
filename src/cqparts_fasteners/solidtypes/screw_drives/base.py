@@ -8,7 +8,12 @@ from cqparts.utils import CoordSystem
 
 class ScrewDrive(cqparts.Part):
     diameter = PositiveFloat(3.0, doc="screw drive's diameter")
-    depth = PositiveFloat(3.0, doc="depth of recess into driven body")
+    depth = PositiveFloat(None, doc="depth of recess into driven body")
+
+    def initialize_parameters(self):
+        super(ScrewDrive, self).initialize_parameters()
+        if self.depth is None:
+            self.depth = self.diameter  # default to be as deep as it is wide
 
     def make(self):
         """

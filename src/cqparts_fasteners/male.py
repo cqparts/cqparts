@@ -146,7 +146,7 @@ class MaleFastenerPart(cqparts.Part):
         doc="screw drive type and parameters",
     )
     thread = ThreadType(
-        default=('iso262', {  # M3
+        default=('iso68', {  # M3
             'diameter': 3.0,
             'pitch': 0.35,
         }),

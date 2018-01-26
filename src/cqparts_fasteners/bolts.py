@@ -17,7 +17,7 @@ class Bolt(MaleFastenerPart):
     )
     drive = DriveType(doc="screw drive type and parameters")
     thread = ThreadType(
-        default=('iso262', {  # M5
+        default=('iso68', {  # M5
             'diameter': 5.0,
             'pitch': 0.5,
         }),

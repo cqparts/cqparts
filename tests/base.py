@@ -110,7 +110,7 @@ def debug_on_exception(func):
           File "./test.py", line 19, in foo
             return 1 / a
         ZeroDivisionError: integer division or modulo by zero
-        > /home/nymphii/temp/test.py(19)foo()
+        > /home/me/temp/test.py(19)foo()
              18 def foo(a=100):
         ---> 19     return 1 / a
              20
@@ -120,7 +120,7 @@ def debug_on_exception(func):
         ipdb>
 
     """
-    def pdb_wrapper(*args, **kwargs):
+    def ipdb_wrapper(*args, **kwargs):
         try:
             func(*args, **kwargs)
         except:
@@ -128,7 +128,7 @@ def debug_on_exception(func):
             type, value, tb = sys.exc_info()
             traceback.print_exc()
             ipdb.post_mortem(tb)
-    return pdb_wrapper
+    return ipdb_wrapper
 
 
 # ------------------- Core TestCase -------------------
