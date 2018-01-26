@@ -1,0 +1,3 @@
+# Ignore scrapers' intermediate files
+*.csv
+*.json
