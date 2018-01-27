@@ -21,7 +21,7 @@ cqparts\_fasteners\.solidtypes\.threads\.base module
     :show-inheritance:
 
 cqparts\_fasteners\.solidtypes\.threads\.iso68 module
-------------------------------------------------------
+-----------------------------------------------------
 
 .. automodule:: cqparts_fasteners.solidtypes.threads.iso68
     :members:
