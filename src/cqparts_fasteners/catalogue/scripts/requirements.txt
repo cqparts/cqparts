@@ -1,1 +1,2 @@
 scrapy
+progressbar2

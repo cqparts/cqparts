@@ -125,7 +125,7 @@ class JSONCatalogue(Catalogue):
         return result[0]
 
     # ------- Adding items -------
-    def add(self, id, obj, criteria={}, force=False):
+    def add(self, id, obj, criteria={}, force=False, _check_id=True):
         """
         Add a :class:`Component <cqparts.Component>` instance to the database.
 
@@ -138,6 +138,8 @@ class JSONCatalogue(Catalogue):
         :param force: if ``True``, entry is forcefully overwritten if it already
                       exists. Otherwise an exception is raised
         :type force: :class:`bool`
+        :param _check_id: if ``False``, duplicate ``id`` is not tested
+        :type _check_id: :class:`bool`
 
         :raises TypeError: on parameter issues
         :raises ValueError: if a duplicate db entry is detected (and ``force``
@@ -157,7 +159,7 @@ class JSONCatalogue(Catalogue):
 
         # Add to database
         q = tinydb.Query()
-        if self.items.count(q.id == id):
+        if (force or _check_id) and self.items.count(q.id == id):
             if force:
                 self.items.remove(q.id == id)
             else:

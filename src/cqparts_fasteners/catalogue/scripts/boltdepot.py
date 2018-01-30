@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import inspect
 import scrapy
 import scrapy.crawler
@@ -11,6 +12,24 @@ import logging
 import fnmatch
 import json
 import csv
+import itertools
+import six
+import progressbar
+
+# cqparts
+import cqparts
+
+# cqparts_fasteners
+import cqparts_fasteners
+import cqparts_fasteners.screws
+import cqparts_fasteners.solidtypes
+from cqparts_fasteners.solidtypes.fastener_heads import find as find_head
+from cqparts_fasteners.solidtypes.screw_drives import find as find_drive
+from cqparts_fasteners.solidtypes.threads import find as find_thread
+
+# ---------- Constants ----------
+STORE_NAME = 'BoltDepot'
+STORE_URL = 'https://www.boltdepot.com'
 
 
 # ---------- Utilities ----------
@@ -29,13 +48,94 @@ def join_url(base, params):
     )
 
 
+def utf8encoded(d):
+    return {k.encode('utf-8'): v.encode('utf-8') for (k, v) in d.items()}
+
+
+def in2mm(inches):
+    if isinstance(inches, six.string_types):
+        # valid formats:
+        #   1-3/4"
+        #   1/2"
+        #   -5/9"
+        #   1"
+        #   0.34"
+        #   .34"
+        match = re.search(
+            r'''^
+                (?P<neg>-)?
+                (?P<whole>(\d+)?(\.\d+)?)?
+                -?
+                ((?P<numerator>\d+)/(?P<denominator>\d+))?
+                "
+            $''',
+            inches,
+            flags=re.MULTILINE | re.VERBOSE,
+        )
+        inches = float(match.group('whole') or 0) + (
+            float(match.group('numerator') or 0) / \
+            float(match.group('denominator') or 1)
+        )
+        if match.group('neg'):
+            inches *= -1
+
+    return inches * 25.4
+
+
+def mm2mm(mm):
+    if isinstance(mm, six.string_types):
+        mm = float(re.sub(r'mm$', '', mm))
+    return mm
+
+
+UNIT_FUNC_MAP = {
+    'metric': mm2mm,
+    'us': in2mm,
+}
+
+def unit2mm(value, unit):
+    unit = unit.strip().lower()
+    if unit in UNIT_FUNC_MAP:
+        return UNIT_FUNC_MAP[unit](value)
+    else:
+        raise ValueError("invalid unit: %r" % unit)
+
+
+
 # ---------- Scraper Spiders ----------
 
 class BoltDepotSpider(scrapy.Spider):
+    prefix = ''  # no prefix by default
+    name = None  # no name, should raise exception if not set
+
     FEED_URI = "%(prefix)sscrape-%(name)s.json"
+
+    @classmethod
+    def get_feed_uri(cls):
+        return cls.FEED_URI % {k: getattr(cls, k) for k in dir(cls)}
+
+    @classmethod
+    def get_data(cls):
+        if not hasattr(cls, '_data'):
+            with open(cls.get_feed_uri(), 'r') as fh:
+                setattr(cls, '_data', json.load(fh))
+        return cls._data
+
+    @classmethod
+    def get_data_item(cls, key, criteria=lambda i: True, cast=lambda v: v):
+        # utility function to get data out of a json dict list easily
+        valid_data = [cast(i[key]) for i in cls.get_data() if criteria(i)]
+        assert len(valid_data) == 1, "%r" % valid_data
+        return valid_data[0]
 
 
 class BoltDepotProductSpider(BoltDepotSpider):
+
+    # criteria added to every cqparts.catalogue.JSONCatalogue entry
+    common_catalogue_criteria = {
+        'store': STORE_NAME,
+        'store_url': STORE_URL,
+    }
 
     def parse(self, response):
         # Look for : Product catalogue table
@@ -65,7 +165,9 @@ class BoltDepotProductSpider(BoltDepotSpider):
             key = row.css('td.name span::text').extract_first()
             value = row.css('td.value span::text').extract_first()
             if key and value:
-                details[key] = value
+                (key, value) = (key.strip('\n\r\t '), value.strip('\n\r\t '))
+                if key and value:
+                    details[key] = value
 
         product_data = {
             'id': url_params['product'],
@@ -81,6 +183,47 @@ class BoltDepotProductSpider(BoltDepotSpider):
 
         yield product_data
 
+    # --- cqparts catalogue building specific functions
+    # These functions are kept with the spider as a means to encapsulate
+    # component-specific logic.
+
+    @classmethod
+    def add_to_catalogue(cls, data, catalogue):
+        criteria = cls.item_criteria(data)
+        criteria.update(cls.common_catalogue_criteria)
+        criteria.update({'scraperclass': cls.__name__})
+        catalogue.add(
+            id=data['id'],
+            obj=cls.build_component(data),
+            criteria=criteria,
+            _check_id=False,
+        )
+
+    @classmethod
+    def item_criteria(cls, data):
+        return {}  # should be overridden
+
+    @classmethod
+    def build_component(cls, data):
+        from cqparts_misc.basic.primatives import Cube
+        return Cube()  # should be overridden
+
+    CATALOGUE_URI = "%(prefix)s%(name)s.json"
+    CATALOGUE_CLASS = cqparts.catalogue.JSONCatalogue
+
+    @classmethod
+    def get_catalogue_uri(cls):
+        filename = cls.CATALOGUE_URI % {k: getattr(cls, k) for k in dir(cls)}
+        return os.path.join('..', filename)
+
+    @classmethod
+    def get_catalogue(cls, **kwargs):
+        return cls.CATALOGUE_CLASS(cls.get_catalogue_uri(), **kwargs)
+
+    @classmethod
+    def get_item_str(cls, data):
+        return "[%(id)s] %(name)s" % data
+
 
 class WoodScrewSpider(BoltDepotProductSpider):
     name = 'woodscrews'
@@ -88,6 +231,90 @@ class WoodScrewSpider(BoltDepotProductSpider):
         'https://www.boltdepot.com/Wood_screws_Phillips_flat_head.aspx',
         'https://www.boltdepot.com/Wood_screws_Slotted_flat_head.aspx',
     ]
+
+    @classmethod
+    def item_criteria(cls, data):
+        criteria = {
+            'name': data['name'],
+            'url': data['url'],
+        }
+        criteria_content = [  # (<key>, <header>), ...
+            ('diameter', 'Diameter:'),
+            ('plating', 'Plating:'),
+            ('material', 'Material:'),
+        ]
+        for (key, header) in criteria_content:
+            value = data['details'].get(header, None)
+            if value is not None:
+                criteria[key] = value.lower()
+        return criteria
+
+    @classmethod
+    def build_component(cls, data):
+        details = data['details']
+
+        # --- Head
+        head = None
+        if details['Head style:'] == 'Flat':  # countersunk
+            head_diam = (  # averaged min/max
+                unit2mm(details['Head diameter Min:'], details['Units:']) + \
+                unit2mm(details['Head diameter Max:'], details['Units:'])
+            ) / 2
+
+            head = find_head(name='countersunk')(
+                diameter=head_diam,
+                bugle=False,
+                raised=0,
+                # TODO: details['Head angle:'] usually 82deg
+            )
+
+        else:
+            raise ValueError("head style %r not supported" % details['Head style:'])
+
+        # --- Drive
+        drive = None
+        if details['Drive type:'] == 'Phillips':
+            # FIXME: use actual drive sizes from DataPhillipsDriveSizes to shape
+            drive = find_drive(name='phillips')(
+                diameter=head_diam * 0.6
+            )
+
+        elif details['Drive type:'] == 'Slotted':
+            drive = find_drive(name='slot')(
+                diameter=head_diam,
+            )
+
+        else:
+            raise ValueError("drive type %r not supported" % details['Drive type:'])
+
+        # --- Thread
+        # Accuracy is Questionable:
+        #   Exact screw thread specs are very difficult to find, so some
+        #   of this is simply observed from screws I've salvaged / bought.
+        thread_diam = DataWoodScrewDiam.get_data_item(
+            'Decimal',
+            criteria=lambda i: i['Size'] == details['Diameter:'],
+            cast=lambda v: unit2mm(v, 'us'),
+        )
+
+        thread = find_thread(name='triangular')(
+            diameter=thread_diam,
+            pitch=thread_diam * 0.6,
+        )
+
+        # --- Build screw
+        screw_length = unit2mm(details['Length:'], details['Units:'])
+        screw = cqparts_fasteners.screws.Screw(
+            drive=drive,
+            head=head,
+            thread=thread,
+
+            length=screw_length,
+            neck_length=screw_length * 0.25,
+            tip_length=1.5 * thread_diam,
+        )
+
+        return screw
 
 
 class BoltSpider(BoltDepotProductSpider):
@@ -97,7 +324,6 @@ class BoltSpider(BoltDepotProductSpider):
         'https://www.boltdepot.com/Metric_hex_bolts_2.aspx',
     ]
 
-
 class NutSpider(BoltDepotProductSpider):
     name = 'nuts'
     start_urls = [
@@ -105,7 +331,6 @@ class NutSpider(BoltDepotProductSpider):
         'https://www.boltdepot.com/Square_nuts.aspx',
         'https://www.boltdepot.com/Metric_hex_nuts.aspx',
     ]
-
 
 class ThreadedRodSpider(BoltDepotProductSpider):
     name = 'threaded-rods'
@@ -240,6 +465,12 @@ class DataMetricBoltHeadSize(BoltDepotDataSpider):
         'https://www.boltdepot.com/fastener-information/Bolts/Metric-Bolt-Head-Size.aspx',
     ]
 
+class DataPhillipsDriveSizes(BoltDepotDataSpider):
+    name = 'd-drivesizes-phillips'
+    start_urls = [
+        'https://www.boltdepot.com/fastener-information/Driver-Bits/Phillips-Driver-Sizes.aspx',
+    ]
+
 
 METRICS_SPIDERS = [
     DataWoodScrewDiam,
@@ -247,6 +478,7 @@ METRICS_SPIDERS = [
     DataUSThreadPerInch,
     DataMetricThreadPitch,
     DataMetricBoltHeadSize,
+    DataPhillipsDriveSizes,
 ]
 
 # ---------- Command-line Arguments Parser ----------
@@ -370,63 +602,64 @@ if 'scrape' in args.actions:
 
 
 # ----- Convert to CSV -----
+# Conversion of json files to csv is optional, csv's are easy to open
+# in a 3rd party application to visualise the data that was scraped.
 
 if 'csv' in args.actions:
-    for name in args.catalogues:
-        print("----- CSV: %s" % name)
-        feed_json = FEED_URI % {
-            'prefix': args.prefix, 'name': name,
-        }
-        with open(feed_json, 'r') as json_file:
-            data = json.load(json_file)
 
-        # Pull out headers
-        KEYS = set(['url', 'image_url', 'name', 'id'])
-        headers = set(KEYS)
-        for item in data:
-            headers |= set(item['details'].keys())
+    def flatten_dict(dict_in):
+        # flatten nested dicts using '.' separated keys
+        def inner(d, key_prefix=''):
+            for (k, v) in d.items():
+                if isinstance(v, dict):
+                    for (k1, v1) in inner(v, k + '.'):
+                        yield (k1, v1)
+                else:
+                    yield (key_prefix + k, v)
 
-        # Write Output
-        def utf8encoded(d):
-            return {k.encode('utf-8'): v.encode('utf-8') for (k, v) in d.items()}
+        return dict(inner(dict_in))
+
+    for cls in itertools.chain([SPIDER_MAP[n] for n in args.catalogues], METRICS_SPIDERS):
+        print("----- CSV: %s" % cls.name)
+        feed_json = cls.get_feed_uri()
         feed_csv = "%s.csv" % os.path.splitext(feed_json)[0]
+        print("   %s --> %s" % (feed_json, feed_csv))
+        data = cls.get_data()
+
+        # pull out all possible keys to build header row
+        headers = set(itertools.chain(*[
+            tuple(str(k) for (k, v) in flatten_dict(row).items())
+            for row in data
+        ]))
+
+        # Write row by row
         with open(feed_csv, 'w') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=headers)
             writer.writeheader()
-            for item in data:
-                row_data = utf8encoded(item['details'])
-                row_data.update({k: item[k] for k in KEYS})
-                writer.writerow(row_data)
+            for rowdata in data:
+                writer.writerow(utf8encoded(flatten_dict(rowdata)))
 
 
 # ----- Build Catalogues -----
 
-def build_screw(row):
-
-    # Required Parameters:
-    #   - drive
-    #       -
-    #   - head
-    #       - <countersunk>
-    #       - <>
-    #   - thread <triangular>
-    #       - diameter
-    #       - diameter_core (defaults to 2/3 diameter)
-    #       - pitch
-    #       - angle (defaults to 30deg)
-    #   - length
-    #   - neck_diam
-    #   - neck_length
-    #   - neck_taper
-    #   - tip_diameter
-    #   - tip_length
-
-    pass
-
 
 if 'build' in args.actions:
-    #for name in args.catalogues:
-    #    print("----- Build: %s" % name)
-    print("=================== WORK IN PROGRESS ===================")
-    raise NotImplementedError("I'm getting there")
-    pass
+    for name in args.catalogues:
+        cls = SPIDER_MAP[name]
+        print("----- Build: %s" % name)
+        catalogue_file = os.path.join(
+            '..', "%s.json" % os.path.splitext(cls.get_feed_uri())[0]
+        )
+        catalogue = cls.get_catalogue(clean=True)
+        data = cls.get_data()
+
+        sys.stdout.flush()  # make sure prints come through before bar renders
+        bar = progressbar.ProgressBar()
+
+        for item_data in bar(data):
+            try:
+                cls.add_to_catalogue(item_data, catalogue)
+            except Exception as e:
+                print("couldn't add: %s" % cls.get_item_str(item_data))
+                print(e)
+                sys.stdout.flush()
