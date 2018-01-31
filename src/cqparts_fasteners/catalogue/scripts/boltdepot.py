@@ -22,6 +22,7 @@ import cqparts
 # cqparts_fasteners
 import cqparts_fasteners
 import cqparts_fasteners.screws
+import cqparts_fasteners.bolts
 import cqparts_fasteners.solidtypes
 from cqparts_fasteners.solidtypes.fastener_heads import find as find_head
 from cqparts_fasteners.solidtypes.screw_drives import find as find_drive
@@ -239,9 +240,10 @@ class WoodScrewSpider(BoltDepotProductSpider):
             'url': data['url'],
         }
         criteria_content = [  # (<key>, <header>), ...
+            ('units', 'Units:'),
             ('diameter', 'Diameter:'),
-            ('plating', 'Plating:'),
             ('material', 'Material:'),
+            ('plating', 'Plating:'),
         ]
         for (key, header) in criteria_content:
             value = data['details'].get(header, None)
@@ -324,6 +326,123 @@ class BoltSpider(BoltDepotProductSpider):
         'https://www.boltdepot.com/Metric_hex_bolts_2.aspx',
     ]
 
+    @classmethod
+    def item_criteria(cls, data):
+        criteria = {
+            'name': data['name'],
+            'url': data['url'],
+        }
+        criteria_content = [  # (<key>, <header>), ...
+            ('units', 'Units:'),
+            ('diameter', 'Diameter:'),
+            ('material', 'Material:'),
+            ('plating', 'Plating:'),
+            ('finish', 'Finish:'),
+            ('color', 'Color:'),
+        ]
+        for (key, header) in criteria_content:
+            value = data['details'].get(header, None)
+            if value is not None:
+                criteria[key] = value.lower()
+        return criteria
+
+    @classmethod
+    def build_component(cls, data):
+        details = data['details']
+
+        # --- Thread
+        thread = None
+        thread_diam = unit2mm(details['Diameter:'], details['Units:'])
+        if details['Units:'].lower() == 'us':
+            thread_pitch = unit2mm(1, 'us') / int(details['Thread count:'])
+        elif details['Units:'].lower() == 'metric':
+            thread_pitch = unit2mm(details['Thread pitch:'], details['Units:'])
+
+        # ISO 68 thread: not accurate for imperial bolts, but close enough
+        # FIXME: imperial threads?
+        thread = find_thread(name='iso68')(
+            diameter=thread_diam,
+            pitch=thread_pitch,
+        )
+
+        # --- Head
+        head = None
+        if details['Head style:'].lower() == 'hex':  # countersunk
+
+            # Width Across Flats
+            try:
+                if details['Units:'].lower() == 'us':
+                    across_flats = DataUSBoltHeadSize.get_data_item(
+                        'Hex Bolt - Lag Bolt - Square Bolt',
+                        criteria=lambda i: i['Bolt Diameter'] == details['Diameter:'],
+                        cast=lambda v: unit2mm(v, 'us'),
+                    )
+                elif details['Units:'].lower() == 'metric':
+                    try:
+                        across_flats = DataMetricBoltHeadSize.get_data_item(
+                            'ANSI/ISO',
+                            criteria=lambda i: i['Bolt Diameter  (mm)'] == ("%g" % unit2mm(details['Diameter:'], 'metric')),
+                            cast=lambda v: unit2mm(v, 'metric'),
+                        )
+                    except (ValueError, AttributeError):
+                        # assumption: 'ANSI/ISO' field is non-numeirc, use 'DIN' instead
+                        across_flats = DataMetricBoltHeadSize.get_data_item(
+                            'DIN',
+                            criteria=lambda i: i['Bolt Diameter  (mm)'] == ("%g" % unit2mm(details['Diameter:'], 'metric')),
+                            cast=lambda v: unit2mm(v, 'metric'),
+                        )
+                else:
+                    raise ValueError('unsupported units %r' % details['Units:'])
+            except (AssertionError, AttributeError):
+                # assumption: table lookup unsuccessful, see if it's explicitly specified
+                across_flats = unit2mm(details['Width across the flats:'], details['Units:'])
+                # raises KeyError if 'Width across the flats:' is not specified
+
+            # Head Height
+            head_height = 0.63 * thread_diam  # average height of all bolts with a defined head height
+
+            head = find_head(name='hex')(
+                width=across_flats,
+                height=head_height,
+                washer=False,
+                # TODO: details['Head angle:'] usually 82deg
+            )
+
+        else:
+            raise ValueError("head style %r not supported" % details['Head style:'])
+
+        # --- Build bolt
+        length = unit2mm(details['Length:'], details['Units:'])
+
+        # Neck & Thread length
+        neck_len = None
+        try:
+            neck_len = unit2mm(details['Body length Min:'], details['Units:'])
+        except KeyError:
+            pass  # 'Body length Min:' not specified
+
+        thread_len = length
+        try:
+            thread_len = unit2mm(details['Thread length Min:'], details['Units:'])
+            if neck_len is None:
+                neck_len = length - thread_len
+            else:
+                neck_len = (neck_len + (length - thread_len)) / 2
+        except KeyError:
+            if neck_len is None:
+                neck_len = 0
+
+        bolt = cqparts_fasteners.bolts.Bolt(
+            head=head,
+            thread=thread,
+
+            length=length,
+            neck_length=neck_len,
+        )
+
+        return bolt
+
+
 class NutSpider(BoltDepotProductSpider):
     name = 'nuts'
     start_urls = [
@@ -403,7 +522,7 @@ class BoltDepotDataSpider(BoltDepotSpider):
             is_header_row = True
             for cell in row.css('th, td'):
                 # cell data
-                value = cell.css('::text').extract_first()
+                value = ' '.join([v.strip() for v in cell.css('::text').extract()])
                 if value is None:
                     value = ''
                 value = value.rstrip('\r\n\t ')
@@ -453,6 +572,12 @@ class DataUSThreadPerInch(BoltDepotDataSpider):
         'https://www.boltdepot.com/fastener-information/Measuring/US-TPI.aspx',
     ]
 
+class DataUSBoltHeadSize(BoltDepotDataSpider):
+    name = 'd-us-boltheadsize'
+    start_urls = [
+        'https://www.boltdepot.com/fastener-information/Bolts/US-Bolt-Head-Size.aspx',
+    ]
+
 class DataMetricThreadPitch(BoltDepotDataSpider):
     name = 'd-met-threadpitch'
     start_urls = [
@@ -476,6 +601,7 @@ METRICS_SPIDERS = [
     DataWoodScrewDiam,
     DataUSBoltThreadLen,
     DataUSThreadPerInch,
+    DataUSBoltHeadSize,
     DataMetricThreadPitch,
     DataMetricBoltHeadSize,
     DataPhillipsDriveSizes,
@@ -544,6 +670,12 @@ parser.add_argument(
     help="csv list of catalogues to act on",
 )
 
+parser.add_argument(
+    '--strict', '-s', dest='strict',
+    default=False, action='store_const', const=True,
+    help="if set, exceptions during a build stop progress",
+)
+
 args = parser.parse_args()
 
 BoltDepotSpider.prefix = args.prefix
@@ -565,6 +697,7 @@ if not args.actions:
 
 if 'scrape' in args.actions:
     print("----- Scrape: %s (+ metrics)" % (', '.join(args.catalogues)))
+    sys.stdout.flush()
 
     # --- Clear feed files
     feed_names = []
@@ -663,3 +796,5 @@ if 'build' in args.actions:
                 print("couldn't add: %s" % cls.get_item_str(item_data))
                 print(e)
                 sys.stdout.flush()
+                if args.strict:
+                    raise
