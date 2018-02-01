@@ -92,7 +92,7 @@ def mm2mm(value):
     if isinstance(value, six.string_types):
         # valid string formats include:
         #   1mm, -4mm, -0.3mm, -.3mm, 1m
-        match = re.search(r'^(?P<value>[\-0-9\.]+)\s*(?P<unit>(mm|m))$', value.lower())
+        match = re.search(r'^(?P<value>[\-0-9\.]+)\s*(?P<unit>(mm|m|))$', value.lower())
         value = float(match.group('value'))
         if match.group('unit') == 'm':
             value *= 1000
@@ -394,7 +394,7 @@ class BoltSpider(BoltDepotProductSpider):
                     across_flats = DataUSBoltHeadSize.get_data_item(
                         'Hex Bolt - Lag Bolt - Square Bolt',
                         criteria=lambda i: i['Bolt Diameter'] == details['Diameter:'],
-                        cast=lambda v: unit2mm(v, 'us'),
+                        cast=lambda v: DataUSBoltHeadSize.unit_cast(v),
                     )
                 elif details['Units:'].lower() == 'metric':
                     try:
@@ -707,6 +707,11 @@ class DataUSBoltHeadSize(BoltDepotDataSpider):
     start_urls = [
         'https://www.boltdepot.com/fastener-information/Bolts/US-Bolt-Head-Size.aspx',
     ]
+
+    @staticmethod
+    def unit_cast(value):
+        # special case for the '7/16" or 3/8"' cell
+        return unit2mm(re.split('\s*or\s*', value)[-1], 'us')  # last value
 
 class DataUSNutSize(BoltDepotDataSpider):
     name = 'd-us-nutsize'
