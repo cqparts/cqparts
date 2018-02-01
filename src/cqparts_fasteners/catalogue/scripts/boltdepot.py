@@ -23,6 +23,7 @@ import cqparts
 import cqparts_fasteners
 import cqparts_fasteners.screws
 import cqparts_fasteners.bolts
+import cqparts_fasteners.nuts
 import cqparts_fasteners.solidtypes
 from cqparts_fasteners.solidtypes.fastener_heads import find as find_head
 from cqparts_fasteners.solidtypes.screw_drives import find as find_drive
@@ -125,7 +126,14 @@ class BoltDepotSpider(scrapy.Spider):
     @classmethod
     def get_data_item(cls, key, criteria=lambda i: True, cast=lambda v: v):
         # utility function to get data out of a json dict list easily
-        valid_data = [cast(i[key]) for i in cls.get_data() if criteria(i)]
+        valid_data = []
+        for item in cls.get_data():
+            if criteria(item):
+                try:
+                    valid_data.append(cast(item[key]))
+                except AttributeError:
+                    raise ValueError("%r value %r invalid (cannot be cast)" % (key, item[key]))
+
         assert len(valid_data) == 1, "%r" % valid_data
         return valid_data[0]
 
@@ -156,6 +164,7 @@ class BoltDepotProductSpider(BoltDepotSpider):
     def parse_product_detail(self, response):
         heading = response.css('#catalog-header-title h1::text').extract_first()
         print("Product: %s" % heading)
+        sys.stdout.flush()
 
         (url_base, url_params) = split_url(response.url)
 
@@ -363,6 +372,7 @@ class BoltSpider(BoltDepotProductSpider):
         thread = find_thread(name='iso68')(
             diameter=thread_diam,
             pitch=thread_pitch,
+            lefthand=details['Thread direction:'] == 'Left hand',
         )
 
         # --- Head
@@ -451,6 +461,117 @@ class NutSpider(BoltDepotProductSpider):
         'https://www.boltdepot.com/Metric_hex_nuts.aspx',
     ]
 
+    @classmethod
+    def item_criteria(cls, data):
+        criteria = {
+            'name': data['name'],
+            'url': data['url'],
+        }
+        criteria_content = [  # (<key>, <header>), ...
+            ('units', 'Units:'),
+            ('diameter', 'Diameter:'),
+            ('material', 'Material:'),
+            ('plating', 'Plating:'),
+            ('finish', 'Finish:'),
+            ('color', 'Color:'),
+        ]
+        for (key, header) in criteria_content:
+            value = data['details'].get(header, None)
+            if value is not None:
+                criteria[key] = value.lower()
+        return criteria
+
+    @classmethod
+    def build_component(cls, data):
+        details = data['details']
+
+        # --- Thread
+        thread = None
+        # diameter
+        try:
+            thread_diam = unit2mm(details['Diameter:'], details['Units:'])
+        except AttributeError: # assumption: non-numeric diameter
+            if details['Units:'] == 'US':
+                thread_diam = DataUSThreadSize.get_data_item(
+                    'Decimal',
+                    criteria=lambda i: i['Size'] == details['Diameter:'],
+                    cast=lambda v: unit2mm(v, 'us'),
+                )
+            else:
+                raise
+
+        # pitch
+        if details['Units:'].lower() == 'us':
+            thread_pitch = unit2mm(1, 'us') / int(details['Thread count:'])
+        elif details['Units:'].lower() == 'metric':
+            thread_pitch = unit2mm(details['Thread pitch:'], details['Units:'])
+
+        # ISO 68 thread: not accurate for imperial bolts, but close enough
+        # FIXME: imperial threads?
+        thread = find_thread(name='iso68')(
+            diameter=thread_diam,
+            pitch=thread_pitch,
+            lefthand=details['Thread direction:'] == 'Left hand',
+            inner=True,
+        )
+
+        # --- build nut
+        try:
+            nut_width = unit2mm(details['Width across the flats:'], details['Units:'])
+        except KeyError: # assumption: 'Width across the flats:' not supplied
+            if details['Units:'] == 'US':
+                try:
+                    nut_width = DataUSNutSize.get_data_item(
+                        'Diameter*:Hex Nut',
+                        criteria=lambda i: i['Size:Size'] == details['Diameter:'],
+                        cast=lambda v: unit2mm(v, 'us'),
+                    )
+                except ValueError:
+                    nut_width = DataUSNutSize.get_data_item(
+                        'Diameter*:Machine Screw Nut',  # only use if 'Hex Nut' not avaliable
+                        criteria=lambda i: i['Size:Size'] == details['Diameter:'],
+                        cast=lambda v: unit2mm(v, 'us'),
+                    )
+            else:
+                raise
+
+        # height
+        try:
+            nut_height = unit2mm(details['Height:'], details['Units:'])
+        except KeyError:  # assumption: 'Height:' not specified
+            if details['Units:'] == 'US':
+                try:
+                    nut_height = DataUSNutSize.get_data_item(
+                        'Height:Hex Nut',
+                        criteria=lambda i: i['Size:Size'] == details['Diameter:'],
+                        cast=lambda v: unit2mm(v, 'us'),
+                    )
+                except ValueError:
+                    nut_height = DataUSNutSize.get_data_item(
+                        'Height:Machine Screw Nut',  # only use if 'Hex Nut' not avaliable
+                        criteria=lambda i: i['Size:Size'] == details['Diameter:'],
+                        cast=lambda v: unit2mm(v, 'us'),
+                    )
+            else:
+                raise
+
+        if details['Subcategory:'] == 'Hex nuts':
+            nut_class = cqparts_fasteners.nuts.HexNut
+        elif details['Subcategory:'] == 'Square nuts':
+            nut_class = cqparts_fasteners.nuts.SquareNut
+        else:
+            raise ValueError("unsupported nut class %r" % details['Subcategory:'])
+
+        nut = nut_class(
+            thread=thread,
+            width=nut_width,
+            height=nut_height,
+            washer=False,
+        )
+
+        return nut
+
+
 class ThreadedRodSpider(BoltDepotProductSpider):
     name = 'threaded-rods'
     start_urls = [
@@ -493,6 +614,9 @@ class GrowingList(list):
 
 
 class BoltDepotDataSpider(BoltDepotSpider):
+
+    # set to True if the last header row does not uniquely identify each column
+    merge_headers = False
 
     @staticmethod
     def table_data(table):
@@ -546,7 +670,13 @@ class BoltDepotDataSpider(BoltDepotSpider):
         table = response.css('table.fastener-info-table')
         (data, header_count) = self.table_data(table)
 
-        header = data[header_count - 1]  # last header row
+        if self.merge_headers:
+            header = [ # join all headers per column
+                ':'.join(data[i][j] for i in range(header_count))
+                for j in range(len(data[0]))
+            ]
+        else:
+            header = data[header_count - 1]  # last header row
         for row in data[header_count:]:
             row_data = dict(zip(header, row))
             if any(v for v in row_data.values()):
@@ -578,6 +708,19 @@ class DataUSBoltHeadSize(BoltDepotDataSpider):
         'https://www.boltdepot.com/fastener-information/Bolts/US-Bolt-Head-Size.aspx',
     ]
 
+class DataUSNutSize(BoltDepotDataSpider):
+    name = 'd-us-nutsize'
+    start_urls = [
+        'https://www.boltdepot.com/fastener-information/Nuts-Washers/US-Nut-Dimensions.aspx',
+    ]
+    merge_headers = True  # header 'Hex Nut' is repeated
+
+class DataUSThreadSize(BoltDepotDataSpider):
+    name = 'd-us-threadsize'
+    start_urls = [
+        'https://www.boltdepot.com/fastener-information/Machine-Screws/Machine-Screw-Diameter.aspx',
+    ]
+
 class DataMetricThreadPitch(BoltDepotDataSpider):
     name = 'd-met-threadpitch'
     start_urls = [
@@ -602,6 +745,8 @@ METRICS_SPIDERS = [
     DataUSBoltThreadLen,
     DataUSThreadPerInch,
     DataUSBoltHeadSize,
+    DataUSNutSize,
+    DataUSThreadSize,
     DataMetricThreadPitch,
     DataMetricBoltHeadSize,
     DataPhillipsDriveSizes,
@@ -775,7 +920,6 @@ if 'csv' in args.actions:
 
 # ----- Build Catalogues -----
 
-
 if 'build' in args.actions:
     for name in args.catalogues:
         cls = SPIDER_MAP[name]
@@ -794,7 +938,7 @@ if 'build' in args.actions:
                 cls.add_to_catalogue(item_data, catalogue)
             except Exception as e:
                 print("couldn't add: %s" % cls.get_item_str(item_data))
-                print(e)
+                print("%s: %s" % (type(e).__name__, e))
                 sys.stdout.flush()
                 if args.strict:
                     raise
