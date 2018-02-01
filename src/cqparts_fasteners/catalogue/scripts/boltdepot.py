@@ -54,45 +54,56 @@ def utf8encoded(d):
     return {k.encode('utf-8'): v.encode('utf-8') for (k, v) in d.items()}
 
 
-def in2mm(inches):
-    if isinstance(inches, six.string_types):
-        # valid formats:
-        #   1-3/4"
-        #   1/2"
-        #   -5/9"
-        #   1"
-        #   0.34"
-        #   .34"
+def us2mm(value):
+    if isinstance(value, six.string_types):
+        # valid string formats include:
+        #   1-3/4", 1/2", -5/9", 1", 0.34", .34", 6ft
         match = re.search(
             r'''^
                 (?P<neg>-)?
                 (?P<whole>(\d+)?(\.\d+)?)?
                 -?
                 ((?P<numerator>\d+)/(?P<denominator>\d+))?
-                "
+                \s*(?P<unit>("|ft))
             $''',
-            inches,
+            value,
             flags=re.MULTILINE | re.VERBOSE,
         )
-        inches = float(match.group('whole') or 0) + (
+        # calculate value (as decimal quantity)
+        value = float(match.group('whole') or 0) + (
             float(match.group('numerator') or 0) / \
             float(match.group('denominator') or 1)
         )
         if match.group('neg'):
-            inches *= -1
+            value *= -1
 
-    return inches * 25.4
+        if match.group('unit') == 'ft':
+            value *= 12
 
+    else:
+        # numeric value given:
+        # assumption: value given in inches
+        pass
 
-def mm2mm(mm):
-    if isinstance(mm, six.string_types):
-        mm = float(re.sub(r'mm$', '', mm))
-    return mm
+    return value * 25.4
+
+def mm2mm(value):
+    if isinstance(value, six.string_types):
+        # valid string formats include:
+        #   1mm, -4mm, -0.3mm, -.3mm, 1m
+        match = re.search(r'^(?P<value>[\-0-9\.]+)\s*(?P<unit>(mm|m))$', value.lower())
+        value = float(match.group('value'))
+        if match.group('unit') == 'm':
+            value *= 1000
+    return float(value)
+
+import ipdb
+ipdb.set_trace()
 
 
 UNIT_FUNC_MAP = {
     'metric': mm2mm,
-    'us': in2mm,
+    'us': us2mm,
 }
 
 def unit2mm(value, unit):
@@ -572,19 +583,10 @@ class NutSpider(BoltDepotProductSpider):
         return nut
 
 
-class ThreadedRodSpider(BoltDepotProductSpider):
-    name = 'threaded-rods'
-    start_urls = [
-        'https://www.boltdepot.com/Threaded_rod.aspx',
-        'https://www.boltdepot.com/Metric_threaded_rod.aspx',
-    ]
-
-
 SPIDERS = [
     WoodScrewSpider,
     BoltSpider,
     NutSpider,
-    ThreadedRodSpider,
 ]
 SPIDER_MAP = {
     cls.name: cls
