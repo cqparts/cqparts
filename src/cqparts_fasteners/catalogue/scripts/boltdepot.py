@@ -57,11 +57,11 @@ def utf8encoded(d):
 def us2mm(value):
     if isinstance(value, six.string_types):
         # valid string formats include:
-        #   1-3/4", 1/2", -5/9", 1", 0.34", .34", 6ft
+        #   1-3/4", 1/2", -5/9", 17/64", 1", 0.34", .34", 6ft
         match = re.search(
             r'''^
                 (?P<neg>-)?
-                (?P<whole>(\d+)?(\.\d+)?)?
+                (?P<whole>(\d+)?(\.\d+)?)??
                 -?
                 ((?P<numerator>\d+)/(?P<denominator>\d+))?
                 \s*(?P<unit>("|ft))
@@ -87,6 +87,7 @@ def us2mm(value):
 
     return value * 25.4
 
+
 def mm2mm(value):
     if isinstance(value, six.string_types):
         # valid string formats include:
@@ -96,9 +97,6 @@ def mm2mm(value):
         if match.group('unit') == 'm':
             value *= 1000
     return float(value)
-
-import ipdb
-ipdb.set_trace()
 
 
 UNIT_FUNC_MAP = {
@@ -766,6 +764,7 @@ Actions:
     scrape  scrape product details from website
     csv     convert scraped output to csv [optional]
     build   builds catalogue from scraped data
+    all     (run all above actions)
 
 Note: Actions will always be performed in the order shown above,
       even if they're not listed in that order on commandline.
@@ -773,7 +772,7 @@ Note: Actions will always be performed in the order shown above,
     formatter_class=argparse.RawTextHelpFormatter,
 )
 
-VALID_ACTIONS = set(['scrape', 'csv', 'build'])
+VALID_ACTIONS = set(['scrape', 'csv', 'build', 'all'])
 def action_type(value):
     value = value.lower()
     if value not in VALID_ACTIONS:
@@ -824,14 +823,16 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+args.actions = set(args.actions)  # convert to set
 
 BoltDepotSpider.prefix = args.prefix
 
 
 # list catalogues & exit
 if args.list:
+    print("Catalogues:")
     for name in args.catalogues:
-        print(name)
+        print("  - %s" % name)
     exit(0)
 
 # no actions, print help & exit
@@ -842,7 +843,7 @@ if not args.actions:
 
 # ----- Start Crawl -----
 
-if 'scrape' in args.actions:
+if {'all', 'scrape'} & args.actions:
     print("----- Scrape: %s (+ metrics)" % (', '.join(args.catalogues)))
     sys.stdout.flush()
 
@@ -885,7 +886,7 @@ if 'scrape' in args.actions:
 # Conversion of json files to csv is optional, csv's are easy to open
 # in a 3rd party application to visualise the data that was scraped.
 
-if 'csv' in args.actions:
+if {'all', 'csv'} & args.actions:
 
     def flatten_dict(dict_in):
         # flatten nested dicts using '.' separated keys
@@ -922,7 +923,7 @@ if 'csv' in args.actions:
 
 # ----- Build Catalogues -----
 
-if 'build' in args.actions:
+if {'all', 'build'} & args.actions:
     for name in args.catalogues:
         cls = SPIDER_MAP[name]
         print("----- Build: %s" % name)
