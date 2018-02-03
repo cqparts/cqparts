@@ -26,13 +26,18 @@ case "$1" in
         exit 0
         ;;
 
-    all|"")
-        # run all tests (default behaviour)
+    "")
+        # run all non-catalogue tests (default behaviour)
+        python ${script} --ignore "catalogue"
+        ;;
+
+    all)
+        # run all scripts
         python ${script}
         ;;
 
     coverage)
-        coverage run ${script}
+        coverage run ${script} --ignore "catalogue"
         case "$2" in
             text|"")
                 coverage report
@@ -43,8 +48,8 @@ case "$1" in
         esac
         ;;
 
-    quick)
-        python ${script} --blacklist "slow"
+    catalogue)
+        python ${script} --dontignore "catalogue"
         ;;
 
     *)
