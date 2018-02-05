@@ -201,14 +201,14 @@ class BallBearing(cqparts.Assembly):
 
     def make_components(self):
         return {
-            'outer': Ring(
+            'outer_ring': Ring(
                 outer_radius=self.outer_diam / 2,
                 inner_radius=(self.outer_diam / 2) - self.outer_width,
                 width=self.width,
                 ball_radius=(self.ball_diam / 2) + self.tolerance,
                 rolling_radius=self.rolling_radius,
             ),
-            'inner': Ring(
+            'inner_ring': Ring(
                 outer_radius=(self.inner_diam / 2) + self.inner_width,
                 inner_radius=self.inner_diam / 2,
                 width=self.width,
@@ -224,8 +224,8 @@ class BallBearing(cqparts.Assembly):
         }
 
     def make_constraints(self):
-        outer = self.components['outer']
-        inner = self.components['inner']
+        outer = self.components['outer_ring']
+        inner = self.components['inner_ring']
         ring = self.components['rolling_elements']
         constraints = [
             constraint.Fixed(outer.mate_origin),
