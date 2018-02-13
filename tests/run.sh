@@ -12,8 +12,8 @@ Helper script to run different groups of testing.
 
 Arguments:
 
-    all     run all tests
-    quick   run most tests, skip the slower ones
+    all         run all tests
+    catalogue   run all catalogue tests (ignore others)
 
 EOF
 }
