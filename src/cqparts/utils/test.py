@@ -1,5 +1,6 @@
 import unittest
 import re
+from copy import deepcopy
 
 from .. import Component, Part, Assembly
 
@@ -137,6 +138,20 @@ class CatalogueTest(unittest.TestCase):
             'catalogue': catalogue,
         }
 
+        def mk_test_method(item_data):
+            # Create test method run when test is executed
+            def test_meth(self):
+                obj = self.catalogue.deserialize_item(item_data)
+                self.assertIsInstance(obj, Component)
+                if isinstance(obj, Part):
+                    obj.build()
+                    self.assertGreater(obj.bounding_box.DiagonalLength, 0)
+                elif isinstance(obj, Assembly):
+                    obj.build()
+                    self.assertTrue(bool(obj.components))  # has components
+
+            return test_meth
+
         # Create 1 test per catalogue item
         for item in catalogue.iter_items():
             #item = <item dict>
@@ -150,15 +165,7 @@ class CatalogueTest(unittest.TestCase):
 
             if add_test:
                 # Define test method
-                def test_meth(self):
-                    obj = self.catalogue.deserialize_item(item)
-                    self.assertIsInstance(obj, Component)
-                    if isinstance(obj, Part):
-                        obj.build()
-                        self.assertGreater(obj.bounding_box.DiagonalLength, 0)
-                    elif isinstance(obj, Assembly):
-                        obj.build()
-                        self.assertTrue(bool(obj.components))  # has components
+                test_meth = mk_test_method(item)
 
                 # Add test method to class body
                 test_name = "test_{id}".format(
