@@ -172,3 +172,11 @@ class Cylinder(cqparts.Part):
     def make(self):
         return cadquery.Workplane('XY') \
             .circle(self.radius).extrude(self.length)
+
+    @property
+    def mate_bottom(self):
+        return self.mate_origin
+
+    @property
+    def mate_top(self):
+        return Mate(self, CoordSystem(origin=(0, 0, self.length)))
