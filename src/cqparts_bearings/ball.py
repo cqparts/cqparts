@@ -9,6 +9,8 @@ from cqparts import constraint
 from cqparts.constraint import Mate
 from cqparts.utils import CoordSystem
 
+from . import register
+
 
 class Ring(cqparts.Part):
     # Basic shape
@@ -128,7 +130,7 @@ class BallRing(cqparts.Assembly):
         return constraints
 
 
-
+@register(name='ballbearing')
 class BallBearing(cqparts.Assembly):
     """
     Ball bearing
