@@ -10,6 +10,7 @@ from cqparts.params import *
 from cqparts import constraint
 from cqparts.utils import CoordSystem
 
+from . import register
 
 
 class _InnerRing(cqparts.Part):
@@ -157,6 +158,7 @@ class _RollerRing(cqparts.Assembly):
         return constraints
 
 
+@register(name='taperedrollerbearing')
 class TaperedRollerBearing(cqparts.Assembly):
     """
     Taperd roller bearing, with conical rolling elements

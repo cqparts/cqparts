@@ -12,6 +12,14 @@ cqparts\_bearings\.ball module
     :undoc-members:
     :show-inheritance:
 
+cqparts\_bearings\.tapered\_roller module
+-----------------------------------------
+
+.. automodule:: cqparts_bearings.tapered_roller
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
