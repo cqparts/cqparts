@@ -12,7 +12,7 @@ from cqparts.utils import CoordSystem
 from . import register
 
 
-class Ring(cqparts.Part):
+class _Ring(cqparts.Part):
     # Basic shape
     outer_radius = PositiveFloat(10, doc="outside radius")
     inner_radius = PositiveFloat(8, doc="inside radius")
@@ -66,14 +66,14 @@ class Ring(cqparts.Part):
         ))
 
 
-class Ball(cqparts.Part):
+class _Ball(cqparts.Part):
     radius = PositiveFloat(10, doc="radius of sphere")
 
     def make(self):
         return cadquery.Workplane('XY').sphere(self.radius)
 
 
-class BallRing(cqparts.Assembly):
+class _BallRing(cqparts.Assembly):
     rolling_radius = PositiveFloat(8, doc="radius at which the balls roll (default: half way between outer & inner radii)")
     ball_diam = PositiveFloat(3, doc="diameter of ball bearings (default: distance between outer and inner radii / 2)")
     ball_count = IntRange(3, None, 8, doc="number of ball bearings in ring")
@@ -101,7 +101,7 @@ class BallRing(cqparts.Assembly):
     def make_components(self):
         components = {}
         for i in range(self.ball_count):
-            components[self.ball_name(i)] = Ball(radius=self.ball_diam / 2)
+            components[self.ball_name(i)] = _Ball(radius=self.ball_diam / 2)
         return components
 
     def make_constraints(self):
@@ -186,13 +186,13 @@ class BallBearing(cqparts.Assembly):
             self.ball_min_gap = self.ball_diam / 10
 
         if self.ball_count is None:
-            self.ball_count = BallRing.get_max_ballcount(
+            self.ball_count = _BallRing.get_max_ballcount(
                 ball_diam=self.ball_diam,
                 rolling_radius=self.rolling_radius,
                 min_gap=self.ball_min_gap,
             )
         else:
-            max_ballcount = BallRing.get_max_ballcount(
+            max_ballcount = _BallRing.get_max_ballcount(
                 ball_diam=self.ball_diam,
                 rolling_radius=self.rolling_radius,
             )
@@ -203,21 +203,21 @@ class BallBearing(cqparts.Assembly):
 
     def make_components(self):
         return {
-            'outer_ring': Ring(
+            'outer_ring': _Ring(
                 outer_radius=self.outer_diam / 2,
                 inner_radius=(self.outer_diam / 2) - self.outer_width,
                 width=self.width,
                 ball_radius=(self.ball_diam / 2) + self.tolerance,
                 rolling_radius=self.rolling_radius,
             ),
-            'inner_ring': Ring(
+            'inner_ring': _Ring(
                 outer_radius=(self.inner_diam / 2) + self.inner_width,
                 inner_radius=self.inner_diam / 2,
                 width=self.width,
                 ball_radius=(self.ball_diam / 2) + self.tolerance,
                 rolling_radius=self.rolling_radius,
             ),
-            'rolling_elements': BallRing(
+            'rolling_elements': _BallRing(
                 rolling_radius=self.rolling_radius,
                 ball_diam=self.ball_diam,
                 ball_count=self.ball_count,
@@ -246,7 +246,7 @@ class BallBearing(cqparts.Assembly):
         cutter = cadquery.Workplane('XY', origin=(0, 0, -self.width / 2)) \
             .circle(self.outer_diam / 2).extrude(self.width)
         if self.ball_diam > self.width:
-            cutter = cutter.union(Ring.get_ball_torus(self.rolling_radius, self.ball_diam / 2))
+            cutter = cutter.union(_Ring.get_ball_torus(self.rolling_radius, self.ball_diam / 2))
         return cutter
 
     @property
