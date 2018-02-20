@@ -259,7 +259,7 @@ version &amp; module information to assist backward compatability.</p>
 
 <dl class="method">
 <dt id="cqparts.catalogue.json.JSONCatalogue.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>id</em>, <em>obj</em>, <em>criteria={}</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.add" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>id</em>, <em>obj</em>, <em>criteria={}</em>, <em>force=False</em>, <em>_check_id=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.json.JSONCatalogue.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instance to the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -271,6 +271,7 @@ version &amp; module information to assist backward compatability.</p>
 <li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
 <li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
 exists. Otherwise an exception is raised</li>
+<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
 </ul>
 </td>
 </tr>
@@ -483,7 +484,7 @@ version &amp; module information to assist backward compatability.</p>
 
 <dl class="method">
 <dt id="cqparts.catalogue.JSONCatalogue.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>id</em>, <em>obj</em>, <em>criteria={}</em>, <em>force=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.add" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>id</em>, <em>obj</em>, <em>criteria={}</em>, <em>force=False</em>, <em>_check_id=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.JSONCatalogue.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a <a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instance to the database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -495,6 +496,7 @@ version &amp; module information to assist backward compatability.</p>
 <li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
 <li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
 exists. Otherwise an exception is raised</li>
+<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
 </ul>
 </td>
 </tr>
