@@ -186,7 +186,7 @@ class TaperedRollerBearing(cqparts.Assembly):
             self.roller_min_gap = self.roller_diam * 0.1  # default 10% roller diameter
 
         if self.roller_count is None:
-            self.roller_count = self.max_roller_count
+            self.roller_count = min(self.max_roller_count, 12)
 
     @property
     def max_roller_count(self):
