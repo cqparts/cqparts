@@ -172,8 +172,8 @@ class TaperedRollerBearing(cqparts.Assembly):
     height = PositiveFloat(10, doc="bearing height")
 
     # roller parameters
-    rolling_radius = PositiveFloat(15, doc="distance from bearing center to rolling element rotation axis along XY plane")
-    roller_diam = PositiveFloat(5, doc="diamter of roller at cross-section perpendicular to roller's rotation axis where bearing's axis meets XY plane")
+    rolling_radius = PositiveFloat(None, doc="distance from bearing center to rolling element rotation axis along XY plane")
+    roller_diam = PositiveFloat(None, doc="diamter of roller at cross-section perpendicular to roller's rotation axis where bearing's axis meets XY plane")
     roller_height = PositiveFloat(8, doc="length of roller along its rotational axis")
     roller_angle = FloatRange(-45, 45, 10, doc="tilt of roller's rotation axis (unit: degrees)")
     roller_min_gap = PositiveFloat(None, doc="minimum gap between rollers")
@@ -182,6 +182,13 @@ class TaperedRollerBearing(cqparts.Assembly):
     tolerance = PositiveFloat(0.001, doc="gap between rollers and their tracks")
 
     def initialize_parameters(self):
+        if self.roller_diam is None:
+            self.roller_diam = ((self.outer_diam - self.inner_diam) / 2) / 3
+
+        if self.rolling_radius is None:
+            radial_depth = (self.outer_diam - self.inner_diam) / 2
+            self.rolling_radius = (self.inner_diam / 2) + (0.5 * radial_depth)
+
         if self.roller_min_gap is None:
             self.roller_min_gap = self.roller_diam * 0.1  # default 10% roller diameter
 
