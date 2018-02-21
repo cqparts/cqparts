@@ -1,6 +1,6 @@
 import unittest
 import re
-from copy import deepcopy
+import inspect
 
 from .. import Component, Part, Assembly
 
@@ -134,8 +134,13 @@ class CatalogueTest(unittest.TestCase):
         if id_mangler is None:
             id_mangler = lambda n: re.sub(r'[^a-z0-9]', '_', n, flags=re.I)
 
+        # calling module
+        caller_frame = inspect.stack()[1][0]
+        caller_module = inspect.getmodule(caller_frame).__name__
+
         cls_body = {
             'catalogue': catalogue,
+            '__module__': caller_module,
         }
 
         def mk_test_method(item_data):
