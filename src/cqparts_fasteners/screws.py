@@ -1,12 +1,9 @@
 
-from cqparts.constraint import Mate, Coincident
-from cqparts.utils import CoordSystem
 from cqparts.params import *
 
 from .male import MaleFastenerPart
 from .base import Fastener
 from .params import HeadType, DriveType, ThreadType
-from .utils import VectorEvaluator, Selector, Applicator
 from .solidtypes import threads
 
 import logging
