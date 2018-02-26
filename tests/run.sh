@@ -12,9 +12,12 @@ Helper script to run different groups of testing.
 
 Arguments:
 
+    (default)   with no argument, run all non-catalogue tests
     all         run all tests
     catalogue   run all catalogue tests (ignore others)
 
+    coverage <text|html>
+                run non-catalogue tests and generate coverage report
 EOF
 }
 

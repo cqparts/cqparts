@@ -3,6 +3,7 @@
 import unittest
 import re
 import functools
+import logging
 
 
 class MyTestRunner(unittest.runner.TextTestRunner):
@@ -86,6 +87,13 @@ if __name__ == "__main__":
 
     label_list_type = lambda v: re.split(r'\W+', v)
 
+    # test selection
+    group = parser.add_argument_group("Test Selection")
+    group.add_argument(
+        '-p', '--pattern', dest='pattern', default='test_*',
+        help="filename pattern",
+    )
+
     # skip labels
     group = parser.add_argument_group(
         "Skip tests",
@@ -118,12 +126,43 @@ if __name__ == "__main__":
         help="list of labels to ignore",
     )
 
+    # logging
+    group = parser.add_argument_group("Logging")
+    def logging_level_type(value):
+        if hasattr(logging, value):
+            # named type: DEBUG, INFO, WARN, ERROR, CRITICAL
+            ret = getattr(logging, value)
+            if isinstance(ret, int):
+                return ret
+        else:
+            try:
+                return int(value)
+            except ValueError:
+                pass
+        raise argparse.ArgumentTypeError("bad logging level: %r" % value)
+
+    group.add_argument(
+        '-l', '--logginglevel', dest='logginglevel',
+        type=logging_level_type, default=None,
+        help="if specified, logging is enabled",
+    )
+
     args = parser.parse_args()
+
+    # enable logging
+    if args.logginglevel:
+        import cadquery
+        cadquery.freecad_impl.console_logging.enable(
+            level=args.logginglevel,
+        )
 
     # ---- Discover and run tests
     # Load tests
     loader = unittest.TestLoader()
-    tests = loader.discover('.', pattern='test_*.py')
+    tests = loader.discover(
+        start_dir='.',
+        pattern=args.pattern,
+    )
 
     # Run tests
     testRunner = MyTestRunner(
