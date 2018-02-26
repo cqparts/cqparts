@@ -2,7 +2,6 @@
 from cqparts.params import *
 
 from .male import MaleFastenerPart
-from .base import Fastener
 from .params import HeadType, DriveType, ThreadType
 from .solidtypes import threads
 

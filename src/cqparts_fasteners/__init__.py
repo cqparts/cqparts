@@ -1,9 +1,7 @@
 __all__ = [
     'utils',
-
-    'Fastener',
+    'fasteners',
 ]
 
 from . import utils
-
-from .base import Fastener
+from . import fasteners
