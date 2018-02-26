@@ -1,7 +1,7 @@
 
 from cqparts.constraint import Mate, Coincident
-#from cqparts.utils import CoordSystem
 
+from .base import Fastener
 from ..screws import Screw
 from ..utils import VectorEvaluator, Selector, Applicator
 

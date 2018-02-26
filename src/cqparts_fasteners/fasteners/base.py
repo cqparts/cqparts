@@ -6,11 +6,10 @@ import cadquery
 import cqparts
 from cqparts.params import *
 
-from .utils import Evaluator, Selector, Applicator
+from ..utils import Evaluator, Selector, Applicator
 
 import logging
 log = logging.getLogger(__name__)
-
 
 
 # ----------------- Fastener Base ---------------

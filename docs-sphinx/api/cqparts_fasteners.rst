@@ -6,19 +6,12 @@ Subpackages
 
 .. toctree::
 
+    cqparts_fasteners.fasteners
     cqparts_fasteners.solidtypes
     cqparts_fasteners.utils
 
 Submodules
 ----------
-
-cqparts\_fasteners\.base module
--------------------------------
-
-.. automodule:: cqparts_fasteners.base
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 cqparts\_fasteners\.bolts module
 --------------------------------
@@ -40,14 +33,6 @@ cqparts\_fasteners\.male module
 -------------------------------
 
 .. automodule:: cqparts_fasteners.male
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-cqparts\_fasteners\.nutboltfastener module
-------------------------------------------
-
-.. automodule:: cqparts_fasteners.nutboltfastener
     :members:
     :undoc-members:
     :show-inheritance:

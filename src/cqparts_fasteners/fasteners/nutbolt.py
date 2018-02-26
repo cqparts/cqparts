@@ -2,12 +2,19 @@
 from cqparts.constraint import Mate, Coincident
 
 from .base import Fastener
-from .utils import VectorEvaluator, Selector, Applicator
-from .nuts import HexNut
-from .bolts import HexBolt
+from ..utils import VectorEvaluator, Selector, Applicator
+from ..nuts import HexNut
+from ..bolts import HexBolt
 
 
 class NutAndBoltFastener(Fastener):
+    """
+    Nut and Bolt fastener assembly, apply this to a group
+
+    .. doctest::
+
+        >>> 1 / 0
+    """
     Evaluator = VectorEvaluator
 
     class Selector(Selector):
