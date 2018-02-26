@@ -188,6 +188,9 @@ class NonNullParameter(Parameter):
 
 
 class PartsList(Parameter):
+
+    _doc_type = ":class:`list` of :class:`Part <cqparts.Part>` instances"
+
     def type(self, value):
         # Verify, raise exception for any problems
         if isinstance(value, (list, tuple)):
