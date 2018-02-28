@@ -1,5 +1,5 @@
 
-.. _cqparts_fastener-built-in_screw:
+.. _cqparts_fasteners.built-in.screw:
 
 .. currentmodule:: cqparts_fasteners.fasteners.screw
 

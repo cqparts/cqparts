@@ -7,6 +7,11 @@ from ..utils import VectorEvaluator, Selector, Applicator
 
 
 class ScrewFastener(Fastener):
+    """
+    Screw fastener assembly.
+
+    Example usage can be found here: :ref:`cqparts_fasteners.built-in.screw`
+    """
     Evaluator = VectorEvaluator
 
     class Selector(Selector):

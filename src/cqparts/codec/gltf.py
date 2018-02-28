@@ -90,7 +90,7 @@ class ShapeBuffer(object):
 
         >>> # get sizes (relevant for bufferViews, and accessors)
         >>> (sb.vert_len, sb.vert_offset, sb.vert_size)
-        (36L, 0L, 3L)
+        (36L, 0, 3L)
         >>> (sb.idx_len, sb.idx_offset, sb.idx_size)
         (3L, 36L, 3L)
     """

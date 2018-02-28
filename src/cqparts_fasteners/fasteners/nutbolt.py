@@ -9,11 +9,9 @@ from ..bolts import HexBolt
 
 class NutAndBoltFastener(Fastener):
     """
-    Nut and Bolt fastener assembly, apply this to a group
+    Nut and Bolt fastener assembly.
 
-    .. doctest::
-
-        >>> 1 / 0
+    Example usage can be found here: :ref:`cqparts_fasteners.built-in.nut-bolt`
     """
     Evaluator = VectorEvaluator
 
