@@ -5,6 +5,9 @@ ARG tester_name=tester
 ARG env_rel_path
 
 ADD . /code
+# FIXME: /code is added, so setup.sh may be run, but it's later replaced with a
+#        volume mount in run.sh.
+#        The "added" /code is not removed from the image... it's just messy
 WORKDIR /code/tests
 RUN bash /code/${env_rel_path}/setup.sh
 
@@ -15,4 +18,5 @@ USER ${tester_name}
 ENV HOME /home/${tester_name}
 
 # runtime
-CMD ["python2", "runtests.py", "--ignore", "catalogue"]
+ENV PYTHONPATH /code/${env_rel_path}/../python-lib
+CMD python2 runtests.py --ignore "catalogue"
