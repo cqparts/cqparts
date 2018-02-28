@@ -100,14 +100,14 @@ if __name__ == "__main__":
         description="tests can be shown, but execution skipped based on their label",
     )
     group.add_argument(
-        '-s', '--dontskip', dest='skip_whitelist',
-        type=label_list_type, default=[],
-        help="list of labels to test (skip all others)",
-    )
-    group.add_argument(
-        '-ds', '--skip', dest='skip_blacklist',
+        '-s', '--skip', dest='skip_blacklist',
         type=label_list_type, default=[],
         help="list of labels to skip",
+    )
+    group.add_argument(
+        '-ds', '--dontskip', dest='skip_whitelist',
+        type=label_list_type, default=[],
+        help="list of labels to test (skip all others)",
     )
 
     # ignore labels
@@ -116,14 +116,14 @@ if __name__ == "__main__":
         description="tests can be ignored based on their label",
     )
     group.add_argument(
-        '-i', '--dontignore', dest='ignore_whitelist',
-        type=label_list_type, default=[],
-        help="list of labels to test (ignore all others)",
-    )
-    group.add_argument(
-        '-di', '--ignore', dest='ignore_blacklist',
+        '-i', '--ignore', dest='ignore_blacklist',
         type=label_list_type, default=[],
         help="list of labels to ignore",
+    )
+    group.add_argument(
+        '-di', '--dontignore', dest='ignore_whitelist',
+        type=label_list_type, default=[],
+        help="list of labels to test (ignore all others)",
     )
 
     # logging
