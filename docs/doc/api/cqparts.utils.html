@@ -213,7 +213,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +271,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if addition for the given type is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if addition for the given type is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -321,7 +321,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if subtraction for the given type is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if subtraction for the given type is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -533,7 +533,7 @@ assist tree displays of hierarchical content.</p>
 <dl class="class">
 <dt id="cqparts.utils.misc.property_buffered">
 <em class="property">class </em><code class="descclassname">cqparts.utils.misc.</code><code class="descname">property_buffered</code><span class="sig-paren">(</span><em>getter</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.misc.property_buffered" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Buffer the result of a method on the class instance, similar to python builtin
 <code class="docutils literal"><span class="pre">&#64;property</span></code>, but the result is kept in memory until it’s explicitly deleted.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils.misc</span> <span class="k">import</span> <span class="n">property_buffered</span>
@@ -590,9 +590,9 @@ will also be documented in the output.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters are added to the beginning of the <em>docstring</em>.
+<li><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters are added to the beginning of the <em>docstring</em>.
 otherwise, they’re appended at the end.</li>
-<li><strong>hide_private</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters with a <code class="docutils literal"><span class="pre">_</span></code> prefix are not documented.</li>
+<li><strong>hide_private</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, parameters with a <code class="docutils literal"><span class="pre">_</span></code> prefix are not documented.</li>
 </ul>
 </td>
 </tr>
@@ -619,7 +619,7 @@ search criteria will also be documented in the output.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, table is added to the beginning of the <em>docstring</em>.
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prepend</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, table is added to the beginning of the <em>docstring</em>.
 otherwise, it’s appended at the end.</td>
 </tr>
 </tbody>
@@ -663,17 +663,17 @@ in the given <a class="reference internal" href="cqparts.catalogue.html#cqparts.
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>catalogue</strong> (<a class="reference internal" href="cqparts.catalogue.html#cqparts.catalogue.Catalogue" title="cqparts.catalogue.Catalogue"><code class="xref py py-class docutils literal"><span class="pre">Catalogue</span></code></a>) – catalogue to generatea tests from</li>
-<li><strong>add_to</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – dict to add resulting class to (usually <code class="docutils literal"><span class="pre">globals()</span></code>.</li>
+<li><strong>add_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – dict to add resulting class to (usually <code class="docutils literal"><span class="pre">globals()</span></code>.</li>
 <li><strong>id_mangler</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – convert item id to a valid python method name</li>
 <li><strong>include_cond</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – returns true if item should be tested</li>
 <li><strong>exclude_cond</strong> (<code class="xref py py-class docutils literal"><span class="pre">function</span></code>) – returns true if item should not be tested</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a testcase class to be discovered and run by <a class="reference external" href="https://docs.python.org/2/library/unittest.html#module-unittest" title="(in Python v2.7)"><code class="xref py py-mod docutils literal"><span class="pre">unittest</span></code></a></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a testcase class to be discovered and run by <a class="reference external" href="https://docs.python.org/3/library/unittest.html#module-unittest" title="(in Python v3.6)"><code class="xref py py-mod docutils literal"><span class="pre">unittest</span></code></a></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/unittest.html#unittest.TestCase" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">unittest.TestCase</span></code></a> sub-class (a class, <strong>not</strong> an instance)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/unittest.html#unittest.TestCase" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">unittest.TestCase</span></code></a> sub-class (a class, <strong>not</strong> an instance)</p>
 </td>
 </tr>
 </tbody>
@@ -870,7 +870,7 @@ parameters:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -925,7 +925,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if addition for the given type is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if addition for the given type is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -975,7 +975,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if subtraction for the given type is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if subtraction for the given type is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -1162,7 +1162,7 @@ box is always positioned orthogonally to the other two.</p>
 <dl class="class">
 <dt id="cqparts.utils.property_buffered">
 <em class="property">class </em><code class="descclassname">cqparts.utils.</code><code class="descname">property_buffered</code><span class="sig-paren">(</span><em>getter</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.property_buffered" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Buffer the result of a method on the class instance, similar to python builtin
 <code class="docutils literal"><span class="pre">&#64;property</span></code>, but the result is kept in memory until it’s explicitly deleted.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils.misc</span> <span class="k">import</span> <span class="n">property_buffered</span>

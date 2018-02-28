@@ -206,7 +206,7 @@
 <dl class="class">
 <dt id="cqparts.catalogue.catalogue.Catalogue">
 <em class="property">class </em><code class="descclassname">cqparts.catalogue.catalogue.</code><code class="descname">Catalogue</code><a class="headerlink" href="#cqparts.catalogue.catalogue.Catalogue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="cqparts.catalogue.catalogue.Catalogue.iter_items">
 <code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.catalogue.Catalogue.iter_items" title="Permalink to this definition">¶</a></dt>
@@ -246,8 +246,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
-<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
+<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
 </ul>
 </td>
 </tr>
@@ -266,18 +266,18 @@ version &amp; module information to assist backward compatability.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – unique id of entry, can be anything</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – unique id of entry, can be anything</li>
 <li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to be serialized, then added to the catalogue</li>
-<li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
-<li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
+<li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
+<li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
 exists. Otherwise an exception is raised</li>
-<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
+<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
-<li><strong>TypeError</strong> – on parameter issues</li>
-<li><strong>ValueError</strong> – if a duplicate db entry is detected (and <code class="docutils literal"><span class="pre">force</span></code>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – on parameter issues</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – if a duplicate db entry is detected (and <code class="docutils literal"><span class="pre">force</span></code>
 is not set)</li>
 </ul>
 </td>
@@ -285,7 +285,7 @@ is not set)</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">index of new entry</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a></p>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a></p>
 </td>
 </tr>
 </tbody>
@@ -309,7 +309,7 @@ for future-proofing.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">information about database’s initial creation</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -324,7 +324,7 @@ search result.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – result from <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.find" title="cqparts.catalogue.json.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>, or an element of <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.search" title="cqparts.catalogue.json.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – result from <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.find" title="cqparts.catalogue.json.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>, or an element of <a class="reference internal" href="#cqparts.catalogue.json.JSONCatalogue.search" title="cqparts.catalogue.json.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">deserialized object instance</td>
 </tr>
@@ -420,7 +420,7 @@ for the <code class="docutils literal"><span class="pre">items</span></code> tab
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">entries in <code class="docutils literal"><span class="pre">items</span></code> table that positively match given search criteria.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">items</span></code> table entries</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> of <code class="docutils literal"><span class="pre">items</span></code> table entries</td>
 </tr>
 </tbody>
 </table>
@@ -434,7 +434,7 @@ for the <code class="docutils literal"><span class="pre">items</span></code> tab
 <dl class="class">
 <dt id="cqparts.catalogue.Catalogue">
 <em class="property">class </em><code class="descclassname">cqparts.catalogue.</code><code class="descname">Catalogue</code><a class="headerlink" href="#cqparts.catalogue.Catalogue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="cqparts.catalogue.Catalogue.iter_items">
 <code class="descname">iter_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.catalogue.Catalogue.iter_items" title="Permalink to this definition">¶</a></dt>
@@ -471,8 +471,8 @@ for the <code class="docutils literal"><span class="pre">items</span></code> tab
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
-<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of catalogue file</li>
+<li><strong>clean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if set, catalogue is deleted, to be re-populatd from scratch</li>
 </ul>
 </td>
 </tr>
@@ -491,18 +491,18 @@ version &amp; module information to assist backward compatability.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – unique id of entry, can be anything</li>
+<li><strong>id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – unique id of entry, can be anything</li>
 <li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to be serialized, then added to the catalogue</li>
-<li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
-<li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
+<li><strong>criteria</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – arbitrary search criteria for the entry</li>
+<li><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, entry is forcefully overwritten if it already
 exists. Otherwise an exception is raised</li>
-<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
+<li><strong>_check_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">False</span></code>, duplicate <code class="docutils literal"><span class="pre">id</span></code> is not tested</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
-<li><strong>TypeError</strong> – on parameter issues</li>
-<li><strong>ValueError</strong> – if a duplicate db entry is detected (and <code class="docutils literal"><span class="pre">force</span></code>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – on parameter issues</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – if a duplicate db entry is detected (and <code class="docutils literal"><span class="pre">force</span></code>
 is not set)</li>
 </ul>
 </td>
@@ -510,7 +510,7 @@ is not set)</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">index of new entry</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a></p>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a></p>
 </td>
 </tr>
 </tbody>
@@ -534,7 +534,7 @@ for future-proofing.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">information about database’s initial creation</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -549,7 +549,7 @@ search result.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – result from <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>, or an element of <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.search" title="cqparts.catalogue.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – result from <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.find" title="cqparts.catalogue.JSONCatalogue.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>, or an element of <a class="reference internal" href="#cqparts.catalogue.JSONCatalogue.search" title="cqparts.catalogue.JSONCatalogue.search"><code class="xref py py-meth docutils literal"><span class="pre">search()</span></code></a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">deserialized object instance</td>
 </tr>
@@ -645,7 +645,7 @@ for the <code class="docutils literal"><span class="pre">items</span></code> tab
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">entries in <code class="docutils literal"><span class="pre">items</span></code> table that positively match given search criteria.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <code class="docutils literal"><span class="pre">items</span></code> table entries</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> of <code class="docutils literal"><span class="pre">items</span></code> table entries</td>
 </tr>
 </tbody>
 </table>

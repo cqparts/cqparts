@@ -432,13 +432,13 @@ variable <a class="reference external" href="http://dcowden.github.io/cadquery/c
 to child <em>parts</em>. Note how <code class="docutils literal"><span class="pre">axel_track</span></code> is used to define the axle’s length.</p>
 <p><strong>Components</strong></p>
 <p>The <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_components()</span></code></a> method is overridden above, to return
-a <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of named <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
+a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a> of named <a class="reference internal" href="../api/cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> instances.</p>
 <p>Each component requires a name that’s unique for the particular <em>assembly</em>.</p>
 <p><em>Components</em> may be added, or omitted based on the <em>assembly’s</em> parameters
 if necessary.</p>
 <p><strong>Constraints</strong></p>
 <p>The <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_constraints" title="cqparts.Assembly.make_constraints"><code class="xref py py-meth docutils literal"><span class="pre">Assembly.make_constraints()</span></code></a> method is overridden to return a
-<code class="xref py py-class docutils literal"><span class="pre">list</span></code> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-meth docutils literal"><span class="pre">Constraint</span></code></a> instances.</p>
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">list</span></code></a> of <a class="reference internal" href="../api/cqparts.constraint.html#cqparts.constraint.Constraint" title="cqparts.constraint.Constraint"><code class="xref py py-meth docutils literal"><span class="pre">Constraint</span></code></a> instances.</p>
 <p>Each <em>constraint</em> references, at least:</p>
 <ul class="simple">
 <li>the <em>component</em> being constrained.</li>

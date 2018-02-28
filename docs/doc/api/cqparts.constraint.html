@@ -206,7 +206,7 @@
 <dl class="class">
 <dt id="cqparts.constraint.base.Constraint">
 <em class="property">class </em><code class="descclassname">cqparts.constraint.base.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraint.base.Constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A means to limit the relative position &amp;/or motion of 1 or more components.</p>
 <p>Constraints are combined and solved to set world coordinates of the
 components within an assembly.</p>
@@ -270,7 +270,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>TypeError</strong> – if an invalid parameter type is passed</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if an invalid parameter type is passed</p>
 </td>
 </tr>
 </tbody>
@@ -289,7 +289,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 <dl class="class">
 <dt id="cqparts.constraint.mate.Mate">
 <em class="property">class </em><code class="descclassname">cqparts.constraint.mate.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.mate.Mate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
 <dt id="cqparts.constraint.mate.Mate.__add__">
@@ -309,7 +309,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -347,7 +347,7 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
 </tr>
 </tbody>
 </table>
@@ -389,7 +389,7 @@ world coordinates.</p>
 <dl class="class">
 <dt id="cqparts.constraint.Mate">
 <em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Mate</code><span class="sig-paren">(</span><em>component</em>, <em>local_coords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.constraint.Mate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A mate is a coordinate system relative to a component’s origin.</p>
 <dl class="method">
 <dt id="cqparts.constraint.Mate.__add__">
@@ -409,7 +409,7 @@ world coordinates.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>TypeError</strong> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if type of <code class="docutils literal"><span class="pre">other</span></code> is not supported</td>
 </tr>
 </tbody>
 </table>
@@ -447,7 +447,7 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="cqparts.utils.html#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.6)"><strong>ValueError</strong></a> – if <code class="docutils literal"><span class="pre">.component</span></code> does not have valid world coordinates.</td>
 </tr>
 </tbody>
 </table>
@@ -459,7 +459,7 @@ coords at <code class="docutils literal"><span class="pre">0,0,0</span></code>, 
 <dl class="class">
 <dt id="cqparts.constraint.Constraint">
 <em class="property">class </em><code class="descclassname">cqparts.constraint.</code><code class="descname">Constraint</code><a class="headerlink" href="#cqparts.constraint.Constraint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>A means to limit the relative position &amp;/or motion of 1 or more components.</p>
 <p>Constraints are combined and solved to set world coordinates of the
 components within an assembly.</p>
@@ -485,7 +485,7 @@ positioned and orientated to the given <code class="docutils literal"><span clas
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>TypeError</strong> – if an invalid parameter type is passed</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.6)"><strong>TypeError</strong></a> – if an invalid parameter type is passed</p>
 </td>
 </tr>
 </tbody>

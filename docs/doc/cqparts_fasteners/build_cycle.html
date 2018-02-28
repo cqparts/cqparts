@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts_fasteners Module" href="index.html"/>
-        <link rel="next" title="Example: Easy Install" href="easy-install/index.html"/>
+        <link rel="next" title="Example: Built In" href="built-in/index.html"/>
         <link rel="prev" title="cqparts_fasteners Module" href="index.html"/> 
 
   
@@ -108,6 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#built-cycle">Built Cycle</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="built-in/index.html">Example: Built In</a></li>
 <li class="toctree-l2"><a class="reference internal" href="easy-install/index.html">Example: Easy Install</a></li>
 </ul>
 </li>
@@ -180,7 +181,7 @@
   <div class="section" id="fastener-build-cycle">
 <span id="cqparts-fasteners-build-cycle"></span><h1><code class="docutils literal"><span class="pre">Fastener</span></code> Build Cycle<a class="headerlink" href="#fastener-build-cycle" title="Permalink to this headline">¶</a></h1>
 <p>As stated in <a class="reference internal" href="index.html#cqparts-fasteners-index"><span class="std std-ref">cqparts_fasteners Module</span></a>, a
-<a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> is an
+<code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code> is an
 <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assemly</span></code></a>, so it’s highly recommended you
 understand <a class="reference internal" href="../cqparts/assembly-build-cycle.html#parts-assembly-build-cycle"><span class="std std-ref">Assembly Build Cycle</span></a> before reading this section.</p>
 <p>A <em>fastener</em> still uses the <em>assembly</em> build cycle, but abstracts it further
@@ -195,7 +196,7 @@ with the use of 3 utility classes:</p>
 <p>Using <em>fasteners</em> as a tool is <strong>not mandatory</strong>.</p>
 <p>You can always achieve the same effects by picking a <em>bolt</em>, <em>screw</em>, or
 anything else as a part, and adding that to your assembly manually.</p>
-<p class="last">The <a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> class is intended to
+<p class="last">The <code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code> class is intended to
 make building easier. If it’s more trouble than it’s worth for your
 <em>assembly</em>, don’t use one.</p>
 </div>
@@ -237,7 +238,7 @@ on <em>components</em> in its parent <em>assembly</em>.</p>
 </div>
 <p><strong>Why doesn’t the applicator place parts?</strong></p>
 <p>It may seem logical for the <a class="reference internal" href="../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.Applicator" title="cqparts_fasteners.utils.Applicator"><code class="xref py py-class docutils literal"><span class="pre">Applicator</span></code></a> to choose where parts fit into
-the <a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a> assembly.</p>
+the <code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code> assembly.</p>
 <p>Instead, the <a class="reference internal" href="../api/cqparts_fasteners.utils.html#cqparts_fasteners.utils.Selector" title="cqparts_fasteners.utils.Selector"><code class="xref py py-class docutils literal"><span class="pre">Selector</span></code></a> sets the part placement for 2 reasons:</p>
 <ul class="simple">
 <li><strong>convenience</strong>: the placement of fasteners actually has a lot to do with which
@@ -251,7 +252,7 @@ process of building a fastener.</li>
 </div>
 <div class="section" id="built-cycle">
 <h2>Built Cycle<a class="headerlink" href="#built-cycle" title="Permalink to this headline">¶</a></h2>
-<p>Putting all the above utilities together, a <a class="reference internal" href="../api/cqparts_fasteners.html#cqparts_fasteners.Fastener" title="cqparts_fasteners.Fastener"><code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code></a>
+<p>Putting all the above utilities together, a <code class="xref py py-class docutils literal"><span class="pre">Fastener</span></code>
 build cycle is outlined below. Please reference <a class="reference internal" href="../cqparts/assembly-build-cycle.html#parts-assembly-build-cycle"><span class="std std-ref">Assembly Build Cycle</span></a>
 if needed.</p>
 <p>In the <em>fastener’s</em> <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly.make_components" title="cqparts.Assembly.make_components"><code class="xref py py-meth docutils literal"><span class="pre">make_components()</span></code></a> call:</p>
@@ -290,7 +291,7 @@ passed to the <em>evaluator</em> (if necessary).</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="easy-install/index.html" class="btn btn-neutral float-right" title="Example: Easy Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="built-in/index.html" class="btn btn-neutral float-right" title="Example: Built In" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="cqparts_fasteners Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -239,7 +239,7 @@
 <dl class="class">
 <dt id="cqparts.display.material.RenderProps">
 <em class="property">class </em><code class="descclassname">cqparts.display.material.</code><code class="descname">RenderProps</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.material.RenderProps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Properties for rendering.</p>
 <p>This class provides a <a class="reference internal" href="#cqparts.display.material.RenderParam" title="cqparts.display.material.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a> instance
 as a <a class="reference internal" href="cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> for a
@@ -272,8 +272,8 @@ display your creations quickly, but you can also provide custom properties.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>color</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
-<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
+<li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
 where <code class="docutils literal"><span class="pre">0</span></code> is transparent, and <code class="docutils literal"><span class="pre">1</span></code> is opaque</li>
 </ul>
 </td>
@@ -324,7 +324,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -341,7 +341,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, alpha values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -363,7 +363,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, transparency values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -384,7 +384,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">transparency value, 1 is invisible, 0 is opaque</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -402,8 +402,8 @@ child classes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
-<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
+<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
+<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
 </ul>
 </td>
 </tr>
@@ -443,7 +443,7 @@ information to display the part.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
-<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
 </ul>
 </td>
 </tr>
@@ -453,7 +453,7 @@ information to display the part.</p>
 for a browser to use.
 The http service does not know when the browser window has been closed, so
 it will continue to serve the model’s data until the user halts the
-process with a <code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
+process with a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code></a> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
 <p>When run, you should see output similar to:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
@@ -488,8 +488,8 @@ child classes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
-<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
+<li><strong>template</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – name of template to use (any of <code class="docutils literal"><span class="pre">TEMPLATE.keys()</span></code>)</li>
+<li><strong>doc</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – description of parameter for sphinx docs</li>
 </ul>
 </td>
 </tr>
@@ -519,7 +519,7 @@ information to display the part.</p>
 <dl class="class">
 <dt id="cqparts.display.RenderProps">
 <em class="property">class </em><code class="descclassname">cqparts.display.</code><code class="descname">RenderProps</code><span class="sig-paren">(</span><em>color=(200</em>, <em>200</em>, <em>200)</em>, <em>alpha=1</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.RenderProps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Properties for rendering.</p>
 <p>This class provides a <a class="reference internal" href="#cqparts.display.RenderParam" title="cqparts.display.RenderParam"><code class="xref py py-class docutils literal"><span class="pre">RenderParam</span></code></a> instance
 as a <a class="reference internal" href="cqparts.params.html#cqparts.params.Parameter" title="cqparts.params.Parameter"><code class="xref py py-class docutils literal"><span class="pre">Parameter</span></code></a> for a
@@ -552,8 +552,8 @@ display your creations quickly, but you can also provide custom properties.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>color</strong> (<code class="xref py py-class docutils literal"><span class="pre">tuple</span></code>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
-<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
+<li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a>) – 3-tuple of RGB in the bounds: <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">val</span> <span class="pre">&lt;=</span> <span class="pre">255}</span></code></li>
+<li><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – object alpha in the range <code class="docutils literal"><span class="pre">{0</span> <span class="pre">&lt;=</span> <span class="pre">alpha</span> <span class="pre">&lt;=</span> <span class="pre">1}</span></code>
 where <code class="docutils literal"><span class="pre">0</span></code> is transparent, and <code class="docutils literal"><span class="pre">1</span></code> is opaque</li>
 </ul>
 </td>
@@ -604,7 +604,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -621,7 +621,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, alpha values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -643,7 +643,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">red, green, blue, transparency values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -664,7 +664,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">transparency value, 1 is invisible, 0 is opaque</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -719,7 +719,7 @@ Can be used to set a property based on the property of another.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
-<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
 </ul>
 </td>
 </tr>
@@ -729,7 +729,7 @@ Can be used to set a property based on the property of another.</p>
 for a browser to use.
 The http service does not know when the browser window has been closed, so
 it will continue to serve the model’s data until the user halts the
-process with a <code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
+process with a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code></a> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
 <p>When run, you should see output similar to:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
