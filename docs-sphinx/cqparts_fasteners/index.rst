@@ -38,4 +38,5 @@ The ``cqparts_fasteners`` module contains:
    :caption: Contents
 
    build_cycle
+   built-in/index
    easy-install/index

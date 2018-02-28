@@ -110,6 +110,14 @@ class Box(cqparts.Part):
         return Mate(self, CoordSystem((0, 0, self.height)))
 
     @property
+    def mate_bottom(self):
+        """
+        :return: mate at base of box
+        :rtype: :class:`Mate <cqparts.constraint.Mate>`
+        """
+        return Mate(self, CoordSystem((0, 0, 0)))
+
+    @property
     def mate_pos_x(self):
         """
         :return: mate on positive X face

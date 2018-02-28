@@ -8,12 +8,12 @@ environments.
 ## `python-lib`
 
 This folder will be added to the environment's `PYTHONPATH`; any libs in this
-folder will be referenced before those installed in the os.
+folder will be referenced before those installed in the container.
 
-Used to test parallel development with other libraryes, mainly `cadquery`.
+Used to test parallel development with other libraries, mainly `cadquery`.
 
 However, this folder should be empty when testing for a release; all dependent
-libraries should be acquired from their public sources.
+libraries should be acquired from their public sources (eg: `pip`).
 
 ## `ubuntu-py2`
 
