@@ -27,7 +27,7 @@ cd ubuntu-py2
 
 ## `ubuntu-py3`
 
-docker image hosting ubuntu with python 2.x to run tests.
+docker image hosting ubuntu with python 3.x to run tests.
 
 ```bash
 cd ubuntu-py3
