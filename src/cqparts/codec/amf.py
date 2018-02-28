@@ -30,7 +30,7 @@ class AMFExporter(Exporter):
         shape = workplane.val()
 
         # call cadquery exporter
-        with open(filename, 'w') as fh:
+        with open(filename, 'wb') as fh:
             cadquery.freecad_impl.exporters.exportShape(
                 shape=shape,
                 exportType='AMF',

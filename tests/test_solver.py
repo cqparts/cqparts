@@ -167,17 +167,17 @@ class SolverOrderTests(CQPartsTest):
         solution = solver(constraints)
 
         # 1st solution : box1
-        (part, coords) = solution.next()
+        (part, coords) = next(solution)
         self.assertEqual(id(part), id(box1))
 
         part.world_coords = coords
 
         # 2nd solution : box2
-        (part, coords) = solution.next()
+        (part, coords) = next(solution)
         self.assertEqual(id(part), id(box2))
 
         with self.assertRaises(StopIteration):
-            solution.next()
+            next(solution)
 
     # Coincident, Fixed
     def test_coincident_backward(self):
@@ -189,17 +189,17 @@ class SolverOrderTests(CQPartsTest):
         solution = solver(constraints)
 
         # 1st solution : box1
-        (part, coords) = solution.next()
+        (part, coords) = next(solution)
         self.assertEqual(id(part), id(box1))
 
         part.world_coords = coords
 
         # 2nd solution : box2
-        (part, coords) = solution.next()
+        (part, coords) = next(solution)
         self.assertEqual(id(part), id(box2))
 
         with self.assertRaises(StopIteration):
-            solution.next()
+            next(solution)
 
 
 class BadSolverTests(CQPartsTest):

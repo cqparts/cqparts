@@ -163,6 +163,7 @@ class MaleFastenerPart(cqparts.Part):
         # thread offset ensures a small overlap with mating surface
         face_z_offset = self.head.get_face_offset()[2]
         thread_offset = 0
+        cmp = lambda a, b: (a > b) - (a < b)  # necessary for py3.x
         if not self.neck_length:
             thread_offset = [face_z_offset - 0.01, -0.01, 0.01][cmp(face_z_offset, 0)+1]
 

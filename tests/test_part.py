@@ -45,10 +45,13 @@ class MakeSimpleTests(CQPartsTest):
         p_simple = P(_simple=True)
         sbb = p_simple.local_obj.val().BoundingBox()  # simplified geometry
 
-        self.assertAlmostEqual((cbb.xmin, cbb.xmax), (sbb.xmin, sbb.xmax))
-        self.assertAlmostEqual((cbb.ymin, cbb.ymax), (sbb.ymin, sbb.ymax))
-        self.assertAlmostEqual((cbb.zmin, cbb.zmax), (sbb.zmin, sbb.zmax))
-
+        self.assertAlmostEqual(cbb.xmin, sbb.xmin)
+        self.assertAlmostEqual(cbb.xmax, sbb.xmax)
+        self.assertAlmostEqual(cbb.ymin, sbb.ymin)
+        self.assertAlmostEqual(cbb.ymax, sbb.ymax)
+        self.assertAlmostEqual(cbb.zmin, sbb.zmin)
+        self.assertAlmostEqual(cbb.zmax, sbb.zmax)
+        
     def test_simplify(self):
         class P(cqparts.Part):
             def make(self):

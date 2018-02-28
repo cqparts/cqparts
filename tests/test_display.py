@@ -1,5 +1,6 @@
 import unittest
 import mock
+import sys
 
 import cadquery
 
@@ -26,7 +27,7 @@ def patch_forgiving(*args, **kwargs):
     def decorator(func):
         try:
             return mock.patch(*args, **kwargs)(func)
-        except ImportError, AttributeError:
+        except (ImportError, AttributeError):
             # Patch module or attribute could not be patched.
             # return something nonetheless.
             def inner(*args, **kwargs):
@@ -77,7 +78,7 @@ class WebTests(CQPartsTest):
 
     @mock.patch('time.sleep', mock.Mock(side_effect=KeyboardInterrupt()))
     @mock.patch('webbrowser.open')
-    @mock.patch('SocketServer.ThreadingTCPServer')
+    @mock.patch(('socketserver' if sys.version_info[0] >= 3 else 'SocketServer') + '.ThreadingTCPServer')
     def test_basic(self, mock_serverobj, mock_webbrowser_open):
         # setup mocks
         mock_server = mock.MagicMock(server_address=('abc', 123))

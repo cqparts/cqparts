@@ -8,8 +8,14 @@ import jinja2
 import time
 
 # web content
-import SimpleHTTPServer
-import SocketServer
+if sys.version_info[0] >= 3:
+    # python 3.x
+    import http.server as SimpleHTTPServer
+    import socketserver as SocketServer
+else:
+    # python 2.x
+    import SimpleHTTPServer
+    import SocketServer
 import threading
 import webbrowser
 

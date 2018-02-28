@@ -127,7 +127,7 @@ class ShapeBuffer(object):
         """
         Offset (in bytes) of the ``vert_data`` buffer.
         """
-        return 0L
+        return 0
 
     @property
     def vert_size(self):
@@ -210,8 +210,12 @@ class ShapeBuffer(object):
         # Chain streams seamlessly
         for stream in streams:
             stream.seek(0)
-            for chunk in iter(lambda: stream.read(block_size), ''):
-                yield chunk
+            while True:
+                chunk = stream.read(block_size)
+                if chunk:
+                    yield chunk
+                else:
+                    break
 
         # When complete, each stream position should be reset;
         #   back to the end of the stream.
@@ -235,6 +239,7 @@ class ShapeBuffer(object):
         """
         buffer = BytesIO()
         for chunk in self.buffer_iter():
+            log.debug('buffer.write(%r)', chunk)
             buffer.write(chunk)
         buffer.seek(0)
         return buffer.read()

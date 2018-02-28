@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import unittest
 import re
 import functools
@@ -158,7 +159,21 @@ if __name__ == "__main__":
 
     # ---- Discover and run tests
     # Load tests
-    loader = unittest.TestLoader()
+
+    class MyLoader(unittest.TestLoader):
+        ignore_modules = ['partslib']
+
+        def _get_module_from_name(self, name):
+            # ignore modules that are in the ignore list
+            try:
+                __import__(name)
+                return sys.modules[name]
+            except ImportError:
+                if name in self.ignore_modules:
+                    return None
+                raise
+
+    loader = MyLoader()
     tests = loader.discover(
         start_dir='.',
         pattern=args.pattern,

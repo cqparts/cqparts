@@ -222,13 +222,13 @@ class Assembly(Component):
 
         # Make Components
         components_iter = genwrap(self.make_components(), "make_components", dict)
-        new_components = components_iter.next()
+        new_components = next(components_iter)
         self.verify_components(new_components)
         self._components.update(new_components)
 
         # Make Constraints
         constraints_iter = genwrap(self.make_constraints(), "make_components", list)
-        new_constraints = constraints_iter.next()
+        new_constraints = next(constraints_iter)
         self.verify_constraints(new_constraints)
         self._constraints += new_constraints
 
@@ -237,14 +237,14 @@ class Assembly(Component):
 
         # Make Alterations
         alterations_iter = genwrap(self.make_alterations(), "make_alterations")
-        alterations_iter.next()  # return value is ignored
+        next(alterations_iter)  # return value is ignored
 
         while True:
             (s1, s2, s3) = (True, True, True)  # stages
             # Make Components
             new_components = None
             try:
-                new_components = components_iter.next()
+                new_components = next(components_iter)
                 self.verify_components(new_components)
                 self._components.update(new_components)
             except StopIteration:
@@ -253,7 +253,7 @@ class Assembly(Component):
             # Make Constraints
             new_constraints = None
             try:
-                new_constraints = constraints_iter.next()
+                new_constraints = next(constraints_iter)
                 self.verify_constraints(new_constraints)
                 self._constraints += new_constraints
             except StopIteration:
@@ -265,7 +265,7 @@ class Assembly(Component):
 
             # Make Alterations
             try:
-                alterations_iter.next()  # return value is ignored
+                next(alterations_iter)  # return value is ignored
             except StopIteration:
                 s3 = False
 
@@ -383,7 +383,7 @@ class Assembly(Component):
 
         output = u''
         if not _depth:  # first line
-            output = unicode(prefix)
+            output = prefix
             if name:
                 output += (name + u': ') if add_repr else name
             if add_repr or not name:
