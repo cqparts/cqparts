@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+# Contribution Guidelines
 
 ## Raising Issues
 
