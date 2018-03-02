@@ -15,6 +15,7 @@ I can't use them directly, but I can learn from them.
 Some helpful descriptions for generating a gear profile:
 * http://khkgears.net/gear-knowledge/gear-technical-reference/involute-gear-profile/
 * http://lcamtuf.coredump.cx/gcnc/ch6/
+* http://khkgears.net/gear-knowledge/gear-technical-reference/calculation-gear-dimensions/
 
 ## Undercutting
 
