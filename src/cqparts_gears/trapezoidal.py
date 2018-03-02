@@ -31,8 +31,6 @@ class TrapezoidalGear(Gear):
         Builds a single tooth including the cylinder with tooth faces
         tangential to its circumference.
         """
-        profile = cadquery.Workplane('XY')
-
         # parameters
         period_arc = (2 * pi) / self.tooth_count
         tooth_arc = period_arc * self.spacing_ratio  # the arc between faces at effective_radius
@@ -54,10 +52,11 @@ class TrapezoidalGear(Gear):
             side_tangent_radius * sin(side_angle)
         )
         if self.face_angle:
-            tooth = tooth.threePointArc(
-                (0, -side_tangent_radius),
-                opposite_point
-            )
+            tooth = tooth.lineTo(*opposite_point)
+            #tooth = tooth.threePointArc(
+            #    (0, -side_tangent_radius),
+            #    opposite_point
+            #)
         tooth = tooth.lineTo(
                 -cos(extra_side_angle) * outer_radius,
                 sin(extra_side_angle) * outer_radius
@@ -75,10 +74,12 @@ class TrapezoidalGear(Gear):
         return tooth
 
     def make(self):
+        # create inside cylinder
         inner_radius = self.effective_radius - (self.tooth_height / 2)
         gear = cadquery.Workplane('XY', origin=(0, 0, -self.width / 2)) \
             .circle(inner_radius).extrude(self.width)
 
+        # copy & rotate once per tooth
         tooth_template = self._make_tooth_template()
 
         period_arc = 360. / self.tooth_count
