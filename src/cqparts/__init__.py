@@ -9,7 +9,7 @@
 __version__ = "0.1.0"
 
 __title__ = "cqparts"
-__description__ = "Parts and Assemblies for cadquery"
+__description__ = "Hierarchical and deeply parametric models using cadquery"
 __url__ = "https://github.com/fragmuffin/cqparts"
 
 __author__ = "Peter Boin"
@@ -18,7 +18,9 @@ __email__ = "peter.boin@gmail.com"
 __license__ = "GPLv3"
 
 # not text-parsable
-__copyright__ = "Copyright 2018 {0}".format(__author__)
+import datetime
+_now = datetime.date.today()
+__copyright__ = "Copyright {year} {author}".format(year=_now.year, author=__author__)
 
 
 # =========================== Imports ===========================
