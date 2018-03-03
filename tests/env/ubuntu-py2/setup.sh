@@ -9,6 +9,8 @@ Environment Variables:
     env_rel_path = ${env_rel_path}
 EOF
 
+pip_bin=pip
+
 # install 'add-apt-repository' utility
 apt-get update
 apt-get install -y software-properties-common
@@ -19,9 +21,10 @@ add-apt-repository -y ppa:freecad-maintainers/freecad-stable
 # 2nd rount installations
 apt-get update
 apt-get install -y freecad python python-pip
-pip install --upgrade pip
+${pip_bin} install --upgrade pip
 
 # install pip packages
-pip install -r /code/src/requirements.txt
-pip install -r /code/tests/requirements.txt
-pip install ipython
+${pip_bin} install -r /code/src/requirements.txt
+${pip_bin} install -r /code/tests/requirements.txt
+${pip_bin} install -U -r /code/deployment/requirements.txt
+${pip_bin} install ipython

@@ -10,6 +10,7 @@ Environment Variables:
 EOF
 
 freecad_version=0.17=py36_11
+pip_bin=pip3
 
 # FIXME: although preferable, installing with apt doesn't work with python imports
 ## install 'add-apt-repository' utility
@@ -25,7 +26,7 @@ freecad_version=0.17=py36_11
 # Install apt packages
 apt-get update
 apt-get install -y python3 python3-pip wget
-pip3 install --upgrade pip
+${pip_bin} install --upgrade pip
 
 # using conda package management to install freecad=0.17
 wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh
@@ -38,6 +39,7 @@ conda update conda
 conda install -c freecad -c conda-forge freecad=${freecad_version} conda
 
 # install pip packages
-pip3 install -r /code/src/requirements.txt
-pip3 install -r /code/tests/requirements.txt
-pip3 install ipython
+${pip_bin} install -r /code/src/requirements.txt
+${pip_bin} install -r /code/tests/requirements.txt
+${pip_bin} install -U -r /code/deployment/requirements.txt
+${pip_bin} install ipython
