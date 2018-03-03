@@ -1,5 +1,5 @@
 __all__ = [
-    'ScrewDrive', 'register', 'find',
+    'ScrewDrive', 'register', 'find', 'search',
 
     # Screw Drive types
     'cruciform',

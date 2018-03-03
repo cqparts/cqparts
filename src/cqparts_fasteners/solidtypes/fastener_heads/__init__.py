@@ -1,5 +1,5 @@
 __all__ = [
-    'FastenerHead', 'register', 'find',
+    'FastenerHead', 'register', 'find', 'search',
 
     # Fastener Head Types
     'counter_sunk',

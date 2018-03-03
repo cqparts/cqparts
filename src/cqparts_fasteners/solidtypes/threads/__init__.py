@@ -1,5 +1,5 @@
 __all__ = [
-    'Thread', 'register', 'find',
+    'Thread', 'register', 'find', 'search',
 
     # Thread Types
     'ball_screw',
