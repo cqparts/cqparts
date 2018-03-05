@@ -7,6 +7,9 @@ from cqparts.display import render_props
 from cqparts import constraint
 from cqparts.utils import CoordSystem
 
+from .. import register
+
+
 class _PegSide(cqparts.Part):
     """
     One side of a wooden clothes peg.
@@ -113,6 +116,7 @@ class _Spring(cqparts.Part):
         return spring
 
 
+@register(module=__name__, name='clothespeg', type='peg_clamp')
 class ClothesPeg(cqparts.Assembly):
     """
     A common household clothes-peg
