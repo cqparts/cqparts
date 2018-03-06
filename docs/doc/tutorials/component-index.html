@@ -117,6 +117,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new-lib.html">Publishing Components</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a></li>
@@ -273,7 +274,9 @@ search criteria:</p>
 <h3>Find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h3>
 <p>But most of the time you’ll only be expecting one part to bounce back, because
 mostly this is intended as an indexing tool, not a searching tool.</p>
-<p>To index a unique part, or fail (throw an exception), use <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> instead:</p>
+<p>To index a unique part, or fail (throw a
+<a class="reference internal" href="../api/cqparts.html#cqparts.errors.SearchError" title="cqparts.errors.SearchError"><code class="xref py py-class docutils literal"><span class="pre">SearchError</span></code></a> exception), use <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a>
+instead:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.search</span> <span class="k">import</span> <span class="n">find</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">)</span>
@@ -281,16 +284,24 @@ mostly this is intended as an indexing tool, not a searching tool.</p>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># You can use this to build a component straight away</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;two&#39;</span><span class="p">)(</span><span class="n">length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># creates an instance</span>
-<span class="go">&lt;SomeThing: length=50.0 @0x7fdfb28f4510&gt;</span>
+<span class="go">&lt;SomeThing: length=50.0&gt;</span>
 </pre></div>
 </div>
 <p>This is great for finding a <em>component</em> class with a registered <em>part number</em>.</p>
-<p>Using <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> with criteria that is not unique will raise an exception:</p>
+<p>Using <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> with criteria that is not unique will raise a
+<a class="reference internal" href="../api/cqparts.html#cqparts.errors.SearchMultipleFoundError" title="cqparts.errors.SearchMultipleFoundError"><code class="xref py py-class docutils literal"><span class="pre">SearchMultipleFoundError</span></code></a>
+exception:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;one&#39;</span><span class="p">)</span>
 <span class="go">SearchMultipleFoundError: 2 results found</span>
 </pre></div>
 </div>
-<p>Similarly, calling <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> with criteria that is not indexed will raise a</p>
+<p>Similarly, calling <a class="reference internal" href="../api/cqparts.html#cqparts.search.find" title="cqparts.search.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> with criteria that is not indexed will raise a
+<a class="reference internal" href="../api/cqparts.html#cqparts.errors.SearchNoneFoundError" title="cqparts.errors.SearchNoneFoundError"><code class="xref py py-class docutils literal"><span class="pre">SearchNoneFoundError</span></code></a>
+exception:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">find</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="s1">&#39;infinity&#39;</span><span class="p">)</span>
+<span class="go">SearchNoneFoundError: 0 results found</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

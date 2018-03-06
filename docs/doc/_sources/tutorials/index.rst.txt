@@ -22,3 +22,4 @@ at each step.
    assembly
    component-index
    fastener-biscuit
+   new-lib

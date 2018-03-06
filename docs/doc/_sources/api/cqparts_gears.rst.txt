@@ -12,6 +12,14 @@ cqparts\_gears\.base module
     :undoc-members:
     :show-inheritance:
 
+cqparts\_gears\.trapezoidal module
+----------------------------------
+
+.. automodule:: cqparts_gears.trapezoidal
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

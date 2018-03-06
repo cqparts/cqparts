@@ -1,4 +1,6 @@
 
+# TODO: illustrative model only; remove this file
+
 import cadquery
 
 import cqparts
@@ -48,6 +50,7 @@ class _PegSide(cqparts.Part):
     _render = render_props(template='wood')
 
     def make(self):
+        # Main profile shape of peg
         points = [
             (0, 0), (self.length, 0),
             (self.length, self.handle_tip_depth),
@@ -89,12 +92,14 @@ class _PegSide(cqparts.Part):
 
     @property
     def mate_spring_center(self):
+        # mate in the center of the spring, z-axis along spring center
         return constraint.Mate(self, CoordSystem(
             origin=(self.length - self.handle_length, self.depth, self.width / 2),
         ))
 
     @property
     def mate_side(self):
+        # mate in middle of outside edge, z-axis into peg
         return constraint.Mate(self, CoordSystem(
             origin=(self.length / 2, 0, self.width / 2),
             xDir=(0, 0, -1),

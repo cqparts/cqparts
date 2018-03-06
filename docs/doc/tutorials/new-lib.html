@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorials &mdash; cqparts 0.1.0 documentation</title>
+  <title>Publishing Components &mdash; cqparts 0.1.0 documentation</title>
   
 
   
@@ -38,8 +38,9 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
-        <link rel="next" title="Parametric Object" href="parametric-object.html"/>
-        <link rel="prev" title="Import / Export" href="../cqparts/import-export.html"/> 
+        <link rel="up" title="Tutorials" href="index.html"/>
+        <link rel="next" title="cqparts_fasteners Module" href="../cqparts_fasteners/index.html"/>
+        <link rel="prev" title="Fastener : Biscuit" href="fastener-biscuit.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,13 +99,20 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new-lib.html">Publishing Components</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Publishing Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-to-existing-library">Add to Existing Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-library">Create a New Library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#publishing-a-new-library">Publishing a New Library</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a></li>
@@ -155,7 +163,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Tutorials</li>
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+        
+      <li>Publishing Components</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -172,54 +182,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
-<p>Each of the tutorials below can be copied into your own editor an executed
-at each step.</p>
-<div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p><a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> functionality is out of scope of these tutorials.</p>
-<p class="last">Some tutorials have a lot of detailed calls to <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.0)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a>, none of
-those tutorials will describe exactly how these calls achieve the geometry.</p>
+  <div class="section" id="publishing-components">
+<span id="cqparts-template-index"></span><h1>Publishing Components<a class="headerlink" href="#publishing-components" title="Permalink to this headline">¶</a></h1>
+<p>If you’d like to publish your <em>components</em> to be used by others, you can
+release your own library of <em>components</em> in a few different ways.</p>
+<div class="section" id="add-to-existing-library">
+<h2>Add to Existing Library<a class="headerlink" href="#add-to-existing-library" title="Permalink to this headline">¶</a></h2>
+<p><em>Components</em> can potentially be added to any existing library.</p>
+<p>You’re welcome to create a pull request with your model for any of the
+libraries in the
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/tree/master/src">cqparts github repository</a>.</p>
+<p>Any change pushed to these libraries will prompt a version increment and your
+additions will be added to the changelog with you as the author.</p>
+<p>Please <a class="reference external" href="https://github.com/fragmuffin/cqparts/issues/new">raise an issue</a>
+if you’re considering doing this, and we can discuss the location and design of
+the components you wish to add.</p>
 </div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="parametric-object.html">Parametric Object</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-parametric-object">Create a Parametric Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#builtin-parameters">Builtin Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#create-a-custom-parameter">Create a Custom Parameter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html#documenting-with-sphinx">Documenting with Sphinx</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="part.html#adding-mates">Adding <code class="docutils literal"><span class="pre">Mates</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="part.html#modifying-geometry">Modifying Geometry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part.html#rendering">Rendering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part.html#further-reading">Further Reading</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#parts">Parts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#wheel-assembly">Wheel Assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html#car-assembly">Car Assembly</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="component-index.html">Component Index</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="component-index.html#registering">Registering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="component-index.html#searching-finding">Searching &amp; Finding</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="fastener-biscuit.html">Fastener : Biscuit</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fastener-biscuit.html#components">Components</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="new-lib.html">Publishing Components</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="new-lib.html#add-to-existing-library">Add to Existing Library</a></li>
-<li class="toctree-l2"><a class="reference internal" href="new-lib.html#create-a-new-library">Create a New Library</a></li>
-</ul>
-</li>
-</ul>
+<div class="section" id="create-a-new-library">
+<h2>Create a New Library<a class="headerlink" href="#create-a-new-library" title="Permalink to this headline">¶</a></h2>
+<p>You may also start your own library.</p>
+<p>When doing so it’s highly recommended that you copy the
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/tree/master/src/cqparts_template">cqparts_template library</a>
+and follow the instructions in the <code class="docutils literal"><span class="pre">README.md</span></code> to make the relevant changes.</p>
+<div class="section" id="publishing-a-new-library">
+<h3>Publishing a New Library<a class="headerlink" href="#publishing-a-new-library" title="Permalink to this headline">¶</a></h3>
+<p>When publishing you can choose to add it to the current list of <code class="docutils literal"><span class="pre">cqparts</span></code>
+libraries hosted in the
+<a class="reference external" href="https://github.com/fragmuffin/cqparts/tree/master/src">cqparts github repository</a>.</p>
+<p>Or you can publish the library from your own repository, independent of <code class="docutils literal"><span class="pre">cqparts</span></code>.</p>
+</div>
 </div>
 </div>
 
@@ -233,10 +224,10 @@ those tutorials will describe exactly how these calls achieve the geometry.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="parametric-object.html" class="btn btn-neutral float-right" title="Parametric Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../cqparts_fasteners/index.html" class="btn btn-neutral float-right" title="cqparts_fasteners Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../cqparts/import-export.html" class="btn btn-neutral" title="Import / Export" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="fastener-biscuit.html" class="btn btn-neutral" title="Fastener : Biscuit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,12 +1,12 @@
 
-.. _cqparts_fastener-built-in_nut-bolt:
+.. _cqparts_fasteners.built-in.nut-bolt:
 
 .. currentmodule:: cqparts_fasteners.fasteners.nutbolt
 
 Nut & Bolt
 --------------
 
-The :class:`NutBoltFastener` fastener penetrates through all the given parts
+The :class:`NutAndBoltFastener` fastener penetrates through all the given parts
 with the same diameter hole for the bolt to pass through.
 
 The bolt sticks out the end of the last Part, with the nut attached.

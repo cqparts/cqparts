@@ -113,7 +113,9 @@ Find
 But most of the time you'll only be expecting one part to bounce back, because
 mostly this is intended as an indexing tool, not a searching tool.
 
-To index a unique part, or fail (throw an exception), use :meth:`find` instead::
+To index a unique part, or fail (throw a
+:class:`SearchError <cqparts.errors.SearchError>` exception), use :meth:`find`
+instead::
 
     >>> from cqparts.search import find
 
@@ -122,13 +124,20 @@ To index a unique part, or fail (throw an exception), use :meth:`find` instead::
 
     >>> # You can use this to build a component straight away
     >>> find(a='one', b='two')(length=50)  # creates an instance
-    <SomeThing: length=50.0 @0x7fdfb28f4510>
+    <SomeThing: length=50.0>
 
 This is great for finding a *component* class with a registered *part number*.
 
-Using :meth:`find` with criteria that is not unique will raise an exception::
+Using :meth:`find` with criteria that is not unique will raise a
+:class:`SearchMultipleFoundError <cqparts.errors.SearchMultipleFoundError>`
+exception::
 
     >>> find(a='one')
     SearchMultipleFoundError: 2 results found
 
 Similarly, calling :meth:`find` with criteria that is not indexed will raise a
+:class:`SearchNoneFoundError <cqparts.errors.SearchNoneFoundError>`
+exception::
+
+    >>> find(b='infinity')
+    SearchNoneFoundError: 0 results found
