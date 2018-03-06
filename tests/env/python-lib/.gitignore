@@ -1,3 +1,4 @@
 # Ignore everything with exceptions
 *
 !.gitignore
+!README.md

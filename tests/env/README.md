@@ -1,6 +1,7 @@
 # Test Environments
 
-Each of the sub-folders in this directory has a buildable environment to test.
+Each of the sub-folders in this directory has a buildable environment designed
+to for unit-testing.
 
 At this time [2018-02] I'm just working with docker containers with _ubuntu_
 environments.

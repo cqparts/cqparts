@@ -17,6 +17,8 @@ RUN useradd -c 'test user' -m -d /home/${tester_name} -s /bin/bash ${tester_name
 USER ${tester_name}
 ENV HOME /home/${tester_name}
 
-# runtime
+# runtime environment variables
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
+
+# default run command
 CMD python2 runtests.py --ignore "catalogue"

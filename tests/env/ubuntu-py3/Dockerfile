@@ -21,7 +21,7 @@ ENV HOME /home/${tester_name}
 # runtime environment variables
 ENV FREECAD_LIB /opt/miniconda/pkgs/freecad-${freecad_conda_ver}/lib
 ENV LD_LIBRARY_PATH /opt/miniconda/lib
-
-# runtime
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
+
+# default run command
 CMD python3 runtests.py --ignore "catalogue"
