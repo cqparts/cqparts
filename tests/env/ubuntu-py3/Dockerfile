@@ -22,4 +22,4 @@ ENV LD_LIBRARY_PATH /opt/miniconda/lib
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
 
 # default run command
-CMD python3 runtests.py --ignore "catalogue"
+CMD $PYTHON_BIN runtests.py --ignore "catalogue"

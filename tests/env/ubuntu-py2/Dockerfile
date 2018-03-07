@@ -19,4 +19,4 @@ USER ${tester_name}
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
 
 # default run command
-CMD python2 runtests.py --ignore "catalogue"
+CMD $PYTHON_BIN runtests.py --ignore "catalogue"

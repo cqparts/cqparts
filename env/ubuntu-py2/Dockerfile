@@ -17,5 +17,9 @@ RUN useradd -c 'test user' -m -d /home/${tester_name} -s /bin/bash ${tester_name
 USER ${tester_name}
 ENV HOME /home/${tester_name}
 
+# runtime environment variables
+ENV PIP_BIN pip
+ENV PYTHON_BIN python
+
 # default run command
 CMD echo "image command run successfully... but it does nothing"
