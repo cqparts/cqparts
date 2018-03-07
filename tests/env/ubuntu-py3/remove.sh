@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
+source ./common-vars.sh
 
-ENV_NAME=${PWD##*/}
-NAME=cqparts-test:${ENV_NAME}
-
-docker image rm ${NAME}
-
+docker image rm ${IMAGE}

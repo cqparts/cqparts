@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
+source ./common-vars.sh
 
-LOCAL=${PWD}
-CQPARTS_ROOT=$(git rev-parse --show-toplevel)
-ENV_REL_PATH=$(python -c "import os.path; print(os.path.relpath('${LOCAL}', '${CQPARTS_ROOT}'))")
-ENV_NAME=${PWD##*/}
+ENV_REL_PATH=$(python -c "import os.path; print(os.path.relpath('${PWD}', '${CQPARTS_ROOT}'))")
 
 # work from repository root
 pushd ${CQPARTS_ROOT}
 
 docker build \
-    --tag cqparts-test:${ENV_NAME} \
+    --tag ${IMAGE} \
     --build-arg ftp_proxy=${ftp_proxy} \
     --build-arg http_proxy=${http_proxy} \
     --build-arg https_proxy=${https_proxy} \

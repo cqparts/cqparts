@@ -9,22 +9,11 @@ Environment Variables:
     env_rel_path = ${env_rel_path}
 EOF
 
-pip_bin=pip
+# install requirements for each library in 'src' sub-folders
+find /code/src \
+    -mindepth 2 -maxdepth 2 \
+    -name requirements.txt \
+    -exec pip install -r {} \;
 
-# install 'add-apt-repository' utility
-apt-get update
-apt-get install -y software-properties-common
-
-# add FreeCAD apt repo'
-add-apt-repository -y ppa:freecad-maintainers/freecad-stable
-
-# 2nd rount installations
-apt-get update
-apt-get install -y freecad python python-pip
-${pip_bin} install --upgrade pip
-
-# install pip packages
-${pip_bin} install -r /code/src/requirements.txt
-${pip_bin} install -r /code/tests/requirements.txt
-${pip_bin} install -U -r /code/deployment/requirements.txt
-${pip_bin} install ipython
+# install test requirements
+pip install -r /code/tests/requirements.txt

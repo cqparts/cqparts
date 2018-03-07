@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM cqparts-env:ubuntu-py2
 
 # build-time arguments
 ARG tester_name=tester
@@ -9,13 +9,11 @@ ADD . /code
 #        volume mount in run.sh.
 #        The "added" /code is not removed from the image... it's just messy
 WORKDIR /code/tests
+USER root
 RUN bash /code/${env_rel_path}/setup.sh
 
 # test user
-RUN useradd -c 'test user' -m -d /home/${tester_name} -s /bin/bash ${tester_name}
-#RUN chown -R ${tester_name}.${tester_name} /code
 USER ${tester_name}
-ENV HOME /home/${tester_name}
 
 # runtime environment variables
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
