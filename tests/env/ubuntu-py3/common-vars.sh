@@ -1,5 +1,5 @@
 # Environment variables common to all scripts in this folder
-export IMAGE_BASE=cqparts-test
+export IMAGE_BASE=cqparts-unittest
 export IMAGE_VER=${PWD##*/}
 export IMAGE=${IMAGE_BASE}:${IMAGE_VER}
 
