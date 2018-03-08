@@ -71,11 +71,14 @@ At this time, running `./deploy.sh --help` displays:
 
 Deployment testing is dependent on the docker containers built in `../env`
 
-Build all base environments in that folder
+1. Build all base environments in the `../env/*` folders, then
+1. Build each environment in the `env/*` folders
 
 ### Dependencies
 
-    ./deploy.sh setup
+```bash
+./deploy.sh setup
+```
 
 ### PyPi rc
 
