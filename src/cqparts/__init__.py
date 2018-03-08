@@ -6,16 +6,18 @@
 #   1.x                 - Development Status :: 5 - Production/Stable
 #   <any above>.y       - developments on that version (pre-release)
 #   <any above>*.dev*   - development release (intended purely to test deployment)
-__version__ = "0.1.0"
+__version__ = '0.1.0.dev0'
 
-__title__ = "cqparts"
-__description__ = "Hierarchical and deeply parametric models using cadquery"
-__url__ = "https://github.com/fragmuffin/cqparts"
+__title__ = 'cqparts'
+__description__ = 'Hierarchical and deeply parametric models using cadquery'
+__url__ = 'https://github.com/fragmuffin/cqparts'
 
-__author__ = "Peter Boin"
-__email__ = "peter.boin@gmail.com"
+__author__ = 'Peter Boin'
+__email__ = 'peter.boin+cqparts@gmail.com'
 
-__license__ = "GPLv3"
+__license__ = 'GPLv3'
+
+__keywords__ = ['cadquery', 'cad', '3d', 'modeling']
 
 # not text-parsable
 import datetime

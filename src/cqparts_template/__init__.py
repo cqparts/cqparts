@@ -1,5 +1,5 @@
 
-_DEPLOY_TO_PYPI = False
+__release_ready__ = False  # TODO: remove to stop blocking build
 
 __title__ = "cqparts_<lib_name>"  # TODO
 __description__ = "<brief description>"  # TODO

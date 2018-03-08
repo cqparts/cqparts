@@ -2,6 +2,7 @@
 import tinydb
 import os
 import re
+from distutils.version import LooseVersion
 
 from .. import __version__
 from .. import Component
@@ -19,8 +20,7 @@ class JSONCatalogue(Catalogue):
     For more information, read :ref:`cqparts.catalogue`.
     """
 
-    # database information
-    assert __version__ == '0.1.0', "confirm JSONCatalogue version"
+    # database information:
     # remember: before aligning the above version, check information below...
     # if changes have been made to this class, the below version should
     # be incremented.
