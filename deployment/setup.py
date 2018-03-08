@@ -1,9 +1,14 @@
 import codecs
 import os
+import sys
 import re
 import setuptools
 from distutils.version import LooseVersion
 import argparse
+
+# TESTING
+print("sys.argv: %r" % sys.argv)
+print("cwd: %r" % os.getcwd())
 
 LIB_PARENT_DIR = os.path.join('..', 'src')
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -11,12 +16,13 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 parser = argparse.ArgumentParser(description='Deployment script')
 
 def lib_type(value):
-    if not os.path.exists(os.path.join(LIB_PARENT_DIR, value)):
-        raise argparse.ArgumentTypeError(
-            "library '{lib}' cannot be found in folder '{parent}'".format(
-                lib=value, parent=LIB_PARENT_DIR,
-            )
-        )
+    #if not os.path.exists(os.path.join(LIB_PARENT_DIR, value)):
+    #    raise argparse.ArgumentTypeError(
+    #        "library '{lib}' cannot be found in folder '{parent}'".format(
+    #            lib=value, parent=LIB_PARENT_DIR,
+    #        )
+    #    )
+    return value
 
 parser.add_argument(
     '--lib', dest='lib', type=lib_type, default=lib_type('cqparts'),
@@ -41,8 +47,6 @@ PACKAGES = setuptools.find_packages(
 )
 META_PATH = os.path.join('..', 'src', args.lib, '__init__.py')
 CLASSIFIERS = [
-    "Development Status :: 2 - Pre-Alpha",
-    #"Development Status :: 3 - Alpha",  # see src/pygcode/__init__.py
     "Intended Audience :: Developers",
     "Intended Audience :: Manufacturing",
     "Intended Audience :: End Users/Desktop",
@@ -88,77 +92,75 @@ def read(*parts):
 
 META_FILE_CONTENT = read(META_PATH)
 
-def find_meta(meta):
+def find_meta(meta, default=None):
     match = re.search(
         r"""^__{meta}__\s*=\s*(?P<value>.*)$""".format(meta=meta),
         META_FILE_CONTENT,
         flags=re.MULTILINE,
     )
     if not match:
+        if default is not None:
+            return default
         raise RuntimeError("Unable to find __{name}__ string in '{file}'.".format(
             name=meta, file=META_PATH,
         ))
+
     return eval(match.group('value'))
 
 
-def assert_version_classifier(version_str):
+# Development Status Classifier
+VERSION_CLASSIFIER_MAP = [
+    (LooseVersion('0.1'), "Development Status :: 2 - Pre-Alpha"),
+    (LooseVersion('0.2'), "Development Status :: 3 - Alpha"),
+    (LooseVersion('0.3'), "Development Status :: 4 - Beta"),
+    (LooseVersion('1.0'), "Development Status :: 5 - Production/Stable"),
+]
+
+def version_classifier(version_str):
     """
     Verify version consistency:
     version number must correspond to the correct "Development Status" classifier
     :raises: ValueError if error found, but ideally this function does nothing
     """
-    V = lambda v: LooseVersion(v)
     # cast version
-    version = V(version_str)
+    version = LooseVersion(version_str)
 
-    # get "Development  Status" classifier
-    dev_status_list = [x for x in CLASSIFIERS if x.startswith("Development Status ::")]
-    if len(dev_status_list) != 1:
-        raise ValueError("must be 1 'Development Status' in CLASSIFIERS")
-    classifier = dev_status_list.pop()
-
-    version_map = [
-        (V('0.1'), "Development Status :: 2 - Pre-Alpha"),
-        (V('0.2'), "Development Status :: 3 - Alpha"),
-        (V('0.3'), "Development Status :: 4 - Beta"),
-        (V('1.0'), "Development Status :: 5 - Production/Stable"),
-    ]
-
-    for (test_ver, test_classifier) in reversed(sorted(version_map, key=lambda x: x[0])):
+    for (test_ver, classifier) in reversed(sorted(VERSION_CLASSIFIER_MAP, key=lambda x: x[0])):
         if version >= test_ver:
-            if classifier == test_classifier:
-                return  # all good, now forget any of this ever happened
-            else:
-                raise ValueError("for version {ver} classifier should be \n'{good}'\nnot\n'{bad}'".format(
-                    ver=str(version), good=test_classifier, bad=classifier
-                ))
+            return classifier
+
+    raise ValueError("could not find valid 'Development Status' classifier for v{}".format(version_str))
+
+CLASSIFIERS.append(version_classifier(find_meta("version")))
 
 
-if __name__ == "__main__":
+# ------- Mainline --------
 
-    version = find_meta("version")
-    assert_version_classifier(version)
+# If library is explicitly marked as not being ready for release,
+# an exception will be raised & block a build
+assert find_meta('release_ready', True) == True, \
+    "library '{lib}' is not ready for release".format(lib=args.lib)
 
-    setuptools.setup(
-        name=args.lib,
-        description=find_meta('description'),
-        license=find_meta('license'),
-        url=find_meta('url'),
-        version=version,
-        author=find_meta('author'),
-        author_email=find_meta('email'),
-        maintainer=find_meta('author'),
-        maintainer_email=find_meta('email'),
-        keywords=find_meta('keywords'),
-        long_description=read('..', 'README.rst'),
-        packages=PACKAGES,
-        package_dir={'': LIB_PARENT_DIR},
-        zip_safe=False,
-        classifiers=CLASSIFIERS,
-        install_requires=INSTALL_REQUIRES,
-        scripts=SCRIPTS,
+setuptools.setup(
+    name=args.lib,
+    description=find_meta('description'),
+    license=find_meta('license'),
+    url=find_meta('url'),
+    version=find_meta("version"),
+    author=find_meta('author'),
+    author_email=find_meta('email'),
+    maintainer=find_meta('author'),
+    maintainer_email=find_meta('email'),
+    keywords=find_meta('keywords'),
+    long_description=read('..', 'README.rst'),
+    packages=PACKAGES,
+    package_dir={'': LIB_PARENT_DIR},
+    zip_safe=False,
+    classifiers=CLASSIFIERS,
+    install_requires=INSTALL_REQUIRES,
+    scripts=SCRIPTS,
 
-        # argv's referenced by setuptools.setup
-        script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
-        script_args=args.script_args,  # sys.argv[:1]
-    )
+    # argv's referenced by setuptools.setup
+    script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
+    script_args=args.script_args,  # sys.argv[:1]
+)

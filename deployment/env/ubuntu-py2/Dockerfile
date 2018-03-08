@@ -8,7 +8,7 @@ ADD . /code
 # FIXME: /code is added, so setup.sh may be run, but it's later replaced with a
 #        volume mount in run.sh.
 #        The "added" /code is not removed from the image... it's just messy
-WORKDIR /code/tests
+WORKDIR /code
 USER root
 RUN bash /code/${env_rel_path}/setup.sh
 
