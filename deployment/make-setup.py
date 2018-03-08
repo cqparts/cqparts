@@ -28,11 +28,6 @@ parser.add_argument(
     help='library being deployed',
 )
 
-parser.add_argument(
-    'script_args', metavar='arg', nargs='*',
-    help='setuptools.setup sysv arguments',
-)
-
 args = parser.parse_args()
 
 
@@ -158,7 +153,6 @@ params_str = setup_standin(
     long_description=read('..', 'README.rst'),
     packages=PACKAGES,
     #package_dir={'': LIB_PARENT_DIR},
-    #package_dir={'': 'src'},
     zip_safe=False,
     classifiers=CLASSIFIERS,
     install_requires=INSTALL_REQUIRES,
@@ -168,6 +162,21 @@ params_str = setup_standin(
     #script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
     #script_args=args.script_args,  # sys.argv[:1]
 )
+
+# "Why on earth are you doing this?" I hear you ask:
+#
+#   originally this was the `setup.py` file used to *build* the distrubution files.
+#   However, I have since learnt is that the `setup.py` file itself is
+#   distributed with the build module(s). It is used to *install* the library on
+#   each end-user's system.
+#
+#   I think you'll agree that the above code has no place on an end-user's
+#   system; it's highly reliant on it being executed from inside this repository.
+#
+#   Therefore, I've chosen to serialize the kwargs designed for `setuptools.setup`
+#   and write them to a very simple `setup.py` file.
+#   Normally I abhor unnecessarily generating code to execute, but I believe
+#   this is necessary.
 
 with open('setup.py.jinja', 'r') as tmp, open(os.path.join(LIB_PARENT_DIR, 'setup.py'), 'w') as output:
     template = jinja2.Template(tmp.read())
