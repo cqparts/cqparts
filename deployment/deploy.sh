@@ -54,7 +54,6 @@ find env -maxdepth 1 -type d -printf "    %P\n" | sort | grep -vP '^\s*$'
 }
 
 # --------- Utilities ---------
-
 function lib_ver() {
     # Get library vesion number
     _lib=$1
@@ -77,18 +76,28 @@ function setup() {
 
 
 # --------- Build ---------
-
 function clean() {
-    test -d build && rm -rfv build
-    test -d dist && rm -rfv dist
-    test -d src && rm -rfv src
+    # generated setup script
+    test -f ../src/setup.py && rm -v ../src/setup.py
+
+    # build folders
+    test -d ../src/build && rm -rfv ../src/build
+    test -d ../src/dist && rm -rfv ../src/dist
+    test -d ../src/src && rm -rfv ../src/src
+
+    # egg-info folders
+    rm -rfv ../src/*.egg-info
 }
 
 function build() {
     _lib=$1
     if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
         test -d build && rm -rf build  # fresh build
-        python setup.py --lib ${_lib} sdist bdist_wheel
+        python make-setup.py --lib ${_lib}  # writes to ../src/setup.py
+
+        pushd ../src
+        python setup.py sdist bdist_wheel
+        popd
     else
         echo "ERROR: no library named ${_lib}" >&2
         show_help >&2 ; exit 1
@@ -97,7 +106,6 @@ function build() {
 
 
 # --------- Docker Environment ---------
-
 function env_new() {
     # Start with a fresh (unmodified) container
     _env=$1
@@ -136,6 +144,11 @@ function env_prereq() {
     fi
 }
 
+function env_python() {
+    # Open ipython shell on the test environment container
+    docker exec -it ${CONTAINER_NAME} ipython
+}
+
 function env_bash() {
     # Open a bash shell on the test environment container
     docker exec -it -u root ${CONTAINER_NAME} bash ${@:1}
@@ -163,43 +176,44 @@ function install_sdist() {
     _lib=$1
     _lib_ver=$(lib_ver ${_lib})
 
-    docker exec \
-        --user root \
-        --workdir "/code/deployment" \
-        ${CONTAINER_NAME} \
-        bash -c "\${PIP_BIN} install dist/${_lib}-${_lib_ver}.tar.gz"
+    docker exec --user root ${CONTAINER_NAME} \
+        bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}.tar.gz"
 }
 
 function install_wheel() {
     _lib=$1
-    # TODO
-    echo not implemented
+    _lib_ver=$(lib_ver ${_lib})
+
+    docker exec --user root ${CONTAINER_NAME} \
+        bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}-*.whl"
 }
 
 function install_pypitest() {
     _lib=$1
-    # TODO
-    echo not implemented
+    _lib_ver=$(lib_ver ${_lib})
+
+    docker exec --user root ${CONTAINER_NAME} \
+        bash -c "\${PIP_BIN} install -i https://testpypi.python.org/pypi ${_lib}==${_lib_ver}"
 }
 
 function install_pypi() {
     _lib=$1
-    # TODO
-    echo not implemented
+    _lib_ver=$(lib_ver ${_lib})
+
+    docker exec --user root ${CONTAINER_NAME} \
+        bash -c "\${PIP_BIN} install ${_lib}==${_lib_ver}"
 }
 
 
 # --------- Testing ---------
-
 function run_tests() {
     _lib=$1
-    # TODO
+    # TODO: need to separate unittest by library first
     echo not implemented
 }
 
 
 # --------- Mainline ---------
-
 case "$1" in
     # Show help on request
     -h|--help) show_help ; exit 0 ;;
@@ -214,6 +228,7 @@ case "$1" in
             rm) env_rm ${@:3} ;;
             new) env_new ${@:3} ;;
             prereq) env_prereq ${@:3} ;;
+            python) env_python ${@:3} ;;
             bash) env_bash ${@:3} ;;
             *) show_help >&2 ; exit 1 ;;
         esac ;;

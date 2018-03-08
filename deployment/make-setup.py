@@ -5,10 +5,9 @@ import re
 import setuptools
 from distutils.version import LooseVersion
 import argparse
+import pprint
+import jinja2
 
-# TESTING
-print("sys.argv: %r" % sys.argv)
-print("cwd: %r" % os.getcwd())
 
 LIB_PARENT_DIR = os.path.join('..', 'src')
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -16,12 +15,12 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 parser = argparse.ArgumentParser(description='Deployment script')
 
 def lib_type(value):
-    #if not os.path.exists(os.path.join(LIB_PARENT_DIR, value)):
-    #    raise argparse.ArgumentTypeError(
-    #        "library '{lib}' cannot be found in folder '{parent}'".format(
-    #            lib=value, parent=LIB_PARENT_DIR,
-    #        )
-    #    )
+    if not os.path.exists(os.path.join(LIB_PARENT_DIR, value)):
+        raise argparse.ArgumentTypeError(
+            "library '{lib}' cannot be found in folder '{parent}'".format(
+                lib=value, parent=LIB_PARENT_DIR,
+            )
+        )
     return value
 
 parser.add_argument(
@@ -141,7 +140,11 @@ CLASSIFIERS.append(version_classifier(find_meta("version")))
 assert find_meta('release_ready', True) == True, \
     "library '{lib}' is not ready for release".format(lib=args.lib)
 
-setuptools.setup(
+def setup_standin(**kwargs):
+    return pprint.PrettyPrinter(indent=2).pformat(kwargs)
+
+#setuptools.setup(
+params_str = setup_standin(
     name=args.lib,
     description=find_meta('description'),
     license=find_meta('license'),
@@ -154,13 +157,18 @@ setuptools.setup(
     keywords=find_meta('keywords'),
     long_description=read('..', 'README.rst'),
     packages=PACKAGES,
-    package_dir={'': LIB_PARENT_DIR},
+    #package_dir={'': LIB_PARENT_DIR},
+    #package_dir={'': 'src'},
     zip_safe=False,
     classifiers=CLASSIFIERS,
     install_requires=INSTALL_REQUIRES,
     scripts=SCRIPTS,
 
-    # argv's referenced by setuptools.setup
-    script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
-    script_args=args.script_args,  # sys.argv[:1]
+    ## argv's referenced by setuptools.setup
+    #script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
+    #script_args=args.script_args,  # sys.argv[:1]
 )
+
+with open('setup.py.jinja', 'r') as tmp, open(os.path.join(LIB_PARENT_DIR, 'setup.py'), 'w') as output:
+    template = jinja2.Template(tmp.read())
+    output.write(template.render(params=params_str))
