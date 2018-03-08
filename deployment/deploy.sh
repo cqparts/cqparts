@@ -17,8 +17,7 @@ Arguments:
         setup       Installs packages & sets up environment (requires sudo)
 
     Compiling:
-        build {lib} Execute setup to build packages (populates ../dist/)
-                    creates both 'sdist' and 'wheel' distrobutions.
+        build {lib} Generate ../src/setup.py and execute to build packages
         clean       Removes 'build', 'dist', and 'src' folders
 
     Docker Environments: (always named $CONTAINER_NAME)
@@ -28,6 +27,7 @@ Arguments:
         env prereq {lib}    Install pre-requisites for given lib
 
     Deploy:
+        register (test|prod)    Register lib built into ../src/setup.py
         deploy {lib} (test|prod)  Upload to PyPi server
 
     Install:
@@ -156,6 +156,17 @@ function env_bash() {
 
 
 # --------- Deploy ---------
+function register() {
+    # deploy to the given server (test|prod)
+    _srv=$1
+
+    pushd ../src
+    if [ -e setup.py ] ; then
+        python setup.py register -r ${_srv}
+    fi
+    popd
+}
+
 function deploy() {
     # deploy to the given server (test|prod)
     _lib=$1
