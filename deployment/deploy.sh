@@ -27,7 +27,7 @@ Arguments:
         env prereq {lib}    Install pre-requisites for given lib
 
     Deploy:
-        register (test|prod)    Register lib built into ../src/setup.py
+        register (test|prod)    Register lib last built (only needed once)
         deploy {lib} (test|prod)  Upload to PyPi server
 
     Install:
@@ -37,7 +37,7 @@ Arguments:
         install pypi     {lib}  Install from PyPi (official)
 
     Testing:
-        test {lib}          Run unittests for the given lib
+        test {lib}  Run unittests for the given lib in test env
 
     Help:
         -h | --help     display this message
