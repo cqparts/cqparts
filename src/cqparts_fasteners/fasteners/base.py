@@ -27,11 +27,13 @@ class Fastener(cqparts.Assembly):
         self.evaluator = self.Evaluator(
             parts=self.parts,
             location=self.world_coords,
+            parent=self,
         )
 
         # --- Select fastener (based on evaluation)
         self.selector = self.Selector(
             evaluator=self.evaluator,
+            parent=self,
         )
 
         # --- Add components
@@ -46,5 +48,6 @@ class Fastener(cqparts.Assembly):
         self.applicator = self.Applicator(
             evaluator=self.evaluator,
             selector=self.selector,
+            parent=self,
         )
         self.applicator.apply_alterations()

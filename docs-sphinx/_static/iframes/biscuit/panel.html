@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cqparts display</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://rawgit.com/takahirox/aframe-outline/master/build/aframe-outline.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.3/dist/aframe-extras.min.js"></script>
+    <script src="../../js/orbit-controls-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+          <a-asset-item id="object" src="panel.gltf">
+      </a-assets>
+      <a-entity
+          id="camera"
+          camera
+          fov="90"
+          position="0.075 0.015 -0.05"
+          orbit-controls="
+              target: #target;
+              enableDamping: true;
+              dampingFactor: 0.25;
+              rotateSpeed:0.14;
+              minDistance:0.006;
+              maxDistance:25;"
+          mouse-cursor="">
+      </a-entity>
+      <a-entity id="target" position="0.025 0.005 0"></a-entity>
+      <a-gltf-model src="#object"></a-gltf-model>
+    </a-scene>
+  </body>
+</html>

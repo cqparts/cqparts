@@ -1,6 +1,6 @@
 
-Fastener : Biscuit
-=======================
+Example: Biscuit Join
+========================
 
 A biscuit join in woodworking uses an auxiliary piece of material to increase
 adhesion strength of a glued join. Biscuit joins have  no externally visible
@@ -16,12 +16,14 @@ screw or bolt fastener:
 #. the biscuit is centered *between* the 2 effected parts
 #. the biscuit's orientation is important.
 
-Components
-----------
-
-Only the biscuit is required
-
 ::
 
     biscuit_fastener_1
        └─○ biscuit
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Contents:
+
+  component-parts
+  fastener

@@ -134,13 +134,16 @@ class Evaluator(object):
     """
 
     # Constructor
-    def __init__(self, parts):
+    def __init__(self, parts, parent=None):
         """
         :param parts: parts involved in fastening
         :type parts: list of :class:`cqparts.Part`
+        :param parent: parent object
+        :type parent: :class:`Fastener <cqparts_fasteners.fasteners.base.Fastener>`
         """
         # All evaluators will take a list of parts
         self.parts = parts
+        self.parent = parent
 
     def perform_evaluation(self):
         """
@@ -173,13 +176,15 @@ class VectorEvaluator(Evaluator):
 
     effect_class = VectorEffect
 
-    def __init__(self, parts, location):
+    def __init__(self, parts, location, parent=None):
         """
         :param parts: parts involved in fastening
         :type parts: list of :class:`cqparts.Part`
         :param location: where the fastener is to be applied (eg: for a screw
                          application will be along the -Z axis)
         :type location: :class:`CoordSystem`
+        :param parent: parent object
+        :type parent: :class:`Fastener <cqparts_fasteners.fasteners.base.Fastener>`
 
         **Location**
 
@@ -191,7 +196,10 @@ class VectorEvaluator(Evaluator):
         For *some* fasteners, the orientation of ``location`` will be
         important.
         """
-        super(VectorEvaluator, self).__init__(parts)
+        super(VectorEvaluator, self).__init__(
+            parts=parts,
+            parent=parent,
+        )
         self.location = location
 
     @property_buffered

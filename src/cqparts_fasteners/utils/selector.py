@@ -10,12 +10,15 @@ class Selector(object):
     and must have both the methods :meth:`get_components` and
     :meth:`get_constraints` overridden.
     """
-    def __init__(self, evaluator):
+    def __init__(self, evaluator, parent=None):
         """
         :param evaluator: evaluator of fastener parts
         :type evaluator: :class:`Evaluator`
+        :param parent: parent object
+        :type parent: :class:`Fastener <cqparts_fasteners.fasteners.base.Fastener>`
         """
         self.evaluator = evaluator
+        self.parent = parent
 
         self._components = None
         self._constraints = None

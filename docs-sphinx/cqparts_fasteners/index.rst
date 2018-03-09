@@ -40,3 +40,4 @@ The ``cqparts_fasteners`` module contains:
    build_cycle
    built-in/index
    easy-install/index
+   biscuit/index
