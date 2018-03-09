@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # constants
 CONTAINER_NAME=deploytest
@@ -92,9 +93,17 @@ function clean() {
 function build() {
     _lib=$1
     if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
-        test -d build && rm -rf build  # fresh build
-        python make-setup.py --lib ${_lib}  # writes to ../src/setup.py
+        # minimal clean, fresh build
+        echo "--- Cleaning"
+        test -f ../src/setup.py && rm -v ../src/setup.py
+        test -d ../src/build && rm -rfv ../src/build
 
+        # write ../src/setup.py
+        echo "--- Write setup.py"
+        python make-setup.py --lib ${_lib}
+
+        # run ../src/setup.py
+        echo "--- Run setup.py"
         pushd ../src
         python setup.py sdist bdist_wheel
         popd
@@ -219,8 +228,11 @@ function install_pypi() {
 # --------- Testing ---------
 function run_tests() {
     _lib=$1
-    # TODO: need to separate unittest by library first
-    echo not implemented
+
+    docker exec \
+        --workdir /code/tests \
+        ${CONTAINER_NAME} \
+        bash -c "\${PYTHON_BIN} runtests.py -i catalogue -m ${_lib}"
 }
 
 
