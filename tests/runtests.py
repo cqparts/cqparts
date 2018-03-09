@@ -94,11 +94,15 @@ if __name__ == "__main__":
         '-p', '--pattern', dest='pattern', default='test_*',
         help="filename pattern",
     )
+    group.add_argument(
+        '-m', '--module', dest='module', default=None,
+        help="only run tests from the 't_<module>' folder",
+    )
 
-    # skip labels
+    # label filtering
     group = parser.add_argument_group(
-        "Skip tests",
-        description="tests can be shown, but execution skipped based on their label",
+        "Label filters (skip & ignore)",
+        description="tests can be skipped, or ignored based on their label",
     )
     group.add_argument(
         '-s', '--skip', dest='skip_blacklist',
@@ -109,12 +113,6 @@ if __name__ == "__main__":
         '-ds', '--dontskip', dest='skip_whitelist',
         type=label_list_type, default=[],
         help="list of labels to test (skip all others)",
-    )
-
-    # ignore labels
-    group = parser.add_argument_group(
-        "Ignore tests",
-        description="tests can be ignored based on their label",
     )
     group.add_argument(
         '-i', '--ignore', dest='ignore_blacklist',
@@ -164,6 +162,11 @@ if __name__ == "__main__":
         ignore_modules = ['partslib']
 
         def _get_module_from_name(self, name):
+            # ignore modules outside specific module test folder (if given)
+            if args.module is not None:
+                if not name.startswith('t_%s.' % args.module):
+                    return None
+
             # ignore modules that are in the ignore list
             try:
                 __import__(name)
