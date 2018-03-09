@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fastener : Biscuit &mdash; cqparts 0.1.0 documentation</title>
+  <title>cqparts_springs package &mdash; cqparts 0.1.0.dev0 documentation</title>
   
 
   
@@ -37,10 +37,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.1.0 documentation" href="../index.html"/>
-        <link rel="up" title="Tutorials" href="index.html"/>
-        <link rel="next" title="Publishing Components" href="new-lib.html"/>
-        <link rel="prev" title="Component Index" href="component-index.html"/> 
+    <link rel="top" title="cqparts 0.1.0.dev0 documentation" href="../index.html"/>
+        <link rel="up" title="Module APIs" href="modules.html"/>
+        <link rel="next" title="cqparts_template package" href="cqparts_template.html"/>
+        <link rel="prev" title="cqparts_motors package" href="cqparts_motors.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -99,21 +99,25 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../cqparts/index.html"><code class="docutils literal"><span class="pre">cqparts</span></code> Module</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="parametric-object.html">Parametric Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part.html">Make your own <code class="docutils literal"><span class="pre">Part</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="assembly.html">Make your own <code class="docutils literal"><span class="pre">Assembly</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="component-index.html">Component Index</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Fastener : Biscuit</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#components">Components</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="new-lib.html">Publishing Components</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../cqparts_fasteners/index.html"><code class="docutils literal"><span class="pre">cqparts_fasteners</span></code> Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Module APIs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Module APIs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cqparts.html">cqparts package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_bearings.html">cqparts_bearings package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_fasteners.html">cqparts_fasteners package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gearboxes.html">cqparts_gearboxes package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_motors.html">cqparts_motors package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cqparts_springs package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts_springs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_template.html">cqparts_template package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
 </ul>
 
@@ -159,9 +163,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">Tutorials</a> &raquo;</li>
+          <li><a href="modules.html">Module APIs</a> &raquo;</li>
         
-      <li>Fastener : Biscuit</li>
+      <li>cqparts_springs package</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -178,28 +182,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="fastener-biscuit">
-<h1>Fastener : Biscuit<a class="headerlink" href="#fastener-biscuit" title="Permalink to this headline">¶</a></h1>
-<p>A biscuit join in woodworking uses an auxiliary piece of material to increase
-adhesion strength of a glued join. Biscuit joins have  no externally visible
-components.</p>
-<div class="figure" id="id1">
-<img alt="../_images/biscuit-eg.png" src="../_images/biscuit-eg.png" />
-<p class="caption"><span class="caption-text">Example of a biscuit join.</span></p>
-</div>
-<p>This <em>fastener</em> example has 2 main challenges that differ from a conventional
-screw or bolt fastener:</p>
-<ol class="arabic simple">
-<li>the biscuit is centered <em>between</em> the 2 effected parts</li>
-<li>the biscuit’s orientation is important.</li>
-</ol>
-<div class="section" id="components">
-<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
-<p>Only the biscuit is required</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>biscuit_fastener_1
-   └─○ biscuit
-</pre></div>
-</div>
+  <div class="section" id="cqparts-springs-package">
+<h1>cqparts_springs package<a class="headerlink" href="#cqparts-springs-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-cqparts_springs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts_springs" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -213,10 +199,10 @@ screw or bolt fastener:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="new-lib.html" class="btn btn-neutral float-right" title="Publishing Components" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cqparts_template.html" class="btn btn-neutral float-right" title="cqparts_template package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="component-index.html" class="btn btn-neutral" title="Component Index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cqparts_motors.html" class="btn btn-neutral" title="cqparts_motors package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -247,7 +233,7 @@ screw or bolt fastener:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0',
+            VERSION:'0.1.0.dev0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -21,5 +21,4 @@ at each step.
    part
    assembly
    component-index
-   fastener-biscuit
    new-lib

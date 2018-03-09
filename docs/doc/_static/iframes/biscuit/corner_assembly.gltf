@@ -1,0 +1,484 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 228, 
+      "max": [
+        50.1, 
+        25.1, 
+        10.1
+      ], 
+      "min": [
+        -0.1, 
+        -25.1, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 1, 
+      "byteOffset": 0, 
+      "componentType": 5121, 
+      "count": 1356, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 2, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 228, 
+      "max": [
+        50.1, 
+        25.1, 
+        10.1
+      ], 
+      "min": [
+        -0.1, 
+        -25.1, 
+        -0.1
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 3, 
+      "byteOffset": 0, 
+      "componentType": 5121, 
+      "count": 1356, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 4, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 216, 
+      "max": [
+        5.992556509887898, 
+        3.6355339059327396, 
+        0.4535533905932738
+      ], 
+      "min": [
+        -5.992556509887898, 
+        -3.6355339059327396, 
+        -0.4535533905932738
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 5, 
+      "byteOffset": 0, 
+      "componentType": 5121, 
+      "count": 1284, 
+      "type": "SCALAR"
+    }, 
+    {
+      "bufferView": 6, 
+      "byteOffset": 0, 
+      "componentType": 5126, 
+      "count": 216, 
+      "max": [
+        5.992556509887898, 
+        3.6355339059327396, 
+        0.4535533905932738
+      ], 
+      "min": [
+        -5.992556509887898, 
+        -3.6355339059327396, 
+        -0.4535533905932738
+      ], 
+      "type": "VEC3"
+    }, 
+    {
+      "bufferView": 7, 
+      "byteOffset": 0, 
+      "componentType": 5121, 
+      "count": 1284, 
+      "type": "SCALAR"
+    }
+  ], 
+  "asset": {
+    "generator": "cqparts_0.1.0.dev0", 
+    "version": "2.0"
+  }, 
+  "bufferViews": [
+    {
+      "buffer": 0, 
+      "byteLength": 2736, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 0, 
+      "byteLength": 1356, 
+      "byteOffset": 2736, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 2736, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 1, 
+      "byteLength": 1356, 
+      "byteOffset": 2736, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 2592, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 2, 
+      "byteLength": 1284, 
+      "byteOffset": 2592, 
+      "target": 34963
+    }, 
+    {
+      "buffer": 3, 
+      "byteLength": 2592, 
+      "byteOffset": 0, 
+      "byteStride": 12, 
+      "target": 34962
+    }, 
+    {
+      "buffer": 3, 
+      "byteLength": 1284, 
+      "byteOffset": 2592, 
+      "target": 34963
+    }
+  ], 
+  "buffers": [
+    {
+      "byteLength": 4092, 
+      "uri": "corner_assembly.a.bin"
+    }, 
+    {
+      "byteLength": 4092, 
+      "uri": "corner_assembly.b.bin"
+    }, 
+    {
+      "byteLength": 3876, 
+      "uri": "corner_assembly.f_0.biscuit.bin"
+    }, 
+    {
+      "byteLength": 3876, 
+      "uri": "corner_assembly.f_1.biscuit.bin"
+    }
+  ], 
+  "materials": [
+    {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.9216, 
+          0.5961, 
+          0.3059, 
+          0.5
+        ], 
+        "metallicFactor": 0.1, 
+        "roughnessFactor": 0.7
+      }
+    }, 
+    {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.9216, 
+          0.5961, 
+          0.3059, 
+          0.5
+        ], 
+        "metallicFactor": 0.1, 
+        "roughnessFactor": 0.7
+      }
+    }, 
+    {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6627, 
+          0.1961, 
+          0.149, 
+          1.0
+        ], 
+        "metallicFactor": 0.1, 
+        "roughnessFactor": 0.7
+      }
+    }, 
+    {
+      "alphaCutoff": 1.0, 
+      "alphaMode": "MASK", 
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6627, 
+          0.1961, 
+          0.149, 
+          1.0
+        ], 
+        "metallicFactor": 0.1, 
+        "roughnessFactor": 0.7
+      }
+    }
+  ], 
+  "meshes": [
+    {
+      "name": "corner_assembly.a", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          }, 
+          "indices": 1, 
+          "material": 0, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "corner_assembly.b", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          }, 
+          "indices": 3, 
+          "material": 1, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "corner_assembly.f_0.biscuit", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4
+          }, 
+          "indices": 5, 
+          "material": 2, 
+          "mode": 4
+        }
+      ]
+    }, 
+    {
+      "name": "corner_assembly.f_1.biscuit", 
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 6
+          }, 
+          "indices": 7, 
+          "material": 3, 
+          "mode": 4
+        }
+      ]
+    }
+  ], 
+  "nodes": [
+    {
+      "children": [
+        1
+      ], 
+      "matrix": [
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        -0.001, 
+        0.0, 
+        0.0, 
+        0.001, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ]
+    }, 
+    {
+      "children": [
+        2, 
+        3, 
+        4, 
+        6
+      ], 
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "name": "corner_assembly"
+    }, 
+    {
+      "matrix": [
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0
+      ], 
+      "mesh": 0, 
+      "name": "corner_assembly.a"
+    }, 
+    {
+      "matrix": [
+        -1.27675647831893e-15, 
+        -8.65956056235493e-17, 
+        1.0, 
+        0.0, 
+        8.659560562354953e-17, 
+        -1.0, 
+        -8.659560562354919e-17, 
+        -0.0, 
+        1.0, 
+        8.659560562354941e-17, 
+        1.27675647831893e-15, 
+        0.0, 
+        7.993605777301127e-15, 
+        -4.340576960015285e-31, 
+        -6.217248937900877e-15, 
+        1.0
+      ], 
+      "mesh": 1, 
+      "name": "corner_assembly.b"
+    }, 
+    {
+      "children": [
+        5
+      ], 
+      "matrix": [
+        0.707106781186547, 
+        0.0, 
+        0.7071067811865479, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        -0.7071067811865479, 
+        -0.0, 
+        0.707106781186547, 
+        -0.0, 
+        5.0, 
+        -8.333333333333336, 
+        4.999999999999999, 
+        1.0
+      ], 
+      "name": "corner_assembly.f_0"
+    }, 
+    {
+      "matrix": [
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        6.661338147750955e-16, 
+        1.0
+      ], 
+      "mesh": 2, 
+      "name": "corner_assembly.f_0.biscuit"
+    }, 
+    {
+      "children": [
+        7
+      ], 
+      "matrix": [
+        0.707106781186547, 
+        0.0, 
+        0.7071067811865479, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        -0.7071067811865479, 
+        -0.0, 
+        0.707106781186547, 
+        -0.0, 
+        5.0, 
+        8.333333333333329, 
+        4.999999999999999, 
+        1.0
+      ], 
+      "name": "corner_assembly.f_1"
+    }, 
+    {
+      "matrix": [
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        1.0, 
+        0.0, 
+        0.0, 
+        0.0, 
+        8.881784197001252e-16, 
+        0.0, 
+        6.661338147750908e-16, 
+        1.0
+      ], 
+      "mesh": 3, 
+      "name": "corner_assembly.f_1.biscuit"
+    }
+  ], 
+  "scene": 0, 
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
