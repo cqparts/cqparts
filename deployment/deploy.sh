@@ -72,7 +72,16 @@ function lib_ver() {
 #   - docker
 
 function setup() {
-    sudo pip install -U -r requirements.txt
+    # pip dependencies
+    sudo -H pip install -U -r requirements.txt
+
+    # build docker images
+    for env_path in $(find env -maxdepth 1 -mindepth 1 -type d | sort) ; do
+        echo "--- Build Environment"
+        pushd $env_path
+            ./build.sh
+        popd
+    done
 }
 
 
