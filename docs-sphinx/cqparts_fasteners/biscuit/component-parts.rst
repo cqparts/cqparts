@@ -5,6 +5,9 @@ Component Parts
 Wood Panel
 ^^^^^^^^^^^^^^^^^^
 
+First we'll need something to use the biscuits on, so we'll just create a
+wooden panel with one edge at an angle.
+
 .. doctest::
 
     from math import radians, tan, cos
@@ -23,13 +26,12 @@ Wood Panel
         height = PositiveFloat(50, doc="panel height (along join)")
         depth = PositiveFloat(50, doc="panel depth (from join to opposite side)")
         width = PositiveFloat(10, doc="thickness of panel")
-
-        # join
         join_angle = FloatRange(0, 89, 45, doc="angle of join (unit: degrees)")
 
         _render = render_props(template='wood', alpha=0.5)
 
         def make(self):
+
             points = [
                 (0, 0),
                 (self.depth, 0),
@@ -39,14 +41,6 @@ Wood Panel
             return cadquery.Workplane('XZ', origin=(0, self.height / 2, 0)) \
                 .moveTo(*points[0]).polyline(points[1:]).close() \
                 .extrude(self.height)
-
-        @property
-        def mate_join(self):
-            return self.get_mate_join(ratio=0.5)
-
-        @property
-        def mate_join_reverse(self):
-            return self.mate_join + CoordSystem().rotated((180, 0, 0))
 
         def get_mate_join(self, ratio=0.5):
             # Return a mate that's somewhere along the join surface.
@@ -61,6 +55,16 @@ Wood Panel
                     ),
                 )
             ))
+
+        @property
+        def mate_join(self):
+            # default is half way along join
+            return self.get_mate_join(ratio=0.5)
+
+        @property
+        def mate_join_reverse(self):
+            # reversed join rotated around X-axis 180 deg
+            return self.mate_join + CoordSystem().rotated((180, 0, 0))
 
 So to illustrate what we've just made::
 
@@ -78,6 +82,8 @@ So to illustrate what we've just made::
 Biscuit
 ^^^^^^^^^^^^^
 
+And of course the biscuit:
+
 .. doctest::
 
     class Biscuit(cqparts.Part):
@@ -90,6 +96,7 @@ Biscuit
 
         def initialize_parameters(self):
             super(Biscuit, self).initialize_parameters()
+            # set default length as a ratio of width
             if self.length is None:
                 self.length = (5. / 3) * self.width
 
@@ -100,9 +107,9 @@ Biscuit
             # for this example we'll just keep it simple.
 
         def make_simple(self):
-            biscuit = cadquery.Workplane('XY')
-
+            # Biscuit shaped like a eye, 2 arcs from end to end (length)
             # Create left & right side, union them together
+            biscuit = cadquery.Workplane('XY')
             for i in [1, -1]:
                 biscuit = biscuit.union(
                     cadquery.Workplane('XY', origin=(0, 0, -self.thickness / 2)) \
@@ -116,6 +123,8 @@ Biscuit
             return biscuit
 
         def make_cutter(self):
+            # the cutaway material is the same shape as the biscuit itself
+            # (the simplified model)
             return self.make_simple()
 
 So to illustrate what we've just made::

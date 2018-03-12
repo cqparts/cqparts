@@ -1,56 +1,75 @@
 
-Biscuit Fastener
---------------------------
+Biscuit Fastener & Usage
+-----------------------------
 
-Bi-Directional Vector Evaluator
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Now that we've made our ``Panel`` and ``Biscuit``, we can create a ``Fastener`` to
+apply the ``Biscuit`` to anything, in this case 2 joined ``Panels``.
 
-.. doctest::
-
-    from cqparts_fasteners.utils.evaluator import Evaluator, VectorEvaluator
-    from cqparts_fasteners.utils.selector import Selector
-    from cqparts_fasteners.utils.applicator import Applicator
-
-    class BiDirectionalVectorEvaluator(Evaluator):
-        def __init__(self, parts, location, parent=None):
-            super(BiDirectionalVectorEvaluator, self).__init__(parts=parts, parent=parent)
-            self.location = location
-            self.eval_pos = VectorEvaluator(parts, location.rotated((180, 0, 0)))
-            self.eval_neg = VectorEvaluator(parts, location)
-
-        def perform_evaluation(self):
-            return (self.eval_pos.eval, self.eval_neg.eval)
-
+Then demonstrate it in a fully functioning *assembly*.
 
 Biscuit Fastener
 ^^^^^^^^^^^^^^^^^^^^^^^
 
+To understand how this fastener works, first read :ref:`cqparts_fasteners.build_cycle`.
+
+**Evaluator**
+
+The evaluation will be made from the center of the biscuit, or more accurately,
+where the biscuit will be.
+
+Therefore we'll need to test the depth of available material in 2 directions.
+
+**Selector**
+
+The selector will dtermine the maximum available material in the *panels*, then
+create and place an apropriately sized ``Biscuit``.
+
+**Applicator**
+
+With the ``Biscuit`` in place, vacancies need to be cut out of each ``Panel``.
+
+
 .. doctest::
 
-    from cqparts.constraint import Fixed
     from cqparts_fasteners.fasteners.base import Fastener
+    from cqparts_fasteners.utils.evaluator import Evaluator, VectorEvaluator
+    from cqparts_fasteners.utils.selector import Selector
+    from cqparts_fasteners.utils.applicator import Applicator
+
+    from cqparts.constraint import Fixed
     from itertools import chain
 
 
     class BiscuitFastener(Fastener):
+        # Parameters
         ratio = FloatRange(0, 1, 0.5, doc="ratio penetration of biscuit into parts")
-        max_length = PositiveFloat(50, doc="maximum biscuit length")
-        max_thickness = PositiveFloat(5, doc="maximum biscuit thickness")
-
         cut_biscuit_holes = Boolean(True, doc="if True, biscuit holes are cut into pannels")
 
-        Evaluator = BiDirectionalVectorEvaluator
+        class Evaluator(Evaluator):
+            # Bi-directional evaluator, employes 2 VectorEvaluator instances that,
+            # on their own, evaluate in the -Z direction
+            def __init__(self, parts, location, parent=None):
+                super(BiscuitFastener.Evaluator, self).__init__(parts=parts, parent=parent)
+                self.location = location
+                # positive z direction
+                self.eval_pos = VectorEvaluator(parts, location.rotated((180, 0, 0)))
+                # negative z direction
+                self.eval_neg = VectorEvaluator(parts, location)
+
+            def perform_evaluation(self):
+                return (self.eval_pos.eval, self.eval_neg.eval)
 
         class Selector(Selector):
             def get_components(self):
-                # Determine maximum biscuit width from the evaluation
+                # Determine maximum biscuit width from the evaluations
                 (pos, neg) = self.evaluator.eval
                 pos_length = abs(pos[-1].end_point - pos[0].start_point)
                 neg_length = abs(neg[-1].end_point - neg[0].start_point)
                 max_width = 2 * min(
-                    pos_length * self.parent.ratio,
+                    pos_length * self.parent.ratio,  # parent is the BiscuitFastener instance
                     neg_length * self.parent.ratio
                 )
+
                 return {
                     'biscuit': Biscuit(
                         width=max_width,
@@ -63,7 +82,7 @@ Biscuit Fastener
                 return [
                     Fixed(
                         self.components['biscuit'].mate_origin,
-                        CoordSystem().rotated((90, 0, 90))
+                        CoordSystem().rotated((90, 0, 90))  # corectly orientate biscuit
                     ),
                 ]
 
@@ -72,13 +91,18 @@ Biscuit Fastener
                 if not self.parent.cut_biscuit_holes:
                     return  # fastener configured to place biscuit overlapping panel
 
+                # Get the biscuit cutout shape
                 biscuit = self.selector.components['biscuit']
                 biscuit_cutter = biscuit.make_cutter()  # cutter in local coords
 
-                effected_parts = set([
+                # Duplicate parts possible with floating point rounding, because the
+                # evaluator is placed on the 2 planar surfaces being joined.
+                effected_parts = set([  # duplicates are removed within the set
                     effect.part for effect in chain(*self.evaluator.eval[:])
                 ])
 
+                # Move biscuit relative to altered part's local coordinates, then
+                # alter the part's local_obj.
                 for part in effected_parts:
                     biscuit_coordsys = biscuit.world_coords - part.world_coords
                     part.local_obj = part.local_obj.cut(biscuit_coordsys + biscuit_cutter)
@@ -86,6 +110,10 @@ Biscuit Fastener
 
 Corner Assembly
 ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To demonstrate the ``BiscuitFastener`` we've just created, we'll join 2
+``Panels`` then apply an arbitrary number of biscuits to the join (evenly spaced
+along the join).
 
 .. doctest::
 
@@ -153,18 +181,37 @@ So to illustrate what we've just made::
 
     FreeCAD's render may be more clear (literally).
 
-**Variations**
+The assembly hierarchy::
+
+    print(corner_assembly.tree_str())
 
 ::
 
+    <CornerAssembly: biscuit_count=2, biscuit_holes=True, join_angle=45.0>
+     ├○ a
+     ├○ b
+     ├─ f_0
+     │   └○ biscuit
+     └─ f_1
+         └○ biscuit
+
+
+Varying Join Angle
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the join angle is changed, the depth of material for the biscuit to use
+changes.
+
+With an angle of :math:`30°`, more material is available, so the
+biscuits are larger::
+
     display(CornerAssembly(join_angle=30))
-    # biscuits will have more volume through parts to grip, so they'll be larger
 
 .. image:: img/applied-30deg.png
 
-::
+And with an angle of :math:`60°`, less material is available, so the
+biscuits are smaller::
 
     display(CornerAssembly(join_angle=60))
-    # biscuits have less volume to use, so they'll be smaller
 
 .. image:: img/applied-60deg.png
