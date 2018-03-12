@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="cqparts 0.1.0.dev0 documentation" href="../../index.html"/>
         <link rel="up" title="Example: Biscuit Join" href="index.html"/>
-        <link rel="next" title="Biscuit Fastener" href="fastener.html"/>
+        <link rel="next" title="Biscuit Fastener &amp; Usage" href="fastener.html"/>
         <link rel="prev" title="Example: Biscuit Join" href="index.html"/> 
 
   
@@ -110,7 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#biscuit">Biscuit</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="fastener.html">Biscuit Fastener</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fastener.html">Biscuit Fastener &amp; Usage</a></li>
 </ul>
 </li>
 </ul>
@@ -187,6 +187,8 @@
 <h1>Component Parts<a class="headerlink" href="#component-parts" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="wood-panel">
 <h2>Wood Panel<a class="headerlink" href="#wood-panel" title="Permalink to this headline">¶</a></h2>
+<p>First we’ll need something to use the biscuits on, so we’ll just create a
+wooden panel with one edge at an angle.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cos</span>
 <span class="kn">import</span> <span class="nn">cadquery</span>
 
@@ -203,13 +205,12 @@
     <span class="n">height</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;panel height (along join)&quot;</span><span class="p">)</span>
     <span class="n">depth</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;panel depth (from join to opposite side)&quot;</span><span class="p">)</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;thickness of panel&quot;</span><span class="p">)</span>
-
-    <span class="c1"># join</span>
     <span class="n">join_angle</span> <span class="o">=</span> <span class="n">FloatRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;angle of join (unit: degrees)&quot;</span><span class="p">)</span>
 
     <span class="n">_render</span> <span class="o">=</span> <span class="n">render_props</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="s1">&#39;wood&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
         <span class="n">points</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -219,14 +220,6 @@
         <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> \
             <span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">polyline</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> \
             <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">mate_join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mate_join</span><span class="p">(</span><span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">mate_join_reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mate_join</span> <span class="o">+</span> <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">get_mate_join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="c1"># Return a mate that&#39;s somewhere along the join surface.</span>
@@ -241,6 +234,16 @@
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># default is half way along join</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mate_join</span><span class="p">(</span><span class="n">ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mate_join_reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># reversed join rotated around X-axis 180 deg</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mate_join</span> <span class="o">+</span> <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>So to illustrate what we’ve just made:</p>
@@ -254,6 +257,7 @@
 ></iframe></div>
 <div class="section" id="biscuit">
 <h2>Biscuit<a class="headerlink" href="#biscuit" title="Permalink to this headline">¶</a></h2>
+<p>And of course the biscuit:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Biscuit</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Biscuit Dimensions</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;twice penetration depth&quot;</span><span class="p">)</span>
@@ -264,6 +268,7 @@
 
     <span class="k">def</span> <span class="nf">initialize_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Biscuit</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">initialize_parameters</span><span class="p">()</span>
+        <span class="c1"># set default length as a ratio of width</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="p">(</span><span class="mf">5.</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
 
@@ -274,9 +279,9 @@
         <span class="c1"># for this example we&#39;ll just keep it simple.</span>
 
     <span class="k">def</span> <span class="nf">make_simple</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">biscuit</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span>
-
+        <span class="c1"># Biscuit shaped like a eye, 2 arcs from end to end (length)</span>
         <span class="c1"># Create left &amp; right side, union them together</span>
+        <span class="n">biscuit</span> <span class="o">=</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">biscuit</span> <span class="o">=</span> <span class="n">biscuit</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
                 <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> \
@@ -290,6 +295,8 @@
         <span class="k">return</span> <span class="n">biscuit</span>
 
     <span class="k">def</span> <span class="nf">make_cutter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># the cutaway material is the same shape as the biscuit itself</span>
+        <span class="c1"># (the simplified model)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_simple</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -314,7 +321,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="fastener.html" class="btn btn-neutral float-right" title="Biscuit Fastener" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="fastener.html" class="btn btn-neutral float-right" title="Biscuit Fastener &amp; Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Example: Biscuit Join" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

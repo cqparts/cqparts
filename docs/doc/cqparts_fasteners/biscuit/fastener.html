@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Biscuit Fastener &mdash; cqparts 0.1.0.dev0 documentation</title>
+  <title>Biscuit Fastener &amp; Usage &mdash; cqparts 0.1.0.dev0 documentation</title>
   
 
   
@@ -106,10 +106,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../easy-install/index.html">Example: Easy Install</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Example: Biscuit Join</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="component-parts.html">Component Parts</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Biscuit Fastener</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#bi-directional-vector-evaluator">Bi-Directional Vector Evaluator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">Biscuit Fastener</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Biscuit Fastener &amp; Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#biscuit-fastener">Biscuit Fastener</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#corner-assembly">Corner Assembly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#varying-join-angle">Varying Join Angle</a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +167,7 @@
         
           <li><a href="index.html">Example: Biscuit Join</a> &raquo;</li>
         
-      <li>Biscuit Fastener</li>
+      <li>Biscuit Fastener &amp; Usage</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,52 +184,62 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="biscuit-fastener">
-<h1>Biscuit Fastener<a class="headerlink" href="#biscuit-fastener" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="bi-directional-vector-evaluator">
-<h2>Bi-Directional Vector Evaluator<a class="headerlink" href="#bi-directional-vector-evaluator" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.evaluator</span> <span class="k">import</span> <span class="n">Evaluator</span><span class="p">,</span> <span class="n">VectorEvaluator</span>
+  <div class="section" id="biscuit-fastener-usage">
+<h1>Biscuit Fastener &amp; Usage<a class="headerlink" href="#biscuit-fastener-usage" title="Permalink to this headline">¶</a></h1>
+<p>Now that we’ve made our <code class="docutils literal"><span class="pre">Panel</span></code> and <code class="docutils literal"><span class="pre">Biscuit</span></code>, we can create a <code class="docutils literal"><span class="pre">Fastener</span></code> to
+apply the <code class="docutils literal"><span class="pre">Biscuit</span></code> to anything, in this case 2 joined <code class="docutils literal"><span class="pre">Panels</span></code>.</p>
+<p>Then demonstrate it in a fully functioning <em>assembly</em>.</p>
+<div class="section" id="biscuit-fastener">
+<h2>Biscuit Fastener<a class="headerlink" href="#biscuit-fastener" title="Permalink to this headline">¶</a></h2>
+<p>To understand how this fastener works, first read <a class="reference internal" href="../build_cycle.html#cqparts-fasteners-build-cycle"><span class="std std-ref">Fastener Build Cycle</span></a>.</p>
+<p><strong>Evaluator</strong></p>
+<p>The evaluation will be made from the center of the biscuit, or more accurately,
+where the biscuit will be.</p>
+<p>Therefore we’ll need to test the depth of available material in 2 directions.</p>
+<p><strong>Selector</strong></p>
+<p>The selector will dtermine the maximum available material in the <em>panels</em>, then
+create and place an apropriately sized <code class="docutils literal"><span class="pre">Biscuit</span></code>.</p>
+<p><strong>Applicator</strong></p>
+<p>With the <code class="docutils literal"><span class="pre">Biscuit</span></code> in place, vacancies need to be cut out of each <code class="docutils literal"><span class="pre">Panel</span></code>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.fasteners.base</span> <span class="k">import</span> <span class="n">Fastener</span>
+<span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.evaluator</span> <span class="k">import</span> <span class="n">Evaluator</span><span class="p">,</span> <span class="n">VectorEvaluator</span>
 <span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.selector</span> <span class="k">import</span> <span class="n">Selector</span>
 <span class="kn">from</span> <span class="nn">cqparts_fasteners.utils.applicator</span> <span class="k">import</span> <span class="n">Applicator</span>
 
-<span class="k">class</span> <span class="nc">BiDirectionalVectorEvaluator</span><span class="p">(</span><span class="n">Evaluator</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BiDirectionalVectorEvaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parts</span><span class="o">=</span><span class="n">parts</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eval_pos</span> <span class="o">=</span> <span class="n">VectorEvaluator</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">eval_neg</span> <span class="o">=</span> <span class="n">VectorEvaluator</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">perform_evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_pos</span><span class="o">.</span><span class="n">eval</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_neg</span><span class="o">.</span><span class="n">eval</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>Biscuit Fastener<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span>
-<span class="kn">from</span> <span class="nn">cqparts_fasteners.fasteners.base</span> <span class="k">import</span> <span class="n">Fastener</span>
+<span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">chain</span>
 
 
 <span class="k">class</span> <span class="nc">BiscuitFastener</span><span class="p">(</span><span class="n">Fastener</span><span class="p">):</span>
+    <span class="c1"># Parameters</span>
     <span class="n">ratio</span> <span class="o">=</span> <span class="n">FloatRange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;ratio penetration of biscuit into parts&quot;</span><span class="p">)</span>
-    <span class="n">max_length</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;maximum biscuit length&quot;</span><span class="p">)</span>
-    <span class="n">max_thickness</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;maximum biscuit thickness&quot;</span><span class="p">)</span>
-
     <span class="n">cut_biscuit_holes</span> <span class="o">=</span> <span class="n">Boolean</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;if True, biscuit holes are cut into pannels&quot;</span><span class="p">)</span>
 
-    <span class="n">Evaluator</span> <span class="o">=</span> <span class="n">BiDirectionalVectorEvaluator</span>
+    <span class="k">class</span> <span class="nc">Evaluator</span><span class="p">(</span><span class="n">Evaluator</span><span class="p">):</span>
+        <span class="c1"># Bi-directional evaluator, employes 2 VectorEvaluator instances that,</span>
+        <span class="c1"># on their own, evaluate in the -Z direction</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">BiscuitFastener</span><span class="o">.</span><span class="n">Evaluator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parts</span><span class="o">=</span><span class="n">parts</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+            <span class="c1"># positive z direction</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_pos</span> <span class="o">=</span> <span class="n">VectorEvaluator</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">180</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+            <span class="c1"># negative z direction</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eval_neg</span> <span class="o">=</span> <span class="n">VectorEvaluator</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">perform_evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_pos</span><span class="o">.</span><span class="n">eval</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_neg</span><span class="o">.</span><span class="n">eval</span><span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">Selector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">get_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="c1"># Determine maximum biscuit width from the evaluation</span>
+            <span class="c1"># Determine maximum biscuit width from the evaluations</span>
             <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span>
             <span class="n">pos_length</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_point</span> <span class="o">-</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_point</span><span class="p">)</span>
             <span class="n">neg_length</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">neg</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_point</span> <span class="o">-</span> <span class="n">neg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_point</span><span class="p">)</span>
             <span class="n">max_width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span>
-                <span class="n">pos_length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span>
+                <span class="n">pos_length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ratio</span><span class="p">,</span>  <span class="c1"># parent is the BiscuitFastener instance</span>
                 <span class="n">neg_length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ratio</span>
             <span class="p">)</span>
+
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s1">&#39;biscuit&#39;</span><span class="p">:</span> <span class="n">Biscuit</span><span class="p">(</span>
                     <span class="n">width</span><span class="o">=</span><span class="n">max_width</span><span class="p">,</span>
@@ -242,7 +252,7 @@
             <span class="k">return</span> <span class="p">[</span>
                 <span class="n">Fixed</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;biscuit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
-                    <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+                    <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>  <span class="c1"># corectly orientate biscuit</span>
                 <span class="p">),</span>
             <span class="p">]</span>
 
@@ -251,13 +261,18 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">cut_biscuit_holes</span><span class="p">:</span>
                 <span class="k">return</span>  <span class="c1"># fastener configured to place biscuit overlapping panel</span>
 
+            <span class="c1"># Get the biscuit cutout shape</span>
             <span class="n">biscuit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;biscuit&#39;</span><span class="p">]</span>
             <span class="n">biscuit_cutter</span> <span class="o">=</span> <span class="n">biscuit</span><span class="o">.</span><span class="n">make_cutter</span><span class="p">()</span>  <span class="c1"># cutter in local coords</span>
 
-            <span class="n">effected_parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>
+            <span class="c1"># Duplicate parts possible with floating point rounding, because the</span>
+            <span class="c1"># evaluator is placed on the 2 planar surfaces being joined.</span>
+            <span class="n">effected_parts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span>  <span class="c1"># duplicates are removed within the set</span>
                 <span class="n">effect</span><span class="o">.</span><span class="n">part</span> <span class="k">for</span> <span class="n">effect</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">eval</span><span class="p">[:])</span>
             <span class="p">])</span>
 
+            <span class="c1"># Move biscuit relative to altered part&#39;s local coordinates, then</span>
+            <span class="c1"># alter the part&#39;s local_obj.</span>
             <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">effected_parts</span><span class="p">:</span>
                 <span class="n">biscuit_coordsys</span> <span class="o">=</span> <span class="n">biscuit</span><span class="o">.</span><span class="n">world_coords</span> <span class="o">-</span> <span class="n">part</span><span class="o">.</span><span class="n">world_coords</span>
                 <span class="n">part</span><span class="o">.</span><span class="n">local_obj</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">local_obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">biscuit_coordsys</span> <span class="o">+</span> <span class="n">biscuit_cutter</span><span class="p">)</span>
@@ -266,6 +281,9 @@
 </div>
 <div class="section" id="corner-assembly">
 <h2>Corner Assembly<a class="headerlink" href="#corner-assembly" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate the <code class="docutils literal"><span class="pre">BiscuitFastener</span></code> we’ve just created, we’ll join 2
+<code class="docutils literal"><span class="pre">Panels</span></code> then apply an arbitrary number of biscuits to the join (evenly spaced
+along the join).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.constraint</span> <span class="k">import</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Coincident</span>
 
 
@@ -322,18 +340,37 @@
 <iframe class="model-display"
     src="../../_static/iframes/biscuit/corner_assembly.html"
     height="300px" width="100%"
-></iframe><div class="figure" id="id2">
+></iframe><div class="figure" id="id1">
 <img alt="../../_images/applied-45deg.png" src="../../_images/applied-45deg.png" />
 <p class="caption"><span class="caption-text">FreeCAD’s render may be more clear (literally).</span></p>
 </div>
-<p><strong>Variations</strong></p>
+<p>The assembly hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">corner_assembly</span><span class="o">.</span><span class="n">tree_str</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;CornerAssembly: biscuit_count=2, biscuit_holes=True, join_angle=45.0&gt;
+ ├○ a
+ ├○ b
+ ├─ f_0
+ │   └○ biscuit
+ └─ f_1
+     └○ biscuit
+</pre></div>
+</div>
+</div>
+<div class="section" id="varying-join-angle">
+<h2>Varying Join Angle<a class="headerlink" href="#varying-join-angle" title="Permalink to this headline">¶</a></h2>
+<p>When the join angle is changed, the depth of material for the biscuit to use
+changes.</p>
+<p>With an angle of <span class="math">\(30°\)</span>, more material is available, so the
+biscuits are larger:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">CornerAssembly</span><span class="p">(</span><span class="n">join_angle</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
-<span class="c1"># biscuits will have more volume through parts to grip, so they&#39;ll be larger</span>
 </pre></div>
 </div>
 <img alt="../../_images/applied-30deg.png" src="../../_images/applied-30deg.png" />
+<p>And with an angle of <span class="math">\(60°\)</span>, less material is available, so the
+biscuits are smaller:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">CornerAssembly</span><span class="p">(</span><span class="n">join_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">))</span>
-<span class="c1"># biscuits have less volume to use, so they&#39;ll be smaller</span>
 </pre></div>
 </div>
 <img alt="../../_images/applied-60deg.png" src="../../_images/applied-60deg.png" />
