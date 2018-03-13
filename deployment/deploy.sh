@@ -98,6 +98,9 @@ function clean() {
 
     # egg-info folders
     rm -rfv ../src/*.egg-info
+
+    # remove test container
+    env_rm
 }
 
 function build() {
