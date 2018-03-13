@@ -12,34 +12,45 @@ import jinja2
 LIB_PARENT_DIR = os.path.join('..', 'src')
 HERE = os.path.abspath(os.path.dirname(__file__))
 
+sys.path.insert(0, LIB_PARENT_DIR)
+
 parser = argparse.ArgumentParser(description='Deployment script')
 
-def lib_type(value):
+def module_type(value):
+    module = __import__(value)
+
+    # Verify lib exists in ../src directory
     if not os.path.exists(os.path.join(LIB_PARENT_DIR, value)):
         raise argparse.ArgumentTypeError(
             "library '{lib}' cannot be found in folder '{parent}'".format(
                 lib=value, parent=LIB_PARENT_DIR,
             )
         )
-    return value
+
+    # Verify imported module is that in ../src/{module name} (even if referenced by symlink)
+    module_filename = module.__file__
+    local_filename = os.path.join(
+        LIB_PARENT_DIR, value, os.path.basename(module_filename)
+    )
+    if os.stat(module_filename).st_ino != os.stat(local_filename).st_ino:
+        raise argparse.ArgumentTypeError(
+            "imported '{lib}' lib is not local".format(module.__name__)
+        )
+
+    return module
 
 parser.add_argument(
-    '--lib', dest='lib', type=lib_type, default=lib_type('cqparts'),
+    '--lib', dest='lib', type=module_type, default=module_type('cqparts'),
     help='library being deployed',
 )
 
 args = parser.parse_args()
 
 
-# Setup template thanks to: Hynek Schlawack
-#   https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
-###################################################################
-
 PACKAGES = setuptools.find_packages(
-    where=os.path.join('..', 'src'),
-    include=(args.lib, args.lib + '.*'),
+    where=LIB_PARENT_DIR,
+    include=(args.lib.__name__, args.lib.__name__ + '.*'),
 )
-META_PATH = os.path.join('..', 'src', args.lib, '__init__.py')
 CLASSIFIERS = [
     "Intended Audience :: Developers",
     "Intended Audience :: Manufacturing",
@@ -56,11 +67,12 @@ CLASSIFIERS = [
     "Topic :: Scientific/Engineering",
     "Topic :: Multimedia :: Graphics :: 3D Modeling",
     "Topic :: Multimedia :: Graphics :: 3D Rendering",
+    #"Development Status :: ???"  added later
 ]
 
 # pre-requisite packages, get from library's requirements.txt file
 INSTALL_REQUIRES = []
-requirements_filename = os.path.join('..', 'src', args.lib, 'requirements.txt')
+requirements_filename = os.path.join(LIB_PARENT_DIR, args.lib.__name__, 'requirements.txt')
 if os.path.exists(requirements_filename):
     with open(requirements_filename, 'r') as fh:
         INSTALL_REQUIRES = [
@@ -80,27 +92,18 @@ def read(*parts):
     Build an absolute path from *parts* and and return the contents of the
     resulting file.  Assume UTF-8 encoding.
     """
-    with codecs.open(os.path.join(HERE, *parts), "rb", "utf-8") as f:
-        return f.read()
-
-
-META_FILE_CONTENT = read(META_PATH)
+    return codecs.open(os.path.join(HERE, *parts), "rb", "utf-8").read()
 
 def find_meta(meta, default=None):
-    match = re.search(
-        r"""^__{meta}__\s*=\s*(?P<value>.*)$""".format(meta=meta),
-        META_FILE_CONTENT,
-        flags=re.MULTILINE,
-    )
-    if not match:
+    var_name = '__{}__'.format(meta)
+    if hasattr(args.lib, var_name):
+        return getattr(args.lib, var_name)
+    else:
         if default is not None:
             return default
-        raise RuntimeError("Unable to find __{name}__ string in '{file}'.".format(
-            name=meta, file=META_PATH,
+        raise RuntimeError("Unable to find {name} in '{file}'.".format(
+            name=var_name, file=args.lib.__file__,
         ))
-
-    return eval(match.group('value'))
-
 
 # Development Status Classifier
 VERSION_CLASSIFIER_MAP = [
@@ -133,14 +136,37 @@ CLASSIFIERS.append(version_classifier(find_meta("version")))
 # If library is explicitly marked as not being ready for release,
 # an exception will be raised & block a build
 assert find_meta('release_ready', True) == True, \
-    "library '{lib}' is not ready for release".format(lib=args.lib)
+    "library '{lib}' is not ready for release".format(lib=args.lib.__name__)
 
 def setup_standin(**kwargs):
-    return pprint.PrettyPrinter(indent=2).pformat(kwargs)
+    # Used instead of `setuptools.setup`;
+    # Write a clean `setup.py` file to execute or building & installation.
+    #
+    # "Why on earth are you doing this?" I hear you ask:
+    # "That's a fair question" I reply...
+    #
+    #   originally this *was* the `setup.py` file used to *build* the distrubution files.
+    #   However, I have since learnt is that the `setup.py` file itself is
+    #   distributed with the build module(s). It is used to *install* the library on
+    #   each end-user's system.
+    #
+    #   I think you'll agree that the above code has no place on an end-user's
+    #   system; it's highly reliant on it being executed from inside this repository.
+    #
+    #   Therefore, I've chosen to serialize the kwargs designed for `setuptools.setup`
+    #   and write them to a very simple `setup.py` file.
+    #   Normally I abhor unnecessarily generating code to execute, but I believe,
+    #   in this case, it's necessary to keep deployment clean.
+
+    params_str = pprint.PrettyPrinter(indent=2).pformat(kwargs)
+    with open('setup.py.jinja', 'r') as tmp, open(os.path.join(LIB_PARENT_DIR, 'setup.py'), 'w') as output:
+        template = jinja2.Template(tmp.read())
+        output.write(template.render(params=params_str))
+
 
 #setuptools.setup(
-params_str = setup_standin(
-    name=args.lib,
+setup_standin(
+    name=args.lib.__name__,
     description=find_meta('description'),
     license=find_meta('license'),
     url=find_meta('url'),
@@ -157,27 +183,4 @@ params_str = setup_standin(
     classifiers=CLASSIFIERS,
     install_requires=INSTALL_REQUIRES,
     scripts=SCRIPTS,
-
-    ## argv's referenced by setuptools.setup
-    #script_name=os.path.basename(sys.argv[0]),  # sys.argv[0]
-    #script_args=args.script_args,  # sys.argv[:1]
 )
-
-# "Why on earth are you doing this?" I hear you ask:
-#
-#   originally this was the `setup.py` file used to *build* the distrubution files.
-#   However, I have since learnt is that the `setup.py` file itself is
-#   distributed with the build module(s). It is used to *install* the library on
-#   each end-user's system.
-#
-#   I think you'll agree that the above code has no place on an end-user's
-#   system; it's highly reliant on it being executed from inside this repository.
-#
-#   Therefore, I've chosen to serialize the kwargs designed for `setuptools.setup`
-#   and write them to a very simple `setup.py` file.
-#   Normally I abhor unnecessarily generating code to execute, but I believe
-#   this is necessary.
-
-with open('setup.py.jinja', 'r') as tmp, open(os.path.join(LIB_PARENT_DIR, 'setup.py'), 'w') as output:
-    template = jinja2.Template(tmp.read())
-    output.write(template.render(params=params_str))
