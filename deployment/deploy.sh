@@ -46,7 +46,7 @@ Arguments:
 
 Libraries Available for Deployment: {lib}
 EOF
-find ../src -maxdepth 1 -type d -printf "    %P\n" | sort | grep -vP '^(.*\.egg-info|\s*)$'
+find ../src -maxdepth 1 -type d -name "cqparts*" -printf "    %P\n" | sort | grep -vP '^(.*\.egg-info|\s*)$'
 cat << EOF
 
 Environments: {env}
