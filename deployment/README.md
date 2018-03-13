@@ -31,6 +31,7 @@ At this time, running `./deploy.sh --help` displays:
             env ls              List container
             env rm              Remove container
             env prereq {lib}    Install pre-requisites for given lib
+            env testreq         Install test-specific requirements
 
         Deploy:
             register (test|prod)    Register lib last built (only needed once)
@@ -126,12 +127,14 @@ lib=cqparts
 ./deploy.sh env new ubuntu-py2
 ./deploy.sh env prereq $lib
 ./deploy.sh install sdist $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 
 # Python 3.x
 ./deploy.sh env new ubuntu-py3
 ./deploy.sh env prereq $lib
 ./deploy.sh install sdist $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 ```
 
@@ -141,11 +144,13 @@ lib=cqparts
 # Python 2.x
 ./deploy.sh env new ubuntu-py2
 ./deploy.sh install wheel $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 
 # Python 3.x
 ./deploy.sh env new ubuntu-py3
 ./deploy.sh install wheel $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 ```
 
@@ -166,11 +171,13 @@ xdg-open https://testpypi.python.org/pypi/$lib
 # Python 2.x
 ./deploy.sh env new ubuntu-py2
 ./deploy.sh install pypitest $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 
 # Python 3.x
 ./deploy.sh env new ubuntu-py3
 ./deploy.sh install pypitest $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 ```
 
@@ -192,11 +199,13 @@ xdg-open https://pypi.python.org/pypi/$lib
 # Python 2.x
 ./deploy.sh env new ubuntu-py2
 ./deploy.sh install pypi $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 
 # Python 3.x
 ./deploy.sh env new ubuntu-py3
 ./deploy.sh install pypi $lib
+./deploy.sh env testreq
 ./deploy.sh test $lib
 ```
 

@@ -26,6 +26,7 @@ Arguments:
         env ls              List container
         env rm              Remove container
         env prereq {lib}    Install pre-requisites for given lib
+        env testreq         Install test-specific requirements
 
     Deploy:
         register (test|prod)    Register lib last built (only needed once)
@@ -162,6 +163,12 @@ function env_prereq() {
     fi
 }
 
+function env_testreq() {
+    # install libraries required by the unit-testing environment
+    docker exec -u root ${CONTAINER_NAME} bash -c \
+        "\${PIP_BIN} install -r /code/tests/requirements.txt"
+}
+
 function env_python() {
     # Open ipython shell on the test environment container
     docker exec -it ${CONTAINER_NAME} ipython
@@ -260,6 +267,7 @@ case "$1" in
             rm) env_rm ${@:3} ;;
             new) env_new ${@:3} ;;
             prereq) env_prereq ${@:3} ;;
+            testreq) env_testreq ${@:3} ;;
             python) env_python ${@:3} ;;
             bash) env_bash ${@:3} ;;
             *) show_help >&2 ; exit 1 ;;
