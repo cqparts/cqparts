@@ -17,7 +17,7 @@ __email__ = 'peter.boin+cqparts@gmail.com'
 
 __license__ = 'GPLv3'
 
-__keywords__ = ['cadquery', 'cad', '3d', 'modeling']
+__keywords__ = ['cadquery', 'cad', '3d', 'modeling', 'fasteners']
 
 
 # ---------- Module Imports ----------

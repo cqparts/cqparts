@@ -203,7 +203,9 @@ function deploy() {
     _lib_ver=$(lib_ver ${_lib})
 
     if [ -n "${_srv}" ] ; then
+        pushd ../src
         twine upload -r ${_srv} dist/${_lib}-${_lib_ver}*
+        popd
     fi
 }
 
@@ -275,6 +277,7 @@ case "$1" in
             bash) env_bash ${@:3} ;;
             *) show_help >&2 ; exit 1 ;;
         esac ;;
+    register) register ${@:2} ;;
     deploy) deploy ${@:2} ;;
     install)
         case "$2" in

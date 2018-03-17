@@ -195,7 +195,7 @@ class Assembly(Component):
         :meth:`components` or :meth:`constraints`.
 
         Mostly it's used to test that there aren't any critical runtime
-        issues with it's construction, but doing anything like *displaying* or
+        issues with its construction, but doing anything like *displaying* or
         *exporting* will ultimately run a build anyway.
 
         :param recursive: if set, iterates through child components and builds

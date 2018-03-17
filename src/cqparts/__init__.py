@@ -6,7 +6,7 @@
 #   1.x                 - Development Status :: 5 - Production/Stable
 #   <any above>.y       - developments on that version (pre-release)
 #   <any above>*.dev*   - development release (intended purely to test deployment)
-__version__ = '0.1.0.dev0'
+__version__ = '0.1.0.dev2'
 
 __title__ = 'cqparts'
 __description__ = 'Hierarchical and deeply parametric models using cadquery'

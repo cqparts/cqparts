@@ -1,5 +1,5 @@
 
-.. image:: https://github.com/fragmuffin/cqparts/blob/master/docs-sphinx/_static/logos/cqparts/dark.svg
+.. image:: https://fragmuffin.github.io/cqparts/media/logo/dark.svg
     :align: center
 
 =====================
@@ -103,7 +103,7 @@ Creating a Hierarchy
 A simple example of this is the
 `toy car tutorial <https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html>`_.
 
-.. image:: https://github.com/fragmuffin/cqparts/blob/master/docs-sphinx/tutorials/img/assembly.finished.png
+.. image:: https://fragmuffin.github.io/cqparts/media/img/toy-car.png
 
 
 ``cqparts`` Capabilities
@@ -114,7 +114,7 @@ The work done in ``cqparts_fasteners`` is a good example of how useful
 and what can be done with it in the
 `cqparts_fasteners docs <https://fragmuffin.github.io/cqparts/doc/cqparts_fasteners/index.html>`_
 
-.. image:: https://github.com/fragmuffin/cqparts/blob/master/docs-sphinx/cqparts_fasteners/built-in/img/nut-bolt-01.png
+.. image:: https://fragmuffin.github.io/cqparts/media/img/nut-bolt-fastener.png
 
 
 Contributing
