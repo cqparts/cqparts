@@ -179,6 +179,7 @@ setup_standin(
     long_description=read('..', 'README.rst'),
     packages=PACKAGES,
     #package_dir={'': LIB_PARENT_DIR},
+    package_data={'': ['LICENSE']},
     zip_safe=False,
     classifiers=CLASSIFIERS,
     install_requires=INSTALL_REQUIRES,
