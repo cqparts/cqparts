@@ -9,11 +9,19 @@ Environment Variables:
     env_rel_path = ${env_rel_path}
 EOF
 
+# install from custom-packages folder
+find /code/tests/env/custom-packages \
+    -name *.tar.gz \
+    -exec pip install {} \;
+
 # install requirements for each library in 'src' sub-folders
-find /code/src \
-    -mindepth 2 -maxdepth 2 \
-    -name requirements.txt \
-    -exec pip install -r {} \;
+req_pkgs=$( \
+    find /code/src \
+        -mindepth 2 -maxdepth 2 \
+        -name requirements.txt \
+        -exec cat {} \; | uniq | grep -vP "^cqparts$"
+)
+pip install ${req_pkgs}
 
 # install test requirements
 pip install -r /code/tests/requirements.txt
