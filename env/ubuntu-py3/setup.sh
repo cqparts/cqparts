@@ -9,7 +9,8 @@ Environment Variables:
     env_rel_path = ${env_rel_path}
 EOF
 
-freecad_version=0.17=py36_11
+# delimited with '='
+export freecad_conda_ver=${freecad_conda_ver_major}=${freecad_conda_ver_minor}
 
 # FIXME: although preferable, installing with apt doesn't work with python imports
 ## install 'add-apt-repository' utility
@@ -35,7 +36,7 @@ hash -r
 conda config --set always_yes yes --set changeps1 no
 conda update conda
 #conda info -a
-conda install -c freecad -c conda-forge freecad=${freecad_version} conda
+conda install -c freecad -c conda-forge freecad=${freecad_conda_ver} conda
 
 # install pip packages
 pip3 install ipython

@@ -2,7 +2,6 @@ FROM cqparts-env:ubuntu-py3
 
 # build-time arguments
 ARG tester_name=tester
-ARG freecad_conda_ver=0.17-py36_11
 ARG env_rel_path
 
 ADD . /code
@@ -17,8 +16,6 @@ RUN bash /code/${env_rel_path}/setup.sh
 USER ${tester_name}
 
 # runtime environment variables
-ENV FREECAD_LIB /opt/miniconda/pkgs/freecad-${freecad_conda_ver}/lib
-ENV LD_LIBRARY_PATH /opt/miniconda/lib
 ENV PYTHONPATH /code/${env_rel_path}/../python-lib
 
 # default run command

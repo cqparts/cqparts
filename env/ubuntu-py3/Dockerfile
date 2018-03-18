@@ -2,7 +2,8 @@ FROM ubuntu:16.04
 
 # build-time arguments
 ARG tester_name=tester
-ARG freecad_conda_ver=0.17-py36_11
+ARG freecad_conda_ver_major=0.17
+ARG freecad_conda_ver_minor=py36_11
 ARG env_rel_path
 
 ADD . /code
@@ -21,6 +22,9 @@ ENV HOME /home/${tester_name}
 # runtime environment variables
 ENV PIP_BIN pip3
 ENV PYTHON_BIN python3
+ENV LD_LIBRARY_PATH /opt/miniconda/lib
+# freecad version folder: delimited with '-'
+ENV FREECAD_LIB /opt/miniconda/pkgs/freecad-${freecad_conda_ver_major}-${freecad_conda_ver_minor}/lib
 
 # default run command
 CMD echo "image command run successfully... but it does nothing"
