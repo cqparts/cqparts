@@ -11,7 +11,7 @@ What is `cqparts`?
 Using ``cqparts`` you can wrap geometry made with ``cadquery`` to build complex
 and deeply parametric models.
 
-Full documentation at: https://fragmuffin.github.io/cqparts/doc
+Full documentation at: https://fragmuffin.github.io/cqparts
 
 
 Installing
@@ -53,13 +53,15 @@ Example Usage
 Here is just one of the simplest examples to give you an idea of what this
 library does.
 
-More tetailed examples found in
+More detailed examples found in
 `the official documentation for cqparts <https://fragmuffin.github.io/cqparts/doc>`_.
 
 Wrapping a Cube
 ^^^^^^^^^^^^^^^^^^
 
-Or a simple cube defined with ``cadquery`` alone::
+.. image:: https://fragmuffin.github.io/cqparts/media/img/unit-cube.png
+
+A simple cube defined with ``cadquery`` alone::
 
     # create unit cube solid
     import cadquery
