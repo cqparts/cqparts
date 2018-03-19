@@ -215,34 +215,54 @@ function deploy() {
 # for testing)
 function install_sdist() {
     _lib=$1
-    _lib_ver=$(lib_ver ${_lib})
 
-    docker exec --user root ${CONTAINER_NAME} \
-        bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}.tar.gz"
+    if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
+        _lib_ver=$(lib_ver ${_lib})
+        docker exec --user root ${CONTAINER_NAME} \
+            bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}.tar.gz"
+    else
+        echo "ERROR: no library named '${_lib}'" >&2
+        show_help >&2 ; exit 1
+    fi
 }
 
 function install_wheel() {
     _lib=$1
-    _lib_ver=$(lib_ver ${_lib})
 
-    docker exec --user root ${CONTAINER_NAME} \
-        bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}-*.whl"
+    if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
+        _lib_ver=$(lib_ver ${_lib})
+        docker exec --user root ${CONTAINER_NAME} \
+            bash -c "\${PIP_BIN} install src/dist/${_lib}-${_lib_ver}-*.whl"
+    else
+        echo "ERROR: no library named '${_lib}'" >&2
+        show_help >&2 ; exit 1
+    fi
 }
 
 function install_pypitest() {
     _lib=$1
-    _lib_ver=$(lib_ver ${_lib})
 
-    docker exec --user root ${CONTAINER_NAME} \
-        bash -c "\${PIP_BIN} install -i https://testpypi.python.org/pypi ${_lib}==${_lib_ver}"
+    if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
+        _lib_ver=$(lib_ver ${_lib})
+        docker exec --user root ${CONTAINER_NAME} \
+            bash -c "\${PIP_BIN} install -i https://testpypi.python.org/pypi ${_lib}==${_lib_ver}"
+    else
+        echo "ERROR: no library named '${_lib}'" >&2
+        show_help >&2 ; exit 1
+    fi
 }
 
 function install_pypi() {
     _lib=$1
-    _lib_ver=$(lib_ver ${_lib})
 
-    docker exec --user root ${CONTAINER_NAME} \
-        bash -c "\${PIP_BIN} install ${_lib}==${_lib_ver}"
+    if [ -n "$_lib" -a -d ${CQPARTS_ROOT}/src/${_lib} ] ; then
+        _lib_ver=$(lib_ver ${_lib})
+        docker exec --user root ${CONTAINER_NAME} \
+            bash -c "\${PIP_BIN} install ${_lib}==${_lib_ver}"
+    else
+        echo "ERROR: no library named '${_lib}'" >&2
+        show_help >&2 ; exit 1
+    fi
 }
 
 
