@@ -35,9 +35,7 @@ Use indicator on a primative
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To illustrate how an inciator can be used to show where a ``Mate`` is on a
-``Part``,
-
-::
+``Part``, we'll create a simple ``Assembly``::
 
     import cqparts
     from cqparts.constraint import Fixed, Coincident
@@ -68,5 +66,7 @@ To illustrate how an inciator can be used to show where a ``Mate`` is on a
 
 .. image:: https://fragmuffin.github.io/cqparts/media/img/misc/example-coordsys-indicator.png
 
-From this we can see that the ``mate_neg_y`` mate has it's Z-axis along the
-world -Y-axis, and the X-axis along the world Z-axis.
+From this we can see that the ``mate_neg_y`` mate has:
+
+* its Z-axis along the world -Y-axis, and
+* its X-axis along the world Z-axis.
