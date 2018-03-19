@@ -139,7 +139,7 @@ an M3 machine screw, 4mm long, with a domed cheese head, and a 2mm hex drive::
         thread=('iso68', {
             'diameter': 3,  # M3
         }),
-
+        length=4,
     )
 
     from cqparts.display import display
