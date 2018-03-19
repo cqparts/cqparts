@@ -1,5 +1,6 @@
 import codecs
 import os
+import io
 import sys
 import re
 import setuptools
@@ -35,6 +36,20 @@ def module_type(value):
     if os.stat(module_filename).st_ino != os.stat(local_filename).st_ino:
         raise argparse.ArgumentTypeError(
             "imported '{lib}' lib is not local".format(module.__name__)
+        )
+
+    # Verify __name__ is equal to the containing folder's name
+    if module.__name__ != value:
+        raise argparse.ArgumentTypeError(
+            "imported {lib!r} but the __name__ of '{name}' is invalid, expecting {expected}".format(
+                lib=module, name=module.__name__, expected=value,
+            )
+        )
+
+    # Verify module is ready for release
+    if getattr(module, '__release_ready__', True) != True:
+        raise argparse.ArgumentTypeError(
+            "library '{lib}' is not ready for release".format(lib=value)
         )
 
     return module
@@ -94,16 +109,6 @@ def read(*parts):
     """
     return codecs.open(os.path.join(HERE, *parts), "rb", "utf-8").read()
 
-def find_meta(meta, default=None):
-    var_name = '__{}__'.format(meta)
-    if hasattr(args.lib, var_name):
-        return getattr(args.lib, var_name)
-    else:
-        if default is not None:
-            return default
-        raise RuntimeError("Unable to find {name} in '{file}'.".format(
-            name=var_name, file=args.lib.__file__,
-        ))
 
 # Development Status Classifier
 VERSION_CLASSIFIER_MAP = [
@@ -128,15 +133,10 @@ def version_classifier(version_str):
 
     raise ValueError("could not find valid 'Development Status' classifier for v{}".format(version_str))
 
-CLASSIFIERS.append(version_classifier(find_meta("version")))
+CLASSIFIERS.append(version_classifier(args.lib.__version__))
 
 
 # ------- Mainline --------
-
-# If library is explicitly marked as not being ready for release,
-# an exception will be raised & block a build
-assert find_meta('release_ready', True) == True, \
-    "library '{lib}' is not ready for release".format(lib=args.lib.__name__)
 
 def setup_standin(**kwargs):
     # Used instead of `setuptools.setup`;
@@ -167,16 +167,19 @@ def setup_standin(**kwargs):
 #setuptools.setup(
 setup_standin(
     name=args.lib.__name__,
-    description=find_meta('description'),
-    license=find_meta('license'),
-    url=find_meta('url'),
-    version=find_meta("version"),
-    author=find_meta('author'),
-    author_email=find_meta('email'),
-    maintainer=find_meta('author'),
-    maintainer_email=find_meta('email'),
-    keywords=find_meta('keywords'),
-    long_description=read('..', 'README.rst'),
+    description=args.lib.__description__,
+    license=args.lib.__license__,
+    url=args.lib.__url__,
+    version=args.lib.__version__,
+    author=args.lib.__author__,
+    author_email=args.lib.__email__,
+    maintainer=args.lib.__author__,
+    maintainer_email=args.lib.__email__,
+    keywords=args.lib.__keywords__,
+    long_description=io.open(
+        os.path.join(LIB_PARENT_DIR, args.lib.__name__, 'README.rst'),
+        encoding='utf-8',
+    ).read(),
     packages=PACKAGES,
     #package_dir={'': LIB_PARENT_DIR},
     package_data={'': ['LICENSE']},
