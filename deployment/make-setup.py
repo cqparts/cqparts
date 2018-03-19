@@ -182,7 +182,7 @@ setup_standin(
     ).read(),
     packages=PACKAGES,
     #package_dir={'': LIB_PARENT_DIR},
-    package_data={'': ['LICENSE']},
+    package_data={'': ['LICENSE'] + getattr(args.lib, '__package_data__', [])},
     zip_safe=False,
     classifiers=CLASSIFIERS,
     install_requires=INSTALL_REQUIRES,
