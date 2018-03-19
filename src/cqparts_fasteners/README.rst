@@ -121,7 +121,7 @@ Machine Screw
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 We can create a fastener with many tuned parameters, for this example we'll create
-an M3 machine screw, 4mm long, with a domed cheese head, and a 2mm hex drive.
+an M3 machine screw, 4mm long, with a domed cheese head, and a 2mm hex drive::
 
     from cqparts_fasteners.male import MaleFastenerPart
 
@@ -155,7 +155,7 @@ catalogue that suit certain parameters, such as length, diameter, anything used
 as a parameter to build the part.
 
 For this example, we'll explicitly define the product's ``id``, guarenteeing
-only one result is returned
+only one result is returned::
 
     import os
 
