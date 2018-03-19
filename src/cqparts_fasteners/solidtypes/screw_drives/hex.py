@@ -23,10 +23,11 @@ class HexScrewDrive(ScrewDrive):
     pin_diameter = None # defaults to diameter / 3
 
     def initialize_parameters(self):
-        super(HexScrewDrive, self).initialize_parameters()
         if self.width is not None:
             # Set diameter from hexagon's width (ignore given diameter)
             self.diameter = self.width / cos(pi / 6)
+
+        super(HexScrewDrive, self).initialize_parameters()
 
         if self.pin_height is None:
             self.pin_height = self.depth

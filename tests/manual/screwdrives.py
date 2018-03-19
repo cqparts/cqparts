@@ -10,8 +10,10 @@ import cqparts
 from cqparts.params import *
 from cqparts.constraint import *
 from cqparts.utils import CoordSystem
-from cqparts.solidtypes.screw_drives import *
 from cqparts.display import display, render_props
+
+import cqparts_fasteners
+from cqparts_fasteners.solidtypes.screw_drives import *
 
 from cqparts.utils.env import env_name
 
@@ -37,7 +39,7 @@ args = parser.parse_args()
 # Get list of names
 name_sets = [
     cqparts.search.class_criteria[cls].get('name', set())
-    for cls in cqparts.solidtypes.screw_drives.search()
+    for cls in cqparts_fasteners.solidtypes.screw_drives.search()
 ]
 names_list = set()
 for name_set in name_sets:
@@ -59,7 +61,7 @@ class ScrewDriveParam(Parameter):
     """
     def type(self, value):
         if isinstance(value, str):
-            return cqparts.solidtypes.screw_drives.find(name=value)()
+            return cqparts_fasteners.solidtypes.screw_drives.find(name=value)()
         raise ValueError()
 
 class ScrewDriveBox(cqparts.Part):
