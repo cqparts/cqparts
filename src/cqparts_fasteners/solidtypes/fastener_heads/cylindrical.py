@@ -100,7 +100,7 @@ class RoundFastenerHead(CylindricalFastenerHead):
                 cadquery.CQ(cadquery.Solid.makeCone(0, cone_radius, cone_height)) \
                     .translate((0, 0, -cone_height))
             )
-            head = head.union(intersect(box, cone))
+            head = head.union(box.intersect(cone))
 
         return head
 

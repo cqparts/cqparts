@@ -10,8 +10,10 @@ import cqparts
 from cqparts.params import *
 from cqparts.constraint import *
 from cqparts.utils import CoordSystem
-from cqparts.solidtypes.fastener_heads import *
 from cqparts.display import display, render_props
+
+import cqparts_fasteners
+from cqparts_fasteners.solidtypes.fastener_heads import *
 
 import logging
 log = logging.getLogger(__name__)
@@ -33,7 +35,7 @@ args = parser.parse_args()
 # Get list of names
 name_sets = [
     cqparts.search.class_criteria[cls].get('name', set())
-    for cls in cqparts.solidtypes.fastener_heads.search()
+    for cls in cqparts_fasteners.solidtypes.fastener_heads.search()
 ]
 names_list = set()
 for name_set in name_sets:
@@ -70,7 +72,7 @@ class Showcase(cqparts.Assembly):
     def make_components(self):
         components = {}
         for name in self.names:
-            cls = cqparts.solidtypes.fastener_heads.find(name=name)
+            cls = cqparts_fasteners.solidtypes.fastener_heads.find(name=name)
             components[name] = cls(_render={'alpha': 0.5})
         return components
 
