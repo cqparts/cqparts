@@ -6,7 +6,7 @@
 #   1.x                 - Development Status :: 5 - Production/Stable
 #   <any above>.y       - developments on that version (pre-release)
 #   <any above>*.dev*   - development release (intended purely to test deployment)
-__version__ = '0.1.0.dev0'
+__version__ = '0.1.0'
 
 __title__ = 'cqparts_fasteners'
 __description__ = 'Nuts, Bolts and Screws content library for cqparts'
