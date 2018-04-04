@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts_fasteners.solidtypes.threads package &mdash; cqparts 0.1.0.dev0 documentation</title>
+  <title>cqparts_fasteners.solidtypes.threads package &mdash; cqparts 0.2.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.1.0.dev0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts_fasteners.solidtypes package" href="cqparts_fasteners.solidtypes.html"/>
         <link rel="next" title="cqparts_fasteners.utils package" href="cqparts_fasteners.utils.html"/>
         <link rel="prev" title="cqparts_fasteners.solidtypes.screw_drives package" href="cqparts_fasteners.solidtypes.screw_drives.html"/> 
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                0.1
+                0.2
               </div>
             
           
@@ -129,6 +129,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts_springs.html">cqparts_springs package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_template.html">cqparts_template package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_toys.html">cqparts_toys package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -340,7 +341,7 @@ to construct a thread.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">thread profile as a wire on the XZ plane</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -450,7 +451,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>profile</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>) – workplane containing wire of thread profile.</li>
+<li><strong>profile</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>) – workplane containing wire of thread profile.</li>
 <li><strong>lefthand</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if True, cross-section is made backwards.</li>
 <li><strong>start_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – profile is duplicated this many times.</li>
 <li><strong>min_vertices</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></a>) – int or tuple of the desired resolution.</li>
@@ -460,7 +461,7 @@ where: len(min_vertices) == number of edges in profile</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">workplane with a face ready to be swept into a thread.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
@@ -671,7 +672,7 @@ to construct a thread.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">thread profile as a wire on the XZ plane</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -794,7 +795,7 @@ prone to small numeric error.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0.dev0',
+            VERSION:'0.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

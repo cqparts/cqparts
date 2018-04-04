@@ -14,3 +14,4 @@ Module APIs
    cqparts_springs
    cqparts_template
    cqparts_torquelimiters
+   cqparts_toys

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts.utils package &mdash; cqparts 0.1.0.dev0 documentation</title>
+  <title>cqparts.utils package &mdash; cqparts 0.2.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.1.0.dev0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts_bearings package" href="cqparts_bearings.html"/>
         <link rel="prev" title="cqparts.params package" href="cqparts.params.html"/> 
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                0.1
+                0.2
               </div>
             
           
@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts_springs.html">cqparts_springs package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_template.html">cqparts_template package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_toys.html">cqparts_toys package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -290,26 +291,26 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> represented in <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
-<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
+<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -349,7 +350,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
 </tr>
@@ -443,7 +444,7 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coorinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -499,7 +500,7 @@ box is always positioned orthogonally to the other two.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -944,26 +945,26 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> represented in <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
-<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
+<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1003,7 +1004,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
 </tr>
@@ -1097,7 +1098,7 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coorinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1153,7 +1154,7 @@ box is always positioned orthogonally to the other two.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1297,7 +1298,7 @@ assist tree displays of hierarchical content.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0.dev0',
+            VERSION:'0.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

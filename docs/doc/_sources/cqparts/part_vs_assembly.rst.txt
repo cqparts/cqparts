@@ -25,8 +25,7 @@ step of construction.
 or *cylinder* to name a few), nor is it to be confused with constructive
 geometry
 
-For a detailed example of a hierarchy, have a look at the
-:ref:`example servo motor <examples_servo_hierarchy>`.
+For a detailed example of a hierarchy, have a look at :ref:`tutorial_assembly`.
 
 
 Constructive Analogy

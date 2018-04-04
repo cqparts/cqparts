@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts package &mdash; cqparts 0.1.0.dev0 documentation</title>
+  <title>cqparts package &mdash; cqparts 0.2.0 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.1.0.dev0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
         <link rel="up" title="Module APIs" href="modules.html"/>
         <link rel="next" title="cqparts.catalogue package" href="cqparts.catalogue.html"/>
         <link rel="prev" title="Module APIs" href="modules.html"/> 
@@ -72,7 +72,7 @@
             
             
               <div class="version">
-                0.1
+                0.2
               </div>
             
           
@@ -131,6 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts_springs.html">cqparts_springs package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_template.html">cqparts_template package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_torquelimiters.html">cqparts_torquelimiters package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts_toys.html">cqparts_toys package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">TODO List</a></li>
@@ -278,7 +279,7 @@
 <p>Running <code class="docutils literal"><span class="pre">build()</span></code> is optional, it’s automatically run when requesting
 <a class="reference internal" href="#cqparts.assembly.Assembly.components" title="cqparts.assembly.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> or <a class="reference internal" href="#cqparts.assembly.Assembly.constraints" title="cqparts.assembly.Assembly.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
 <p>Mostly it’s used to test that there aren’t any critical runtime
-issues with it’s construction, but doing anything like <em>displaying</em> or
+issues with its construction, but doing anything like <em>displaying</em> or
 <em>exporting</em> will ultimately run a build anyway.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -714,7 +715,7 @@ for more information.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.0)">cadquery.BoundBox</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.1)">cadquery.BoundBox</a></td>
 </tr>
 </tbody>
 </table>
@@ -740,7 +741,7 @@ there aren’t any critical runtime issues with it’s construction.</p>
 <dt id="cqparts.part.Part.local_obj">
 <code class="descname">local_obj</code><a class="headerlink" href="#cqparts.part.Part.local_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffered result of <a class="reference internal" href="#cqparts.part.Part.make" title="cqparts.part.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
 <a class="reference internal" href="#cqparts.part.Part.make_simple" title="cqparts.part.Part.make_simple"><code class="xref py py-meth docutils literal"><span class="pre">make_simple()</span></code></a> is returned instead.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -761,7 +762,7 @@ to re-generate the model from scratch, then dispose of it.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1107,7 +1108,7 @@ for more information.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.0)">cadquery.BoundBox</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.1)">cadquery.BoundBox</a></td>
 </tr>
 </tbody>
 </table>
@@ -1133,7 +1134,7 @@ there aren’t any critical runtime issues with it’s construction.</p>
 <dt id="cqparts.Part.local_obj">
 <code class="descname">local_obj</code><a class="headerlink" href="#cqparts.Part.local_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
 <a class="reference internal" href="#cqparts.Part.make_simple" title="cqparts.Part.make_simple"><code class="xref py py-meth docutils literal"><span class="pre">make_simple()</span></code></a> is returned instead.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1154,7 +1155,7 @@ to re-generate the model from scratch, then dispose of it.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.0)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1216,7 +1217,7 @@ to provide 2 cylinders, one for the bolt’s head, and another for the thread.</
 <p>Running <code class="docutils literal"><span class="pre">build()</span></code> is optional, it’s automatically run when requesting
 <a class="reference internal" href="#cqparts.Assembly.components" title="cqparts.Assembly.components"><code class="xref py py-meth docutils literal"><span class="pre">components()</span></code></a> or <a class="reference internal" href="#cqparts.Assembly.constraints" title="cqparts.Assembly.constraints"><code class="xref py py-meth docutils literal"><span class="pre">constraints()</span></code></a>.</p>
 <p>Mostly it’s used to test that there aren’t any critical runtime
-issues with it’s construction, but doing anything like <em>displaying</em> or
+issues with its construction, but doing anything like <em>displaying</em> or
 <em>exporting</em> will ultimately run a build anyway.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1503,7 +1504,7 @@ as the corresponding part’s world coordinates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1.0.dev0',
+            VERSION:'0.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
