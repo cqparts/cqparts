@@ -1,3 +1,5 @@
+import os
+
 from .params import ParametricObject
 from .constraint import Mate
 from .utils import CoordSystem
@@ -83,6 +85,15 @@ class Component(ParametricObject):
         """
         from .codec import get_exporter
         return get_exporter(self, exporter_name)
+
+    def export(self, filepath):
+        """
+        Write component's content to file.
+        Uses extension of path to load the correct exporter.
+        """
+        exporter_name = os.path.splitext(filepath)[1][1:]
+        self.exporter(exporter_name.lower())(filepath)
+
 
     @classmethod
     def importer(cls, importer_name=None):

@@ -311,7 +311,8 @@ class GLTFExporter(Exporter):
 
     """
 
-    scale = 0.001  # mm to meters
+    # scale = 0.001  # mm to meters
+    scale = 1
     TEMPLATE = {
         # Static values
         "asset": {
@@ -568,11 +569,11 @@ class GLTFExporter(Exporter):
             buff = self.part_buffer(part)
             self.scene_min = _list3_min(
                 self.scene_min,
-                (Vector(buff.vert_min) + part.world_coords.origin).toTuple()
+                (Vector(*buff.vert_min) + part.world_coords.origin).toTuple()
             )
             self.scene_max = _list3_max(
                 self.scene_max,
-                (Vector(buff.vert_max) + part.world_coords.origin).toTuple()
+                (Vector(*buff.vert_max) + part.world_coords.origin).toTuple()
             )
 
             buffer_index = len(self.gltf_dict['buffers'])
@@ -631,7 +632,7 @@ class GLTFExporter(Exporter):
                 "bufferView": bufferView_index_vertices,
                 "byteOffset": 0,
                 "componentType": WebGL.FLOAT,
-                "count": buff.vert_size,
+                "count": int(buff.vert_size),
                 "min": [v - 0.1 for v in buff.vert_min],
                 "max": [v + 0.1 for v in buff.vert_max],
                 "type": "VEC3",
@@ -645,7 +646,7 @@ class GLTFExporter(Exporter):
                 "bufferView": bufferView_index_indices,
                 "byteOffset": 0,
                 "componentType": buff.idx_type,
-                "count": buff.idx_size,
+                "count": int(buff.idx_size),
                 "type": "SCALAR",
             }
             self.gltf_dict['accessors'].append(accessor)
@@ -689,6 +690,7 @@ class GLTFExporter(Exporter):
                 node['name'] = name
             if origin:
                 node.update(self.coordsys_dict(part.world_coords - origin))
+
             self.gltf_dict['nodes'].append(node)
             info['nodes'].append((node_index, node))
 

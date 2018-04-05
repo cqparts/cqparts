@@ -30,10 +30,17 @@ class AMFExporter(Exporter):
         shape = workplane.val()
 
         # call cadquery exporter
-        with open(filename, 'wb') as fh:
-            cadquery.freecad_impl.exporters.exportShape(
-                shape=shape,
-                exportType='AMF',
-                fileLike=fh,
-                tolerance=tolerance,
-            )
+        try:
+            with open(filename, 'wb') as fh:
+                cadquery.freecad_impl.exporters.exportShape(
+                    shape=shape,
+                    exportType='AMF',
+                    fileLike=fh,
+                    tolerance=tolerance,
+                )
+        except AttributeError:
+            # If freecad_impl is not available (beacuse cadquery based on
+            # PythonOCC is being uses), fall back onto an alternative export method
+            from cadquery import exporters
+            with open(filename, "w") as fh:
+                exporters.exportShape(shape, exporters.ExportTypes.AMF, fh, tolerance)
