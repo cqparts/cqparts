@@ -343,9 +343,6 @@ class GLTFExporter(Exporter):
         "buffers": [],
     }
 
-    # error tolerance of vertices to true face value, only relevant for curved surfaces.
-    tolerance = 0.01
-
     def __init__(self, *args, **kwargs):
         super(GLTFExporter, self).__init__(*args, **kwargs)
 
@@ -354,13 +351,17 @@ class GLTFExporter(Exporter):
         self.scene_min = None
         self.scene_max = None
 
-    def __call__(self, filename='out.gltf', embed=False):
+    def __call__(self, filename='out.gltf', embed=False, tolerance=0.01):
         """
         :param filename: name of ``.gltf`` file to export
         :type filename: :class:`str`
         :param embed: if True, binary content is embedded in json object.
         :type embed: :class:`bool`
+        :param tolerance: error tolerance of vertices to true face value, only relevant for curved surfaces
+        :type tolerance: :class:`float`
         """
+
+        self.tolerance = tolerance
 
         def add(obj, filename, name, origin, parent_node_index=0):
             split = os.path.splitext(filename)
@@ -437,10 +438,13 @@ class GLTFExporter(Exporter):
         node_update = {}
         if matrix:
             m = coord_sys.local_to_world_transform  # FreeCAD.Base.Matrix
-            node_update.update({
-                # glTF matrix is column major; needs to be tranposed
-                'matrix': m.transposed().A,
-            })
+
+            # glTF matrix is column major; needs to be tranposed
+            try:
+                node_update.update({'matrix': m.transposed().A})
+            except AttributeError:
+                # caquery based on OCC does not have that method
+                node_update.update({'matrix': m.transposed_list()})
         else:
             raise NotImplementedError("only matrix export is supported (for now)")
             # The plan is to support something more like:
@@ -453,7 +457,7 @@ class GLTFExporter(Exporter):
         return node_update
 
     @classmethod
-    def part_mesh(cls, part):
+    def part_mesh(cls, part, tolerance):
         """
         Convert a part's object to a mesh.
 
@@ -474,11 +478,11 @@ class GLTFExporter(Exporter):
         with measure_time(log, 'buffers.part_mesh'):
             workplane = part.local_obj  # cadquery.CQ instance
             shape = workplane.val()  # expecting a cadquery.Solid instance
-            tess = shape.tessellate(cls.tolerance)
+            tess = shape.tessellate(tolerance)
             return tess
 
     @classmethod
-    def part_buffer(cls, part):
+    def part_buffer(cls, part, tolerance):
         """
         Export part's geometry as a
         `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
@@ -510,7 +514,7 @@ class GLTFExporter(Exporter):
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
 
         # Get shape's mesh
-        (vertices, indices) = cls.part_mesh(part)
+        (vertices, indices) = cls.part_mesh(part, tolerance)
 
         # Create ShapeBuffer
         buff = ShapeBuffer(
@@ -566,7 +570,7 @@ class GLTFExporter(Exporter):
 
         # ----- Adding to: buffers
         with measure_time(log, 'buffers'):
-            buff = self.part_buffer(part)
+            buff = self.part_buffer(part, self.tolerance)
             self.scene_min = _list3_min(
                 self.scene_min,
                 (Vector(*buff.vert_min) + part.world_coords.origin).toTuple()
