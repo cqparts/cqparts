@@ -17,7 +17,7 @@ Full documentation at: https://fragmuffin.github.io/cqparts
 Installing
 ------------------
 
-This fork of the ``cqparts`` has been modified to support `cadquery built on top of pythonOCC <https://github.com/CapableRobot/cadquery>`, instead of FreeCAD.  All changes are backwards compatible with the the normal cadquery library.
+This fork of the ``cqparts`` has been modified to support `cadquery built on top of pythonOCC <https://github.com/CapableRobot/cadquery>`_, instead of FreeCAD.  All changes are backwards compatible with the the normal cadquery library.
 
 Please see https://github.com/fragmuffin/cqparts for normal installation.  Instructions below are for the pythonOCC version of cadquery.
 
