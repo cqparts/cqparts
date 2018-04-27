@@ -650,7 +650,7 @@ duplicate variables cluttering the sphinx docs.</p>
 <dl class="class">
 <dt id="cqparts.utils.test.CatalogueTest">
 <em class="property">class </em><code class="descclassname">cqparts.utils.test.</code><code class="descname">CatalogueTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.CatalogueTest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.utils.test.ComponentTest" title="cqparts.utils.test.ComponentTest"><code class="xref py py-class docutils literal"><span class="pre">cqparts.utils.test.ComponentTest</span></code></a></p>
 <dl class="attribute">
 <dt id="cqparts.utils.test.CatalogueTest.catalogue">
 <code class="descname">catalogue</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.utils.test.CatalogueTest.catalogue" title="Permalink to this definition">¶</a></dt>
@@ -822,6 +822,85 @@ parameters:</p>
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.utils.test.ComponentTest">
+<em class="property">class </em><code class="descclassname">cqparts.utils.test.</code><code class="descname">ComponentTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Generic testcase with utilities for testing
+<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.test</span> <span class="k">import</span> <span class="n">ComponentTest</span>
+
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BoxTest</span><span class="p">(</span><span class="n">ComponentTest</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertComponent</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertAssembly">
+<code class="descname">assertAssembly</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertAssembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>) – assembly under test</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertAssembyHasComponents">
+<code class="descname">assertAssembyHasComponents</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertAssembyHasComponents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertComponent">
+<code class="descname">assertComponent</code><span class="sig-paren">(</span><em>obj</em>, <em>recursive=True</em>, <em>_depth=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Component.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component under test</li>
+<li><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code> sub-components will also be tested</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertPart">
+<code class="descname">assertPart</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Part.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part under test</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertPartBoundingBox">
+<code class="descname">assertPartBoundingBox</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertPartBoundingBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

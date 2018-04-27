@@ -11,6 +11,8 @@ from cqparts.constraint import Fixed, Coincident
 from cqparts_fasteners.fasteners.screw import ScrewFastener
 from cqparts_misc.basic.primatives import Box
 
+from cqparts.utils import CoordSystem
+
 class Thing(cqparts.Assembly):
     def make_components(self):
         base = Box(length=20, width=30, height=15)

@@ -6,6 +6,29 @@ from .. import Component, Part, Assembly
 
 
 class ComponentTest(unittest.TestCase):
+    """
+    Generic testcase with utilities for testing
+    :class:`Part <cqparts.Part>` and :class:`Assembly <cqparts.Assembly>` instances.
+
+    For example:
+
+    .. doctest::
+
+        import cqparts
+        import cadquery
+        from cqparts.utils.test import ComponentTest
+
+        class Box(cqparts.Part):
+            def make(self):
+                return cadquery.Workplane('XY').box(1,1,1)
+
+        class BoxTest(ComponentTest):
+            def test_box(self):
+                box = Box()
+                self.assertComponent(box)
+
+    """
+
 
     # ----- Assertion utilities
     def assertPartBoundingBox(self, obj):
