@@ -35,6 +35,9 @@ class ComponentTest(unittest.TestCase):
         assert isinstance(obj, Part), "assertion only relevant for Part instances"
         self.assertGreater(obj.bounding_box.DiagonalLength, 0)
 
+    def assertPartHasVolume(self, obj):
+        self.assertGreater(obj.val().wrapped.Volume, 0)  # has volume
+
     def assertAssembyHasComponents(self, obj):
         self.assertGreater(len(obj.components), 0)  # has components
 
@@ -47,6 +50,7 @@ class ComponentTest(unittest.TestCase):
         :type obj: :class:`Part <cqparts.Part>`
         """
         self.assertPartBoundingBox(obj)
+        self.assertPartHasVolume(obj)
         # TODO: more
 
     def assertAssembly(self, obj):
