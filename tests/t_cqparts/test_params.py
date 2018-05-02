@@ -8,7 +8,7 @@ from partslib import Box
 # Unit under test
 from cqparts.params import *
 from cqparts.errors import ParameterError
-from cqparts.params import as_parameter, ParametricObject
+from cqparts import Part, Assembly
 
 class ParametricObjectTests(CQPartsTest):
     def test_inherited_params(self):
@@ -331,7 +331,7 @@ class PartsListTests(ParameterTypeTests):
     def test_partslist(self):
         p = PartsList()
         (b1, b2) = (Box(), Box())
-        v = p.cast([b1, b2])
+        v = p.cast([b1, b2])  # list
         self.assertIsInstance(v, (list, tuple))
         self.assertEqual([id(x) for x in v], [id(b1), id(b2)])
 
@@ -351,3 +351,20 @@ class PartsListTests(ParameterTypeTests):
         p = PartsList()
         with self.assertRaises(ParameterError):
             p.cast([Box(), 1])
+
+
+class ComponentRefTests(ParameterTypeTests):
+    def test_part(self):
+        p = ComponentRef()
+        v = p.cast(Part())
+        self.assertIsInstance(v, Part)
+
+    def test_assembly(self):
+        p = ComponentRef()
+        v = p.cast(Assembly())
+        self.assertIsInstance(v, Assembly)
+
+    def test_nullable(self):
+        p = ComponentRef()
+        v = p.cast(None)
+        self.assertIsNone(v)
