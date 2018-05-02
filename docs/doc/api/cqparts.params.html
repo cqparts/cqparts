@@ -662,6 +662,45 @@ implementation.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="cqparts.params.types.ComponentRef">
+<em class="property">class </em><code class="descclassname">cqparts.params.types.</code><code class="descname">ComponentRef</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.ComponentRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.parameter.Parameter" title="cqparts.params.parameter.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.parameter.Parameter</span></code></a></p>
+<p>Reference to a Component</p>
+<p>Initially introduced as a means to reference a sub-component’s parent</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">Component</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Eighth</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ComponentRef</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;part&#39;s parent&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cube size&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># create a single cube 1/8 the volume of the whole cube</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Eighth</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.params.types.ComponentRef.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.ComponentRef.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="cqparts.params.types.Float">
 <em class="property">class </em><code class="descclassname">cqparts.params.types.</code><code class="descname">Float</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.Float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.params.parameter.Parameter" title="cqparts.params.parameter.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.parameter.Parameter</span></code></a></p>
@@ -1315,6 +1354,45 @@ implementation.</p>
 <dl class="method">
 <dt id="cqparts.params.Boolean.type">
 <code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.ComponentRef">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">ComponentRef</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ComponentRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.parameter.Parameter" title="cqparts.params.parameter.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.parameter.Parameter</span></code></a></p>
+<p>Reference to a Component</p>
+<p>Initially introduced as a means to reference a sub-component’s parent</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">Component</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Eighth</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ComponentRef</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;part&#39;s parent&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cube size&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># create a single cube 1/8 the volume of the whole cube</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Eighth</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.params.ComponentRef.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ComponentRef.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
