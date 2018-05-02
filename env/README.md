@@ -21,6 +21,10 @@ used as a basis for others elsewhere in the project.
 
 # Docker Images
 
+To build each of these containers, go into each folder and run:
+
+    ./build.sh
+
 ## `cqparts-env:ubuntu-py2`
 
 Install `python` and `freecad` as they are directy from `apt`
