@@ -259,6 +259,17 @@ for exporting.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Exporting a Box:</strong></p>
+<p>For this example we’ll instantiate an existing <code class="docutils literal"><span class="pre">Part</span></code> class, a simple
+<a class="reference internal" href="cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cpqarts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;box.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will export a single file <code class="docutils literal"><span class="pre">box.gltf</span></code> with mesh data encoded into
+it as a string.</p>
 <p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
 <p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.gltf.GLTFExporter.__call__" title="cqparts.codec.gltf.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
 stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
@@ -268,16 +279,19 @@ loading on a web-interface.</p>
 files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
 <p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
 with the hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>car
-├○ chassis
-├─ front_axle
-│   ├○ axle
-│   ├○ left_wheel
-│   └○ right_wheel
-└─ rear_axle
-    ├○ axle
-    ├○ left_wheel
-    └○ right_wheel
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;car&#39;</span><span class="p">))</span>
+<span class="go">car</span>
+<span class="go">├○ chassis</span>
+<span class="go">├─ front_axle</span>
+<span class="go">│   ├○ axle</span>
+<span class="go">│   ├○ left_wheel</span>
+<span class="go">│   └○ right_wheel</span>
+<span class="go">└─ rear_axle</span>
+<span class="go">    ├○ axle</span>
+<span class="go">    ├○ left_wheel</span>
+<span class="go">    └○ right_wheel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">car</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;car.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
@@ -1069,6 +1083,17 @@ for exporting.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Exporting a Box:</strong></p>
+<p>For this example we’ll instantiate an existing <code class="docutils literal"><span class="pre">Part</span></code> class, a simple
+<a class="reference internal" href="cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cpqarts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;box.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will export a single file <code class="docutils literal"><span class="pre">box.gltf</span></code> with mesh data encoded into
+it as a string.</p>
 <p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
 <p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.GLTFExporter.__call__" title="cqparts.codec.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
 stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
@@ -1078,16 +1103,19 @@ loading on a web-interface.</p>
 files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
 <p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
 with the hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>car
-├○ chassis
-├─ front_axle
-│   ├○ axle
-│   ├○ left_wheel
-│   └○ right_wheel
-└─ rear_axle
-    ├○ axle
-    ├○ left_wheel
-    └○ right_wheel
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;car&#39;</span><span class="p">))</span>
+<span class="go">car</span>
+<span class="go">├○ chassis</span>
+<span class="go">├─ front_axle</span>
+<span class="go">│   ├○ axle</span>
+<span class="go">│   ├○ left_wheel</span>
+<span class="go">│   └○ right_wheel</span>
+<span class="go">└─ rear_axle</span>
+<span class="go">    ├○ axle</span>
+<span class="go">    ├○ left_wheel</span>
+<span class="go">    └○ right_wheel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">car</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;car.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each

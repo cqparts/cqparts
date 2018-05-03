@@ -3,7 +3,10 @@ from copy import copy
 from base import CQPartsTest
 from base import testlabel
 
+import cadquery
+
 from partslib import Box
+from cqparts.constraint import Fixed
 
 # Unit under test
 from cqparts.params import *
@@ -368,3 +371,27 @@ class ComponentRefTests(ParameterTypeTests):
         p = ComponentRef()
         v = p.cast(None)
         self.assertIsNone(v)
+
+    def test_parent(self):
+        # Define test classes
+        class A(Part):
+            parent = ComponentRef()
+            def make(self):
+                s = self.parent.size
+                return cadquery.Workplane('XY').box(s, s, s)
+
+        class B(Assembly):
+            size = Float(1)
+            def make_components(self):
+                return {'inner': A(parent=self)}
+            def make_constraints(self):
+                return [Fixed(self.components['inner'].mate_origin)]
+
+        # Instantiate & Test
+        obj = B(size=2)
+        obj.build()  # shouldn't get into a recursive loop
+        self.assertEqual(id(obj.find('inner').parent), id(obj))
+        # Test inner box size == parent size (because that's how it was designed)
+        bb = obj.find('inner').bounding_box
+        self.assertAlmostEqual(bb.xmin, -1)
+        self.assertAlmostEqual(bb.xmax, 1)
