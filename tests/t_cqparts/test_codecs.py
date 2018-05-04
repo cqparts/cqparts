@@ -202,6 +202,25 @@ class TestStep(CodecFileTest):
             with suppress_stdout_stderr():
                 thing.local_obj
 
+    def test_multipart_part(self):
+        # When imported as a Part, geometry is unioned together
+        filename = 'test-files/red_cube_blue_cylinder.step'
+        with suppress_stdout_stderr():
+            thing = Part.importer('step')(filename)
+            # cylinder {5 < x < 15}, box {-10 < x < 0}
+            # combined they should be {-10 < x < 15}
+            self.assertAlmostEqual(thing.bounding_box.xmin, -10)
+            self.assertAlmostEqual(thing.bounding_box.xmax, 15)
+
+    def test_multipart_assembly(self):
+        # When imported as an Assembly, each individual mesh
+        # is imported as a component Part of the resulting Assembly.
+        filename = 'test-files/red_cube_blue_cylinder.step'
+        with suppress_stdout_stderr():
+            thing = Assembly.importer('step')(filename)
+            self.assertEqual(len(thing.components), 2)
+            self.assertEqual(len(thing.constraints), 2)
+
 
 @testlabel('codec', 'codec_json')
 class TestJsonPart(CodecFileTest):
