@@ -219,6 +219,7 @@ class TestStep(CodecFileTest):
         with suppress_stdout_stderr():
             thing = Assembly.importer('step')(filename)
             self.assertEqual(len(thing.components), 2)
+            self.assertEqual(len(thing.constraints), 2)
 
 
 @testlabel('codec', 'codec_json')
