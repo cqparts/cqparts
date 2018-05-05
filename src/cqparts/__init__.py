@@ -22,7 +22,7 @@ limitations under the License.
 #   1.x                 - Development Status :: 5 - Production/Stable
 #   <any above>.y       - developments on that version (pre-release)
 #   <any above>*.dev*   - development release (intended purely to test deployment)
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 __title__ = 'cqparts'
 __description__ = 'Hierarchical and deeply parametric models using cadquery'

@@ -260,7 +260,7 @@ class GLTFExporter(Exporter):
     **Exporting a Box:**
 
     For this example we'll instantiate an existing ``Part`` class, a simple
-    :class:`Box <cqparts_misc.basic.primatives.Box>`
+    :class:`Box <cqparts_misc.basic.primatives.Box>`::
 
         >>> import cpqarts
         >>> from cqparts_misc.basic.primatives import Box
