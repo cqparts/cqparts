@@ -35,6 +35,19 @@ __license__ = 'GPLv3'
 
 __keywords__ = ['cadquery', 'cad', '3d', 'modeling']
 
+# package_data
+import inspect as _inspect
+import os as _os
+_this_path = _os.path.dirname(_os.path.abspath(_inspect.getfile(_inspect.currentframe())))
+
+__package_data__ = []
+# append display/web-templates (recursive)
+_web_template_path = _os.path.join(_this_path, 'display', 'web-template')
+for (root, subdirs, files) in _os.walk(_web_template_path):
+    dir_name = _os.path.relpath(root, _this_path)
+    __package_data__.append(_os.path.join(dir_name, '*'))
+
+
 # not text-parsable
 import datetime
 _now = datetime.date.today()
