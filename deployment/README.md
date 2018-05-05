@@ -212,8 +212,32 @@ xdg-open https://pypi.python.org/pypi/$lib
 
 # Deployment in Git
 
-```TODO: document git release process```
+```
+TODO: document git release process
+```
 
 the plan is to draw from `pygcode` again:
 
 https://github.com/fragmuffin/pygcode/tree/master/deployment#deployment-in-git
+
+
+# Announcements
+
+Announce new releases as
+
+## GitHub Issue
+
+Raise an issue with "hey, new software!, yay"
+
+```
+TODO: add template text here
+```
+
+## Google Group Announcement
+
+Publish message in `cadquery` google group:
+https://groups.google.com/forum/#!forum/cadquery
+
+```
+TODO: add template text here
+```
