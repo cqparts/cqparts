@@ -258,7 +258,7 @@ class WoodPanel(cqparts.Part):
 
 # ------------------- Fastener -------------------
 
-from cqparts_fasteners import Fastener
+from cqparts_fasteners.fasteners import Fastener
 from cqparts_fasteners.utils import VectorEvaluator, Selector, Applicator
 
 from cqparts.constraint import Fixed, Coincident
