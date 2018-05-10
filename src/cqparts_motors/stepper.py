@@ -9,21 +9,23 @@ from cqparts.constraint import Fixed, Coincident
 from cqparts.constraint import Mate
 from cqparts.utils.geometry import CoordSystem
 
-#from cqparts.cqparts_fasteners import bolts
-
 
 class Axle(cqparts.Part):
     length = PositiveFloat(24, doc="axle length")
     diam = PositiveFloat(5, doc="axle diameter")
 
     def make(self):
-        ax = cq.Workplane("XY").circle(self.diam/2).extrude(self.length).faces(">Z").chamfer(0.4)
+        ax = cq.Workplane("XY")\
+            .circle(self.diam/2)\
+            .extrude(self.length)\
+            .faces(">Z")\
+            .chamfer(0.4)
         return ax
 
     def get_cutout(self, clearance=0):
         return cq.Workplane('XY', origin=(0, 0, 0)) \
             .circle((self.diam / 2) + clearance) \
-            .extrude(10)
+            .extrude(7)
 
 
 class EndCap(cqparts.Part):
@@ -49,39 +51,42 @@ class EndCap(cqparts.Part):
 
     @property
     def mate_bottom(self):
-        return Mate(self,CoordSystem(
-            origin=(0,0,-self.height/2),
-            xDir=(0,1,0),
-            normal=(0,0,1)
+        return Mate(self, CoordSystem(
+            origin=(0, 0, -self.height/2),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
             ))
 
 
 class Stator(cqparts.Part):
     # Parameters
-    width = PositiveFloat(40.0,doc="Motor Size")
-    height = PositiveFloat(20,doc="stator height")
-    cham = PositiveFloat(3,doc="chamfer")
+    width = PositiveFloat(40.0, doc="Motor Size")
+    height = PositiveFloat(20, doc="stator height")
+    cham = PositiveFloat(3, doc="chamfer")
 
-    _render = render_props(color=(50,50,50))
+    _render = render_props(color=(50, 50, 50))
 
     def make(self):
-        base = cq.Workplane("XY").box(self.width, self.width, self.height).edges("|Z").chamfer(self.cham)
+        base = cq.Workplane("XY")\
+            .box(self.width, self.width, self.height)\
+            .edges("|Z")\
+            .chamfer(self.cham)
         return base
 
     @property
     def mate_top(self):
-        return Mate(self,CoordSystem(
-            origin=(0,0,self.height/2),
-            xDir=(0,1,0),
-            normal=(0,0,1)
+        return Mate(self, CoordSystem(
+            origin=(0, 0, self.height/2),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
             ))
 
     @property
     def mate_bottom(self):
-        return Mate(self,CoordSystem(
-            origin=(0,0,-self.height/2),
-            xDir=(0,1,0),
-            normal=(0,0,1)
+        return Mate(self, CoordSystem(
+            origin=(0, 0, -self.height/2),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
             ))
 
 
@@ -116,13 +121,18 @@ class Back(EndCap):
 
 
 class Stepper(cqparts.Assembly):
+
+    # Axle type
+    axle_type = Axle
+
     width = PositiveFloat(42.3)
     height = PositiveFloat(50)
     hole_spacing = PositiveFloat(31.0)
     hole_size = PositiveFloat(3)
     boss_size = PositiveFloat(22)
+    boss_height = PositiveFloat(2)
     axle_diam = PositiveFloat(5)
-    axle_length = PositiveFloat(22)
+    axle_length = PositiveFloat(24)
 
     def make_components(self):
         sec = self.height / 6
@@ -136,7 +146,9 @@ class Stepper(cqparts.Assembly):
             ),
             'stator': Stator(width=self.width-3, height=sec*4),
             'botcap': Back(width=self.width, height=sec),
-            'axle': Axle(length=self.axle_length, diam=self.axle_diam)
+            'axle': self.axle_type(
+                length=self.axle_length,
+                diam=self.axle_diam)
             }
 
     def make_constraints(self):
@@ -150,7 +162,14 @@ class Stepper(cqparts.Assembly):
                 self.components['botcap'].mate_bottom,
                 self.components['stator'].mate_top
             ),
-            Fixed(self.components['axle'].mate_origin),
+            Fixed(
+                self.components['axle'].mate_origin,
+                CoordSystem(
+                    (0, 0, self.height/8-self.boss_height),
+                    (1, 0, 0),
+                    (0, 0, 1)
+                )
+            )
             ]
 
     def apply_cutout(self):
@@ -163,5 +182,4 @@ class Stepper(cqparts.Assembly):
         self.apply_cutout()
 
 s = Stepper()
-# #s = Axle()
 display(s)
