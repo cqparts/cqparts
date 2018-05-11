@@ -1,34 +1,26 @@
 
+# cqparts motors
+# 2018 Simon Kirkby obeygiantrobot@gmail.com
+
+# stepper motor generic
+
+# TODO 
+# a collection to pull out NEMA## sizes.
+# need a cutout for mounting
+# even 4 fasteners so it auto mounts to whatever it is parented to.
 
 import cadquery as cq
 
 import cqparts
 from cqparts.params import *
-from cqparts.display import render_props, display
 from cqparts.constraint import Fixed, Coincident
 from cqparts.constraint import Mate
+from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
+import shaft
 
-class Axle(cqparts.Part):
-    length = PositiveFloat(24, doc="axle length")
-    diam = PositiveFloat(5, doc="axle diameter")
-
-    def make(self):
-        ax = cq.Workplane("XY")\
-            .circle(self.diam/2)\
-            .extrude(self.length)\
-            .faces(">Z")\
-            .chamfer(0.4)
-        return ax
-
-    def get_cutout(self, clearance=0):
-        return cq.Workplane('XY', origin=(0, 0, 0)) \
-            .circle((self.diam / 2) + clearance) \
-            .extrude(7)
-
-
-class EndCap(cqparts.Part):
+class _EndCap(cqparts.Part):
     # Parameters
     width = PositiveFloat(42.3, doc="Motor Size")
     height = PositiveFloat(10, doc="End height")
@@ -58,7 +50,7 @@ class EndCap(cqparts.Part):
             ))
 
 
-class Stator(cqparts.Part):
+class _Stator(cqparts.Part):
     # Parameters
     width = PositiveFloat(40.0, doc="Motor Size")
     height = PositiveFloat(20, doc="stator height")
@@ -90,14 +82,14 @@ class Stator(cqparts.Part):
             ))
 
 
-class StepperMount(EndCap):
+class _StepperMount(_EndCap):
     spacing = PositiveFloat(31, doc="hole spacing")
     hole_size = PositiveFloat(3, doc="hole size")
     boss = PositiveFloat(22, doc="boss size")
     boss_height = PositiveFloat(2, doc="boss_height")
 
     def make(self):
-        obj = super(StepperMount, self).make()
+        obj = super(_StepperMount, self).make()
         obj.faces(">Z").workplane() \
             .rect(self.spacing, self.spacing, forConstruction=True)\
             .vertices() \
@@ -107,12 +99,12 @@ class StepperMount(EndCap):
         return obj
 
 
-class Back(EndCap):
+class _Back(_EndCap):
     spacing = PositiveFloat(31, doc="hole spacing")
     hole_size = PositiveFloat(3, doc="hole size")
 
     def make(self):
-        obj = super(Back, self).make()
+        obj = super(_Back, self).make()
         obj.faces(">Z").workplane() \
             .rect(self.spacing, self.spacing, forConstruction=True)\
             .vertices() \
@@ -122,8 +114,8 @@ class Back(EndCap):
 
 class Stepper(cqparts.Assembly):
 
-    # Axle type
-    axle_type = Axle
+    # Shaft type
+    shaft_type = shaft.Shaft 
 
     width = PositiveFloat(42.3)
     height = PositiveFloat(50)
@@ -131,24 +123,25 @@ class Stepper(cqparts.Assembly):
     hole_size = PositiveFloat(3)
     boss_size = PositiveFloat(22)
     boss_height = PositiveFloat(2)
-    axle_diam = PositiveFloat(5)
-    axle_length = PositiveFloat(24)
+
+    shaft_diam = PositiveFloat(5)
+    shaft_length = PositiveFloat(24)
 
     def make_components(self):
         sec = self.height / 6
         return {
-            'topcap': StepperMount(
+            'topcap': _StepperMount(
                 width=self.width,
                 height=sec,
                 spacing=self.hole_spacing,
                 hole_size=self.hole_size,
                 boss=self.boss_size
             ),
-            'stator': Stator(width=self.width-3, height=sec*4),
-            'botcap': Back(width=self.width, height=sec),
-            'axle': self.axle_type(
-                length=self.axle_length,
-                diam=self.axle_diam)
+            'stator': _Stator(width=self.width-3, height=sec*4),
+            'botcap': _Back(width=self.width, height=sec),
+            'shaft': self.shaft_type(
+                length=self.shaft_length,
+                diam=self.shaft_diam)
             }
 
     def make_constraints(self):
@@ -163,7 +156,7 @@ class Stepper(cqparts.Assembly):
                 self.components['stator'].mate_top
             ),
             Fixed(
-                self.components['axle'].mate_origin,
+                self.components['shaft'].mate_origin,
                 CoordSystem(
                     (0, 0, self.height/8-self.boss_height),
                     (1, 0, 0),
@@ -173,13 +166,11 @@ class Stepper(cqparts.Assembly):
             ]
 
     def apply_cutout(self):
-        axle = self.components['axle']
+        shaft = self.components['shaft']
         top = self.components['topcap']
         local_obj = top.local_obj
-        local_obj = local_obj.cut(axle.get_cutout(clearance=0.5))
+        local_obj = local_obj.cut(shaft.get_cutout(clearance=0.5))
 
     def make_alterations(self):
         self.apply_cutout()
 
-s = Stepper()
-display(s)
