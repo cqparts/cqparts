@@ -3,21 +3,29 @@ __all__ = [
     'render_props',
     'RenderProps', 'RenderParam',
 
-    # display methods
+    # Display function mapping
+    'display_map',  # FIXME
+    'register_display',  # FIXME
+
+    # display
     'display',
-    'freecad_display',
-    'web_display',
+    
+    # environment
+    'environment',
 ]
+
+import functools
 
 # material
 from .material import RenderProps, RenderParam
 from .material import render_props
 
-from .freecad import freecad_display
-from .web import web_display
+# environments
+from .freecad import FreeCADDisplayEnv
+from .web import WebDisplayEnv
 
-from cqparts.utils.env import get_env_name
 
+# Generic display funciton
 def display(component):
     """
     Display the given component based on the
@@ -25,7 +33,9 @@ def display(component):
     """
     env_name = get_env_name()
 
-    if env_name == 'freecad':
-        freecad_display(component)
-    else:
-        web_display(component)
+    if env_name not in display_map:
+        raise KeyError(
+            "environment '%s' has no mapped display method" % (env_name)
+        )
+
+    return display_map[env_name](component)
