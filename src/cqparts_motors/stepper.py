@@ -17,7 +17,7 @@ from cqparts.constraint import Mate
 from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
-import shaft
+from . import shaft
 
 class _EndCap(cqparts.Part):
     # Parameters
