@@ -4,7 +4,7 @@
 
 # stepper motor generic
 
-# TODO 
+# TODO
 # need a cutout for mounting
 # even 4 fasteners so it auto mounts to whatever it is parented to.
 
@@ -177,45 +177,3 @@ class Stepper(cqparts.Assembly):
 
     def make_alterations(self):
         self.apply_cutout()
-
-# Sized motors , build into collection
-# http://www.osmtec.com/stepper_motors.htm is a good reference
-# sizes 8, 11, 14, 16, 17, 23, 24, 34, 42
-# s = Stepper()
-# s.serialize_parameters().keys()
-#['shaft_length', 'hole_spacing', 'hole_size', 'length', 'width', 'boss_size', 'shaft_diam', 'boss_length']
-
-_NemaSizes = {
-    8 :  [10.0, 15.4, 2.0, 28.0, 20.3, 16.0, 4.0, 1.5],
-    11 : [20.0, 23.0, 2.5, 31.5, 28.2, 22.0, 4.0, 2.0],
-    14 : [24.0, 26.0, 3.0, 28.0, 35.2, 22.0, 5.0, 2.0],
-    17 : [24.0, 31.0, 3.0, 50.0, 42.0, 22.0, 5.0, 2.0],
-    23 : [21.0, 47.0, 5.0, 56.0, 57.0, 38.0, 6.35, 1.6],
-    # finish sizes
-}
-
-def NEMA(size):
-    if _NemaSizes.has_key(size):
-        return _GetNEMASize(_NemaSizes[size])
-    else:
-        raise 
-
-def _GetNEMASize(v):
-    s = Stepper(
-        shaft_length=v[0],
-        hole_spacing=v[1],
-        hole_size=v[2],
-        length=v[3],
-        width=v[4],
-        boss_size=v[5],
-        shaft_diam=v[6],
-        boss_length=v[7]
-    )
-    return s
-
-def _GenSteppers():
-    sizes = {}
-    for size,values in _NemaSizes.items():
-        sizes[size] = _GetNEMASize(values)
-    return sizes
-
