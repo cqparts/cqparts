@@ -16,6 +16,7 @@ else:
     # python 2.x
     import SimpleHTTPServer
     import SocketServer
+
 import threading
 import webbrowser
 
@@ -126,7 +127,7 @@ def web_display(component, port=9041):
     try:
         # Start web-service (loop forever)
         server = SocketServer.ThreadingTCPServer(
-            server_address=("localhost", port),
+            server_address=("0.0.0.0", port),
             RequestHandlerClass=SimpleHTTPServer.SimpleHTTPRequestHandler,
         )
         server_addr = "http://%s:%i/" % server.server_address
