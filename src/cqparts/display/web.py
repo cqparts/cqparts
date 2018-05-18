@@ -112,7 +112,7 @@ def web_display(component, port=9041):
             for (a, b) in zip(exporter.scene_min, exporter.scene_max)
         ]
         cam_p = [
-            ((b - a) * 1.0) / 1000 + t  # max point * 200% (unit: meters)
+            (((b - a) * 1.0) / 1000) + t  # max point * 200% (unit: meters)
             for (a, b, t) in zip(exporter.scene_min, exporter.scene_max, cam_t)
         ]
 
@@ -120,8 +120,8 @@ def web_display(component, port=9041):
         xzy = lambda a: (a[0], a[2], -a[1])  # x,z,y coordinates (not x,y,z)
         fh.write(index_template.render(
             model_filename='model/out.gltf',
-            camera_target=' '.join("%g" % (val) for val in xzy(cam_t)),
-            camera_pos=' '.join("%g" % (val) for val in xzy(cam_p)),
+            camera_target=','.join("%g" % (val) for val in xzy(cam_t)),
+            camera_pos=','.join("%g" % (val) for val in xzy(cam_p)),
         ))
 
     try:

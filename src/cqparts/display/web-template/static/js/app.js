@@ -7,7 +7,7 @@ animate();
 function init() {
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
-	camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 0.25, 20 );
+	camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight,0.0001);
 	camera.position.set(0.5,0.5,0.5);
 	controls = new THREE.OrbitControls( camera );
     controls.autoRotate = true;
