@@ -110,6 +110,9 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts_gears.html">cqparts_gears package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts_misc.html">cqparts_misc package</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">cqparts_motors package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts_motors.shaft">cqparts_motors.shaft module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-cqparts_motors.stepper">cqparts_motors.stepper module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-cqparts_motors">Module contents</a></li>
 </ul>
 </li>
@@ -185,6 +188,95 @@
             
   <div class="section" id="cqparts-motors-package">
 <h1>cqparts_motors package<a class="headerlink" href="#cqparts-motors-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cqparts_motors.shaft">
+<span id="cqparts-motors-shaft-module"></span><h2>cqparts_motors.shaft module<a class="headerlink" href="#module-cqparts_motors.shaft" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_motors.shaft.Shaft">
+<em class="property">class </em><code class="descclassname">cqparts_motors.shaft.</code><code class="descname">Shaft</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.shaft.Shaft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.part.Part" title="cqparts.part.Part"><code class="xref py py-class docutils literal"><span class="pre">cqparts.part.Part</span></code></a></p>
+<p><a class="reference internal" href="cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>diam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – shaft diameter</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – shaft length</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts_motors.shaft.Shaft.get_cutout">
+<code class="descname">get_cutout</code><span class="sig-paren">(</span><em>clearance=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.shaft.Shaft.get_cutout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_motors.shaft.Shaft.make">
+<code class="descname">make</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.shaft.Shaft.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts_motors.stepper">
+<span id="cqparts-motors-stepper-module"></span><h2>cqparts_motors.stepper module<a class="headerlink" href="#module-cqparts_motors.stepper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts_motors.stepper.Stepper">
+<em class="property">class </em><code class="descclassname">cqparts_motors.stepper.</code><code class="descname">Stepper</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.stepper.Stepper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cqparts.html#cqparts.assembly.Assembly" title="cqparts.assembly.Assembly"><code class="xref py py-class docutils literal"><span class="pre">cqparts.assembly.Assembly</span></code></a></p>
+<p><a class="reference internal" href="cqparts.params.html#cqparts.params.ParametricObject" title="cqparts.params.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> constructor parameters:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>boss_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>boss_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>hole_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>hole_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>shaft_diam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>shaft_length</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">float</span></code></a>) – [no description]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cqparts_motors.stepper.Stepper.apply_cutout">
+<code class="descname">apply_cutout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.stepper.Stepper.apply_cutout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_motors.stepper.Stepper.make_alterations">
+<code class="descname">make_alterations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.stepper.Stepper.make_alterations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_motors.stepper.Stepper.make_components">
+<code class="descname">make_components</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.stepper.Stepper.make_components" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts_motors.stepper.Stepper.make_constraints">
+<code class="descname">make_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts_motors.stepper.Stepper.make_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cqparts_motors.stepper.Stepper.shaft_type">
+<code class="descname">shaft_type</code><a class="headerlink" href="#cqparts_motors.stepper.Stepper.shaft_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Shaft</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cqparts_motors">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts_motors" title="Permalink to this headline">¶</a></h2>
 <p>Copyright 2018 Peter Boin</p>

@@ -21,7 +21,7 @@ Therefore we'll need to test the depth of available material in 2 directions.
 
 **Selector**
 
-The selector will dtermine the maximum available material in the *panels*, then
+The selector will determine the maximum available material in the *panels*, then
 create and place an apropriately sized ``Biscuit``.
 
 **Applicator**
