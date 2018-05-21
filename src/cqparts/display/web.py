@@ -41,7 +41,7 @@ TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'web-template')
 SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of port
 
 
-def web_display(component, port=9041):
+def web_display(component, port=9041,autorotate=False):
     """
     Display given component in a browser window
 
@@ -120,6 +120,7 @@ def web_display(component, port=9041):
         xzy = lambda a: (a[0], a[2], -a[1])  # x,z,y coordinates (not x,y,z)
         fh.write(index_template.render(
             model_filename='model/out.gltf',
+            autorotate = str(autorotate).lower(),
             camera_target=','.join("%g" % (val) for val in xzy(cam_t)),
             camera_pos=','.join("%g" % (val) for val in xzy(cam_p)),
         ))

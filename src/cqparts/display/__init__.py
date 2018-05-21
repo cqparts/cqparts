@@ -18,7 +18,7 @@ from .web import web_display
 
 from cqparts.utils.env import get_env_name
 
-def display(component):
+def display(component,autorotate=False):
     """
     Display the given component based on the
     :meth:`get_env_name() <cqparts.utils.env.get_env_name>`.
@@ -28,4 +28,4 @@ def display(component):
     if env_name == 'freecad':
         freecad_display(component)
     else:
-        web_display(component)
+        web_display(component,autorotate=autorotate)
