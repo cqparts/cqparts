@@ -184,11 +184,11 @@
             
   <div class="section" id="part-build-cycle">
 <span id="parts-part-build-cycle"></span><h1><code class="docutils literal"><span class="pre">Part</span></code> Build Cycle<a class="headerlink" href="#part-build-cycle" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is just a container for a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
+<p>A <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is just a container for a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance.</p>
 <p>So the “building” of a <em>part</em> is more to help placement in the world, and to
 facilitate changes made to that object.</p>
-<p>For more information on how to create solids as a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>,
-read more in the <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.1)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> documentation.</p>
+<p>For more information on how to create solids as a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a>,
+read more in the <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.2)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> documentation.</p>
 <div class="section" id="instantiation">
 <h2>Instantiation<a class="headerlink" href="#instantiation" title="Permalink to this headline">¶</a></h2>
 <p>When a <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> is created, it initializes its parameters.</p>
@@ -343,7 +343,7 @@ alterations are based on world coordinates, you must convert back to the
 object’s local coordinates before the changes will match your expectations.</p>
 <p class="last">Also remember that the <a class="reference internal" href="../api/cqparts.html#cqparts.Part.world_obj" title="cqparts.Part.world_obj"><code class="xref py py-meth docutils literal"><span class="pre">world_obj</span></code></a> is likely rotated
 to fit into an <em>assembly</em>, so using queries like
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ.faces" title="(in CadQuery v1.1)"><code class="xref py py-meth docutils literal"><span class="pre">faces(&quot;&gt;Z&quot;)</span></code></a> (for example) may not give you
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ.faces" title="(in CadQuery v1.2)"><code class="xref py py-meth docutils literal"><span class="pre">faces(&quot;&gt;Z&quot;)</span></code></a> (for example) may not give you
 the information you’re expecting.</p>
 </div>
 </div>
