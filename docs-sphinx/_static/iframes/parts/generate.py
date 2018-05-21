@@ -57,27 +57,27 @@ class JoinedWheel(cqparts.Part):
     l_width = PositiveFloat(10, doc="left wheel's radius")
     r_radius = PositiveFloat(100, doc="right wheel's radius")
     r_width = PositiveFloat(10, doc="right wheel's radius")
-    axel_length = PositiveFloat(100, doc="axel length")
-    axel_diam = PositiveFloat(10, doc="axel diameter")
+    axle_length = PositiveFloat(100, doc="axle length")
+    axle_diam = PositiveFloat(10, doc="axle diameter")
 
     def make(self):
-        # Make the axel
+        # Make the axle
         obj = cadquery.Workplane('XY') \
-            .circle(self.axel_diam / 2) \
-            .extrude(self.axel_length)
+            .circle(self.axle_diam / 2) \
+            .extrude(self.axle_length)
         # Make the left and right wheels
         wheel_l = Wheel(radius=self.l_radius, width=self.l_width)
         wheel_r = Wheel(radius=self.r_radius, width=self.r_width)
-        # Union them with the axel solid
+        # Union them with the axle solid
         obj = obj.union(wheel_l.local_obj)
         obj = obj.union(
             wheel_r.local_obj.mirror('XY') \
-                .translate((0, 0, self.axel_length))
+                .translate((0, 0, self.axle_length))
         )
         return obj
 
 joined_wheel = JoinedWheel(
-    r_radius=80, l_width=20, axel_diam=30,
+    r_radius=80, l_width=20, axle_diam=30,
 )
 joined_wheel.local_obj
 
