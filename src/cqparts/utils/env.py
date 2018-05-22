@@ -34,6 +34,8 @@ def get_env_name():
     # FIXME: this is not a good test method, but it will do for now.
     if 'MYSCRIPT_DIR' in os.environ:
         return 'freecad'
+    if 'CQPARTS_SERVER' in os.environ:
+        return 'cqps-server'
     return 'cmdline'
 
 
