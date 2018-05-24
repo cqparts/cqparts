@@ -4,6 +4,14 @@ cqparts\.display package
 Submodules
 ----------
 
+cqparts\.display\.environment module
+------------------------------------
+
+.. automodule:: cqparts.display.environment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cqparts\.display\.freecad module
 --------------------------------
 

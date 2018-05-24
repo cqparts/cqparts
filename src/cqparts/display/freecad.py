@@ -1,4 +1,5 @@
 import cadquery
+import os
 
 import logging
 log = logging.getLogger(__name__)
@@ -12,7 +13,13 @@ from .environment import map_environment, DisplayEnvironment
     condition=lambda: 'MYSCRIPT_DIR' in os.environ,
 )
 class FreeCADDisplayEnv(DisplayEnvironment):
-    def display_callback(self, component):
+    """
+    Display given component in FreeCAD
+
+    Only works from within FreeCAD :mod:`cadquery` script; using this to display a
+    :class:`Component <cqparts.Component>` will not open FreeCAD.
+    """
+    def display_callback(self, component, **kwargs):
         """
         Display given component in FreeCAD
 

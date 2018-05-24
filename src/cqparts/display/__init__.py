@@ -9,7 +9,7 @@ __all__ = [
 
     # display
     'display',
-    
+
     # environment
     'environment',
 ]
@@ -23,19 +23,25 @@ from .material import render_props
 # environments
 from .freecad import FreeCADDisplayEnv
 from .web import WebDisplayEnv
+from .environment import display_environments
 
 
 # Generic display funciton
-def display(component):
+def display(component, **kwargs):
     """
-    Display the given component based on the
-    :meth:`get_env_name() <cqparts.utils.env.get_env_name>`.
+    Display the given component based on the environment it's run from.
+    See :class:`DisplayEnvironment <cqparts.display.environment.DisplayEnvironment>`
+    documentation for more details.
+
+    :param component: component to display
+    :type component: :class:`Component <cqparts.Component>`
+
+    Additional parameters may be used by the chosen
+    :class:`DisplayEnvironment <cqparts.display.environment.DisplayEnvironment>`
     """
-    env_name = get_env_name()
 
-    if env_name not in display_map:
-        raise KeyError(
-            "environment '%s' has no mapped display method" % (env_name)
-        )
+    for disp_env in display_environments:
+        if disp_env.condition():
+            return disp_env.display(component, **kwargs)
 
-    return display_map[env_name](component)
+    raise LookupError('valid display environment could not be found')

@@ -8,11 +8,12 @@ import logging
 log = logging.getLogger(__name__)
 
 
-display_environments = set()
+display_environments = []
 
 
 def map_environment(**kwargs):
     def inner(cls):
+        global display_environments
         disp_env = cls(**kwargs)
         # is already mappped?
         try:
@@ -32,7 +33,7 @@ def map_environment(**kwargs):
 
 
 class DisplayEnvironment(object):
-    def __init__(self, name, order, condition):
+    def __init__(self, name=None, order=0, condition=lambda: True):
         self.name = name
         self.order = order
         self.condition = condition
@@ -44,14 +45,14 @@ class DisplayEnvironment(object):
             order=self.order,
         )
 
-    def __lt__(self, other):
+    def __lt__(self, other):  # sort only uses __lt__
         return self.order < other.order
 
     def __eq__(self, other):
         return self.name == other.name
 
     def display(self, *args, **kwargs):
-        return self.display_callback(self, *args, **kwargs)
+        return self.display_callback(*args, **kwargs)
 
     def display_callback(self, *args, **kwargs):
         """
@@ -66,7 +67,7 @@ class DisplayEnvironment(object):
         .. doctest::
 
             import cqparts
-            from cqparts.display import DisplayEnvironment
+            from cqparts.display.environment import DisplayEnvironment, map_environment
 
             def is_text_env():
                 # function that returns True if it's run in the
@@ -117,7 +118,7 @@ class DisplayEnvironment(object):
 
         .. doctest::
 
-            TextDisplay.display(cube)
+            TextDisplay().display(cube)
 
         :raises: NotImplementedError if not overridden
         """
