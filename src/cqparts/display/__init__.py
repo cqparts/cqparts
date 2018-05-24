@@ -3,10 +3,6 @@ __all__ = [
     'render_props',
     'RenderProps', 'RenderParam',
 
-    # Display function mapping
-    'display_map',  # FIXME
-    'register_display',  # FIXME
-
     # display
     'display',
 
@@ -20,10 +16,13 @@ import functools
 from .material import RenderProps, RenderParam
 from .material import render_props
 
-# environments
+# envionrment
+from . import environment
+from .environment import display_environments
+
+# Specific Environments
 from .freecad import FreeCADDisplayEnv
 from .web import WebDisplayEnv
-from .environment import display_environments
 
 
 # Generic display funciton
