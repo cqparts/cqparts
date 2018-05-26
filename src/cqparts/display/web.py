@@ -44,7 +44,7 @@ SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of po
 
 @map_environment(
     name='web',
-    order=50,
+    order=99,
     condition=lambda: True,
 )
 class WebDisplayEnv(DisplayEnvironment):

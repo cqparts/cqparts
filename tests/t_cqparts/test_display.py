@@ -102,6 +102,7 @@ class WebTests(CQPartsTest):
     def test_bad_component(self):
         disp_env = display.web.WebDisplayEnv()
         with self.assertRaises(TypeError):
+            disp_env.display(123)
 
 
 @testlabel('web')
@@ -111,7 +112,8 @@ class CQPartsServerTests(CQPartsTest):
     @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
     def test_basic(self, mock_requests_post):
         part = Box()
-        display.cqpss(part)
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
+        disp_env.display(part)
 
         mock_requests_post.assert_called_once_with(
             'http://abc:123/notify', data={'name': 'Box'},
@@ -119,10 +121,12 @@ class CQPartsServerTests(CQPartsTest):
 
     @mock.patch('os.environ', {})  # empty
     def test_bad_env(self):
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
         with self.assertRaises(KeyError):
-            display.cqpss(Box())
+            disp_env.display(Box())
 
     @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
     def test_bad_component(self):
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
         with self.assertRaises(TypeError):
-            display.cqpss(123)
+            disp_env.display(123)

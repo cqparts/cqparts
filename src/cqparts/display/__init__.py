@@ -18,12 +18,11 @@ from .material import render_props
 
 # envionrment
 from . import environment
-from .environment import display_environments
 
 # Specific Environments
 from .freecad import FreeCADDisplayEnv
 from .web import WebDisplayEnv
-from .cqparts_server import cqpss
+from .cqparts_server import CQPartsServerDisplayEnv
 
 
 # Generic display funciton
@@ -40,7 +39,7 @@ def display(component, **kwargs):
     :class:`DisplayEnvironment <cqparts.display.environment.DisplayEnvironment>`
     """
 
-    for disp_env in display_environments:
+    for disp_env in environment.display_environments:
         if disp_env.condition():
             return disp_env.display(component, **kwargs)
 
