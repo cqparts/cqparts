@@ -19,4 +19,4 @@
 
 ### Improvements
 
-- [#83](https://github.com/fragmuffin/cqparts/pull/83): Stepper motor
+- [#83](https://github.com/fragmuffin/cqparts/pull/83): Stepper motor (author: [@zignig](https://github.com/zignig))
