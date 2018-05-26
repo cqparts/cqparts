@@ -17,7 +17,7 @@ from cqparts.constraint import Mate
 from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
-from . import shaft
+from . import shaft, motor
 
 class _EndCap(cqparts.Part):
     # Parameters
@@ -111,8 +111,7 @@ class _Back(_EndCap):
         return obj
 
 
-class Stepper(cqparts.Assembly):
-
+class Stepper(motor.Motor):
     # Shaft type
     shaft_type = shaft.Shaft
 
