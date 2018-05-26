@@ -41,7 +41,7 @@ TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'web-template')
 SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of port
 
 
-def web_display(component, port=9041,autorotate=False):
+def web_display(component, port=9041, autorotate=False):
     """
     Display given component in a browser window
 
@@ -49,6 +49,9 @@ def web_display(component, port=9041,autorotate=False):
     :type component: :class:`Component <cqparts.Component>`
     :param port: port to expose http service on
     :type port: :class:`int`
+    :param autorotate: if ``True``, rendered component will rotate
+                       as if on a turntable.
+    :type autorotate: :class:`bool`
 
     This method exports the model, then exposes a http service on *localhost*
     for a browser to use.
