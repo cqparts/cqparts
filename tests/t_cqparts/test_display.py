@@ -98,3 +98,27 @@ class WebTests(CQPartsTest):
     def test_bad_component(self):
         with self.assertRaises(TypeError):
             display.web_display(123)
+
+
+@testlabel('web')
+class CQPartsServerTests(CQPartsTest):
+
+    @mock.patch('requests.post')
+    @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
+    def test_basic(self, mock_requests_post):
+        part = Box()
+        display.cqpss(part)
+
+        mock_requests_post.assert_called_once_with(
+            'http://abc:123/notify', data={'name': 'Box'},
+        )
+
+    @mock.patch('os.environ', {})  # empty
+    def test_bad_env(self):
+        with self.assertRaises(KeyError):
+            display.cqpss(Box())
+
+    @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
+    def test_bad_component(self):
+        with self.assertRaises(TypeError):
+            display.cqpss(123)

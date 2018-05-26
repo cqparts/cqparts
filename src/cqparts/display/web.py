@@ -16,6 +16,7 @@ else:
     # python 2.x
     import SimpleHTTPServer
     import SocketServer
+
 import threading
 import webbrowser
 
@@ -40,7 +41,7 @@ TEMPLATE_CONTENT_DIR = os.path.join(_this_path, 'web-template')
 SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of port
 
 
-def web_display(component, port=9041):
+def web_display(component, port=9041, autorotate=False):
     """
     Display given component in a browser window
 
@@ -48,6 +49,9 @@ def web_display(component, port=9041):
     :type component: :class:`Component <cqparts.Component>`
     :param port: port to expose http service on
     :type port: :class:`int`
+    :param autorotate: if ``True``, rendered component will rotate
+                       as if on a turntable.
+    :type autorotate: :class:`bool`
 
     This method exports the model, then exposes a http service on *localhost*
     for a browser to use.
@@ -111,7 +115,7 @@ def web_display(component, port=9041):
             for (a, b) in zip(exporter.scene_min, exporter.scene_max)
         ]
         cam_p = [
-            ((b - a) * 1.0) / 1000 + t  # max point * 200% (unit: meters)
+            (((b - a) * 1.0) / 1000) + t  # max point * 200% (unit: meters)
             for (a, b, t) in zip(exporter.scene_min, exporter.scene_max, cam_t)
         ]
 
@@ -119,14 +123,15 @@ def web_display(component, port=9041):
         xzy = lambda a: (a[0], a[2], -a[1])  # x,z,y coordinates (not x,y,z)
         fh.write(index_template.render(
             model_filename='model/out.gltf',
-            camera_target=' '.join("%g" % (val) for val in xzy(cam_t)),
-            camera_pos=' '.join("%g" % (val) for val in xzy(cam_p)),
+            autorotate = str(autorotate).lower(),
+            camera_target=','.join("%g" % (val) for val in xzy(cam_t)),
+            camera_pos=','.join("%g" % (val) for val in xzy(cam_p)),
         ))
 
     try:
         # Start web-service (loop forever)
         server = SocketServer.ThreadingTCPServer(
-            server_address=("localhost", port),
+            server_address=("0.0.0.0", port),
             RequestHandlerClass=SimpleHTTPServer.SimpleHTTPRequestHandler,
         )
         server_addr = "http://%s:%i/" % server.server_address

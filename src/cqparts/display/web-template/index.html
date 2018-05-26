@@ -1,33 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>cqparts display</title>
-    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
-    <script src="https://rawgit.com/takahirox/aframe-outline/master/build/aframe-outline.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.3/dist/aframe-extras.min.js"></script>
-    <script src="/static/js/orbit-controls-component.min.js"></script>
+    <title>CQParts display-o-tron</title>
+    <script src="/static/js/three.min.js"></script>
+    <script src="/static/js/OrbitControls.js"></script>
+    <script src="/static/js/GLTFLoader.js"></script>
   </head>
   <body>
-    <a-scene>
-      <a-assets>
-          <a-asset-item id="object" src="{{ model_filename }}">
-      </a-assets>
-      <a-entity
-          id="camera"
-          camera
-          fov="90"
-          position="{{ camera_pos }}"
-          orbit-controls="
-              target: #target;
-              enableDamping: true;
-              dampingFactor: 0.25;
-              rotateSpeed:0.14;
-              minDistance:0.006;
-              maxDistance:25;"
-          mouse-cursor="">
-      </a-entity>
-      <a-entity id="target" position="{{ camera_target }}"></a-entity>
-      <a-gltf-model src="#object"></a-gltf-model>
-    </a-scene>
+    <script src="/static/js/app.js"></script>
+    <script>
+      camera.position.set({{camera_pos}});
+      controls.target.set({{camera_target}});
+      controls.autoRotate = {{autorotate}};
+    </script>
   </body>
 </html>
