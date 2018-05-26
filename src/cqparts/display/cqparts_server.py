@@ -20,7 +20,8 @@ ENVVAR_SERVER = 'CQPARTS_SERVER'
 
 def cqpss(component):
     """
-    Display given component in a cqps-server window
+    Display given component in a
+    `cqps-server <https://github.com/zignig/cqparts-server>`_ window.
 
     :param component: the component to render
     :type component: :class:`Component <cqparts.Component>`
@@ -37,8 +38,16 @@ def cqpss(component):
             Component, type(component)
         ))
 
+    cp_name = type(component).__name__
+
     # create temporary folder
-    temp_dir = tempfile.mkdtemp()
+    def _mkdir(*path_parts):
+        dir_path = os.path.join(*path_parts)
+        if not os.path.isdir(dir_path):
+            os.mkdir(dir_path)
+        return dir_path
+    temp_dir = _mkdir(tempfile.gettempdir(), 'cqpss')
+    temp_dir = _mkdir(tempfile.gettempdir(), 'cqpss', cp_name)
 
     # export the files to the name folder
     exporter = component.exporter('gltf')
@@ -51,5 +60,6 @@ def cqpss(component):
     server_url = os.environ[ENVVAR_SERVER]
 
     # notify the cq parts server
-    payload = {'name' : type(component).__name__}
-    resp = requests.post(server_url + '/notify', data=payload)
+    resp = requests.post(server_url + '/notify', data={
+        'name': cp_name,
+    })
