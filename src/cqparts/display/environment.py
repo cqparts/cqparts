@@ -12,8 +12,56 @@ display_environments = []
 
 
 def map_environment(**kwargs):
+    """
+    Decorator to map a DisplayEnvironment for displaying components.
+    The decorated environment will be chosen if its condition is ``True``, and
+    its order is the smallest.
+
+    :param add_to: if set to ``globals()``, display environment's constructor
+                   may reference its own type.
+    :type add_to: :class:`dict`
+
+    Any additional named parameters will be passed to the constructor of
+    the decorated DisplayEnvironment.
+    See :class:`DisplayEnvironment` for example usage.
+
+    **NameError on importing**
+
+    The following code::
+
+        @map_environment(
+            name='abc', order=10, condition=lambda: True,
+        )
+        class SomeDisplayEnv(DisplayEnvironment):
+            def __init__(self, *args, **kwargs):
+                super(SomeDisplayEnv, self).__init__(*args, **kwargs)
+
+    Will raise the Exception::
+
+        NameError: global name 'SomeDisplayEnv' is not defined
+
+    Because this ``map_environment`` decorator attempts to instantiate
+    this class before it's returned to populate the ``global()`` dict.
+
+    To cicrumvent this problem, set ``add_to`` to ``globals()``::
+
+        @map_environment(
+            name='abc', order=10, condition=lambda: True,
+            add_to=globals(),
+        )
+        class SomeDisplayEnv(DisplayEnvironment):
+            ... as above
+    """
     def inner(cls):
         global display_environments
+        assert issubclass(cls, DisplayEnvironment), "can only map DisplayEnvironment classes"
+
+        # Add class to it's local globals() so constructor can reference
+        #   its own type
+        add_to = kwargs.pop('add_to', {})
+        add_to[cls.__name__] = cls
+
+        # Create display environment
         disp_env = cls(**kwargs)
         # is already mappped?
         try:
