@@ -23,6 +23,7 @@ from .environment import display_environments
 # Specific Environments
 from .freecad import FreeCADDisplayEnv
 from .web import WebDisplayEnv
+from .cqparts_server import cqpss
 
 
 # Generic display funciton

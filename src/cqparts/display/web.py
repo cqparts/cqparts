@@ -16,6 +16,7 @@ else:
     # python 2.x
     import SimpleHTTPServer
     import SocketServer
+
 import threading
 import webbrowser
 
@@ -79,12 +80,15 @@ class WebDisplayEnv(DisplayEnvironment):
     an errorcode 404 (file not found), because the http service has stopped.
     """
 
-    def display_callback(self, component, port=9041):
+    def display_callback(self, component, port=9041, autorotate=False):
         """
         :param component: the component to render
         :type component: :class:`Component <cqparts.Component>`
         :param port: port to expose http service on
         :type port: :class:`int`
+        :param autorotate: if ``True``, rendered component will rotate
+                           as if on a turntable.
+        :type autorotate: :class:`bool`
         """
 
         # Verify Parameter(s)
@@ -121,7 +125,7 @@ class WebDisplayEnv(DisplayEnvironment):
                 for (a, b) in zip(exporter.scene_min, exporter.scene_max)
             ]
             cam_p = [
-                ((b - a) * 1.0) / 1000 + t  # max point * 200% (unit: meters)
+                (((b - a) * 1.0) / 1000) + t  # max point * 200% (unit: meters)
                 for (a, b, t) in zip(exporter.scene_min, exporter.scene_max, cam_t)
             ]
 
@@ -129,14 +133,15 @@ class WebDisplayEnv(DisplayEnvironment):
             xzy = lambda a: (a[0], a[2], -a[1])  # x,z,y coordinates (not x,y,z)
             fh.write(index_template.render(
                 model_filename='model/out.gltf',
-                camera_target=' '.join("%g" % (val) for val in xzy(cam_t)),
-                camera_pos=' '.join("%g" % (val) for val in xzy(cam_p)),
+                autorotate = str(autorotate).lower(),
+                camera_target=','.join("%g" % (val) for val in xzy(cam_t)),
+                camera_pos=','.join("%g" % (val) for val in xzy(cam_p)),
             ))
 
         try:
             # Start web-service (loop forever)
             server = SocketServer.ThreadingTCPServer(
-                server_address=("localhost", port),
+                server_address=("0.0.0.0", port),
                 RequestHandlerClass=SimpleHTTPServer.SimpleHTTPRequestHandler,
             )
             server_addr = "http://%s:%i/" % server.server_address
