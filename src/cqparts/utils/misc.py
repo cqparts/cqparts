@@ -76,7 +76,6 @@ def working_dir(path):
 
     :param path: working path to use while in context
     :type path: :class:`str`
-
     """
     initial_path = os.getcwd()
     os.chdir(path)
