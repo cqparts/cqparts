@@ -565,7 +565,28 @@ thanks to <a class="reference external" href="https://github.com/funkybob">&#64;
 <dl class="function">
 <dt id="cqparts.utils.misc.working_dir">
 <code class="descclassname">cqparts.utils.misc.</code><code class="descname">working_dir</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.misc.working_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Change working directory within a context:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">working_dir</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="go">/home/myuser/temp</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">working_dir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">/home/myuser</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – working path to use while in context</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-cqparts.utils.sphinx">
@@ -1295,7 +1316,28 @@ assist tree displays of hierarchical content.</p>
 <dl class="function">
 <dt id="cqparts.utils.working_dir">
 <code class="descclassname">cqparts.utils.</code><code class="descname">working_dir</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.working_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Change working directory within a context:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">working_dir</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="go">/home/myuser/temp</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">working_dir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">/home/myuser</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – working path to use while in context</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="cqparts.utils.measure_time">

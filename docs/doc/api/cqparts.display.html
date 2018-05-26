@@ -205,11 +205,170 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-cqparts.display.cqparts_server">
+<span id="cqparts-display-cqparts-server-module"></span><h2>cqparts.display.cqparts_server module<a class="headerlink" href="#module-cqparts.display.cqparts_server" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cqparts.display.cqparts_server.CQPartsServerDisplayEnv">
+<em class="property">class </em><code class="descclassname">cqparts.display.cqparts_server.</code><code class="descname">CQPartsServerDisplayEnv</code><span class="sig-paren">(</span><em>name=None</em>, <em>order=0</em>, <em>condition=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.cqparts_server.CQPartsServerDisplayEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">cqparts.display.environment.DisplayEnvironment</span></code></a></p>
+<p>Display given component in a
+<a class="reference external" href="https://github.com/zignig/cqparts-server">cqps-server</a> window.</p>
+<dl class="method">
+<dt id="cqparts.display.cqparts_server.CQPartsServerDisplayEnv.display_callback">
+<code class="descname">display_callback</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.cqparts_server.CQPartsServerDisplayEnv.display_callback" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cqparts.display.environment">
+<span id="cqparts-display-environment-module"></span><h2>cqparts.display.environment module<a class="headerlink" href="#module-cqparts.display.environment" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cqparts.display.environment.map_environment">
+<code class="descclassname">cqparts.display.environment.</code><code class="descname">map_environment</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.environment.map_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to map a DisplayEnvironment for displaying components.
+The decorated environment will be chosen if its condition is <code class="docutils literal"><span class="pre">True</span></code>, and
+its order is the smallest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>add_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>) – if set to <code class="docutils literal"><span class="pre">globals()</span></code>, display environment’s constructor
+may reference its own type.</td>
+</tr>
+</tbody>
+</table>
+<p>Any additional named parameters will be passed to the constructor of
+the decorated DisplayEnvironment.
+See <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">DisplayEnvironment</span></code></a> for example usage.</p>
+<p><strong>NameError on importing</strong></p>
+<p>The following code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@map_environment</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">class</span> <span class="nc">SomeDisplayEnv</span><span class="p">(</span><span class="n">DisplayEnvironment</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SomeDisplayEnv</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will raise the Exception:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">NameError</span><span class="p">:</span> <span class="k">global</span> <span class="n">name</span> <span class="s1">&#39;SomeDisplayEnv&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<p>Because this <code class="docutils literal"><span class="pre">map_environment</span></code> decorator attempts to instantiate
+this class before it’s returned to populate the <code class="docutils literal"><span class="pre">global()</span></code> dict.</p>
+<p>To cicrumvent this problem, set <code class="docutils literal"><span class="pre">add_to</span></code> to <code class="docutils literal"><span class="pre">globals()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@map_environment</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">add_to</span><span class="o">=</span><span class="nb">globals</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="k">class</span> <span class="nc">SomeDisplayEnv</span><span class="p">(</span><span class="n">DisplayEnvironment</span><span class="p">):</span>
+    <span class="o">...</span> <span class="k">as</span> <span class="n">above</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.display.environment.DisplayEnvironment">
+<em class="property">class </em><code class="descclassname">cqparts.display.environment.</code><code class="descname">DisplayEnvironment</code><span class="sig-paren">(</span><em>name=None</em>, <em>order=0</em>, <em>condition=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.environment.DisplayEnvironment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="cqparts.display.environment.DisplayEnvironment.display">
+<code class="descname">display</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.environment.DisplayEnvironment.display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.display.environment.DisplayEnvironment.display_callback">
+<code class="descname">display_callback</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.environment.DisplayEnvironment.display_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display given component in this environment.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To be overridden by inheriting classes</p>
+</div>
+<p>An example of a introducing a custom display environment.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">from</span> <span class="nn">cqparts.display.environment</span> <span class="k">import</span> <span class="n">DisplayEnvironment</span><span class="p">,</span> <span class="n">map_environment</span>
+
+<span class="k">def</span> <span class="nf">is_text_env</span><span class="p">():</span>
+    <span class="c1"># function that returns True if it&#39;s run in the</span>
+    <span class="c1"># desired environment.</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="c1"># Python 2.x</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="c1"># Python 3.x</span>
+    <span class="kn">import</span> <span class="nn">io</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">TextIOWrapper</span><span class="p">)</span>
+
+<span class="nd">@map_environment</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># force display to be first priority</span>
+    <span class="n">condition</span><span class="o">=</span><span class="n">is_text_env</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">class</span> <span class="nc">TextDisplay</span><span class="p">(</span><span class="n">DisplayEnvironment</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">display_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">component</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Print component details to STDOUT</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">component</span><span class="p">,</span> <span class="n">cqparts</span><span class="o">.</span><span class="n">Assembly</span><span class="p">):</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">add_repr</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># assumed to be a cqparts.Part</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%r</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">component</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">is_text_env()</span></code> checks if there’s a valid <code class="docutils literal"><span class="pre">sys.stdout</span></code> to write to,
+<code class="docutils literal"><span class="pre">TextDisplay</span></code> defines how to display any given component,
+and the <code class="docutils literal"><span class="pre">&#64;map_environment</span></code> decorator adds the display paired with
+its environment test function.</p>
+<p>When using <a class="reference internal" href="#cqparts.display.display" title="cqparts.display.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>, this display
+will be used if <code class="docutils literal"><span class="pre">is_text_env()</span></code> returns <code class="docutils literal"><span class="pre">True</span></code>, and no previously
+mapped environment with a smaller <code class="docutils literal"><span class="pre">order</span></code> tested <code class="docutils literal"><span class="pre">True</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># create component to display</span>
+<span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+
+<span class="c1"># display component</span>
+<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">display_callback</span></code> will be called via
+<a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment.display" title="cqparts.display.environment.DisplayEnvironment.display"><code class="xref py py-meth docutils literal"><span class="pre">display()</span></code></a>.  So to call this
+display method directly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TextDisplay</span><span class="p">()</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">NotImplementedError if not overridden</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cqparts.display.freecad">
 <span id="cqparts-display-freecad-module"></span><h2>cqparts.display.freecad module<a class="headerlink" href="#module-cqparts.display.freecad" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.display.freecad.freecad_display">
-<code class="descclassname">cqparts.display.freecad.</code><code class="descname">freecad_display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad.freecad_display" title="Permalink to this definition">¶</a></dt>
+<dl class="class">
+<dt id="cqparts.display.freecad.FreeCADDisplayEnv">
+<em class="property">class </em><code class="descclassname">cqparts.display.freecad.</code><code class="descname">FreeCADDisplayEnv</code><span class="sig-paren">(</span><em>name=None</em>, <em>order=0</em>, <em>condition=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad.FreeCADDisplayEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">cqparts.display.environment.DisplayEnvironment</span></code></a></p>
+<p>Display given component in FreeCAD</p>
+<p>Only works from within FreeCAD <a class="reference external" href="http://dcowden.github.io/cadquery/quickstart.html#module-cadquery" title="(in CadQuery v1.2)"><code class="xref py py-mod docutils literal"><span class="pre">cadquery</span></code></a> script; using this to display a
+<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a> will not open FreeCAD.</p>
+<dl class="method">
+<dt id="cqparts.display.freecad.FreeCADDisplayEnv.display_callback">
+<code class="descname">display_callback</code><span class="sig-paren">(</span><em>component</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad.FreeCADDisplayEnv.display_callback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display given component in FreeCAD</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -219,6 +378,8 @@
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -437,31 +598,20 @@ information to display the part.</p>
 </div>
 <div class="section" id="module-cqparts.display.web">
 <span id="cqparts-display-web-module"></span><h2>cqparts.display.web module<a class="headerlink" href="#module-cqparts.display.web" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.display.web.web_display">
-<code class="descclassname">cqparts.display.web.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=9041</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.web_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display given component in a browser window</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
-<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>This method exports the model, then exposes a http service on <em>localhost</em>
+<dl class="class">
+<dt id="cqparts.display.web.WebDisplayEnv">
+<em class="property">class </em><code class="descclassname">cqparts.display.web.</code><code class="descname">WebDisplayEnv</code><span class="sig-paren">(</span><em>name=None</em>, <em>order=0</em>, <em>condition=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.WebDisplayEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">cqparts.display.environment.DisplayEnvironment</span></code></a></p>
+<p>Display given component in a browser window</p>
+<p>This display exports the model, then exposes a http service on <em>localhost</em>
 for a browser to use.
 The http service does not know when the browser window has been closed, so
 it will continue to serve the model’s data until the user halts the
 process with a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code></a> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
 <p>When run, you should see output similar to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">WebDisplayEnv</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">web_display</span><span class="p">(</span><span class="n">Cube</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WebDisplayEnv</span><span class="p">()</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">Cube</span><span class="p">())</span>
 <span class="go">press [ctrl+c] to stop server</span>
 <span class="go">127.0.0.1 - - [27/Dec/2017 16:06:37] &quot;GET / HTTP/1.1&quot; 200 -</span>
 <span class="go">Created new window in existing browser session.</span>
@@ -477,6 +627,25 @@ process with a <a class="reference external" href="https://docs.python.org/3/lib
 </div>
 <p>and any further request on the opened browser window will return
 an errorcode 404 (file not found), because the http service has stopped.</p>
+<dl class="method">
+<dt id="cqparts.display.web.WebDisplayEnv.display_callback">
+<code class="descname">display_callback</code><span class="sig-paren">(</span><em>component</em>, <em>port=9041</em>, <em>autorotate=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web.WebDisplayEnv.display_callback" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
+<li><strong>autorotate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code>, rendered component will rotate
+as if on a turntable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -694,65 +863,20 @@ Can be used to set a property based on the property of another.</p>
 
 <dl class="function">
 <dt id="cqparts.display.display">
-<code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display the given component based on the
-<a class="reference internal" href="cqparts.utils.html#cqparts.utils.env.get_env_name" title="cqparts.utils.env.get_env_name"><code class="xref py py-meth docutils literal"><span class="pre">get_env_name()</span></code></a>.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="cqparts.display.freecad_display">
-<code class="descclassname">cqparts.display.</code><code class="descname">freecad_display</code><span class="sig-paren">(</span><em>component</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.freecad_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display given component in FreeCAD</p>
+<code class="descclassname">cqparts.display.</code><code class="descname">display</code><span class="sig-paren">(</span><em>component</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the given component based on the environment it’s run from.
+See <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">DisplayEnvironment</span></code></a>
+documentation for more details.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component to display</td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="function">
-<dt id="cqparts.display.web_display">
-<code class="descclassname">cqparts.display.</code><code class="descname">web_display</code><span class="sig-paren">(</span><em>component</em>, <em>port=9041</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.web_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display given component in a browser window</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>component</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – the component to render</li>
-<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">int</span></code></a>) – port to expose http service on</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>This method exports the model, then exposes a http service on <em>localhost</em>
-for a browser to use.
-The http service does not know when the browser window has been closed, so
-it will continue to serve the model’s data until the user halts the
-process with a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyboardInterrupt" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">KeyboardInterrupt</span></code></a> (by pressing <code class="docutils literal"><span class="pre">Ctrl+C</span></code>)</p>
-<p>When run, you should see output similar to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">web_display</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">web_display</span><span class="p">(</span><span class="n">Cube</span><span class="p">())</span>
-<span class="go">press [ctrl+c] to stop server</span>
-<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:37] &quot;GET / HTTP/1.1&quot; 200 -</span>
-<span class="go">Created new window in existing browser session.</span>
-<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.gltf HTTP/1.1&quot; 200 -</span>
-<span class="go">127.0.0.1 - - [27/Dec/2017 16:06:39] &quot;GET /model/out.bin HTTP/1.1&quot; 200 -</span>
-</pre></div>
-</div>
-<p>A new browser window should appear with a render that looks like:</p>
-<img alt="../_images/web_display.cube.png" src="../_images/web_display.cube.png" />
-<p>Then, when you press <code class="docutils literal"><span class="pre">Ctrl+C</span></code>, you should see:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">^</span><span class="n">C</span><span class="p">[</span><span class="n">server</span> <span class="n">shutdown</span> <span class="n">successfully</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>and any further request on the opened browser window will return
-an errorcode 404 (file not found), because the http service has stopped.</p>
+<p>Additional parameters may be used by the chosen
+<a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">DisplayEnvironment</span></code></a></p>
 </dd></dl>
 
 </div>
