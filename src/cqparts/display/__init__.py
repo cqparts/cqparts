@@ -3,33 +3,44 @@ __all__ = [
     'render_props',
     'RenderProps', 'RenderParam',
 
-    # display methods
+    # display
     'display',
-    'freecad_display',
-    'web_display',
-    'cqpss',
+
+    # environment
+    'environment',
 ]
+
+import functools
 
 # material
 from .material import RenderProps, RenderParam
 from .material import render_props
 
-from .freecad import freecad_display
-from .web import web_display
-from .cqparts_server import cqpss
+# envionrment
+from . import environment
 
-from cqparts.utils.env import get_env_name
+# Specific Environments
+from .freecad import FreeCADDisplayEnv
+from .web import WebDisplayEnv
+from .cqparts_server import CQPartsServerDisplayEnv
 
-def display(component,autorotate=False):
+
+# Generic display funciton
+def display(component, **kwargs):
     """
-    Display the given component based on the
-    :meth:`get_env_name() <cqparts.utils.env.get_env_name>`.
-    """
-    env_name = get_env_name()
+    Display the given component based on the environment it's run from.
+    See :class:`DisplayEnvironment <cqparts.display.environment.DisplayEnvironment>`
+    documentation for more details.
 
-    if env_name == 'freecad':
-        freecad_display(component)
-    elif env_name == "cqps-server":
-        cqpss(component)
-    else:
-        web_display(component,autorotate=autorotate)
+    :param component: component to display
+    :type component: :class:`Component <cqparts.Component>`
+
+    Additional parameters may be used by the chosen
+    :class:`DisplayEnvironment <cqparts.display.environment.DisplayEnvironment>`
+    """
+
+    for disp_env in environment.display_environments:
+        if disp_env.condition():
+            return disp_env.display(component, **kwargs)
+
+    raise LookupError('valid display environment could not be found')

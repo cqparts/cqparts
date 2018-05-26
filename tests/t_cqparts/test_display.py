@@ -54,13 +54,15 @@ class FreeCADTests(CQPartsTest):
     @patch_forgiving('Helpers.show')
     def test_part(self, mock_show):
         part = Box()
-        display.freecad_display(part)
+        disp_env = display.freecad.FreeCADDisplayEnv()
+        disp_env.display(part)
         mock_show.assert_called_once_with(part.local_obj, (192, 192, 192, 0))
 
     @patch_forgiving('Helpers.show')
     def test_assembly(self, mock_show):
         assembly = CubeStack()
-        display.freecad_display(assembly)
+        disp_env = display.freecad.FreeCADDisplayEnv()
+        disp_env.display(assembly)
 
         self.assertEqual(len(mock_show.call_args_list), 2)  # 2 objects
         for (args, kwargs) in mock_show.call_args_list:
@@ -69,7 +71,8 @@ class FreeCADTests(CQPartsTest):
     @patch_forgiving('Helpers.show')
     def test_cadquery_obj(self, mock_show):
         obj = cadquery.Workplane('XY').box(1,1,1)
-        display.freecad_display(obj)
+        disp_env = display.freecad.FreeCADDisplayEnv()
+        disp_env.display(obj)
         mock_show.assert_called_once_with(obj)
 
 
@@ -85,8 +88,9 @@ class WebTests(CQPartsTest):
         mock_serverobj.return_value = mock_server
 
         part = Box()
+        disp_env = display.web.WebDisplayEnv()
         with suppress_stdout_stderr():
-            display.web_display(part)
+            disp_env.display(part)
 
         # webbrowser.open called
         self.assertEquals(len(mock_webbrowser_open.call_args_list), 1)
@@ -96,8 +100,9 @@ class WebTests(CQPartsTest):
         mock_server.serve_forever.assert_called_once_with()
 
     def test_bad_component(self):
+        disp_env = display.web.WebDisplayEnv()
         with self.assertRaises(TypeError):
-            display.web_display(123)
+            disp_env.display(123)
 
 
 @testlabel('web')
@@ -107,7 +112,8 @@ class CQPartsServerTests(CQPartsTest):
     @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
     def test_basic(self, mock_requests_post):
         part = Box()
-        display.cqpss(part)
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
+        disp_env.display(part)
 
         mock_requests_post.assert_called_once_with(
             'http://abc:123/notify', data={'name': 'Box'},
@@ -115,10 +121,12 @@ class CQPartsServerTests(CQPartsTest):
 
     @mock.patch('os.environ', {})  # empty
     def test_bad_env(self):
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
         with self.assertRaises(KeyError):
-            display.cqpss(Box())
+            disp_env.display(Box())
 
     @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
     def test_bad_component(self):
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
         with self.assertRaises(TypeError):
-            display.cqpss(123)
+            disp_env.display(123)
