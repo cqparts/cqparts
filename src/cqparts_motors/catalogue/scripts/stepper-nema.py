@@ -8,7 +8,7 @@
 #   ...     'catalogue', 'stepper-nema.json',
 #   ... )
 #   >>> catalogue = JSONCatalogue(filename)
-#   >>> item = catlaogue.get_query()
+#   >>> item = catalogue.get_query()
 #   >>> stepper = catalogue.get(item.criteria.size == 17)
 #   >>> from cqparts.display import display
 #   >>> display(stepper)
