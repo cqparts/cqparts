@@ -115,15 +115,15 @@ class Stepper(motor.Motor):
     # Shaft type
     shaft_type = shaft.Shaft
 
-    width = PositiveFloat(42.3)
-    length = PositiveFloat(50)
-    hole_spacing = PositiveFloat(31.0)
-    hole_size = PositiveFloat(3)
-    boss_size = PositiveFloat(22)
-    boss_length = PositiveFloat(2)
+    width = PositiveFloat(42.3,doc="width and depth of the stepper")
+    length = PositiveFloat(50,doc="length of the stepper")
+    hole_spacing = PositiveFloat(31.0,doc="distance between centers")
+    hole_size = PositiveFloat(3,doc="hole diameter , select screw with this")
+    boss_size = PositiveFloat(22,doc="diameter of the raise circle")
+    boss_length = PositiveFloat(2,doc="length away from the top surface")
 
-    shaft_diam = PositiveFloat(5)
-    shaft_length = PositiveFloat(24)
+    shaft_diam = PositiveFloat(5,doc="diameter of the the shaft ")
+    shaft_length = PositiveFloat(24,doc="length from top surface")
 
     def make_components(self):
         sec = self.length / 6
