@@ -1,10 +1,12 @@
-from copy import copy
+from copy import copy, deepcopy
 from math import sqrt
 
 from base import CQPartsTest
 from base import testlabel
 
 import cadquery
+
+from partslib import Box
 
 # Unit under test
 import cqparts
@@ -51,7 +53,7 @@ class MakeSimpleTests(CQPartsTest):
         self.assertAlmostEqual(cbb.ymax, sbb.ymax)
         self.assertAlmostEqual(cbb.zmin, sbb.zmin)
         self.assertAlmostEqual(cbb.zmax, sbb.zmax)
-        
+
     def test_simplify(self):
         class P(cqparts.Part):
             def make(self):
@@ -122,12 +124,129 @@ class BuildCycleTests(CQPartsTest):
         self.assertAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10))
 
 
+class PartEqualityTests(CQPartsTest):
+
+    def test_eq(self):
+        obj_params = {'length': 1, 'width': 2, 'height': 3}
+        b1 = Box(**obj_params)
+        b2 = Box(**obj_params)
+
+        # parts considered equal
+        self.assertEqual(b1, b2)
+        self.assertEqual(hash(b1), hash(b2))
+
+        # geometry is independent
+        self.assertIsNot(b1.local_obj, b2.local_obj)
+
+    def test_eq_local_obj_change(self):
+        obj_params = {'length': 1, 'width': 2, 'height': 3}
+        b1 = Box(**obj_params)
+        b2 = Box(**obj_params)
+        self.assertEqual(b1, b2)
+
+        # change local_obj of one
+        b1.local_obj = b1.local_obj.faces('>Z').hole(1)
+
+        # parts should no longer be equal
+        self.assertNotEqual(b1, b2)
+
+
 class CopyTests(CQPartsTest):
 
-    def test_copy(self):
-        class P(cqparts.Part):
-            a = Int(10)
-            def make(self):
-                return cadquery.Workplane('XY').box(1, 1, 1)
-        p1 = P()
-        p2 = copy(p1)
+    def test_basic(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+
+        # parts share the same geometry
+        self.assertIs(b1.local_obj, b2.local_obj)
+
+    def test_change_original(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+        self.assertIs(b1.local_obj, b2.local_obj)
+
+        # change local_obj of original
+        b1.local_obj = b1.local_obj.faces('>Z').hole(1)
+        self.assertIs(b1.local_obj, b2.local_obj)
+
+    def test_change_copy(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+        self.assertIs(b1.local_obj, b2.local_obj)
+
+        # change local_obj of copy
+        b2.local_obj = b2.local_obj.faces('>Z').hole(1)
+        self.assertIs(b1.local_obj, b2.local_obj)
+
+    def test_nested(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+        b3 = copy(b2)
+
+        self.assertIs(b1.local_obj, b3.local_obj)
+
+
+class DeepcopyTests(CQPartsTest):
+
+    def test_basic(self):
+        p1 = Box(length=5, width=10, height=3)
+        p2 = deepcopy(p1)
+
+        # a deepcopy does not build geometry
+        self.assertIsNone(p1._local_obj)
+        self.assertIsNone(p2._local_obj)
+
+        # built parts independent
+        self.assertIsInstance(p1.local_obj, cadquery.Workplane)
+        self.asesrtIsInstance(p2.local_obj, cadquery.Workplane)
+        self.assertIsNot(p1.local_obj, p2.local_obj)
+
+    def test_buildorder_forward(self):
+        p1 = Box(length=5, width=10, height=3)
+        p2 = deepcopy(p1)
+
+        # build and change original
+        p1.build()
+        self.assertEqual(len(p1.local_obj.faces().objects), 6)
+        orig_obj = p1.local_obj
+        p1.local_obj = p1.local_obj.faces('>Z').hole(1)
+        self.assertEqual(len(p1.local_obj.faces().objects), 7)
+
+        # copy not built yet
+        self.assertIsNone(p2._local_obj)
+        # build copy, should be copy of original object
+        p2.build()
+        self.assertEqual(len(p2.local_obj.faces().objects), 6)  # not 7
+        self.assertIsNot(p2.local_obj, orig_obj)  # a copy, not a reference
+
+    def test_buildorder_backward(self):
+        p1 = Box(length=5, width=10, height=3)
+        p2 = deepcopy(p1)
+
+        # build and change original
+        p2.build()
+        self.assertEqual(len(p2.local_obj.faces().objects), 6)
+        orig_obj = p2.local_obj
+        p2.local_obj = p2.local_obj.faces('>Z').hole(1)
+        self.assertEqual(len(p2.local_obj.faces().objects), 7)
+
+        # copy not built yet
+        self.assertIsNone(p1._local_obj)
+        # build copy, should be copy of original object
+        p1.build()
+        self.assertEqual(len(p1.local_obj.faces().objects), 6)  # not 7
+        self.assertIsNot(p1.local_obj, orig_obj)  # a copy, not a reference
+
+    def test_post_modify(self):
+        p1 = Box(length=5, width=10, height=3)  # 6 faces
+        p1.local_obj = p1.local_obj.faces('>Z').hole(1)  # 7 faces
+
+        p2 = deepcopy(p1)
+        self.assertEqual(len(p2.local_obj.faces().objects), 7)
+
+    def test_nested(self):
+        p1 = Box(length=5, width=10, height=3)
+        p2 = deepcopy(p1)
+        p3 = deepcopy(p2)
+
+        self.asesrtIsInstance(p3.local_obj, cadquery.Workplane)
