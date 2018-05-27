@@ -10,6 +10,7 @@
 - [#69](https://github.com/fragmuffin/cqparts/pull/69): added [`ComponentRef`](https://fragmuffin.github.io/cqparts/doc/api/cqparts.params.html#cqparts.params.types.ComponentRef) parameter
 - [#71](https://github.com/fragmuffin/cqparts/pull/71): Multi-part `STEP` file import with [`STEPAssemblyImporter`](https://fragmuffin.github.io/cqparts/doc/api/cqparts.codec.html#cqparts.codec.step.STEPAssemblyImporter)
 - [#89](https://github.com/fragmuffin/cqparts/pull/89): Localize web interface (author: [@zignig](https://github.com/zignig))
+- [#94](https://github.com/fragmuffin/cqparts/pull/94): Display Environments ([doc](https://fragmuffin.github.io/cqparts/doc/api/cqparts.display.html#cqparts.display.environment.DisplayEnvironment))
 
 ### Bugfixes
 
