@@ -110,6 +110,10 @@ class DCMotor(motor.Motor):
 
     cover_height = PositiveFloat(0,doc="back cover height")
 
+    # a step on the top surface
+    step_height = PositiveFloat(0,doc="height if step, if zero no step")
+    step_diam = PositiveFloat(12,doc="step diameter")
+
     def make_components(self):
         return {
             'body': _Cup(
@@ -118,7 +122,8 @@ class DCMotor(motor.Motor):
                 diam=self.diam,
                 profile=self.profile,
                 bush_diam = self.bush_diam,
-                bush_height = self.bush_height
+                bush_height = self.bush_height,
+                step_height = self.step_height
             ),
             'shaft': self.shaft_type(length=self.shaft_length,diam=self.shaft_diam),
             'back': BackCover(
