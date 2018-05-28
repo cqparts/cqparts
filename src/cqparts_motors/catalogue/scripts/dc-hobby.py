@@ -25,9 +25,62 @@ from cqparts_motors.dc import DCMotor
 CATALOGUE_NAME = 'dcmotor.json'
 
 # DC Motor hobby examples
-
+# example only
 DC_HOBBY = {
-
+    '130': 
+    {
+        "profile": "flat",
+        "diam": 20.4,
+        "shaft_length": 11.55,
+        "cover_height": 0.0,
+        "thickness": 15.4,
+        "bush_height": 1.6,
+        "shaft_diam": 2.0,
+        "bush_diam": 6.15,
+        "height": 25.1
+    },
+    'R140':
+    {
+        "profile": "circle",
+        "diam": 20.4,
+        "shaft_length": 11.55,
+        "cover_height": 0.0,
+        "step_diam": 12.0,
+        "thickness": 15.4,
+        "bush_height": 1.6,
+        "step_height": 1,
+        "shaft_diam": 2.0,
+        "bush_diam": 6.15,
+        "height": 25.1
+    },
+    'slotcar':
+    {
+        "profile": "rect",
+        "diam": 23,
+        "shaft_length": 8,
+        "cover_height": 0.0,
+        "step_diam": 12.0,
+        "thickness": 15.4,
+        "bush_height": 1.6,
+        "step_height": 0.0,
+        "shaft_diam": 2.0,
+        "bush_diam": 4,
+        "height": 17
+    },
+    'flat':
+    {
+        "profile": "circle",
+        "diam": 20.4,
+        "shaft_length": 6,
+        "cover_height": 0.0,
+        "step_diam": 12.0,
+        "thickness": 15.4,
+        "bush_height": 0.4,
+        "step_height": 0.0,
+        "shaft_diam": 2.0,
+        "bush_diam": 6.15,
+        "height": 10
+    }
 }
 
 # Generate Catalogue
@@ -37,13 +90,13 @@ catalogue = JSONCatalogue(
 )
 
 # Create Motors 
-for (size, params) in DC_HOBBY.items():
+for (name, params) in DC_HOBBY.items():
     catalogue.add(
-        id='DC_MOTOR%i' % size,
+        id= name,
         obj=DCMotor(**params),
         criteria={
             'type': 'motor',
             'class': 'dc',
-            'size': size,
+            'diam': params['diam'],
         },
     )
