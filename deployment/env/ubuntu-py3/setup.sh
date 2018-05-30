@@ -9,5 +9,8 @@ Environment Variables:
     env_rel_path = ${env_rel_path}
 EOF
 
+# update pip & packages
+pip install --upgrade pip setuptools
+
 # install nothing further to the image;
 # anything further is installed to a container as part of the test.
