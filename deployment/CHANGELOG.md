@@ -11,6 +11,7 @@
 - [#71](https://github.com/fragmuffin/cqparts/pull/71): Multi-part `STEP` file import with [`STEPAssemblyImporter`](https://fragmuffin.github.io/cqparts/doc/api/cqparts.codec.html#cqparts.codec.step.STEPAssemblyImporter)
 - [#89](https://github.com/fragmuffin/cqparts/pull/89): Localize web interface (author: [@zignig](https://github.com/zignig))
 - [#94](https://github.com/fragmuffin/cqparts/pull/94): Display Environments ([doc](https://fragmuffin.github.io/cqparts/doc/api/cqparts.display.html#cqparts.display.environment.DisplayEnvironment))
+- [#103](https://github.com/fragmuffin/cqparts/pull/103): feature: get display environment (`cqparts.display.get_display_environment` replaces `cqparts.utils.env`)
 
 ### Bugfixes
 
