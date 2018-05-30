@@ -40,7 +40,10 @@ thing = Thing()
 
 from cqparts.params import *
 from cqparts.display import display
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
-
-thing.exporter('gltf')('thing.gltf', embed=False)
-display(thing)
+if env_name == 'freecad':
+    display(thing)
+else:
+    thing.exporter('gltf')('thing.gltf', embed=False)

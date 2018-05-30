@@ -234,7 +234,8 @@ class CornerAssembly(cqparts.Assembly):
 
 # ------------------- Export / Display -------------------
 from cqparts.display import display
-from cqparts.utils.env import env_name
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
 # ------- Models
 panel = Panel()
@@ -253,7 +254,7 @@ if env_name == 'cmdline':
 
     #display(panel)
     #display(biscuit)
-    display(corner_assembly)
+    #display(corner_assembly)
 
 elif env_name == 'freecad':
     #display(panel)
