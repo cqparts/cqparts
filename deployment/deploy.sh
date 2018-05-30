@@ -27,6 +27,8 @@ Arguments:
         env rm              Remove container
         env prereq {lib}    Install pre-requisites for given lib
         env testreq         Install test-specific requirements
+        env bash            Run Bash prompt in the container
+        env python          Run Python in the container
 
     Deploy:
         register (test|prod)    Register lib last built (only needed once)
