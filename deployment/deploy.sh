@@ -120,7 +120,7 @@ function build() {
         # run ../src/setup.py
         echo "--- Run setup.py"
         pushd ../src
-        python setup.py sdist bdist_wheel
+        python setup.py sdist bdist_wheel --universal
         popd
     else
         echo "ERROR: no library named ${_lib}" >&2
