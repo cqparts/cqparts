@@ -53,7 +53,7 @@
   "materials": [
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.9216, 
