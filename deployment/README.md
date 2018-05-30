@@ -158,7 +158,7 @@ lib=cqparts
 ## Upload to PyPi Test server
 
 ```bash
-./deploy.sh deploy test
+./deploy.sh deploy $lib test
 
 # open published pypi page
 xdg-open https://testpypi.python.org/pypi/$lib
@@ -186,7 +186,7 @@ xdg-open https://testpypi.python.org/pypi/$lib
 all good!? sweet :+1: time to upload to 'production'
 
 ```bash
-./deploy.sh deploy prod
+./deploy.sh deploy $lib prod
 
 # open published pypi page
 xdg-open https://pypi.python.org/pypi/$lib
