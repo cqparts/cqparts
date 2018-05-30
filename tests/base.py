@@ -5,8 +5,8 @@ import inspect
 from collections import defaultdict
 from copy import copy
 
-_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
+#_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+#sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
 
 from cqparts import codec
 
