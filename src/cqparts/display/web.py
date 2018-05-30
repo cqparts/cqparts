@@ -43,9 +43,13 @@ SocketServer.TCPServer.allow_reuse_address = True  # stops crash on re-use of po
 
 
 @map_environment(
-    name='web',
+    # named 'cmdline'?
+    # This is a fallback display environment if no other method is available.
+    # Therefore it's assumed that the environment that's been detected is a
+    # no-frills command line.
+    name='cmdline',
     order=99,
-    condition=lambda: True,
+    condition=lambda: True,  # fallback
 )
 class WebDisplayEnv(DisplayEnvironment):
     """
