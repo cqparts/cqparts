@@ -205,59 +205,6 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cqparts.utils.env">
-<span id="cqparts-utils-env-module"></span><h2>cqparts.utils.env module<a class="headerlink" href="#module-cqparts.utils.env" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.utils.env.get_env_name">
-<code class="descclassname">cqparts.utils.env.</code><code class="descname">get_env_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.env.get_env_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the name of the currently running environment.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<table border="1" class="docutils">
-<colgroup>
-<col width="26%" />
-<col width="74%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Environment</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">freecad</span></code></td>
-<td>freecad module</td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cmdline</span></code></td>
-<td>directly in a python interpreter</td>
-</tr>
-</tbody>
-</table>
-<p>These environments are intended to switch a script’s behaviour from
-displaying models, or exporting them to file.</p>
-<p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.env</span> <span class="k">import</span> <span class="n">get_env_name</span>
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">SomeAssembly</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bar</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">get_env_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cmdline&#39;</span><span class="p">:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.gltf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">get_export_gltf</span><span class="p">())</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
 <div class="section" id="module-cqparts.utils.geometry">
 <span id="cqparts-utils-geometry-module"></span><h2>cqparts.utils.geometry module<a class="headerlink" href="#module-cqparts.utils.geometry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -967,59 +914,9 @@ parameters:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.utils.get_env_name">
-<code class="descclassname">cqparts.utils.</code><code class="descname">get_env_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.get_env_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the name of the currently running environment.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<table border="1" class="docutils">
-<colgroup>
-<col width="26%" />
-<col width="74%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Environment</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">freecad</span></code></td>
-<td>freecad module</td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cmdline</span></code></td>
-<td>directly in a python interpreter</td>
-</tr>
-</tbody>
-</table>
-<p>These environments are intended to switch a script’s behaviour from
-displaying models, or exporting them to file.</p>
-<p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.env</span> <span class="k">import</span> <span class="n">get_env_name</span>
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">SomeAssembly</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bar</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">get_env_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cmdline&#39;</span><span class="p">:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.gltf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">get_export_gltf</span><span class="p">())</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="class">
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cqparts.utils"></span><dl class="class">
 <dt id="cqparts.utils.CoordSystem">
 <em class="property">class </em><code class="descclassname">cqparts.utils.</code><code class="descname">CoordSystem</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.CoordSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cadquery.freecad_impl.geom.Plane</span></code></p>

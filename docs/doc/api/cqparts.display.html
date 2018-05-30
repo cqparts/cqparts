@@ -879,6 +879,43 @@ documentation for more details.</p>
 <a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">DisplayEnvironment</span></code></a></p>
 </dd></dl>
 
+<dl class="function">
+<dt id="cqparts.display.get_display_environment">
+<code class="descclassname">cqparts.display.</code><code class="descname">get_display_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.display.get_display_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the first qualifying display environment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">highest priority valid display environment</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cqparts.display.environment.DisplayEnvironment" title="cqparts.display.environment.DisplayEnvironment"><code class="xref py py-class docutils literal"><span class="pre">DisplayEnvironment</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#cqparts.display.environment.map_environment" title="cqparts.display.environment.map_environment"><code class="xref py py-meth docutils literal"><span class="pre">&#64;map_environment</span></code></a>
+for more information.</p>
+<p>This method is a common way to change script behaviour based on the
+environment it’s running in.
+For example, if you wish to display a model when run in one environment, but
+export it to file when run in another, you could:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">get_display_environment</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Cube</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">Cube</span><span class="p">()</span>
+
+<span class="n">env_name</span> <span class="o">=</span> <span class="n">get_display_environment</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
+<span class="k">if</span> <span class="n">env_name</span> <span class="o">==</span> <span class="s1">&#39;freecad&#39;</span><span class="p">:</span>
+    <span class="c1"># Render the object in a FreeCAD window</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Export the object to a file.</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;my_object.gltf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is useful when creating a sort of “build environment” for your models.</p>
+</dd></dl>
+
 </div>
 </div>
 

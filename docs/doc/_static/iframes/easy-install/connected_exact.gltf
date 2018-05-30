@@ -176,7 +176,7 @@
   "materials": [
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7843, 
@@ -190,7 +190,7 @@
     }, 
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7843, 
@@ -204,7 +204,7 @@
     }, 
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.7529, 
@@ -218,7 +218,7 @@
     }, 
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.3922, 

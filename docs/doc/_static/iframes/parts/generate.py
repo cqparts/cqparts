@@ -95,8 +95,20 @@ red_box = Box()
 
 
 # ------------------- Export -------------------
-box.exporter('gltf')('box.gltf', embed=True)
-wheel.exporter('gltf')('wheel.gltf', embed=True)
-my_wheel.exporter('gltf')('holy-wheel.gltf', embed=True)
-joined_wheel.exporter('gltf')('joined-wheel.gltf', embed=True)
-red_box.exporter('gltf')('red-box.gltf', embed=True)
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
+
+if env_name == 'freecad':
+    pass
+    #display(box)
+    #display(wheel)
+    #display(my_wheel)
+    #display(joined_wheel)
+    display(red_box)
+
+else:
+    box.exporter('gltf')('box.gltf', embed=True)
+    wheel.exporter('gltf')('wheel.gltf', embed=True)
+    my_wheel.exporter('gltf')('holy-wheel.gltf', embed=True)
+    joined_wheel.exporter('gltf')('joined-wheel.gltf', embed=True)
+    red_box.exporter('gltf')('red-box.gltf', embed=True)
