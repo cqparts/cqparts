@@ -71,7 +71,7 @@ CLASSIFIERS = [
     "Intended Audience :: Manufacturing",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
     "Operating System :: MacOS",
     "Operating System :: POSIX",

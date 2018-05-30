@@ -31,7 +31,7 @@ __url__ = 'https://github.com/fragmuffin/cqparts'
 __author__ = 'Peter Boin'
 __email__ = 'peter.boin+cqparts@gmail.com'
 
-__license__ = 'GPLv3'
+__license__ = 'Apache Public License 2.0'
 
 __keywords__ = ['cadquery', 'cad', '3d', 'modeling']
 
