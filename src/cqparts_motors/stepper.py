@@ -1,8 +1,8 @@
 
-# cqparts motors
-# 2018 Simon Kirkby obeygiantrobot@gmail.com
-
-# stepper motor generic
+""" cqparts motors
+ 2018 Simon Kirkby obeygiantrobot@gmail.com
+ stepper motor generic
+"""
 
 # TODO
 # need a cutout for mounting
@@ -11,7 +11,7 @@
 import cadquery as cq
 
 import cqparts
-from cqparts.params import *
+from cqparts.params import PositiveFloat
 from cqparts.constraint import Fixed, Coincident
 from cqparts.constraint import Mate
 from cqparts.display import render_props
@@ -34,6 +34,7 @@ class _EndCap(cqparts.Part):
 
     @property
     def mate_top(self):
+        " connect to the end of the top cap"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
             xDir=(0, 1, 0),
@@ -42,6 +43,7 @@ class _EndCap(cqparts.Part):
 
     @property
     def mate_bottom(self):
+        " bottom of the top cap"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
             xDir=(0, 1, 0),
@@ -66,6 +68,7 @@ class _Stator(cqparts.Part):
 
     @property
     def mate_top(self):
+        " top of the stator"
         return Mate(self, CoordSystem(
             origin=(0, 0, self.length/2),
             xDir=(0, 1, 0),
@@ -74,6 +77,7 @@ class _Stator(cqparts.Part):
 
     @property
     def mate_bottom(self):
+        " bottom of the stator"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
             xDir=(0, 1, 0),
@@ -112,18 +116,26 @@ class _Back(_EndCap):
 
 
 class Stepper(motor.Motor):
-    # Shaft type
+    " Stepper Motor , simple rendering "
     shaft_type = shaft.Shaft
 
-    width = PositiveFloat(42.3,doc="width and depth of the stepper")
-    length = PositiveFloat(50,doc="length of the stepper")
-    hole_spacing = PositiveFloat(31.0,doc="distance between centers")
-    hole_size = PositiveFloat(3,doc="hole diameter , select screw with this")
-    boss_size = PositiveFloat(22,doc="diameter of the raise circle")
-    boss_length = PositiveFloat(2,doc="length away from the top surface")
+    width = PositiveFloat(42.3, doc="width and depth of the stepper")
+    length = PositiveFloat(50, doc="length of the stepper")
+    hole_spacing = PositiveFloat(31.0, doc="distance between centers")
+    hole_size = PositiveFloat(3, doc="hole diameter , select screw with this")
+    boss_size = PositiveFloat(22, doc="diameter of the raise circle")
+    boss_length = PositiveFloat(2, doc="length away from the top surface")
 
-    shaft_diam = PositiveFloat(5,doc="diameter of the the shaft ")
-    shaft_length = PositiveFloat(24,doc="length from top surface")
+    shaft_diam = PositiveFloat(5, doc="diameter of the the shaft ")
+    shaft_length = PositiveFloat(24, doc="length from top surface")
+
+    def get_shaft(self):
+        return self.shaft_type
+
+    def mount_points(self):
+        # TODO mount points
+        " return mount points"
+        pass
 
     def make_components(self):
         sec = self.length / 6
@@ -169,10 +181,11 @@ class Stepper(motor.Motor):
             ]
 
     def apply_cutout(self):
-        shaft = self.components['shaft']
+        " shaft cutout "
+        stepper_shaft = self.components['shaft']
         top = self.components['topcap']
         local_obj = top.local_obj
-        local_obj = local_obj.cut(shaft.get_cutout(clearance=0.5))
+        local_obj = local_obj.cut(stepper_shaft.get_cutout(clearance=0.5))
 
     def make_alterations(self):
         self.apply_cutout()
