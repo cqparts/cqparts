@@ -17,7 +17,8 @@ from cqparts.constraint import Mate
 from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
-from . import shaft, motor
+import shaft
+import motor
 
 class _EndCap(cqparts.Part):
     # Parameters
@@ -70,7 +71,7 @@ class _Stator(cqparts.Part):
     def mate_top(self):
         " top of the stator"
         return Mate(self, CoordSystem(
-            origin=(0, 0, self.length/2),
+            origin=(0, 0, self.length/4),
             xDir=(0, 1, 0),
             normal=(0, 0, 1)
             ))
@@ -80,8 +81,8 @@ class _Stator(cqparts.Part):
         " bottom of the stator"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
-            xDir=(0, 1, 0),
-            normal=(0, 0, 1)
+            xDir=(1, 0, 0),
+            normal=(0, 0, -1)
             ))
 
 
@@ -100,6 +101,24 @@ class _StepperMount(_EndCap):
         obj.faces(">Z").workplane()\
             .circle(self.boss/2).extrude(self.boss_length)
         return obj
+
+    @property
+    def mate_top(self):
+        " top of the mount"
+        return Mate(self, CoordSystem(
+            origin=(0, 0, self.length/2),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
+            ))
+
+    @property
+    def mate_bottom(self):
+        " bottom of the mount"
+        return Mate(self, CoordSystem(
+            origin=(0, 0, -self.length),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
+            ))
 
 
 class _Back(_EndCap):
@@ -161,23 +180,19 @@ class Stepper(motor.Motor):
 
     def make_constraints(self):
         return [
-            Fixed(self.components['topcap'].mate_origin),
+            Fixed(self.components['topcap'].mate_top),
             Coincident(
-                self.components['stator'].mate_bottom,
-                self.components['topcap'].mate_top
+                self.components['stator'].mate_top,
+                self.components['topcap'].mate_bottom,
             ),
             Coincident(
                 self.components['botcap'].mate_bottom,
-                self.components['stator'].mate_top
+                self.components['stator'].mate_bottom
             ),
-            Fixed(
+            Coincident(
                 self.components['shaft'].mate_origin,
-                CoordSystem(
-                    (0, 0, self.length/8-self.boss_length),
-                    (1, 0, 0),
-                    (0, 0, 1)
-                )
-            )
+                self.components['topcap'].mate_top
+            ),
             ]
 
     def apply_cutout(self):
@@ -189,3 +204,9 @@ class Stepper(motor.Motor):
 
     def make_alterations(self):
         self.apply_cutout()
+
+if __name__ == "__main__":
+    from cqparts.display import display
+    st = Stepper()
+    display(st)
+
