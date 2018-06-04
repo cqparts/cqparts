@@ -10,6 +10,7 @@ import inspect
 import time
 import requests
 import tempfile
+import shutil
 
 import logging
 log = logging.getLogger(__name__)
@@ -55,23 +56,46 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
                 Component, type(component)
             ))
 
+        # get the name of the object 
         cp_name = type(component).__name__
 
         # create temporary folder
-        temp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss')
-        temp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss', cp_name)
+        #tmp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss')
+        temp_dir = tempfile.mkdtemp()
+        base_dir = self._mkdir(temp_dir,cp_name)
 
         # export the files to the name folder
         exporter = component.exporter('gltf')
         exporter(
-            filename=os.path.join(temp_dir, 'out.gltf'),
+            filename=os.path.join(base_dir, 'out.gltf'),
             embed=False,
         )
 
         # get the server from the environment
         server_url = os.environ[ENVVAR_SERVER]
+        try:
+            # check that the server is running
+            resp = requests.get(server_url + '/status')
 
-        # notify the cq parts server
-        resp = requests.post(server_url + '/notify', data={
-            'name': cp_name,
-        })
+            # create the list of files to upload
+            file_list = os.listdir(base_dir)
+            file_load_dict = {}
+            for i in file_list:
+                # path of file to upload
+                file_name = os.path.join(base_dir,i)
+                # short reference to file
+                file_ref = os.path.join(cp_name,i)
+                # make dict for file upload
+                file_load_dict[file_ref] = open(file_name,'rb')
+
+            # upload the files as multipart upload 
+            resp = requests.post(server_url + '/upload',files=file_load_dict)
+            # notify the cq parts server
+            resp = requests.post(server_url + '/notify', data={
+                'name': cp_name,
+            })
+        except:
+            print('cqpart-server unavailable')
+        # finally check that it's sane and delete
+        if os.path.exists(base_dir):
+            shutil.rmtree(temp_dir)
