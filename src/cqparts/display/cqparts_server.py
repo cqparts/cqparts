@@ -48,34 +48,34 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
         if ENVVAR_SERVER not in os.environ:
             raise KeyError("environment variable '%s' not set" % ENVVAR_SERVER)
 
-        # Verify Parameter(s)
-        # check that it is a component
-        from .. import Component
-        if not isinstance(component, Component):
-            raise TypeError("given component must be a %r, not a %r" % (
-                Component, type(component)
-            ))
-
-        # get the name of the object 
-        cp_name = type(component).__name__
-
-        # create temporary folder
-        #tmp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss')
-        temp_dir = tempfile.mkdtemp()
-        base_dir = self._mkdir(temp_dir,cp_name)
-
-        # export the files to the name folder
-        exporter = component.exporter('gltf')
-        exporter(
-            filename=os.path.join(base_dir, 'out.gltf'),
-            embed=False,
-        )
-
         # get the server from the environment
         server_url = os.environ[ENVVAR_SERVER]
+        # check that the server is running
         try:
-            # check that the server is running
             resp = requests.get(server_url + '/status')
+
+            # Verify Parameter(s)
+            # check that it is a component
+            from .. import Component
+            if not isinstance(component, Component):
+                raise TypeError("given component must be a %r, not a %r" % (
+                    Component, type(component)
+                ))
+
+            # get the name of the object 
+            cp_name = type(component).__name__
+
+            # create temporary folder
+            #tmp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss')
+            temp_dir = tempfile.mkdtemp()
+            base_dir = self._mkdir(temp_dir,cp_name)
+
+            # export the files to the name folder
+            exporter = component.exporter('gltf')
+            exporter(
+                filename=os.path.join(base_dir, 'out.gltf'),
+                embed=False,
+            )
 
             # create the list of files to upload
             file_list = os.listdir(base_dir)
@@ -94,8 +94,8 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
             resp = requests.post(server_url + '/notify', data={
                 'name': cp_name,
             })
+            # finally check that it's sane and delete
+            if os.path.exists(base_dir):
+                shutil.rmtree(temp_dir)
         except:
             print('cqpart-server unavailable')
-        # finally check that it's sane and delete
-        if os.path.exists(base_dir):
-            shutil.rmtree(temp_dir)
