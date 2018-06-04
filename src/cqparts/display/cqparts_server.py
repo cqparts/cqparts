@@ -83,17 +83,17 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
 
             # create the list of files to upload
             file_list = os.listdir(base_dir)
-            file_load_dict = {}
+            file_load_list = []
             for i in file_list:
                 # path of file to upload
                 file_name = os.path.join(base_dir, i)
                 # short reference to file
                 file_ref = os.path.join(cp_name, i)
                 # make dict for file upload
-                file_load_dict[file_ref] = open(file_name, 'rb')
+                file_load_list.append(('objs',(file_ref,open(file_name, 'rb'))))
 
             # upload the files as multipart upload
-            requests.post(server_url + '/upload', files=file_load_dict)
+            requests.post(server_url + '/upload', files=file_load_list)
             # notify the cq parts server
             # TODO more data in post, bounding box , other data
             requests.post(server_url + '/notify', data={
