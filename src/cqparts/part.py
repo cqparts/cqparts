@@ -1,6 +1,7 @@
 import cadquery
 import six
-from copy import copy
+import types
+from copy import copy, deepcopy
 
 from .params import Boolean
 from .display.material import (
@@ -30,6 +31,9 @@ class Part(Component):
         # Initializing Instance State
         self._local_obj = None
         self._world_obj = None
+
+        # Copy tracking
+        self._copy_list = []  # list of copies
 
     def make(self):
         """
@@ -123,6 +127,10 @@ class Part(Component):
         self._local_obj = value
         self._world_obj = None
 
+        # also reset world objects for copies
+        for c in self._copy_list:
+            c._world_obj = None
+
     # ----- World Object
     @property
     def world_obj(self):
@@ -160,3 +168,55 @@ class Part(Component):
 
     def _placement_changed(self):
         self._world_obj = None
+
+    def __copy__(self):
+        return PartCopy(copy_source=self)
+
+    def __deepcopy__(self):
+        obj = deepcopy(super(Part, self))
+        return obj
+
+
+class PartCopy(Part):
+    """
+
+    """
+
+    def __init__(self, copy_source, **kwargs):
+        super(PartCopy, self).__init__(**kwargs)
+
+        # Copy tracking
+        self._copy_source = copy_source
+        copy_source._copy_list.append(self)
+
+    @property
+    def local_obj(self):
+        return self._copy_source.local_obj
+
+    @local_obj.setter
+    def local_obj(self, value):
+        self._copy_source.local_obj = value
+
+    #def params(self, *args, **kwargs):
+    #    return self._copy_source.params(*args, **kwargs)
+
+    def __repr__(self):
+        return self._repr_str(
+            cls_str=type(self._copy_source).__name__ + '[copy]',
+            params=self._copy_source.params(hidden=False),
+        )
+
+    def __getattr__(self, key):
+        try:
+            return self._copy_source.params()[key]
+        except KeyError:
+            raise AttributeError(
+                "{cls} of '{obj_cls}' object has no attribute '{key}'".format(
+                    cls=type(self).__name__,
+                    obj_cls=type(self._copy_source).__name__,
+                    key=key,
+                )
+            )
+
+    def __copy__(self):
+        return copy(self._copy_source)

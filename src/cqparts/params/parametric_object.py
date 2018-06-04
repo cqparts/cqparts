@@ -133,17 +133,23 @@ class ParametricObject(object):
             for name in param_names
         )
 
-    def __repr__(self):
+    def _repr_str(self, cls_str=None, params=None):
         # Returns string of the form:
         #   <ClassName: diameter=3.0, height=2.0, twist=0.0>
-        params = self.params(hidden=False)
+        if cls_str is None:
+            cls_str = type(self).__name__
+        if params is None:
+            params = self.params(hidden=False)
         return "<{cls}: {params}>".format(
-            cls=type(self).__name__,
+            cls=cls_str,
             params=", ".join(
                 "%s=%r" % (k, v)
                 for (k, v) in sorted(params.items(), key=lambda x: x[0])  # sort by name
             ),
         )
+
+    def __repr__(self):
+        return self._repr_str()
 
     def initialize_parameters(self):
         """

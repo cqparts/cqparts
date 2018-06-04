@@ -47,12 +47,7 @@ class MakeSimpleTests(CQPartsTest):
         p_simple = P(_simple=True)
         sbb = p_simple.local_obj.val().BoundingBox()  # simplified geometry
 
-        self.assertAlmostEqual(cbb.xmin, sbb.xmin)
-        self.assertAlmostEqual(cbb.xmax, sbb.xmax)
-        self.assertAlmostEqual(cbb.ymin, sbb.ymin)
-        self.assertAlmostEqual(cbb.ymax, sbb.ymax)
-        self.assertAlmostEqual(cbb.zmin, sbb.zmin)
-        self.assertAlmostEqual(cbb.zmax, sbb.zmax)
+        self.assertBoundingBoxEqual(cbb, sbb)
 
     def test_simplify(self):
         class P(cqparts.Part):
@@ -151,7 +146,7 @@ class PartEqualityTests(CQPartsTest):
         self.assertNotEqual(b1, b2)
 
 
-class CopyTests(CQPartsTest):
+class PartCopyTests(CQPartsTest):
 
     def test_basic(self):
         b1 = Box(length=10, width=20, height=30)
@@ -185,7 +180,55 @@ class CopyTests(CQPartsTest):
 
         self.assertIs(b1.local_obj, b3.local_obj)
 
+    def test_world_obj_separate(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
 
+        b1.world_coords = CoordSystem((100, 0, 0))
+        b2.world_coords = CoordSystem((-100, 0, 0))
+
+        bb1 = b1.world_obj.val().BoundingBox()
+        self.assertAlmostEqual(bb1.xmin, 95)
+        self.assertAlmostEqual(bb1.xmax, 105)
+
+        bb2 = b2.world_obj.val().BoundingBox()
+        self.assertAlmostEqual(bb2.xmin, -105)
+        self.assertAlmostEqual(bb2.xmax, -95)
+
+    def test_world_obj_reset_orig(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+
+        b1.world_coords = CoordSystem((100, 0, 0))
+        b2.world_coords = CoordSystem((-100, 0, 0))
+
+        self.assertEqual(len(b1.world_obj.faces().objects), 6)
+        self.assertEqual(len(b2.world_obj.faces().objects), 6)
+
+        # change original local_obj
+        b1.local_obj = b1.local_obj.faces('>Z').hole(1)
+
+        self.assertEqual(len(b1.world_obj.faces().objects), 7)
+        self.assertEqual(len(b2.world_obj.faces().objects), 7)
+
+    def test_world_obj_reset_copy(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+
+        b1.world_coords = CoordSystem((100, 0, 0))
+        b2.world_coords = CoordSystem((-100, 0, 0))
+
+        self.assertEqual(len(b1.world_obj.faces().objects), 6)
+        self.assertEqual(len(b2.world_obj.faces().objects), 6)
+
+        # change original local_obj
+        b2.local_obj = b2.local_obj.faces('>Z').hole(1)
+
+        self.assertEqual(len(b1.world_obj.faces().objects), 7)
+        self.assertEqual(len(b2.world_obj.faces().objects), 7)
+
+import unittest
+@unittest.skip  # TODO: deepcopy not implemented yet
 class DeepcopyTests(CQPartsTest):
 
     def test_basic(self):

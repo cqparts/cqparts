@@ -140,7 +140,16 @@ class CQPartsTest(unittest.TestCase):
 
     def assertEqualAndType(self, obj, exp, t):
         self.assertEqual(obj, exp)
-        self.assertEqual(type(exp), t)  # explicit test; intentionally not isinstance()
+        self.assertIs(type(exp), t)  # explicit test; intentionally not isinstance()
+
+    def assertBoundingBoxEqual(self, bb_a, bb_b, places=7):
+        self.assertAlmostEqual(bb_a.xmin, bb_b.xmin, places=places)
+        self.assertAlmostEqual(bb_a.xmax, bb_b.xmax, places=places)
+        self.assertAlmostEqual(bb_a.ymin, bb_b.ymin, places=places)
+        self.assertAlmostEqual(bb_a.ymax, bb_b.ymax, places=places)
+        self.assertAlmostEqual(bb_a.zmin, bb_b.zmin, places=places)
+        self.assertAlmostEqual(bb_a.zmax, bb_b.zmax, places=places)
+
 
 
 class CodecRegisterTests(CQPartsTest):
