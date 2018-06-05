@@ -90,6 +90,7 @@ function setup() {
 function clean() {
     # generated setup script
     test -f ../src/setup.py && rm -v ../src/setup.py
+    test -f ../src/setup.pyc && rm -v ../src/setup.pyc
 
     # build folders
     test -d ../src/build && rm -rfv ../src/build
