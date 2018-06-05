@@ -151,7 +151,6 @@ class CQPartsTest(unittest.TestCase):
         self.assertAlmostEqual(bb_a.zmax, bb_b.zmax, places=places)
 
 
-
 class CodecRegisterTests(CQPartsTest):
     def setUp(self):
         super(CodecRegisterTests, self).setUp()

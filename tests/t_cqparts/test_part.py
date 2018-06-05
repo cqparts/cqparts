@@ -227,6 +227,21 @@ class PartCopyTests(CQPartsTest):
         self.assertEqual(len(b1.world_obj.faces().objects), 7)
         self.assertEqual(len(b2.world_obj.faces().objects), 7)
 
+    def test_params(self):
+        b1 = Box(length=10, width=20, height=30)
+        b2 = copy(b1)
+
+        self.assertEqual(b1.length, b2.length)
+
+        # change original
+        b1.width = 200
+        self.assertEqual(b1.width, b2.width)
+
+        # change copy
+        b2.height = 300
+        self.assertEqual(b1.height, b2.height)
+
+
 import unittest
 @unittest.skip  # TODO: deepcopy not implemented yet
 class DeepcopyTests(CQPartsTest):
