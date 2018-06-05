@@ -11,4 +11,5 @@ def add_catalogue(filename):
 
 
 # Stepper Catalogue(s)
+add_catalogue('../src/cqparts_motors/catalogue/dcmotor.json')
 add_catalogue('../src/cqparts_motors/catalogue/stepper-nema.json')

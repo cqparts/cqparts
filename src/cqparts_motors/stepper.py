@@ -1,8 +1,8 @@
 
-# cqparts motors
-# 2018 Simon Kirkby obeygiantrobot@gmail.com
-
-# stepper motor generic
+""" cqparts motors
+ 2018 Simon Kirkby obeygiantrobot@gmail.com
+ stepper motor generic
+"""
 
 # TODO
 # need a cutout for mounting
@@ -11,13 +11,14 @@
 import cadquery as cq
 
 import cqparts
-from cqparts.params import *
+from cqparts.params import PositiveFloat
 from cqparts.constraint import Fixed, Coincident
 from cqparts.constraint import Mate
 from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
-from . import shaft
+import shaft
+import motor
 
 class _EndCap(cqparts.Part):
     # Parameters
@@ -34,6 +35,7 @@ class _EndCap(cqparts.Part):
 
     @property
     def mate_top(self):
+        " connect to the end of the top cap"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
             xDir=(0, 1, 0),
@@ -42,6 +44,7 @@ class _EndCap(cqparts.Part):
 
     @property
     def mate_bottom(self):
+        " bottom of the top cap"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
             xDir=(0, 1, 0),
@@ -66,18 +69,20 @@ class _Stator(cqparts.Part):
 
     @property
     def mate_top(self):
+        " top of the stator"
         return Mate(self, CoordSystem(
-            origin=(0, 0, self.length/2),
+            origin=(0, 0, self.length/4),
             xDir=(0, 1, 0),
             normal=(0, 0, 1)
             ))
 
     @property
     def mate_bottom(self):
+        " bottom of the stator"
         return Mate(self, CoordSystem(
             origin=(0, 0, -self.length/2),
-            xDir=(0, 1, 0),
-            normal=(0, 0, 1)
+            xDir=(1, 0, 0),
+            normal=(0, 0, -1)
             ))
 
 
@@ -97,6 +102,24 @@ class _StepperMount(_EndCap):
             .circle(self.boss/2).extrude(self.boss_length)
         return obj
 
+    @property
+    def mate_top(self):
+        " top of the mount"
+        return Mate(self, CoordSystem(
+            origin=(0, 0, self.length/2),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
+            ))
+
+    @property
+    def mate_bottom(self):
+        " bottom of the mount"
+        return Mate(self, CoordSystem(
+            origin=(0, 0, -self.length),
+            xDir=(0, 1, 0),
+            normal=(0, 0, 1)
+            ))
+
 
 class _Back(_EndCap):
     spacing = PositiveFloat(31, doc="hole spacing")
@@ -111,20 +134,27 @@ class _Back(_EndCap):
         return obj
 
 
-class Stepper(cqparts.Assembly):
-
-    # Shaft type
+class Stepper(motor.Motor):
+    " Stepper Motor , simple rendering "
     shaft_type = shaft.Shaft
 
-    width = PositiveFloat(42.3)
-    length = PositiveFloat(50)
-    hole_spacing = PositiveFloat(31.0)
-    hole_size = PositiveFloat(3)
-    boss_size = PositiveFloat(22)
-    boss_length = PositiveFloat(2)
+    width = PositiveFloat(42.3, doc="width and depth of the stepper")
+    length = PositiveFloat(50, doc="length of the stepper")
+    hole_spacing = PositiveFloat(31.0, doc="distance between centers")
+    hole_size = PositiveFloat(3, doc="hole diameter , select screw with this")
+    boss_size = PositiveFloat(22, doc="diameter of the raise circle")
+    boss_length = PositiveFloat(2, doc="length away from the top surface")
 
-    shaft_diam = PositiveFloat(5)
-    shaft_length = PositiveFloat(24)
+    shaft_diam = PositiveFloat(5, doc="diameter of the the shaft ")
+    shaft_length = PositiveFloat(24, doc="length from top surface")
+
+    def get_shaft(self):
+        return self.shaft_type
+
+    def mount_points(self):
+        # TODO mount points
+        " return mount points"
+        pass
 
     def make_components(self):
         sec = self.length / 6
@@ -150,30 +180,33 @@ class Stepper(cqparts.Assembly):
 
     def make_constraints(self):
         return [
-            Fixed(self.components['topcap'].mate_origin),
+            Fixed(self.components['topcap'].mate_top),
             Coincident(
-                self.components['stator'].mate_bottom,
-                self.components['topcap'].mate_top
+                self.components['stator'].mate_top,
+                self.components['topcap'].mate_bottom,
             ),
             Coincident(
                 self.components['botcap'].mate_bottom,
-                self.components['stator'].mate_top
+                self.components['stator'].mate_bottom
             ),
-            Fixed(
+            Coincident(
                 self.components['shaft'].mate_origin,
-                CoordSystem(
-                    (0, 0, self.length/8-self.boss_length),
-                    (1, 0, 0),
-                    (0, 0, 1)
-                )
-            )
+                self.components['topcap'].mate_top
+            ),
             ]
 
     def apply_cutout(self):
-        shaft = self.components['shaft']
+        " shaft cutout "
+        stepper_shaft = self.components['shaft']
         top = self.components['topcap']
         local_obj = top.local_obj
-        local_obj = local_obj.cut(shaft.get_cutout(clearance=0.5))
+        local_obj = local_obj.cut(stepper_shaft.get_cutout(clearance=0.5))
 
     def make_alterations(self):
         self.apply_cutout()
+
+if __name__ == "__main__":
+    from cqparts.display import display
+    st = Stepper()
+    display(st)
+
