@@ -106,6 +106,8 @@ class _BackCover(cqparts.Part):
 class DCMotor(motor.Motor):
     """
     DC motors for models
+
+    .. image:: /_static/img/motors/DCMotor.png
     """
     height = PositiveFloat(25.1, doc="motor length")
     diam = PositiveFloat(20.4, doc="motor diameter")
