@@ -21,6 +21,8 @@ from .component import Component
 
 class Part(Component):
 
+    _copy_class = None
+
     # Parameters common to every Part
     _simple = Boolean(False, doc="if set, simplified geometry is built")
     _render = RenderParam(RENDER_TEMPLATE['default'], doc="render properties")
@@ -31,6 +33,8 @@ class Part(Component):
         # Initializing Instance State
         self._local_obj = None
         self._world_obj = None
+
+        self._local_obj_altered = False
 
         # Copy tracking
         self._copy_list = []  # list of copies
@@ -125,9 +129,10 @@ class Part(Component):
     @local_obj.setter
     def local_obj(self, value):
         self._local_obj = value
-        self._world_obj = None
+        self._local_obj_altered = not (value is None)
 
-        # also reset world objects for copies
+        # clear world_obj (local + copies)
+        self._world_obj = None
         for c in self._copy_list:
             c._world_obj = None
 
@@ -169,8 +174,21 @@ class Part(Component):
     def _placement_changed(self):
         self._world_obj = None
 
+    def __eq__(self, other):
+        return (
+            super(Part, self).__eq__(other) and
+            not (self._local_obj_altered or other._local_obj_altered)
+        )
+
+    @classmethod
+    def _make_copy_class(cls):
+        return PartCopy  # TODO: experiment with inheritance
+
     def __copy__(self):
-        return PartCopy(copy_source=self)
+        if self._copy_class is None:
+            self._copy_class = self._make_copy_class()
+        #return self._copy_class(copy_source=self, **self.params())
+        return self._copy_class(copy_source=self)
 
     def __deepcopy__(self):
         obj = deepcopy(super(Part, self))
@@ -178,9 +196,6 @@ class Part(Component):
 
 
 class PartCopy(Part):
-    """
-
-    """
 
     def __init__(self, copy_source, **kwargs):
         super(PartCopy, self).__init__(**kwargs)

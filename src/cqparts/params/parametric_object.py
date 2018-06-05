@@ -151,6 +151,16 @@ class ParametricObject(object):
     def __repr__(self):
         return self._repr_str()
 
+    def __eq__(self, other):
+        class_family = (
+            issubclass(type(self), type(other)) or
+            issubclass(type(other), type(self))
+        )
+        return (class_family and (self.params() == other.params()))
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def initialize_parameters(self):
         """
         A palce to set default parameters more intelegently than just a

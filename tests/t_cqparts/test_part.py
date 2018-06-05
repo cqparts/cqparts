@@ -1,3 +1,4 @@
+import unittest
 from copy import copy, deepcopy
 from math import sqrt
 
@@ -128,13 +129,22 @@ class PartEqualityTests(CQPartsTest):
 
         # parts considered equal
         self.assertEqual(b1, b2)
-        self.assertEqual(hash(b1), hash(b2))
+        self.assertFalse(b1 != b2)
 
         # geometry is independent
         self.assertIsNot(b1.local_obj, b2.local_obj)
 
+    # TODO: Part is not immutable, parameters can be changed.
+    #       issue for discussion: https://github.com/fragmuffin/cqparts/issues/106
+    #def test_hash(self):
+    #    obj_params = {'length': 1, 'width': 2, 'height': 3}
+    #    b1 = Box(**obj_params)
+    #    b2 = Box(**obj_params)
+    #
+    #    self.assertEqual(hash(b1), hash(b2))
+
     def test_eq_local_obj_change(self):
-        obj_params = {'length': 1, 'width': 2, 'height': 3}
+        obj_params = {'length': 3, 'width': 4, 'height': 5}
         b1 = Box(**obj_params)
         b2 = Box(**obj_params)
         self.assertEqual(b1, b2)
@@ -242,7 +252,6 @@ class PartCopyTests(CQPartsTest):
         self.assertEqual(b1.height, b2.height)
 
 
-import unittest
 @unittest.skip  # TODO: deepcopy not implemented yet
 class DeepcopyTests(CQPartsTest):
 
