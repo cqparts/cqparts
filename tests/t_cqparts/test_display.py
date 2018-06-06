@@ -108,16 +108,40 @@ class WebTests(CQPartsTest):
 @testlabel('web')
 class CQPartsServerTests(CQPartsTest):
 
+    @mock.patch('requests.get')
     @mock.patch('requests.post')
     @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
-    def test_basic(self, mock_requests_post):
+    def test_basic(self, mock_requests_post, mock_requests_get):
         part = Box()
         disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
         disp_env.display(part)
 
-        mock_requests_post.assert_called_once_with(
-            'http://abc:123/notify', data={'name': 'Box'},
-        )
+        # status
+        mock_requests_get.assert_called_once_with('http://abc:123/status')
+
+        self.assertEqual(len(mock_requests_post.call_args_list), 2)
+        # upload
+        (args, kwargs) = mock_requests_post.call_args_list[0]
+        self.assertEqual(args, ('http://abc:123/upload',))
+        self.assertEqual(len(kwargs['files']), 2)
+        # notify
+        (args, kwargs) = mock_requests_post.call_args_list[1]
+        self.assertEqual(args, ('http://abc:123/notify',))
+
+    def _raise_connectionerror(*args, **kwargs):
+        import requests
+        raise requests.exceptions.ConnectionError
+
+    @mock.patch('requests.get', _raise_connectionerror)
+    @mock.patch('requests.post')
+    @mock.patch('os.environ', {'CQPARTS_SERVER': 'http://abc:123'})
+    def test_no_connection(self, mock_requests_post):
+        part = Box()
+        disp_env = display.cqparts_server.CQPartsServerDisplayEnv()
+        disp_env.display(part)
+
+        # no error, and no further contact attempted
+        mock_requests_post.assert_not_called()
 
     @mock.patch('os.environ', {})  # empty
     def test_bad_env(self):
