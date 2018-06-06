@@ -51,6 +51,7 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
 
         # get the server from the environment
         server_url = os.environ[ENVVAR_SERVER]
+
         # Verify Parameter(s)
         # check that it is a component
         from .. import Component
@@ -58,22 +59,23 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
             raise TypeError("given component must be a %r, not a %r" % (
                 Component, type(component)
             ))
+
         # check that the server is running
         try:
             requests.get(server_url + '/status')
             #TODO inspect response for actual status and do stuff
         except requests.exceptions.ConnectionError:
             print('cqpart-server unavailable')
-        # only runs if the server comes back 
-        else:
-            # get the name of the object
-            cp_name = type(component).__name__
+            return
 
-            # create temporary folder
-            #tmp_dir = self._mkdir(tempfile.gettempdir(), 'cqpss')
-            temp_dir = tempfile.mkdtemp()
-            base_dir = self._mkdir(temp_dir, cp_name)
+        # get the name of the object
+        cp_name = type(component).__name__
 
+        # create temporary folder
+        temp_dir = tempfile.mkdtemp()
+        base_dir = self._mkdir(temp_dir, cp_name)
+
+        try:
             # export the files to the name folder
             start_time = time.time()
             exporter = component.exporter('gltf')
@@ -93,7 +95,9 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
                 # short reference to file
                 file_ref = os.path.join(cp_name, i)
                 # make dict for file upload
-                file_load_list.append(('objs',(file_ref,open(file_name, 'rb'))))
+                file_load_list.append(
+                    ('objs', (file_ref, open(file_name, 'rb')))
+                )
 
             # upload the files as multipart upload
             requests.post(server_url + '/upload', files=file_load_list)
@@ -103,7 +107,8 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
                 'duration': duration,
                 'name': cp_name,
             })
+
         finally:
             # finally check that it's sane and delete
-            if os.path.exists(base_dir):
+            if os.path.isdir(temp_dir):
                 shutil.rmtree(temp_dir)
