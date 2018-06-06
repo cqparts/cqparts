@@ -15,7 +15,7 @@ import requests
 
 from .environment import map_environment, DisplayEnvironment
 
-LOG = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 
@@ -51,18 +51,21 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
 
         # get the server from the environment
         server_url = os.environ[ENVVAR_SERVER]
+        # Verify Parameter(s)
+        # check that it is a component
+        from .. import Component
+        if not isinstance(component, Component):
+            raise TypeError("given component must be a %r, not a %r" % (
+                Component, type(component)
+            ))
         # check that the server is running
         try:
             requests.get(server_url + '/status')
-
-            # Verify Parameter(s)
-            # check that it is a component
-            from .. import Component
-            if not isinstance(component, Component):
-                raise TypeError("given component must be a %r, not a %r" % (
-                    Component, type(component)
-                ))
-
+            #TODO inspect response for actual status and do stuff
+        except requests.exceptions.ConnectionError:
+            print('cqpart-server unavailable')
+        # only runs if the server comes back 
+        else:
             # get the name of the object
             cp_name = type(component).__name__
 
@@ -100,8 +103,7 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
                 'duration': duration,
                 'name': cp_name,
             })
+        finally:
             # finally check that it's sane and delete
             if os.path.exists(base_dir):
                 shutil.rmtree(temp_dir)
-        except requests.exceptions.ConnectionError:
-            print('cqpart-server unavailable')
