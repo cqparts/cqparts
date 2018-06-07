@@ -62,10 +62,10 @@ function init() {
     // raycaster
     raycaster = new THREE.Raycaster();
     // add to doc and bind events
-    document.addEventListener( 'resize', onWindowResize, false );
-    document.addEventListener('mousemove',onDocumentMouseMove,false);
-    document.addEventListener('mousedown',onDocumentClick,false);
-    document.addEventListener('keydown',onKey,false);
+    window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener('mousemove',onDocumentMouseMove,false);
+    window.addEventListener('mousedown',onDocumentClick,false);
+    window.addEventListener('keydown',onKey,false);
     // Base grid helps us orient ourselves
     var baseGrid = new THREE.GridHelper(1, 10);
     //baseGrid.geometry.rotateX( Math.PI / 2 );
