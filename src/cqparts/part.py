@@ -28,8 +28,6 @@ class Part(Component):
     _render = RenderParam(RENDER_TEMPLATE['default'], doc="render properties")
 
     def __init__(self, *largs, **kwargs):
-        super(Part, self).__init__(*largs, **kwargs)
-
         # Initializing Instance State
         self._local_obj = None
         self._world_obj = None
@@ -38,6 +36,8 @@ class Part(Component):
 
         # Copy tracking
         self._copy_list = []  # list of copies
+
+        super(Part, self).__init__(*largs, **kwargs)
 
     def make(self):
         """
