@@ -106,15 +106,6 @@ class Assembly(Component):
             self.build(recursive=False)
         return self._constraints
 
-    def _placement_changed(self):
-        """
-        Called when ``world_coords`` is changed.
-
-        All components' ``world_coords`` must be updated based on the change;
-        calls :meth:`solve`.
-        """
-        self.solve()
-
     def solve(self):
         """
         Run the solver and assign the solution's :class:`CoordSystem` instances
@@ -412,3 +403,10 @@ class Assembly(Component):
                     output += ': ' + repr(component)
                 output += '\n'
         return output
+
+    class Placed(Component.Placed):
+        def _placement_changed(self):
+            # Called when coords is chaned.
+            # The placement of each of this assemblies components must be
+            # updated when the base coordinate system changes
+            self.wrapped.solve()
