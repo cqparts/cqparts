@@ -87,21 +87,21 @@ class Component(ParametricObject):
         A wrapper to a :class:`Component` to apply translation & rotation.
         """
 
-        def __init__(self, wrapped, *args, **kwargs):
+        def __init__(self, wrapped, coords=None, parent=None):
             """
             :param wrapped: wrapped component
             :type wrapped: :class:`Component`
-            :param parent: parent :class:`Component.Placed`
+            :param coords: component placement (translation & rotation from origin)
+            :type coords: :class:`CoordSystem <cqparts.utils.CoordSystem>`
+            :param parent: parent :class:`Component.Placed` or ``None``
             :type parent: :class:`Component.Placed`
             """
             if not isinstance(component, Component):
                 raise ValueError("componnet must be a Component class, not a %r" % type(component))
+
             self.wrapped = component
-
-            self.parent = kwargs.pop('parent', None)
-
-            # location, defaults to a coordinate system at the origin
-            self._coords = CoordSystem(*args, **kwargs)
+            self.parent = parent
+            self._coords = coords
 
         # --- Coordinate Systems
         # Placement coords
