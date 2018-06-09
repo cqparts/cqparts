@@ -327,12 +327,12 @@ class EasyInstallFastener(Fastener):
             # screw : cut from all effected parts
             for effect in self.evaluator.eval:
                 screw_coordsys = screw.world_coords - effect.part.world_coords
-                effect.part.local_obj = effect.part.local_obj.cut(screw_coordsys + screw_cutter)
+                effect.part.obj = effect.part.obj.cut(screw_coordsys + screw_cutter)
 
             # anchor : all but last piece
             for effect in self.evaluator.eval[:-1]:
                 anchor_coordsys = anchor.world_coords - effect.part.world_coords
-                effect.part.local_obj = effect.part.local_obj.cut(anchor_coordsys + anchor_cutter)
+                effect.part.obj = effect.part.obj.cut(anchor_coordsys + anchor_cutter)
 
 
 

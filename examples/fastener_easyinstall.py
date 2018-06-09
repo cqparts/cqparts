@@ -105,8 +105,8 @@ vertical = Panel2()
 #   note: the vertical panel is built horizontally, **then** rotated upright.
 #         so we're finding the vector we want in it's local coordinates, then
 #         we're converting them to word coordinates to perform the evaluation.
-v_bot = vertical.local_obj.faces("<Z").workplane().plane
-v_top = vertical.local_obj.faces(">Z").workplane().plane
+v_bot = vertical.obj.faces("<Z").workplane().plane
+v_top = vertical.obj.faces(">Z").workplane().plane
 midpoint = (v_bot.origin + v_top.origin).multiply(0.5)
 
 # direction of bolt (normal to horizontal panel)

@@ -27,7 +27,7 @@ class STLExporter(Exporter):
     def __call__(self, filename='out.stl', world=False, tolerance=0.1):
 
         # Getting cadquery Shape
-        workplane = self.obj.world_obj if world else self.obj.local_obj
+        workplane = self.obj.world_obj if world else self.obj.obj
         shape = workplane.val()
 
         # call cadquery exporter

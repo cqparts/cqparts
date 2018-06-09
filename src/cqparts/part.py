@@ -28,7 +28,7 @@ class Part(Component):
         super(Part, self).__init__(*largs, **kwargs)
 
         # Initializing Instance State
-        self._local_obj = None
+        self._obj = None
         self._world_obj = None
 
     def make(self):
@@ -81,18 +81,18 @@ class Part(Component):
 
     def build(self, recursive=False):
         """
-        Building a part buffers the ``local_obj`` attribute.
+        Building a part buffers the ``obj`` attribute.
 
         Running ``.build()`` is optional, it's mostly used to test that
         there aren't any critical runtime issues with it's construction.
 
         :param recursive: (:class:`Part` has no children, parameter ignored)
         """
-        self.local_obj  # force object's construction, but don't do anything with it
+        self.obj  # force object's construction, but don't do anything with it
 
     # ----- Local Object
     @property
-    def local_obj(self):
+    def obj(self):
         """
         Buffered result of :meth:`make` which is (probably) a
         :class:`cadquery.Workplane` instance. If ``_simple`` is ``True``, then
@@ -105,7 +105,7 @@ class Part(Component):
             Only call :meth:`cqparts.Part.make` directly if you explicitly intend
             to re-generate the model from scratch, then dispose of it.
         """
-        if self._local_obj is None:
+        if self._obj is None:
             # Simplified or Complex
             if self._simple:
                 value = self.make_simple()
@@ -115,19 +115,19 @@ class Part(Component):
             if not isinstance(value, cadquery.CQ):
                 raise MakeError("invalid object type returned by make(): %r" % value)
             # Buffer object
-            self._local_obj = value
-        return self._local_obj
+            self._obj = value
+        return self._obj
 
-    @local_obj.setter
-    def local_obj(self, value):
-        self._local_obj = value
+    @obj.setter
+    def obj(self, value):
+        self._obj = value
         self._world_obj = None
 
     # ----- World Object
     @property
     def world_obj(self):
         """
-        The :meth:`local_obj <local_obj>` object in the
+        The :meth:`obj <obj>` object in the
         :meth:`world_coords <Component.world_coords>` coordinate system.
 
         .. note::
@@ -136,17 +136,17 @@ class Part(Component):
             :meth:`world_coords <Component.world_coords>` is not ``Null``.
         """
         if self._world_obj is None:
-            local_obj = self.local_obj
+            obj = self.obj
             world_coords = self.world_coords
-            if (local_obj is not None) and (world_coords is not None):
+            if (obj is not None) and (world_coords is not None):
                 # Copy local object, apply transform to move to its new home.
-                self._world_obj = world_coords + local_obj
+                self._world_obj = world_coords + obj
         return self._world_obj
 
     @world_obj.setter
     def world_obj(self, value):
         # implemented just for this helpful message
-        raise ValueError("can't set world_obj directly, set local_obj instead")
+        raise ValueError("can't set world_obj directly, set obj instead")
 
     @property
     def bounding_box(self):
@@ -156,7 +156,7 @@ class Part(Component):
         :return: bounding box of part
         :rtype: cadquery.BoundBox
         """
-        return self.local_obj.findSolid().BoundingBox()
+        return self.obj.findSolid().BoundingBox()
 
     def _placement_changed(self):
         self._world_obj = None

@@ -109,3 +109,56 @@ class Component(ParametricObject):
         """
         from .codec import get_importer
         return get_importer(cls, importer_name)
+
+    class Placed(object):
+        """
+        A wrapper to a :class:`Component` to apply translation & rotation.
+        """
+
+        def __init__(self, wrapped, *args, **kwargs):
+            """
+            :param wrapped: wrapped component
+            :type wrapped: :class:`Component`
+            :param parent: parent :class:`PlacedComponent`
+            :type parent: :class:`PlacedComponent`
+            """
+            if not isinstance(component, Component):
+                raise ValueError("componnet must be a Component class, not a %r" % type(component))
+            self.wrapped = component
+
+            self.parent = kwargs.pop('parent', None)
+
+            # location, defaults to a coordinate system at the origin
+            self._coords = CoordSystem(*args, **kwargs)
+
+        def _placement_changed(self):
+            # called when:
+            #   - world_coords is set
+            # (intended to be overridden by inheriting classes)
+            pass
+
+        @property
+        def coords(self):
+            """
+            Component's placement in word coordinates
+            (:class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`)
+
+            :return: coordinate system in the world, ``None`` if not set.
+            :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+            """
+            return self._coords
+
+        @coords.setter
+        def coords(self, value):
+            if not isinstance(value, CoordSystem):
+                raise ValueError("set value must be a %r, not a %r" % (CoordSystem, type(value)))
+            self._coords = value
+            self._placement_changed()
+
+        @property
+        def obj(self):
+            return self.coords + self.wrapped.obj
+
+        # asm_ prefix as
+        asm_coords = coords
+        asm_obj = obj

@@ -56,7 +56,7 @@ class FreeCADTests(CQPartsTest):
         part = Box()
         disp_env = display.freecad.FreeCADDisplayEnv()
         disp_env.display(part)
-        mock_show.assert_called_once_with(part.local_obj, (192, 192, 192, 0))
+        mock_show.assert_called_once_with(part.obj, (192, 192, 192, 0))
 
     @patch_forgiving('Helpers.show')
     def test_assembly(self, mock_show):

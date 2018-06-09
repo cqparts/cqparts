@@ -67,7 +67,7 @@ class ThreejsJSONExporter(Exporter):
         """
         data = {}
         with StringIO() as stream:
-            obj = self.obj.world_obj if world else self.obj.local_obj
+            obj = self.obj.world_obj if world else self.obj.obj
             cadquery.exporters.exportShape(obj, 'TJS', stream)
             stream.seek(0)
             data = json.load(stream)

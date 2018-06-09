@@ -99,7 +99,7 @@ We can only know what ``C`` is if we know the values of both ``A`` and ``B``.
         @property
         def mate_top(self):
             return Mate(self, CoordSystem.from_plane(
-                self.local_obj.faces(">Z").workplane().plane
+                self.obj.faces(">Z").workplane().plane
             ))
 
     class Thing(Assembly):

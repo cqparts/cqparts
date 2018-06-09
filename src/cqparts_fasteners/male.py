@@ -175,7 +175,7 @@ class MaleFastenerPart(cqparts.Part):
         # (change thread's length before building... not the typical flow, but
         #  it works all the same)
         self.thread.length = (self.length - self.neck_length) + thread_offset
-        self.local_obj = None  # clear to force build after parameter change
+        self.obj = None  # clear to force build after parameter change
 
     def make(self):
         # build Head
@@ -208,7 +208,7 @@ class MaleFastenerPart(cqparts.Part):
                 obj = obj.union(neck_taper)
 
         # build thread
-        thread = self.thread.local_obj.translate((0, 0, -self.length))
+        thread = self.thread.obj.translate((0, 0, -self.length))
         obj = obj.union(thread)
 
         # Sharpen to a point

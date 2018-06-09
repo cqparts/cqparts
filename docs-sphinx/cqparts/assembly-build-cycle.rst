@@ -177,7 +177,7 @@ And finally, lets combine the two to fully utilise a single build cycle.
             coords = self.components['cyl'].world_coords - self.components['pla'].world_coords
             # apply that to the "cutout" we want to subtract from the plate
             cutout = coords + self.components['cyl'].cutaway
-            self.components['pla'].local_obj = self.components['pla'].local_obj.cut(cutout)
+            self.components['pla'].obj = self.components['pla'].obj.cut(cutout)
 
 I got a bit lazy with the parameters there; ``Thing`` doesn't take any.
 

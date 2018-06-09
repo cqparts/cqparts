@@ -199,8 +199,8 @@ class Stepper(motor.Motor):
         " shaft cutout "
         stepper_shaft = self.components['shaft']
         top = self.components['topcap']
-        local_obj = top.local_obj
-        local_obj = local_obj.cut(stepper_shaft.get_cutout(clearance=0.5))
+        obj = top.obj
+        obj = obj.cut(stepper_shaft.get_cutout(clearance=0.5))
 
     def make_alterations(self):
         self.apply_cutout()

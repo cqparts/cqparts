@@ -29,7 +29,7 @@ class STEPExporter(Exporter):
     def __call__(self, filename='out.step', world=False):
 
         # Getting cadquery Shape
-        workplane = self.obj.world_obj if world else self.obj.local_obj
+        workplane = self.obj.world_obj if world else self.obj.obj
         shape = workplane.val()
 
         # call cadquery exporter

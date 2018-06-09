@@ -56,8 +56,8 @@ class NutAndBoltFastener(Fastener):
             for effect in self.evaluator.eval:
                 # bolt
                 bolt_coordsys = bolt.world_coords - effect.part.world_coords
-                effect.part.local_obj = effect.part.local_obj.cut(bolt_coordsys + bolt_cutter)
+                effect.part.obj = effect.part.obj.cut(bolt_coordsys + bolt_cutter)
 
                 # nut
                 nut_coordsys = nut.world_coords - effect.part.world_coords
-                effect.part.local_obj = effect.part.local_obj.cut(nut_coordsys + nut_cutter)
+                effect.part.obj = effect.part.obj.cut(nut_coordsys + nut_cutter)

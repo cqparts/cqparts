@@ -104,7 +104,7 @@ class Thing(cqparts.Assembly):
         coords = self.components['cyl'].world_coords - self.components['pla'].world_coords
         # apply that to the "cutout" we want to subtract from the plate
         cutout = coords + self.components['cyl'].cutaway
-        self.components['pla'].local_obj = self.components['pla'].local_obj.cut(cutout)
+        self.components['pla'].obj = self.components['pla'].obj.cut(cutout)
 
 
 # -------------------------- Multiple Cycles --------------------------
