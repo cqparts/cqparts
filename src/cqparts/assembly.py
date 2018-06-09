@@ -24,6 +24,7 @@ class Assembly(Component):
         self._components = None
         self._constraints = None
 
+    # --- Override methods
     def make_components(self):
         """
         Create and return :class:`dict` of :class:`Component` instances.
@@ -227,7 +228,7 @@ class Assembly(Component):
         self._components.update(new_components)
 
         # Make Constraints
-        constraints_iter = genwrap(self.make_constraints(), "make_components", list)
+        constraints_iter = genwrap(self.make_constraints(), "make_constraints", list)
         new_constraints = next(constraints_iter)
         self.verify_constraints(new_constraints)
         self._constraints += new_constraints
