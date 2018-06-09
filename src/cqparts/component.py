@@ -120,8 +120,10 @@ class Component(ParametricObject):
         def coords(self, value):
             if not isinstance(value, CoordSystem):
                 raise ValueError("set value must be a %r, not a %r" % (CoordSystem, type(value)))
-            self._coords = value
-            self._placement_changed()
+            if self._coords != value:
+                self._coords = value
+                self._placement_changed()
+            # else: if coordinates are not being changed, don't do anything
 
         # World coordinates
         @property
