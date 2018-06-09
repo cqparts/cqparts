@@ -29,7 +29,6 @@ class Part(Component):
 
         # Initializing Instance State
         self._obj = None
-        self._world_obj = None
 
     def make(self):
         """
@@ -123,31 +122,6 @@ class Part(Component):
         self._obj = value
         self._world_obj = None
 
-    # ----- World Object
-    @property
-    def world_obj(self):
-        """
-        The :meth:`obj <obj>` object in the
-        :meth:`world_coords <Component.world_coords>` coordinate system.
-
-        .. note::
-
-            This is automatically generated when called, and
-            :meth:`world_coords <Component.world_coords>` is not ``Null``.
-        """
-        if self._world_obj is None:
-            obj = self.obj
-            world_coords = self.world_coords
-            if (obj is not None) and (world_coords is not None):
-                # Copy local object, apply transform to move to its new home.
-                self._world_obj = world_coords + obj
-        return self._world_obj
-
-    @world_obj.setter
-    def world_obj(self, value):
-        # implemented just for this helpful message
-        raise ValueError("can't set world_obj directly, set obj instead")
-
     @property
     def bounding_box(self):
         """
@@ -158,5 +132,59 @@ class Part(Component):
         """
         return self.obj.findSolid().BoundingBox()
 
-    def _placement_changed(self):
-        self._world_obj = None
+    class Placed(Component.Placed):
+        def __init__(self, *args, **kwargs):
+            super(Placed, self).__init__(*args, **kwargs)
+
+            self._obj = None
+            self._world_obj = None
+
+        def _placement_changed(self):
+            # called when self.coords is set
+            self._obj = None
+            self._world_obj = None
+
+        # ----- Local Object
+        @property
+        def local_obj(self):
+            """
+            The wrapped parts :meth:`obj <cqparts.Part.obj>`
+            """
+            return self.wrapped.obj
+
+        # ----- Placed Object (aka: Assembly Object)
+        @property
+        def obj(self):
+            """
+            The wrapped Part's :meth:`obj <cqparts.Part.obj>` translated to the
+            :meth:`coords <cqparts.Component.Placed.coords>` coordinate system.
+            """
+            if self._obj is None:
+                # Copy local object, apply transform to move to its new home.
+                self._obj = self.coords + self.wrapped.obj
+            return self._obj
+
+        # ----- Assembly Object
+        asm_obj = obj  # aliased
+        asm_coords = Component.Placed.coords  # aliased
+
+        # ----- World Object
+        @property
+        def world_obj(self):
+            """
+            The wrapped Part's :meth:`obj <cqparts.Part.obj>` translated to the
+            :meth:`world_coords <cqparts.Component.Placed.world_coords>` coordinate system.
+            """
+            if self._world_obj is None:
+                self._world_obj = self.world_coords + self.wrapped.obj
+            return self._world_obj
+
+        @property
+        def bounding_box(self):
+            """
+            Generate a bounding box based on the full complexity part.
+
+            :return: bounding box of part
+            :rtype: cadquery.BoundBox
+            """
+            return self.obj.findSolid().BoundingBox()

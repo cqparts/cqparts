@@ -14,39 +14,11 @@ class Component(ParametricObject):
         instance of either :class:`Part` **or** :class:`Assembly`.
     """
 
-    def __init__(self, *largs, **kwargs):
-        super(Component, self).__init__(*largs, **kwargs)
-
-        # Initializing Instance State
-        self._world_coords = None
-
     def build(self, recursive=True):
         """
         :raises NotImplementedError: must be overridden by inheriting classes to function
         """
         raise NotImplementedError("build not implemented for %r" % type(self))
-
-    def _placement_changed(self):
-        # called when:
-        #   - world_coords is set
-        # (intended to be overridden by inheriting classes)
-        pass
-
-    @property
-    def world_coords(self):
-        """
-        Component's placement in word coordinates
-        (:class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`)
-
-        :return: coordinate system in the world, ``None`` if not set.
-        :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
-        """
-        return self._world_coords
-
-    @world_coords.setter
-    def world_coords(self, value):
-        self._world_coords = value
-        self._placement_changed()
 
     @property
     def mate_origin(self):
@@ -119,8 +91,8 @@ class Component(ParametricObject):
             """
             :param wrapped: wrapped component
             :type wrapped: :class:`Component`
-            :param parent: parent :class:`PlacedComponent`
-            :type parent: :class:`PlacedComponent`
+            :param parent: parent :class:`Component.Placed`
+            :type parent: :class:`Component.Placed`
             """
             if not isinstance(component, Component):
                 raise ValueError("componnet must be a Component class, not a %r" % type(component))
@@ -131,12 +103,8 @@ class Component(ParametricObject):
             # location, defaults to a coordinate system at the origin
             self._coords = CoordSystem(*args, **kwargs)
 
-        def _placement_changed(self):
-            # called when:
-            #   - world_coords is set
-            # (intended to be overridden by inheriting classes)
-            pass
-
+        # --- Coordinate Systems
+        # Placement coords
         @property
         def coords(self):
             """
@@ -155,10 +123,21 @@ class Component(ParametricObject):
             self._coords = value
             self._placement_changed()
 
+        # World coordinates
         @property
-        def obj(self):
-            return self.coords + self.wrapped.obj
+        def world_coords(self):
+            """
+            This placed component's coordinate system in the world.
+            A coordinate system accumulated from all ancestors, starting with
+            this instances ``parent``.
+            """
+            if self.parent is None:
+                # no parent; this component is the trunk
+                return self.coords
+            return self.parent.coords + self.coords
 
-        # asm_ prefix as
-        asm_coords = coords
-        asm_obj = obj
+        # --- Callbacks
+        def _placement_changed(self):
+            # called when self.coords is set
+            # (intended to be overridden by inheriting classes)
+            pass
