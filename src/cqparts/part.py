@@ -182,13 +182,14 @@ class Part(Component):
 
     @classmethod
     def _make_copy_class(cls):
-        return PartCopy  # TODO: experiment with inheritance
+        #return PartCopy  # TODO: experiment with inheritance
+        return type('%sCopy' % cls.__name__, (PartCopy, cls), {})
 
     def __copy__(self):
         if self._copy_class is None:
             self._copy_class = self._make_copy_class()
-        #return self._copy_class(copy_source=self, **self.params())
-        return self._copy_class(copy_source=self)
+        return self._copy_class(copy_source=self, **self.params(hidden=False))
+        #return self._copy_class(copy_source=self)
 
     def __deepcopy__(self):
         obj = deepcopy(super(Part, self))
