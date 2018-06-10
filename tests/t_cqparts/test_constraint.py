@@ -3,7 +3,8 @@ from base import CQPartsTest
 from base import testlabel
 
 # Unit under test
-from cqparts.constraint import Mate
+from cqparts.constraint.mate import Mate, mate
+
 from cqparts.constraint import Fixed
 from cqparts.constraint import Coincident
 from cqparts.utils import CoordSystem
@@ -11,6 +12,44 @@ from cqparts.utils import CoordSystem
 from cqparts.constraint.solver import solver
 
 from partslib.basic import Box
+
+
+class MateDecoratorTests(CQPartsTest):
+
+    def test_naked(self):
+        @mate
+        def foo():
+            return CoordSystem()
+
+        self.assertEqual(foo._is_mate, True)
+        self.assertEqual(foo._mate_name, 'foo')
+        self.assertEqual(foo(), CoordSystem())
+
+    def test_named(self):
+        # default
+        @mate('bar')
+        def foo():
+            return CoordSystem()
+
+        self.assertEqual(foo._is_mate, True)
+        self.assertEqual(foo._mate_name, 'bar')
+        self.assertEqual(foo(), CoordSystem())
+
+        # keyword param
+        @mate(name='roo')
+        def blah():
+            return CoordSystem()
+
+        self.assertEqual(blah._is_mate, True)
+        self.assertEqual(blah._mate_name, 'roo')
+
+    def test_bad_return(self):
+        @mate
+        def foo():
+            return 1  # not a CoordSystem
+
+        with self.assertRaises(ValueError):
+            foo()
 
 
 class MateTests(CQPartsTest):

@@ -5,7 +5,7 @@ from ..utils.geometry import CoordSystem
 from ..utils.misc import property_buffered
 
 
-def mate(*args, **kwargs):
+def mate(name=None):
     """
     Decorate a function as a mate
 
@@ -38,16 +38,11 @@ def mate(*args, **kwargs):
         <Mate: ...>
 
     """
-    naked = (  # was @mate decorator used with NO () brackets?
-        len(args) == 1 and  # only 1 listed argument
-        not kwargs and  # no keyword arguments
-        callable(args[0])  # given argument is callable
-    )
-
-    # set parameters (or defaults)
-    name = None
-    if not naked:
-        name = kwargs.get('name', name)
+    func = None
+    if callable(name):
+        # @mate decorator was used with NO () brackets.
+        func = name
+        name = None
 
     def decorator(func):
         # Set attributes identifying this callable as a mate
@@ -62,13 +57,13 @@ def mate(*args, **kwargs):
         @wraps(func)
         def inner(*args, **kwargs):
             ret = func(*args, **kwargs)
-            if not isinstance(ret, Mate):
-                raise ValueError("@mate function must return a Mate, not a %r" % type(ret))
+            if not isinstance(ret, CoordSystem):
+                raise ValueError("@mate function must return a CoordSystem, not a %r" % type(ret))
             return ret
 
         return inner
 
-    return decorator(args[0]) if naked else decorator
+    return decorator(func) if func else decorator
 
 
 class Mate(object):
