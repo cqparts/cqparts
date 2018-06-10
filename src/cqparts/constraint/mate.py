@@ -1,7 +1,75 @@
 from copy import copy
+from functools import wraps
 
 from ..utils.geometry import CoordSystem
 from ..utils.misc import property_buffered
+
+
+def mate(*args, **kwargs):
+    """
+    Decorate a function as a mate
+
+    :param name: mate name, function name used by default
+    :type name: :class:`str`
+
+    .. doctest::
+
+        import cadquery
+        import cqparts
+        from cqparts.constraint.mate import mate
+        from cqparts.params import *
+        from cqparts.utils import CoordSystem
+
+        class Cube(cqparts.Part):
+            size = PositiveFloat(10, doc="cube's size")
+            def make(self):
+                return cadquery.Workplane('XY').box(*([self.size] * 3))
+
+            @mate
+            def top(self):
+                return CoordSystem((0, 0, self.size / 2))
+
+    Each function decorated with ``@mate`` must return a
+    :class:`CoordSystem <cqparts.utils.CoordSystem>` instance.
+    This will be wrapped by a :class:`Mate` instance::
+
+        >>> cube = Cube()
+        >>> cube.mate('top')
+        <Mate: ...>
+
+    """
+    naked = (  # was @mate decorator used with NO () brackets?
+        len(args) == 1 and  # only 1 listed argument
+        not kwargs and  # no keyword arguments
+        callable(args[0])  # given argument is callable
+    )
+
+    # set parameters (or defaults)
+    name = None
+    if not naked:
+        name = kwargs.get('name', name)
+
+    def decorator(func):
+        # Set attributes identifying this callable as a mate
+        #   Why not add to a list in container class?
+        #       The container class hasn't been defined yet, after all, the
+        #       function being wrapped is a part of the container class.
+        #       So any identification of mate classes must be done after the
+        #       class is defined.
+        func._is_mate = True
+        func._mate_name = name if name else func.__name__
+
+        @wraps(func)
+        def inner(*args, **kwargs):
+            ret = func(*args, **kwargs)
+            if not isinstance(ret, Mate):
+                raise ValueError("@mate function must return a Mate, not a %r" % type(ret))
+            return ret
+
+        return inner
+
+    return decorator(args[0]) if naked else decorator
+
 
 class Mate(object):
     """
