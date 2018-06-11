@@ -31,11 +31,16 @@ def mate(name=None):
 
     Each function decorated with ``@mate`` must return a
     :class:`CoordSystem <cqparts.utils.CoordSystem>` instance.
-    This will be wrapped by a :class:`Mate` instance::
+
+    **Calling mate from components**
+    Each :class:`Component <cqparts.Component>` instance has a utility
+    :meth:`mate <cqparts.Component.mate>` method to locate decorated mates
+    defined for the specific component's class, and all it inherits from::
 
         >>> cube = Cube()
         >>> cube.mate('top')
-        <Mate: ...>
+        <CoordSystem: ...>
+
 
     """
     func = None

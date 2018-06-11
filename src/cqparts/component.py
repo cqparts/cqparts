@@ -1,8 +1,31 @@
+import six
+from copy import copy
+
 from .params import ParametricObject
-from .constraint import Mate
+from .constraint.mate import Mate, mate
 from .utils import CoordSystem
 
 
+class ComponentMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        # Mate Map:
+        #   find @mate decorated methods, map them to _mate_map attribute
+        # inherit
+        _mate_map = {}
+        for base in reversed(bases):
+            _mate_map.update(copy(getattr(base, '_mate_map', {})))
+        # local
+        _mate_map.update({
+            value._mate_name: key
+            for (key, value) in attrs.items()
+            if getattr(value, '_is_mate', False)
+        })
+        attrs['_mate_map'] = _mate_map
+
+        return super(ComponentMetaclass, cls).__new__(cls, name, bases, attrs)
+
+
+@six.add_metaclass(ComponentMetaclass)
 class Component(ParametricObject):
     """
     .. note::
@@ -20,13 +43,19 @@ class Component(ParametricObject):
         """
         raise NotImplementedError("build not implemented for %r" % type(self))
 
-    @property
-    def mate_origin(self):
+    @mate('origin')
+    def _mate_origin(self):
+        return CoordSystem()
+
+    def mate(self, name, *args, **kwargs):
         """
-        :return: mate at object's origin
-        :rtype: :class:`Mate`
+        Pull out all amte
         """
-        return Mate(self, CoordSystem())
+        func_name = self._mate_map[name]
+        return getattr(self, func_name)(*args, **kwargs)
+
+    def mate_names(self):
+        return self._mate_map.keys()
 
     # ----- Export / Import
     def exporter(self, exporter_name=None):
