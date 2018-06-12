@@ -2,7 +2,7 @@ import six
 from copy import copy
 
 from .params import ParametricObject
-from .constraint.mate import Mate, mate
+from .constraint.mate import mate, PlacedComponentMate
 from .utils import CoordSystem
 
 
@@ -49,7 +49,11 @@ class Component(ParametricObject):
 
     def mate(self, name, *args, **kwargs):
         """
-        Pull out all amte
+        Gets the :class:`CoordSystem` return of a
+        :meth:`@mate <cqparts.constraint.mate.mate>` decorated function.
+
+        Read the :meth:`@mate <cqparts.constraint.mate.mate>` decorator's
+        documentation for examples.
         """
         func_name = self._mate_map[name]
         return getattr(self, func_name)(*args, **kwargs)
@@ -166,6 +170,11 @@ class Component(ParametricObject):
                 # no parent; this component is the trunk
                 return self.coords
             return self.parent.coords + self.coords
+
+        # --- Mate
+        def mate(self, name, *args, **kwargs):
+            mate_coords = self.wrapped.mate(name, *args, **kwargs)
+            return PlacedComponentMate(self, mate_coords)
 
         # --- Callbacks
         def _placement_changed(self):

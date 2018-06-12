@@ -8,7 +8,7 @@ from .display.material import (
     TEMPLATE as RENDER_TEMPLATE,
 )
 from .errors import MakeError, ParameterError, AssemblyFindError
-from .constraint import Constraint, Mate
+from .constraint import Constraint
 
 from .utils.geometry import CoordSystem
 

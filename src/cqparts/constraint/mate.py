@@ -26,21 +26,41 @@ def mate(name=None):
                 return cadquery.Workplane('XY').box(*([self.size] * 3))
 
             @mate
-            def top(self):
-                return CoordSystem((0, 0, self.size / 2))
+            def base(self):
+                return CoordSystem((0, 0, -self.size / 2))
+
+            @mate
+            def top(self, offset=0):  # mates can take parameters
+                return CoordSystem((0, 0, (self.size / 2) + offset))
+
+            @mate('side')  # mate is named 'side'
+            def _mate_pos_y(self):
+                return CoordSystem((0, self.size / 2, 0), xDir=(0, 1, 0))
 
     Each function decorated with ``@mate`` must return a
     :class:`CoordSystem <cqparts.utils.CoordSystem>` instance.
 
     **Calling mate from components**
+
     Each :class:`Component <cqparts.Component>` instance has a utility
     :meth:`mate <cqparts.Component.mate>` method to locate decorated mates
-    defined for the specific component's class, and all it inherits from::
+    defined for the specific component's class, and those inherited::
 
         >>> cube = Cube()
-        >>> cube.mate('top')
+        >>> cube.mate('base')
+        <CoordSystem: origin=(-5, 0, 0) ...>
+
+        # Mates can use parameters
+        >>> cube.mate('top', offset=0.1)
+        <CoordSystem: origin=(5.1, 0, 0) ...>
+
+        # Mates don't have to be named for their functions
+        >>> cube.mate('side')
         <CoordSystem: ...>
 
+    **Calling mate from Placed components**
+
+    .. todo:: Mates from placed components?
 
     """
     func = None
@@ -56,6 +76,7 @@ def mate(name=None):
         #       function being wrapped is a part of the container class.
         #       So any identification of mate classes must be done after the
         #       class is defined.
+        #   See Component's metaclass for how these are used
         func._is_mate = True
         func._mate_name = name if name else func.__name__
 
@@ -71,63 +92,65 @@ def mate(name=None):
     return decorator(func) if func else decorator
 
 
-class Mate(object):
+class PlacedComponentMate(object):
     """
-    A mate is a coordinate system relative to a component's origin.
+    A _mate_ is a coordinate system relative to a component's origin.
+
+    ``PlacedComponentMate`` is a data class intended to pair a
+    :class:`Component.Placed <cqparts.Component.Placed>` instance with a
+    :class:`CoordSystem <cqparts.CoordSystem>` instance relative to the placed
+    component's origin.
     """
-    def __init__(self, component, local_coords=None):
+    def __init__(self, placed_cmp, coords=None):
         """
-        :param component: component the mate is relative to
-        :type component: :class:`Component <cqparts.Component>`
-        :param local_coords: coordinate system of mate relative to component's origin
-        :type local_coords: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
-
-        If ``component`` is explicitly set to None, the mate's
-        :meth:`world_coords` == ``local_coords``.
-
-        If ``local_coords`` is not set, the component's origin is used (ie:
-        coords at ``0,0,0``, with no rotation)
-
+        :param placed_cmp: placed component the mate is relative to
+        :type placed_cmp: :class:`Component.Placed <cqparts.Component.Placed>`
+        :param coords: coordinate system of mate relative to component's origin
+        :type coords: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
         """
         from ..component import Component  # avoids circular dependency
 
-        # component
-        if isinstance(component, Component):
-            self.component = component
-        elif component is None:
-            self.component = None
+        # placed_cmp
+        if isinstance(placed_cmp, Component.Placed):
+            self.placed_cmp = placed_cmp
+        elif placed_cmp is None:
+            self.placed_cmp = None
         else:
-            raise TypeError("component must be a %r, got a %r" % (Component, component))
+            raise TypeError("placed_cmp must be a %r, got a %r" % (
+                Component.Placed, placed_cmp,
+            ))
 
-        # local_coords
-        if isinstance(local_coords, CoordSystem):
-            self.local_coords = local_coords
-        elif local_coords is None:
-            self.local_coords = CoordSystem()
+        # coords
+        if isinstance(coords, CoordSystem):
+            self.coords = coords
+        elif coords is None:
+            self.coords = CoordSystem()
         else:
-            raise TypeError("local_coords must be a %r, got a %r" %(CoordSystem, local_coords))
+            raise TypeError("coords must be a %r, got a %r" %(
+                CoordSystem, coords,
+            ))
 
     @property_buffered
     def world_coords(self):
         """
         :return: world coordinates of mate.
         :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
-        :raises ValueError: if ``.component`` does not have valid world coordinates.
+        :raises ValueError: if ``.placed_cmp`` does not have valid world coordinates.
 
-        If ``.component`` is ``None``, then the ``.local_coords`` are returned.
+        If ``.placed_cmp`` is ``None``, then the ``.coords`` are returned.
         """
-        if self.component is None:
-            # no component, world == local
-            return copy(self.local_coords)
+        if self.placed_cmp is None:
+            # no placed_cmp, world == local
+            return copy(self.coords)
         else:
-            cmp_origin = self.component.world_coords
+            cmp_origin = self.placed_cmp.world_coords
             if cmp_origin is None:
                 raise ValueError(
-                    "mate's component does not have world coordinates; "
+                    "mate's placed_cmp does not have world coordinates; "
                     "cannot get mate's world coordinates"
                 )
 
-            return cmp_origin + self.local_coords
+            return cmp_origin + self.coords
 
     def __add__(self, other):
         """
@@ -137,14 +160,14 @@ class Mate(object):
 
         :class:`Mate` + :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`:
 
-        Return a copy of ``self`` with ``other`` added to ``.local_coords``
+        Return a copy of ``self`` with ``other`` added to ``.coords``
 
         :raises TypeError: if type of ``other`` is not supported
         """
         if isinstance(other, CoordSystem):
             return type(self)(
-                component=self.component,
-                local_coords=self.local_coords + other,
+                placed_cmp=self.placed_cmp,
+                coords=self.coords + other,
             )
 
         else:
@@ -153,8 +176,8 @@ class Mate(object):
             ))
 
     def __repr__(self):
-        return "<{cls_name}:\n  component={component}\n  local_coords={local_coords}\n>".format(
+        return "<{cls_name}:\n  placed_cmp={placed_cmp}\n  coords={coords}\n>".format(
             cls_name=type(self).__name__,
-            component=self.component,
-            local_coords=self.local_coords,
+            placed_cmp=self.placed_cmp,
+            coords=self.coords,
         )
