@@ -61,6 +61,7 @@ __all__ = [
     'Component',
     'Part',
     'Assembly',
+    'CoordSystem',
 
     # Modules
     'catalogue',
@@ -77,6 +78,7 @@ __all__ = [
 from .component import Component
 from .part import Part
 from .assembly import Assembly
+from .utils import CoordSystem
 
 from . import catalogue
 from . import codec
