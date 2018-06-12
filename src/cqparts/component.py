@@ -13,7 +13,7 @@ class ComponentMetaclass(type):
         # inherit
         _mate_map = {}
         for base in reversed(bases):
-            _mate_map.update(copy(getattr(base, '_mate_map', {})))
+            _mate_map.update(getattr(base, '_mate_map', {}))
         # local
         _mate_map.update({
             value._mate_name: key
