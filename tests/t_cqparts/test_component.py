@@ -6,6 +6,7 @@ from base import testlabel
 import cqparts
 from cqparts.utils import CoordSystem
 from cqparts.constraint import Mate
+from cqparts.constraint.mate import mate
 from cqparts import codec
 
 
@@ -40,6 +41,56 @@ class ComponentTests(CQPartsTest):
         mate = c.mate_origin
         self.assertEquals(id(mate.component), id(c))
         self.assertEquals(mate.local_coords, CoordSystem())
+
+
+class MetaclassTests(CQPartsTest):
+
+    def test_base(self):
+        self.assertEqual(
+            set(cqparts.Component._mate_map.keys()),
+            {'origin',}
+        )
+
+    def test_inherited(self):
+        class A(cqparts.Component):
+            @mate
+            def foo(self):
+                return CoordSystem()
+            @mate('bar')
+            def _x(self):
+                return CoordSystem()
+
+        self.assertEqual(
+            set(A._mate_map.keys()),
+            {'origin', 'foo', 'bar'}
+        )
+        self.assertEqual(A._mate_map['foo'], 'foo')
+        self.assertEqual(A._mate_map['bar'], '_x')
+
+    def test_inherited_twice(self):
+        class A(cqparts.Component):
+            @mate
+            def foo(self):
+                return CoordSystem()
+            @mate('bar')
+            def _x(self):
+                return CoordSystem()
+
+        class B(A):
+            @mate
+            def bar(self):
+                return CoordSystem()
+            @mate
+            def roo(self):
+                return CoordSystem()
+
+        self.assertEqual(
+            set(B._mate_map.keys()),
+            {'origin', 'foo', 'bar', 'roo'}
+        )
+        self.assertEqual(B._mate_map['foo'], 'foo')
+        self.assertEqual(B._mate_map['bar'], 'bar')
+        self.assertEqual(B._mate_map['roo'], 'roo')
 
 
 class ImportExportTests(CodecRegisterTests):
