@@ -40,7 +40,7 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
             os.mkdir(dir_path)
         return dir_path
 
-    def display_callback(self, component):
+    def display_callback(self, component, **kwargs):
         """
         :param component: the component to render
         :type component: :class:`Component <cqparts.Component>`
