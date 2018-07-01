@@ -33,6 +33,12 @@ class Shaft(cqparts.Part):
             .chamfer(0.4)
         return shft
 
+    def cut_out(self):
+        cutout = cq.Workplane("XY")\
+            .circle(self.diam/2)\
+            .extrude(self.length)
+        return cutout 
+
     # TODO , mate for shafts
 
     def get_cutout(self, clearance=0):
