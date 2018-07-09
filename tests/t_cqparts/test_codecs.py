@@ -185,6 +185,7 @@ class TestStep(CodecFileTest):
         filename = 'test-files/cube.step'
         with suppress_stdout_stderr():
             cube = Part.importer('step')(filename)
+            self.assertEqual(type(cube).__name__, 'cube_step')
             self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
             self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
 
@@ -192,6 +193,7 @@ class TestStep(CodecFileTest):
         filename = u'test-files/cube.step'
         with suppress_stdout_stderr():
             cube = Part.importer('step')(filename)
+            self.assertEqual(type(cube).__name__, 'cube_step')
             self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
             self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
 
