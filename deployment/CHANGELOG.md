@@ -7,6 +7,8 @@
 
 ### Bugfixes
 
+- [#116](https://github.com/fragmuffin/cqparts/pull/116): bugfix for import unicode filenames
+
 
 ----
 
