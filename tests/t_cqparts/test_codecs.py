@@ -188,6 +188,13 @@ class TestStep(CodecFileTest):
             self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
             self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
 
+    def test_import_unicode(self):
+        filename = u'test-files/cube.step'
+        with suppress_stdout_stderr():
+            cube = Part.importer('step')(filename)
+            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
+            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+
     def test_import_nofile(self):
         filename = 'test-files/noexist.step'
         with self.assertRaises(ValueError):
