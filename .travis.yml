@@ -1,0 +1,18 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+env:
+  matrix:
+    - ENV_NAME=ubuntu-py2
+    - ENV_NAME=ubuntu-py3
+
+install:
+  - cd env/$ENV_NAME ; ./build.sh
+  - cd tests/env/$ENV_NAME ; ./build.sh
+
+script:
+  - cd tests/env/$ENV_NAME ; ./run.sh
