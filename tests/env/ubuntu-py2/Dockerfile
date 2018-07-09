@@ -16,7 +16,7 @@ RUN bash /code/${env_rel_path}/setup.sh
 USER ${tester_name}
 
 # runtime environment variables
-ENV PYTHONPATH /code/${env_rel_path}/../python-lib
+ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib
 
 # default run command
 CMD $PYTHON_BIN runtests.py --ignore "catalogue"
