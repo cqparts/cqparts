@@ -1,6 +1,5 @@
 import os
 import re
-import unicodedata
 
 import cadquery
 
@@ -58,7 +57,7 @@ class STEPPartImporter(Importer):
             name = name.decode()  # type: bytes -> str
 
         # if begins with a number, inject a '_' at the beginning
-        if re.search(r'^\d', 'x012'):
+        if re.search(r'^\d', name):
             name = '_' + name
 
         # replace non alpha-numeric characters with a '_'
