@@ -76,7 +76,7 @@ class MyTestRunner(unittest.runner.TextTestRunner):
                 suite.addTest(test)
 
         # Resume normal TextTestRunner function with the new test suite
-        super(MyTestRunner, self).run(suite)
+        return super(MyTestRunner, self).run(suite)
 
 
 if __name__ == "__main__":
@@ -190,4 +190,8 @@ if __name__ == "__main__":
         ignore_whitelist=args.ignore_whitelist,
         verbosity=2,
     )
-    testRunner.run(tests)
+    test_run = testRunner.run(tests)
+
+    # Exit with 0 if tests were successful (else 1)
+    return_code = not test_run.wasSuccessful()
+    sys.exit(return_code)
