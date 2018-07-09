@@ -11,8 +11,8 @@ env:
     - ENV_NAME=ubuntu-py3
 
 install:
-  - cd env/$ENV_NAME ; ./build.sh
-  - cd tests/env/$ENV_NAME ; ./build.sh
+  - cd $TRAVIS_BUILD_DIR/env/$ENV_NAME ; ./build.sh
+  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./build.sh
 
 script:
-  - cd tests/env/$ENV_NAME ; ./run.sh
+  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./run.sh
