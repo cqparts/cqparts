@@ -13,7 +13,7 @@ class FastenerHead(cqparts.Part):
     diameter = PositiveFloat(5.2, doc="fastener head diameter")
     height = PositiveFloat(2.0, doc="fastener head height")
     # tool access
-    access_diameter = PositiveFloat(None, doc="diameter of circle alowing tool access above fastener (defaults to diameter)")
+    access_diameter = PositiveFloat(None, doc="diameter of circle allowing tool access above fastener (defaults to diameter)")
     access_height = PositiveFloat(1000, doc="depth of hole providing access (default 1m)")
 
     def initialize_parameters(self):

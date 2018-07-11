@@ -51,7 +51,7 @@ class FloatRange(Float):
     def type(self, value):
         cast_value = super(FloatRange, self).type(value)
 
-        # Check range (min/max value of None is equivelant to -inf/inf)
+        # Check range (min/max value of None is equivalent to -inf/inf)
         inside_range = True
         if (self.min is not None) and (cast_value < self.min):
             inside_range = False
@@ -111,7 +111,7 @@ class IntRange(Int):
     def type(self, value):
         cast_value = super(IntRange, self).type(value)
 
-        # Check range (min/max value of None is equivelant to -inf/inf)
+        # Check range (min/max value of None is equivalent to -inf/inf)
         inside_range = True
         if (self.min is not None) and (cast_value < self.min):
             inside_range = False

@@ -51,7 +51,7 @@ args = parser.parse_args()
 # TODO: build your own objects in whatever way suits your application.
 
 def build_obj(cls, **kwargs):
-    # Take any parameters relevent to the given class from kwargs
+    # Take any parameters relevant to the given class from kwargs
     #   (all other parameters ignored)
     class_params = cls.class_params()
     obj_kwargs = {

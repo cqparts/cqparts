@@ -62,7 +62,7 @@ def get_display_environment():
     return None
 
 
-# Generic display funciton
+# Generic display function
 def display(component, **kwargs):
     """
     Display the given component based on the environment it's run from.

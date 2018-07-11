@@ -84,7 +84,7 @@ class HexalobularScrewDrive(ScrewDrive):
     .. image:: /_static/img/screwdrives/hexalobular.png
     """
     count = IntRange(1, None, 6)
-    gap = PositiveFloat(None)  # gap beetween circles at diameter (defaults to diameter / 8)
+    gap = PositiveFloat(None)  # gap between circles at diameter (defaults to diameter / 8)
     fillet = PositiveFloat(None)  # defaults to gap / 2
 
     # Tamper resistance pin

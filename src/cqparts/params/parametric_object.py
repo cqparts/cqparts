@@ -147,7 +147,7 @@ class ParametricObject(object):
 
     def initialize_parameters(self):
         """
-        A palce to set default parameters more intelegently than just a
+        A place to set default parameters more intelligently than just a
         simple default value (does nothing by default)
 
         :return: ``None``
@@ -212,7 +212,7 @@ class ParametricObject(object):
             'Foo'
 
         In the second example, the classes import name is expected to be ``B``.
-        But instead, the *name* ``Foo`` is recorded. This missmatch will be
+        But instead, the *name* ``Foo`` is recorded. This mismatch will be
         irreconcilable when attempting to :meth:`deserialize`.
         """
         return {

@@ -84,7 +84,7 @@ class suppress_stdout_stderr(object):
 
 def debug_on_exception(func):
     """
-    Opens an ``ipdb`` debugging propt at the point of failure
+    Opens an ``ipdb`` debugging prompt at the point of failure
     when an uncaught exception is raised.
 
     .. warning::

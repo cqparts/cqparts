@@ -135,9 +135,9 @@ Anchor
 The anchor is composed of:
 
 * **main body** : the anchor will be cut from a large cylindrical block.
-* **neck slot** : slot alowing woodscrew's neck access.
+* **neck slot** : slot allowing woodscrew's neck access.
 * **head slot** : conical wedge to pull on screwhead when installed.
-* **access port** : 1 quadrant cut out to to alow screwhead access.
+* **access port** : 1 quadrant cut out to to allow screwhead access.
 * **screw drive** : to allow user to apply a screwdriver to install.
 
 .. doctest::
@@ -206,7 +206,7 @@ The anchor is composed of:
                     .extrude(self.head_diameter)
             )
 
-            # access port : remove a quadrant to alow screw's head through
+            # access port : remove a quadrant to allow screw's head through
             obj = obj.cut(
                 cadquery.Workplane('XY', origin=(0, 0, -(self.height - self.head_diameter) / 2)) \
                     .rect(self.diameter / 2, self.diameter / 2, centered=False) \
@@ -273,7 +273,7 @@ Wood Panel
 We'll also need to create some wooden panels that we intend to join using
 the *fastener*.
 
-It's essentially just a *box* shape, but we'll add some *mate* points to alow
+It's essentially just a *box* shape, but we'll add some *mate* points to allow
 easy alignment.
 
 .. doctest::
