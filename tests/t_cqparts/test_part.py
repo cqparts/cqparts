@@ -33,6 +33,9 @@ class PreMaturePartTests(CQPartsTest):
 
 class MakeSimpleTests(CQPartsTest):
 
+    def test_bad(self):
+        self.assertTrue(False)
+
     def test_auto_simplify(self):
         class P(cqparts.Part):
             def make(self):
