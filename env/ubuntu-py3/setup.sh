@@ -26,7 +26,7 @@ export freecad_conda_ver=${freecad_conda_ver_major}=${freecad_conda_ver_minor}
 # Install apt packages
 apt-get update
 apt-get install -y python3 python3-pip wget
-pip3 install --upgrade pip
+python3 -m pip install --upgrade pip
 
 # using conda package management to install freecad=0.17
 wget -nv https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh
@@ -39,4 +39,4 @@ conda update conda
 conda install -c freecad -c conda-forge freecad=${freecad_conda_ver} conda
 
 # install pip packages
-pip3 install ipython
+python3 -m pip install ipython

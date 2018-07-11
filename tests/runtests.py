@@ -5,6 +5,12 @@ import unittest
 import re
 import functools
 import logging
+import mock
+import os
+import inspect
+from contextlib import contextmanager
+
+_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 
 class MyTestRunner(unittest.runner.TextTestRunner):
@@ -79,6 +85,27 @@ class MyTestRunner(unittest.runner.TextTestRunner):
         return super(MyTestRunner, self).run(suite)
 
 
+@contextmanager
+def readonly_tinydb(path=None):
+    if path is None:
+        # set path default, should be repository root
+        path = os.path.realpath(os.path.join(_this_path, '..'))
+    else:
+        path = os.path.realpath(path)
+
+    # __builtin__.open replcement method
+    def _open(name, mode='r'):
+        if os.path.realpath(name).startswith(path):
+            # file being used is in this repository
+            return open(name, 'r')  # ignore given mode; force read-only
+        # otherwise, the file is probably in a temporary, read/writeable location
+        return open(name, mode)
+
+    with mock.patch('tinydb.storages.open', _open):
+        yield
+
+
+# ------------------- mainline -------------------
 if __name__ == "__main__":
 
     import argparse
@@ -176,22 +203,23 @@ if __name__ == "__main__":
                     return None
                 raise
 
-    loader = MyLoader()
-    tests = loader.discover(
-        start_dir='.',
-        pattern=args.pattern,
-    )
+    with readonly_tinydb():
+        loader = MyLoader()
+        tests = loader.discover(
+            start_dir='.',
+            pattern=args.pattern,
+        )
 
-    # Run tests
-    testRunner = MyTestRunner(
-        skip_blacklist=args.skip_blacklist,
-        skip_whitelist=args.skip_whitelist,
-        ignore_blacklist=args.ignore_blacklist,
-        ignore_whitelist=args.ignore_whitelist,
-        verbosity=2,
-    )
-    test_run = testRunner.run(tests)
+        # Run tests
+        testRunner = MyTestRunner(
+            skip_blacklist=args.skip_blacklist,
+            skip_whitelist=args.skip_whitelist,
+            ignore_blacklist=args.ignore_blacklist,
+            ignore_whitelist=args.ignore_whitelist,
+            verbosity=2,
+        )
+        test_run = testRunner.run(tests)
 
-    # Exit with 0 if tests were successful (else 1)
-    return_code = not test_run.wasSuccessful()
+        # Exit with 0 if tests were successful (else 1)
+        return_code = not test_run.wasSuccessful()
     sys.exit(return_code)
