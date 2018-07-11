@@ -19,7 +19,7 @@ add-apt-repository -y ppa:freecad-maintainers/freecad-stable
 # 2nd rount installations
 apt-get update
 apt-get install -y freecad python python-pip
-pip install --upgrade pip
+python -m pip install --upgrade pip
 
 # install pip packages
-pip install ipython
+python -m pip install ipython
