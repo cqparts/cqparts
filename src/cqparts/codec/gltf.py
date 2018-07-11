@@ -426,7 +426,7 @@ class GLTFExporter(Exporter):
         if self.obj.world_coords is None:
             self.obj.world_coords = CoordSystem()
         if isinstance(self.obj, Assembly):
-            self.obj.solve()  # shoult this be obj.build()?
+            self.obj.solve()  # should this be obj.build()?
         add(
             obj=self.obj,
             filename="%s.bin" % split[0],

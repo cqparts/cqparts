@@ -138,7 +138,7 @@ function env_new() {
     else
         # remove existing container
         env_rm
-        # start a new container, with a blocking bash prompt (detatched)
+        # start a new container, with a blocking bash prompt (detached)
         docker run \
             -it -d \
             --name ${CONTAINER_NAME} \

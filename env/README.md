@@ -27,7 +27,7 @@ To build each of these containers, go into each folder and run:
 
 ## `cqparts-env:ubuntu-py2`
 
-Install `python` and `freecad` as they are directy from `apt`
+Install `python` and `freecad` as they are directly from `apt`
 
 At the time of writing this: [2018-03]
 

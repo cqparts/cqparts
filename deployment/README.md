@@ -77,7 +77,7 @@ Deployment testing is dependent on the docker containers built in `../env`
 
 ### Dependencies
 
-Only needed when first seting up host machine...
+Only needed when first setting up host machine...
 or to update if it's been a while
 
 ```bash

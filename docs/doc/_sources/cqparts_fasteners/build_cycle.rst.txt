@@ -89,7 +89,7 @@ Instead, the :class:`Selector` sets the part placement for 2 reasons:
   components were selected, so the :class:`Selector` already has all the information
   when the selection is made.
 * **clarity**: a *fastener* component will always require placement, but the
-  parent's components will not always need to be altered. The presense of an
+  parent's components will not always need to be altered. The presence of an
   :class:`Applicator` means that parent components **will** be changed in the
   process of building a fastener.
 
