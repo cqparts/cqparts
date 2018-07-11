@@ -102,7 +102,8 @@ def readonly_tinydb(path=None):
         return open(name, mode)
 
     with mock.patch('tinydb.storages.open', _open):
-        yield
+        with mock.patch('tinydb.storages.os.utime'):
+            yield
 
 
 # ------------------- mainline -------------------
@@ -222,4 +223,5 @@ if __name__ == "__main__":
 
         # Exit with 0 if tests were successful (else 1)
         return_code = not test_run.wasSuccessful()
+
     sys.exit(return_code)
