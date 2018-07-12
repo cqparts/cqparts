@@ -10,19 +10,25 @@ environment:
           FREECAD_VERSION: 0.17
 
 install:
-    # Configure Python & pip
-    - set PATH=%PYTHON_DIR%;%PATH%
-    - python -m pip install --upgrade pip
-
     # Configure MiniConda
     - set PATH=%MINICONDA_DIR%;%MINICONDA_DIR%\Scripts;%PATH%
     - conda config --set always_yes yes
-    - conda update -q conda
+    - conda update --quiet conda
 
     # Install FreeCAD
     - conda install --quiet -c cadquery -c conda-forge freecad=%FREECAD_VERSION%
+    - ps: >-
+        $env:FREECAD_LIB = $env:MINICONDA_DIR + "\pkgs\" + $(
+            $x = $(conda list -c freecad)
+            $x = $x -Replace ".*::",""
+            echo $x
+        ) + "\lib"
+    - conda list freecad
 
-    # Install requirements.txt packages
+    # Configure Python & pip packages
+    #- set PATH=%PYTHON_DIR%;%PATH%
+    - python --version
+    - python -m pip install --upgrade pip
     - ps: >-
         Get-ChildItem "src/*/requirements.txt" |
         ForEach-Object {
@@ -39,7 +45,7 @@ install:
 build: false
 
 test_script:
-    - set "PYTHONPATH=%APPVEYOR_BUILD_FOLDER%\\src"
+    - set PYTHONPATH=%APPVEYOR_BUILD_FOLDER%\src
     - cd /d %APPVEYOR_BUILD_FOLDER%\tests
     - python runtests.py --ignore "catalogue"
 
