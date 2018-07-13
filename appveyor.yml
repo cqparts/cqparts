@@ -28,7 +28,7 @@ install:
     - conda list freecad
 
     # Configure Python & pip packages
-    - set PATH=%PYTHON_DIR%;%PATH%
+    - set PATH=%PYTHON_DIR%;%PYTHON_DIR%\Scripts;%PATH%
     - python --version
     - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
     - python -m pip install --upgrade pip
