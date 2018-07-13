@@ -5,7 +5,7 @@ platform:
 
 environment:
     matrix:
-        - PYTHON_DIR: C:\Python36-x64
+        - PYTHON_VERSION: 3.6
           MINICONDA_DIR: C:\Miniconda36-x64
           FREECAD_VERSION: 0.17
 
@@ -15,20 +15,11 @@ install:
     - conda config --set always_yes yes
     - conda update --quiet conda
 
-    # Install FreeCAD
-    - conda install --quiet -c cadquery -c conda-forge freecad=%FREECAD_VERSION%
-    - ps: >-
-        $env:FREECAD_LIB = $env:MINICONDA_DIR + "\pkgs\" + $(
-            $x = $(conda list -c freecad)
-            $x = $x -Replace ".*::",""
-            echo $x
-        ) + "\Library\bin"
-    - echo FREECAD_LIB = %FREECAD_LIB%
-    - dir %FREECAD_LIB%
-    - conda list freecad
+    # Install FreeCAD & Python
+    - conda install --quiet --name testenv -c cadquery -c conda-forge freecad=%FREECAD_VERSION% python=%PYTHON_VERSION%
+    - activate testenv
 
     # Configure Python & pip packages
-    - set PATH=%PYTHON_DIR%;%PYTHON_DIR%\Scripts;%PATH%
     - python --version
     - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
     - python -m pip install --upgrade pip
