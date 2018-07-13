@@ -5,7 +5,7 @@ platform:
 
 environment:
     matrix:
-        - PYTHON_DIR: C:\Python36
+        - PYTHON_DIR: C:\Python36-x64
           MINICONDA_DIR: C:\Miniconda36-x64
           FREECAD_VERSION: 0.17
 
@@ -27,14 +27,10 @@ install:
     - dir %FREECAD_LIB%
     - conda list freecad
 
-    # Testing
-    - C:\Python36\python.exe -c "import sys;print('{:x}'.format(sys.maxsize), sys.maxsize > 2**32)"
-    - C:\Miniconda36-x64\python.exe -c "import sys;print('{:x}'.format(sys.maxsize), sys.maxsize > 2**32)"
-
     # Configure Python & pip packages
-    #- set PATH=%PYTHON_DIR%;%PATH%
+    - set PATH=%PYTHON_DIR%;%PATH%
     - python --version
-    - python -c "import sys;print('%x' % sys.maxsize, sys.maxsize > 2**32)"
+    - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
     - python -m pip install --upgrade pip
     - ps: >-
         Get-ChildItem "src/*/requirements.txt" |
