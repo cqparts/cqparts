@@ -24,6 +24,10 @@ install:
             echo $x
         ) + "\lib"
     - echo FREECAD_LIB = %FREECAD_LIB%
+    - dir C:\Miniconda36-x64
+    - dir C:\Miniconda36-x64\pkgs
+    - dir C:\Miniconda36-x64\pkgs\freecad-0.17-py36_vc14_14
+    - dir C:\Miniconda36-x64\pkgs\freecad-0.17-py36_vc14_14\lib
     - conda list freecad
 
     # Configure Python & pip packages
