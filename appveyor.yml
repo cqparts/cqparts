@@ -23,10 +23,11 @@ install:
             $x = $x -Replace ".*::",""
             echo $x
         ) + "\lib"
+    - echo FREECAD_LIB = %FREECAD_LIB%
     - conda list freecad
 
     # Configure Python & pip packages
-    #- set PATH=%PYTHON_DIR%;%PATH%
+    - set PATH=%PYTHON_DIR%;%PATH%
     - python --version
     - python -m pip install --upgrade pip
     - ps: >-
