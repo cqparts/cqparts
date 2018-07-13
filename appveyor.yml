@@ -22,7 +22,7 @@ install:
             $x = $(conda list -c freecad)
             $x = $x -Replace ".*::",""
             echo $x
-        ) + "\Library"
+        ) + "\Library\bin"
     - echo FREECAD_LIB = %FREECAD_LIB%
     - dir %FREECAD_LIB%
     - conda list freecad
