@@ -101,6 +101,10 @@ class CQPartsServerDisplayEnv(DisplayEnvironment):
 
             # upload the files as multipart upload
             requests.post(server_url + '/upload', files=file_load_list)
+            # close file-handles
+            for fl in file_load_list:
+                fl[1][1].close()
+
             # notify the cq parts server
             # TODO more data in post, bounding box , other data
             requests.post(server_url + '/notify', data={
