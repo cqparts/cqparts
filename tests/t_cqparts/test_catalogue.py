@@ -14,7 +14,8 @@ from cqparts.errors import SearchNoneFoundError, SearchMultipleFoundError
 
 class JSONCatalogueTests(CQPartsTest):
     def setUp(self):
-        self.filename = tempfile.mkstemp()[1]
+        handle, self.filename = tempfile.mkstemp()
+        os.close(handle)
 
     def tearDown(self):
         os.unlink(self.filename)

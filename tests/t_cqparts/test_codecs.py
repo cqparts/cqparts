@@ -29,7 +29,8 @@ class CodecTest(CQPartsTest):
 class CodecFileTest(CodecTest):
     def setUp(self):
         # Create a named temporary file to write to
-        self.filename = tempfile.mkstemp()[1]
+        handle, self.filename = tempfile.mkstemp()
+        os.close(handle)
 
     def tearDown(self):
         # Remove temporary file
