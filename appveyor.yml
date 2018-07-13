@@ -28,8 +28,8 @@ install:
     - conda list freecad
 
     # Testing
-    - %PYTHON_DIR%\python.exe -c "import sys;print('%x' % sys.maxsize, sys.maxsize > 2**32)"
-    - %MINICONDA_DIR%\python.exe -c "import sys;print('%x' % sys.maxsize, sys.maxsize > 2**32)"
+    - C:\Python36\python.exe -c "import sys;print('%x' % sys.maxsize, sys.maxsize > 2**32)"
+    - C:\Miniconda36-x64\python.exe -c "import sys;print('%x' % sys.maxsize, sys.maxsize > 2**32)"
 
     # Configure Python & pip packages
     #- set PATH=%PYTHON_DIR%;%PATH%
