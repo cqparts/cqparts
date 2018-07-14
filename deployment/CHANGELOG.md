@@ -5,6 +5,11 @@
 
 ### Improvements
 
+**Developer Improvements**
+
+- [#117](https://github.com/fragmuffin/cqparts/pull/119): Travis CI (linux-based automated testing PRs)
+- [#119](https://github.com/fragmuffin/cqparts/pull/119): AppVeyor CI (windows-based automated testing of PRs)
+
 ### Bugfixes
 
 - [#116](https://github.com/fragmuffin/cqparts/pull/116): bugfix for import unicode filenames
