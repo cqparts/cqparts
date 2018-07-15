@@ -303,7 +303,7 @@ if 'build' in args.actions:
     print("BUILD ACTION NOT IMPLEMENTED")
     print('\n'.join([
         "The information on conventional commercial web-pages is too iratic and",
-        "innacurate to formulate a quality catalogue.",
+        "inaccurate to formulate a quality catalogue.",
         "At the time of writing this, I've abandoned this idea, (at least for the",
         "bunnings.com.au website anyway)"
     ]) + '\n')

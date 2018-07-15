@@ -28,7 +28,7 @@ For a single build cycle, we implement:
 * :meth:`make_components() <Assembly.make_components>` to return a
   :class:`dict` with :class:`Component` values.
 * :meth:`make_constraints() <Assembly.make_constraints>` to return a
-  :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` isntances.
+  :class:`list` of :class:`Constraint <cqparts.constraint.Constraint>` instances.
 * :meth:`make_alterations() <Assembly.make_alterations>` to (optionally) make
   changes to components.
 

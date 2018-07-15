@@ -160,7 +160,7 @@ class Anchor(cqparts.Part):
                 .extrude(self.head_diameter)
         )
 
-        # access port : remove a quadrant to alow screw's head through
+        # access port : remove a quadrant to allow screw's head through
         obj = obj.cut(
             cadquery.Workplane('XY', origin=(0, 0, -(self.height - self.head_diameter) / 2)) \
                 .rect(self.diameter / 2, self.diameter / 2, centered=False) \

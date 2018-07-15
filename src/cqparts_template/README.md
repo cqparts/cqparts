@@ -20,6 +20,6 @@ The following steps should give you an idea of how to proceed:
 1. **Copy**: Make a copy of this folder, and re-name it to
    `cqparts_<your-lib-name>`.
 1. **Create**: Create your _components_.
-1. **TODO**: search for occurances of `TODO`, and addres each item.
+1. **TODO**: search for occurrences of `TODO`, and address each item.
 1. **`README.md`**: `TODO`: remember to rename `README.tmp.md` to `README.md`,
    replacing this file.

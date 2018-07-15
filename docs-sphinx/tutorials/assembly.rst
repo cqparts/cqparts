@@ -330,7 +330,7 @@ see :ref:`parts.constraints` for more details.
 **Extra Functions**
 
 We've added ``apply_cutout`` as a utility for the next stage of assembly.
-It will subtract geometry away from a given :class:`Part` to alow placement
+It will subtract geometry away from a given :class:`Part` to allow placement
 of the axle, and freedom for the wheels to spin.
 
 The ``apply_cutout`` method is not part of the normal assembly build cycle; at

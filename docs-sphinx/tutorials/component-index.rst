@@ -82,7 +82,7 @@ using it as a decorator.
     ...     height = Int(100)
     >>> AnotherThing = register(a='one', b='three')(_AnotherThing)
 
-This and the decorated aproach are functionally identical, which method you use
+This and the decorated approach are functionally identical, which method you use
 is dependent on your library's design, and which best suits you.
 
 

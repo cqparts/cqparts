@@ -1,4 +1,5 @@
 import unittest
+import mock
 import os
 import tempfile
 import shutil
@@ -28,7 +29,8 @@ class CodecTest(CQPartsTest):
 class CodecFileTest(CodecTest):
     def setUp(self):
         # Create a named temporary file to write to
-        self.filename = tempfile.mkstemp()[1]
+        handle, self.filename = tempfile.mkstemp()
+        os.close(handle)
 
     def tearDown(self):
         # Remove temporary file
@@ -185,8 +187,23 @@ class TestStep(CodecFileTest):
         filename = 'test-files/cube.step'
         with suppress_stdout_stderr():
             cube = Part.importer('step')(filename)
+            self.assertEqual(type(cube).__name__, 'cube_step')
             self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
             self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+
+    def test_import_unicode(self):
+        filename = u'test-files/cube.step'
+        with suppress_stdout_stderr():
+            cube = Part.importer('step')(filename)
+            self.assertEqual(type(cube).__name__, 'cube_step')
+            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
+            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+
+    @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
+    def test_mangle_numberstart(self):
+        filename = 'test-files/0123_noexist.step'
+        part = Part.importer('step')(filename)
+        self.assertEqual(type(part).__name__, '_0123_noexist_step')
 
     def test_import_nofile(self):
         filename = 'test-files/noexist.step'

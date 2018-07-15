@@ -29,7 +29,7 @@ Each :class:`Part <cqparts.Part>` can be made to look different
 based on its material.
 
 A basic render may simply display everything in a grey matt finish, whereas
-a more thoroughly designed model may use colours, transparencies, and metalic
+a more thoroughly designed model may use colours, transparencies, and metallic
 finishes to make a model look more impressive.
 
 The properties of a solid's render is stored in the a :class:`RenderProps`

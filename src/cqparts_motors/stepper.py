@@ -5,7 +5,6 @@
 """
 
 # TODO
-# need a cutout for mounting
 # even 4 fasteners so it auto mounts to whatever it is parented to.
 
 import cadquery as cq
@@ -26,6 +25,7 @@ class _EndCap(cqparts.Part):
     length = PositiveFloat(10, doc="End length")
     cham = PositiveFloat(3, doc="chamfer")
 
+    # _render = render_props(color=(50, 50, 50),alpha=0.4)
     def make(self):
         base = cq.Workplane("XY")\
             .box(self.width, self.width, self.length)\
@@ -62,7 +62,7 @@ class _Stator(cqparts.Part):
 
     def make(self):
         base = cq.Workplane("XY")\
-            .box(self.width, self.width, self.length)\
+            .box(self.width, self.width, self.length,centered=(True,True,True))\
             .edges("|Z")\
             .chamfer(self.cham)
         return base
@@ -71,7 +71,7 @@ class _Stator(cqparts.Part):
     def mate_top(self):
         " top of the stator"
         return Mate(self, CoordSystem(
-            origin=(0, 0, self.length/4),
+            origin=(0, 0, self.length/2),
             xDir=(0, 1, 0),
             normal=(0, 0, 1)
             ))
@@ -115,7 +115,7 @@ class _StepperMount(_EndCap):
     def mate_bottom(self):
         " bottom of the mount"
         return Mate(self, CoordSystem(
-            origin=(0, 0, -self.length),
+            origin=(0, 0,-self.length/2),
             xDir=(0, 1, 0),
             normal=(0, 0, 1)
             ))
@@ -149,12 +149,14 @@ class Stepper(motor.Motor):
     shaft_length = PositiveFloat(24, doc="length from top surface")
 
     def get_shaft(self):
-        return self.shaft_type
+        return self.components['shaft']
 
     def mount_points(self):
-        # TODO mount points
         " return mount points"
-        pass
+        wp = cq.Workplane("XY")
+        h = wp.rect(self.hole_spacing,self.hole_spacing
+                    ,forConstruction=True).vertices()
+        return h.objects
 
     def make_components(self):
         sec = self.length / 6
@@ -204,6 +206,17 @@ class Stepper(motor.Motor):
 
     def make_alterations(self):
         self.apply_cutout()
+
+    def boss_cutout(self,clearance=0):
+        bc = cq.Workplane("XY")\
+            .circle(self.boss_size/2)\
+            .extrude(self.shaft_length)
+        return bc
+
+    def cut_boss(self,part,clearance=0):
+        co = self.boss_cutout(clearance=clearance)
+        lo = part.local_obj\
+            .cut((self.world_coords - part.world_coords)+co)
 
 if __name__ == "__main__":
     from cqparts.display import display

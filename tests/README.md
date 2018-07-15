@@ -42,6 +42,6 @@ But for even more options, try:
 The `env` folder contains docker environments to perform tests with tight
 control on the environment their running in.
 
-This is most useful in testing python 2/3 code compatability.
+This is most useful in testing python 2/3 code compatibility.
 
 Read more in [the `env` folder](env)

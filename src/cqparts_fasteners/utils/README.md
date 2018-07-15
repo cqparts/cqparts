@@ -1,7 +1,7 @@
 # Applying a Fastener
 
 This `fasteners` collection has some utilities to automatically apply and select
-an apropriate fastener. What they do, and how to use them is documented below.
+an appropriate fastener. What they do, and how to use them is documented below.
 
 Using these tools is **not mandatory**; you'll always have the option to
 explicitly select your fastener with the placement and orientation of your

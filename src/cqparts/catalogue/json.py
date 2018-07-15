@@ -35,7 +35,7 @@ class JSONCatalogue(Catalogue):
         :type clean: :class:`bool`
 
         If a new database is created, a ``_dbinfo`` table is added with
-        version & module information to assist backward compatability.
+        version & module information to assist backward compatibility.
         """
         self.filename = filename
         self.name = re.sub(

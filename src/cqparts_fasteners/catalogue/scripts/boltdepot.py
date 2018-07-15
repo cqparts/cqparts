@@ -537,7 +537,7 @@ class NutSpider(BoltDepotProductSpider):
                     )
                 except ValueError:
                     nut_width = DataUSNutSize.get_data_item(
-                        'Diameter*:Machine Screw Nut',  # only use if 'Hex Nut' not avaliable
+                        'Diameter*:Machine Screw Nut',  # only use if 'Hex Nut' not available
                         criteria=lambda i: i['Size:Size'] == details['Diameter:'],
                         cast=lambda v: unit2mm(v, 'us'),
                     )
@@ -557,7 +557,7 @@ class NutSpider(BoltDepotProductSpider):
                     )
                 except ValueError:
                     nut_height = DataUSNutSize.get_data_item(
-                        'Height:Machine Screw Nut',  # only use if 'Hex Nut' not avaliable
+                        'Height:Machine Screw Nut',  # only use if 'Hex Nut' not available
                         criteria=lambda i: i['Size:Size'] == details['Diameter:'],
                         cast=lambda v: unit2mm(v, 'us'),
                     )

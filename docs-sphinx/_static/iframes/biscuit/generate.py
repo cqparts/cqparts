@@ -156,7 +156,7 @@ class BiscuitFastener(Fastener):
             return [
                 Fixed(
                     self.components['biscuit'].mate_origin,
-                    CoordSystem().rotated((90, 0, 90))  # corectly orientate biscuit
+                    CoordSystem().rotated((90, 0, 90))  # correctly orientate biscuit
                 ),
             ]
 

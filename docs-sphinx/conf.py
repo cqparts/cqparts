@@ -189,7 +189,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'cqparts', u'cqparts Documentation',
-     author, 'cqparts', 'One line description of project.',
+     author, 'cqparts', 'CAD for coders, a wrapper for cadquery objects.',
      'Miscellaneous'),
 ]
 
