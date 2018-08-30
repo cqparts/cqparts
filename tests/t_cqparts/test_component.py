@@ -92,6 +92,14 @@ class MetaclassTests(CQPartsTest):
         self.assertEqual(B._mate_map['bar'], 'bar')
         self.assertEqual(B._mate_map['roo'], 'roo')
 
+    def test_reserved_attribute(self):
+        self.assertRaises(ValueError):
+            class A(cqparts.Component):
+                def _mate_map(self):
+                    print("nope!, method name reserved for mapping mates to their functions")
+            # instance isn't necessary; metaclass creates the above class
+            # and raises the exception.
+
 
 class ImportExportTests(CodecRegisterTests):
 

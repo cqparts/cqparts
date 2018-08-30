@@ -7,7 +7,19 @@ from .utils import CoordSystem
 
 
 class ComponentMetaclass(type):
+    _RESERVED_ATTRIBUTES = (
+        '_mate_map',
+    )
+
+    @classmethod
+    def asesrt_reserved_attributes(cls):
+        for reserved in cls._RESERVED_ATTRIBUTES:
+            if reserved in attrs:
+                raise ValueError("%s can't create Component class with '%s' defined" % reserved)
+
     def __new__(cls, name, bases, attrs):
+        cls.asesrt_reserved_attributes()
+        
         # Mate Map:
         #   find @mate decorated methods, map them to _mate_map attribute
         # inherit
