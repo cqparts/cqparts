@@ -153,9 +153,8 @@ class BlockStack(cqparts.Assembly):
 
 # ------------------- Export / Display -------------------
 # ------- Functions
-from cqparts.utils.env import get_env_name
-
-env_name = get_env_name()
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
 # ------- Models
 cylinder = Cylinder()
@@ -171,7 +170,7 @@ if env_name == 'cmdline':
     thing.find('pla').exporter('gltf')('plate-altered.gltf')
     block_stack.exporter('gltf')('block_stack.gltf')
 
-    display(block_stack)
+    #display(block_stack)
 
 elif env_name == 'freecad':
     pass  # manually switchable for testing

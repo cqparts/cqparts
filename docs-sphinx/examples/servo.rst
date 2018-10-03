@@ -23,7 +23,7 @@ Default `internal` measurements, and design will be estimated based on external
 observation; I'm not looking to infringe copyright.
 
 What I design might actually work if you printed it, but that's not the point
-of this excercise
+of this exercise
 
 .. _examples_servo_hierarchy:
 

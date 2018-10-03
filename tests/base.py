@@ -5,8 +5,8 @@ import inspect
 from collections import defaultdict
 from copy import copy
 
-_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
+#_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+#sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
 
 from cqparts import codec
 
@@ -84,7 +84,7 @@ class suppress_stdout_stderr(object):
 
 def debug_on_exception(func):
     """
-    Opens an ``ipdb`` debugging propt at the point of failure
+    Opens an ``ipdb`` debugging prompt at the point of failure
     when an uncaught exception is raised.
 
     .. warning::

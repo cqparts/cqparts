@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Make your own Assembly &mdash; cqparts 0.2.0 documentation</title>
+  <title>Make your own Assembly &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../index.html"/>
         <link rel="up" title="Tutorials" href="index.html"/>
         <link rel="next" title="Component Index" href="component-index.html"/>
         <link rel="prev" title="Make your own Part" href="part.html"/> 
@@ -212,7 +212,7 @@ nested <a class="reference internal" href="../api/cqparts.html#cqparts.Assembly"
 <ul class="simple">
 <li><strong>axle</strong> : a simple long thin cylinder</li>
 <li><strong>wheel</strong> : another simple cylinder</li>
-<li><strong>chassis</strong> : an extruded <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.polyline" title="(in CadQuery v1.1)"><code class="xref py py-meth docutils literal"><span class="pre">cadquery.Workplane.polyline()</span></code></a></li>
+<li><strong>chassis</strong> : an extruded <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.polyline" title="(in CadQuery v1.2)"><code class="xref py py-meth docutils literal"><span class="pre">cadquery.Workplane.polyline()</span></code></a></li>
 </ul>
 <p>While making these parts, we’re going to design them based on how we want to
 use them, but also on how others may want to use them.</p>
@@ -346,8 +346,8 @@ aligned accordingly.</p>
 <h3>Chassis<a class="headerlink" href="#chassis" title="Permalink to this headline">¶</a></h3>
 <p>The chassis is a relatively complex shape that could have many
 parameters. For the sake of simplicity in this tutorial, we’re going to make
-it a static face using <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.polyline" title="(in CadQuery v1.1)"><code class="xref py py-meth docutils literal"><span class="pre">polyline()</span></code></a> with a
-variable <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.extrude" title="(in CadQuery v1.1)"><code class="xref py py-meth docutils literal"><span class="pre">extrude()</span></code></a> width.</p>
+it a static face using <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.polyline" title="(in CadQuery v1.2)"><code class="xref py py-meth docutils literal"><span class="pre">polyline()</span></code></a> with a
+variable <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane.extrude" title="(in CadQuery v1.2)"><code class="xref py py-meth docutils literal"><span class="pre">extrude()</span></code></a> width.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Chassis</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="c1"># Parameters</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;chassis width&quot;</span><span class="p">)</span>
@@ -447,7 +447,7 @@ if necessary.</p>
 <p>see <a class="reference internal" href="../cqparts/constraints.html#parts-constraints"><span class="std std-ref">Constraints</span></a> for more details.</p>
 <p><strong>Extra Functions</strong></p>
 <p>We’ve added <code class="docutils literal"><span class="pre">apply_cutout</span></code> as a utility for the next stage of assembly.
-It will subtract geometry away from a given <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to alow placement
+It will subtract geometry away from a given <a class="reference internal" href="../api/cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> to allow placement
 of the axle, and freedom for the wheels to spin.</p>
 <p>The <code class="docutils literal"><span class="pre">apply_cutout</span></code> method is not part of the normal assembly build cycle; at
 this stage it’s simply another method in the class.</p>
@@ -607,7 +607,7 @@ finished result being:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

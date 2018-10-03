@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts.utils package &mdash; cqparts 0.2.0 documentation</title>
+  <title>cqparts.utils package &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts_bearings package" href="cqparts_bearings.html"/>
         <link rel="prev" title="cqparts.params package" href="cqparts.params.html"/> 
@@ -205,59 +205,6 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cqparts.utils.env">
-<span id="cqparts-utils-env-module"></span><h2>cqparts.utils.env module<a class="headerlink" href="#module-cqparts.utils.env" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.utils.env.get_env_name">
-<code class="descclassname">cqparts.utils.env.</code><code class="descname">get_env_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.env.get_env_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the name of the currently running environment.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<table border="1" class="docutils">
-<colgroup>
-<col width="26%" />
-<col width="74%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Environment</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">freecad</span></code></td>
-<td>freecad module</td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cmdline</span></code></td>
-<td>directly in a python interpreter</td>
-</tr>
-</tbody>
-</table>
-<p>These environments are intended to switch a script’s behaviour from
-displaying models, or exporting them to file.</p>
-<p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.env</span> <span class="k">import</span> <span class="n">get_env_name</span>
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">SomeAssembly</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bar</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">get_env_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cmdline&#39;</span><span class="p">:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.gltf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">get_export_gltf</span><span class="p">())</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</div>
 <div class="section" id="module-cqparts.utils.geometry">
 <span id="cqparts-utils-geometry-module"></span><h2>cqparts.utils.geometry module<a class="headerlink" href="#module-cqparts.utils.geometry" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -291,26 +238,26 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> represented in <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
-<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.geometry.CoordSystem" title="cqparts.utils.geometry.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
+<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -350,7 +297,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
 </tr>
@@ -442,9 +389,9 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coorinates.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coordinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -498,9 +445,9 @@ box is always positioned orthogonally to the other two.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coordinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -565,7 +512,28 @@ thanks to <a class="reference external" href="https://github.com/funkybob">&#64;
 <dl class="function">
 <dt id="cqparts.utils.misc.working_dir">
 <code class="descclassname">cqparts.utils.misc.</code><code class="descname">working_dir</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.misc.working_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Change working directory within a context:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">working_dir</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="go">/home/myuser/temp</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">working_dir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">/home/myuser</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – working path to use while in context</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-cqparts.utils.sphinx">
@@ -650,7 +618,7 @@ duplicate variables cluttering the sphinx docs.</p>
 <dl class="class">
 <dt id="cqparts.utils.test.CatalogueTest">
 <em class="property">class </em><code class="descclassname">cqparts.utils.test.</code><code class="descname">CatalogueTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.CatalogueTest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.utils.test.ComponentTest" title="cqparts.utils.test.ComponentTest"><code class="xref py py-class docutils literal"><span class="pre">cqparts.utils.test.ComponentTest</span></code></a></p>
 <dl class="attribute">
 <dt id="cqparts.utils.test.CatalogueTest.catalogue">
 <code class="descname">catalogue</code><em class="property"> = None</em><a class="headerlink" href="#cqparts.utils.test.CatalogueTest.catalogue" title="Permalink to this definition">¶</a></dt>
@@ -825,6 +793,90 @@ parameters:</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="cqparts.utils.test.ComponentTest">
+<em class="property">class </em><code class="descclassname">cqparts.utils.test.</code><code class="descname">ComponentTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p>Generic testcase with utilities for testing
+<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> and <a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a> instances.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cqparts</span>
+<span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts.utils.test</span> <span class="k">import</span> <span class="n">ComponentTest</span>
+
+<span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BoxTest</span><span class="p">(</span><span class="n">ComponentTest</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_box</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertComponent</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertAssembly">
+<code class="descname">assertAssembly</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertAssembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Assembly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a>) – assembly under test</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertAssembyHasComponents">
+<code class="descname">assertAssembyHasComponents</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertAssembyHasComponents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertComponent">
+<code class="descname">assertComponent</code><span class="sig-paren">(</span><em>obj</em>, <em>recursive=True</em>, <em>_depth=0</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertComponent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Component.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Component" title="cqparts.Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>) – component under test</li>
+<li><strong>recursive</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">bool</span></code></a>) – if <code class="docutils literal"><span class="pre">True</span></code> sub-components will also be tested</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertPart">
+<code class="descname">assertPart</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert criteria common to any fully formed Part.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>) – part under test</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertPartBoundingBox">
+<code class="descname">assertPartBoundingBox</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertPartBoundingBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cqparts.utils.test.ComponentTest.assertPartHasVolume">
+<code class="descname">assertPartHasVolume</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.test.ComponentTest.assertPartHasVolume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cqparts.utils.wrappers">
 <span id="cqparts-utils-wrappers-module"></span><h2>cqparts.utils.wrappers module<a class="headerlink" href="#module-cqparts.utils.wrappers" title="Permalink to this headline">¶</a></h2>
@@ -862,59 +914,9 @@ parameters:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="cqparts.utils.get_env_name">
-<code class="descclassname">cqparts.utils.</code><code class="descname">get_env_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.get_env_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the name of the currently running environment.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">environment name</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<table border="1" class="docutils">
-<colgroup>
-<col width="26%" />
-<col width="74%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Environment</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">freecad</span></code></td>
-<td>freecad module</td>
-</tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">cmdline</span></code></td>
-<td>directly in a python interpreter</td>
-</tr>
-</tbody>
-</table>
-<p>These environments are intended to switch a script’s behaviour from
-displaying models, or exporting them to file.</p>
-<p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts.utils.env</span> <span class="k">import</span> <span class="n">get_env_name</span>
-<span class="kn">from</span> <span class="nn">cqparts.display</span> <span class="k">import</span> <span class="n">display</span>
-
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">SomeAssembly</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bar</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">get_env_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cmdline&#39;</span><span class="p">:</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model.gltf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">get_export_gltf</span><span class="p">())</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">display</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="class">
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cqparts.utils"></span><dl class="class">
 <dt id="cqparts.utils.CoordSystem">
 <em class="property">class </em><code class="descclassname">cqparts.utils.</code><code class="descname">CoordSystem</code><span class="sig-paren">(</span><em>origin=(0</em>, <em>0</em>, <em>0)</em>, <em>xDir=(1</em>, <em>0</em>, <em>0)</em>, <em>normal=(0</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.CoordSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cadquery.freecad_impl.geom.Plane</span></code></p>
@@ -945,26 +947,26 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a>):</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">world coordinates of <code class="docutils literal"><span class="pre">B</span></code> represented in <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Vector" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Vector</span></code></a></td>
 </tr>
 </tbody>
 </table>
-<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
-<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">A</span></code> (<a class="reference internal" href="#cqparts.utils.CoordSystem" title="cqparts.utils.CoordSystem"><code class="xref py py-class docutils literal"><span class="pre">CoordSystem</span></code></a>) + <code class="docutils literal"><span class="pre">B</span></code> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>):</p>
+<p>remember: <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> inherits from <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">content of <code class="docutils literal"><span class="pre">B</span></code> moved to <code class="docutils literal"><span class="pre">A</span></code>’s coordinate system</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1004,7 +1006,7 @@ and <code class="docutils literal"><span class="pre">B</span></code> is <code cl
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plane</strong> (<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Plane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Plane</span></code></a>) – cadquery plane instance to base coordinate system on</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">duplicate of the given plane, in this class</td>
 </tr>
@@ -1096,9 +1098,9 @@ i &amp; = cos(\beta) cos(\gamma)\end{split}\]</div>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coorinates.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert local coordinates to world coordinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1152,9 +1154,9 @@ box is always positioned orthogonally to the other two.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coorinates.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">3d affine transform matrix to convert world coordinates to local coordinates.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Matrix" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Matrix</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1211,7 +1213,28 @@ assist tree displays of hierarchical content.</p>
 <dl class="function">
 <dt id="cqparts.utils.working_dir">
 <code class="descclassname">cqparts.utils.</code><code class="descname">working_dir</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.utils.working_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Change working directory within a context:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts.utils</span> <span class="k">import</span> <span class="n">working_dir</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="go">/home/myuser/temp</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">working_dir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="gp">...</span>
+<span class="go">/home/myuser</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">str</span></code></a>) – working path to use while in context</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="cqparts.utils.measure_time">
@@ -1298,7 +1321,7 @@ assist tree displays of hierarchical content.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

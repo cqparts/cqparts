@@ -113,7 +113,7 @@ class VectorEffect(Effect):
 
     __nonzero__ = __bool__
 
-    # Comparisions
+    # Comparisons
     def __lt__(self, other):
         return self.origin_displacement < other.origin_displacement
 
@@ -152,7 +152,7 @@ class Evaluator(object):
 
         .. note::
 
-            Override this funciton in your *evaluator* class to assess what
+            Override this function in your *evaluator* class to assess what
             parts are effected, and how.
 
         Default behaviour: do nothing, return nothing

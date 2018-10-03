@@ -1,0 +1,18 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+env:
+  matrix:
+    - ENV_NAME=ubuntu-py2
+    - ENV_NAME=ubuntu-py3
+
+install:
+  - cd $TRAVIS_BUILD_DIR/env/$ENV_NAME ; ./build.sh
+  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./build.sh
+
+script:
+  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./run.sh

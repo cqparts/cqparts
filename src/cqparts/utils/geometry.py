@@ -180,7 +180,7 @@ class CoordSystem(cadquery.Plane):
     @property
     def world_to_local_transform(self):
         """
-        :return: 3d affine transform matrix to convert world coordinates to local coorinates.
+        :return: 3d affine transform matrix to convert world coordinates to local coordinates.
         :rtype: :class:`cadquery.Matrix`
 
         For matrix structure, see :meth:`from_transform`.
@@ -190,7 +190,7 @@ class CoordSystem(cadquery.Plane):
     @property
     def local_to_world_transform(self):
         """
-        :return: 3d affine transform matrix to convert local coordinates to world coorinates.
+        :return: 3d affine transform matrix to convert local coordinates to world coordinates.
         :rtype: :class:`cadquery.Matrix`
 
         For matrix structure, see :meth:`from_transform`.

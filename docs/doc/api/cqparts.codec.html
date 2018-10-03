@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts.codec package &mdash; cqparts 0.2.0 documentation</title>
+  <title>cqparts.codec package &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts.constraint package" href="cqparts.constraint.html"/>
         <link rel="prev" title="cqparts.catalogue package" href="cqparts.catalogue.html"/> 
@@ -259,6 +259,17 @@ for exporting.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Exporting a Box:</strong></p>
+<p>For this example we’ll instantiate an existing <code class="docutils literal"><span class="pre">Part</span></code> class, a simple
+<a class="reference internal" href="cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cpqarts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;box.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will export a single file <code class="docutils literal"><span class="pre">box.gltf</span></code> with mesh data encoded into
+it as a string.</p>
 <p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
 <p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.gltf.GLTFExporter.__call__" title="cqparts.codec.gltf.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
 stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
@@ -268,16 +279,19 @@ loading on a web-interface.</p>
 files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
 <p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
 with the hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>car
-├○ chassis
-├─ front_axle
-│   ├○ axle
-│   ├○ left_wheel
-│   └○ right_wheel
-└─ rear_axle
-    ├○ axle
-    ├○ left_wheel
-    └○ right_wheel
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;car&#39;</span><span class="p">))</span>
+<span class="go">car</span>
+<span class="go">├○ chassis</span>
+<span class="go">├─ front_axle</span>
+<span class="go">│   ├○ axle</span>
+<span class="go">│   ├○ left_wheel</span>
+<span class="go">│   └○ right_wheel</span>
+<span class="go">└─ rear_axle</span>
+<span class="go">    ├○ axle</span>
+<span class="go">    ├○ left_wheel</span>
+<span class="go">    └○ right_wheel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">car</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;car.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
@@ -305,7 +319,7 @@ instance equality?</p>
 </div>
 <dl class="attribute">
 <dt id="cqparts.codec.gltf.GLTFExporter.TEMPLATE">
-<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.2.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.2.1'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.gltf.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -683,21 +697,51 @@ where needed.</p>
 <div class="section" id="module-cqparts.codec.step">
 <span id="cqparts-codec-step-module"></span><h2>cqparts.codec.step module<a class="headerlink" href="#module-cqparts.codec.step" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="cqparts.codec.step.STEPAssemblyImporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPAssemblyImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPAssemblyImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.step.STEPPartImporter" title="cqparts.codec.step.STEPPartImporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.step.STEPPartImporter</span></code></a></p>
+<p>Import a shape from a STEP formatted file.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Name</strong></td>
+<td><code class="docutils literal"><span class="pre">step</span></code></td>
+</tr>
+<tr class="row-even"><td><strong>Imports</strong></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Assembly" title="cqparts.Assembly"><code class="xref py py-class docutils literal"><span class="pre">Assembly</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Step file is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.importers.importShape()</span></code>
+to do the hard work of extracting geometry.</p>
+</div>
+<p><strong>Multi-part STEP</strong></p>
+<p>This importer is intended for <code class="docutils literal"><span class="pre">STEP</span></code> files with multiple separated meshes
+defined.</p>
+<p>Each mesh is imported into a nested <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a> component.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="cqparts.codec.step.STEPExporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPExporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPExporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Exporter" title="cqparts.codec.Exporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Exporter</span></code></a></p>
 <p>Export shape to STEP format.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="41%" />
-<col width="59%" />
+<col width="35%" />
+<col width="65%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Name</strong></td>
 <td><code class="docutils literal"><span class="pre">step</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -709,29 +753,32 @@ for exporting.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="cqparts.codec.step.STEPImporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPImporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Importer</span></code></a></p>
+<dt id="cqparts.codec.step.STEPPartImporter">
+<em class="property">class </em><code class="descclassname">cqparts.codec.step.</code><code class="descname">STEPPartImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.step.STEPPartImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.step.STEPPartImporter" title="cqparts.codec.step.STEPPartImporter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.step.STEPPartImporter</span></code></a></p>
 <p>Import a shape from a STEP formatted file.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="41%" />
-<col width="59%" />
+<col width="35%" />
+<col width="65%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Name</strong></td>
 <td><code class="docutils literal"><span class="pre">step</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Imports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Step file is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.importers.importShape()</span></code>
-to create the shape.</p>
+to do the hard work of extracting geometry.</p>
 </div>
+<p><strong>Multi-part STEP</strong></p>
+<p>If the <code class="docutils literal"><span class="pre">STEP</span></code> file has multiple parts, all parts are unioned together to
+form a single <a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a>.</p>
 </dd></dl>
 
 </div>
@@ -911,9 +958,9 @@ of choice:</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-cqparts.codec">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts.codec" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-cqparts.codec"></span><dl class="class">
 <dt id="cqparts.codec.Exporter">
 <em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">Exporter</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.Exporter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
@@ -1069,6 +1116,17 @@ for exporting.</p>
 </tr>
 </tbody>
 </table>
+<p><strong>Exporting a Box:</strong></p>
+<p>For this example we’ll instantiate an existing <code class="docutils literal"><span class="pre">Part</span></code> class, a simple
+<a class="reference internal" href="cqparts_misc.basic.html#cqparts_misc.basic.primatives.Box" title="cqparts_misc.basic.primatives.Box"><code class="xref py py-class docutils literal"><span class="pre">Box</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cpqarts</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cqparts_misc.basic.primatives</span> <span class="k">import</span> <span class="n">Box</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">box</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;box.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will export a single file <code class="docutils literal"><span class="pre">box.gltf</span></code> with mesh data encoded into
+it as a string.</p>
 <p><strong>Embedding vs .bin Files:</strong> default generates <code class="docutils literal"><span class="pre">.bin</span></code> files</p>
 <p>If <code class="docutils literal"><span class="pre">embed</span></code> is <code class="docutils literal"><span class="pre">True</span></code> when <a class="reference internal" href="#cqparts.codec.GLTFExporter.__call__" title="cqparts.codec.GLTFExporter.__call__"><code class="xref py py-meth docutils literal"><span class="pre">calling</span></code></a>, then all data is
 stored in the output <code class="docutils literal"><span class="pre">.gltf</span></code> file.
@@ -1078,16 +1136,19 @@ loading on a web-interface.</p>
 files in the same directory as the root <code class="docutils literal"><span class="pre">.gltf</span></code> file.</p>
 <p>For example, if we use the <code class="docutils literal"><span class="pre">car</span></code> from <a class="reference internal" href="../tutorials/assembly.html#tutorial-assembly"><span class="std std-ref">Make your own Assembly</span></a>,
 with the hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>car
-├○ chassis
-├─ front_axle
-│   ├○ axle
-│   ├○ left_wheel
-│   └○ right_wheel
-└─ rear_axle
-    ├○ axle
-    ├○ left_wheel
-    └○ right_wheel
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">car</span><span class="o">.</span><span class="n">tree_str</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;car&#39;</span><span class="p">))</span>
+<span class="go">car</span>
+<span class="go">├○ chassis</span>
+<span class="go">├─ front_axle</span>
+<span class="go">│   ├○ axle</span>
+<span class="go">│   ├○ left_wheel</span>
+<span class="go">│   └○ right_wheel</span>
+<span class="go">└─ rear_axle</span>
+<span class="go">    ├○ axle</span>
+<span class="go">    ├○ left_wheel</span>
+<span class="go">    └○ right_wheel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">car</span><span class="o">.</span><span class="n">exporter</span><span class="p">(</span><span class="s1">&#39;gltf&#39;</span><span class="p">)(</span><span class="s1">&#39;car.gltf&#39;</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When exported, a <code class="docutils literal"><span class="pre">.bin</span></code> file will be created for each
@@ -1115,7 +1176,7 @@ instance equality?</p>
 </div>
 <dl class="attribute">
 <dt id="cqparts.codec.GLTFExporter.TEMPLATE">
-<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.2.0'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">TEMPLATE</code><em class="property"> = {'accessors': [], 'materials': [], 'meshes': [], 'asset': {'version': '2.0', 'generator': 'cqparts_0.2.1'}, 'nodes': [{'children': [], 'matrix': [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, -0.001, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], 'bufferViews': [], 'scene': 0, 'buffers': [], 'scenes': [{'nodes': [0]}]}</em><a class="headerlink" href="#cqparts.codec.GLTFExporter.TEMPLATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1284,15 +1345,15 @@ asset binary stream.</p>
 <p>Export shape to STEP format.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="41%" />
-<col width="59%" />
+<col width="35%" />
+<col width="65%" />
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><strong>Name</strong></td>
 <td><code class="docutils literal"><span class="pre">step</span></code></td>
 </tr>
 <tr class="row-even"><td><strong>Exports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
+<td><a class="reference internal" href="cqparts.html#cqparts.Part" title="cqparts.Part"><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1300,32 +1361,6 @@ asset binary stream.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Object is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.exporters.exportShape()</span></code>
 for exporting.</p>
-</div>
-</dd></dl>
-
-<dl class="class">
-<dt id="cqparts.codec.STEPImporter">
-<em class="property">class </em><code class="descclassname">cqparts.codec.</code><code class="descname">STEPImporter</code><span class="sig-paren">(</span><em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.codec.STEPImporter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cqparts.codec.Importer" title="cqparts.codec.Importer"><code class="xref py py-class docutils literal"><span class="pre">cqparts.codec.Importer</span></code></a></p>
-<p>Import a shape from a STEP formatted file.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="41%" />
-<col width="59%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><strong>Name</strong></td>
-<td><code class="docutils literal"><span class="pre">step</span></code></td>
-</tr>
-<tr class="row-even"><td><strong>Imports</strong></td>
-<td><code class="xref py py-class docutils literal"><span class="pre">Part</span></code></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Step file is passed to <code class="xref py py-meth docutils literal"><span class="pre">cadquery.freecad_impl.importers.importShape()</span></code>
-to create the shape.</p>
 </div>
 </dd></dl>
 
@@ -1543,7 +1578,7 @@ least, not as far as I can tell).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

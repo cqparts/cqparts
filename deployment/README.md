@@ -77,7 +77,7 @@ Deployment testing is dependent on the docker containers built in `../env`
 
 ### Dependencies
 
-Only needed when first seting up host machine...
+Only needed when first setting up host machine...
 or to update if it's been a while
 
 ```bash
@@ -158,7 +158,7 @@ lib=cqparts
 ## Upload to PyPi Test server
 
 ```bash
-./deploy.sh deploy test
+./deploy.sh deploy $lib test
 
 # open published pypi page
 xdg-open https://testpypi.python.org/pypi/$lib
@@ -186,7 +186,7 @@ xdg-open https://testpypi.python.org/pypi/$lib
 all good!? sweet :+1: time to upload to 'production'
 
 ```bash
-./deploy.sh deploy prod
+./deploy.sh deploy $lib prod
 
 # open published pypi page
 xdg-open https://pypi.python.org/pypi/$lib
@@ -212,8 +212,32 @@ xdg-open https://pypi.python.org/pypi/$lib
 
 # Deployment in Git
 
-```TODO: document git release process```
+```
+TODO: document git release process
+```
 
 the plan is to draw from `pygcode` again:
 
 https://github.com/fragmuffin/pygcode/tree/master/deployment#deployment-in-git
+
+
+# Announcements
+
+Announce new releases as
+
+## GitHub Issue
+
+Raise an issue with "hey, new software!, yay"
+
+```
+TODO: add template text here
+```
+
+## Google Group Announcement
+
+Publish message in `cadquery` google group:
+https://groups.google.com/forum/#!forum/cadquery
+
+```
+TODO: add template text here
+```

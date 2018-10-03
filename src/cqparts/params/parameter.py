@@ -115,7 +115,7 @@ class Parameter(object):
 
         .. warning::
 
-            :meth:`serialize` and :meth:`deserialize` **are not** symetrical.
+            :meth:`serialize` and :meth:`deserialize` **are not** symmetrical.
 
 
         **Example of serializing then deserializing a custom object**
@@ -163,7 +163,7 @@ class Parameter(object):
             ...         return value
 
         Note that ``json_deserialize`` does not return a ``Color`` instance.
-        Intead, it returns a *list* to be used as an input to :meth:`cast`
+        Instead, it returns a *list* to be used as an input to :meth:`cast`
         (which is ultimately passed to :meth:`type`)
 
         This is because when the values are deserialized, they're used as the

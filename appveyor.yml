@@ -1,0 +1,49 @@
+shallow_clone: true
+
+platform:
+    - x64
+
+environment:
+    matrix:
+        - PYTHON_VERSION: 3.6
+          MINICONDA_DIR: C:\Miniconda36-x64
+          FREECAD_VERSION: 0.17
+
+install:
+    # Configure MiniConda
+    - set PATH=%MINICONDA_DIR%;%MINICONDA_DIR%\Scripts;%PATH%
+    - conda config --set always_yes yes
+    - conda update --quiet conda
+
+    # Install FreeCAD & Python
+    - conda create --quiet --name testenv -c cadquery -c conda-forge freecad=%FREECAD_VERSION% python=%PYTHON_VERSION%
+    - activate testenv
+
+    # Configure Python & pip packages
+    - python --version
+    - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
+    - python -m pip install --upgrade pip
+    - ps: >-
+        python -m pip install $($(
+            Get-ChildItem "src/*/requirements.txt" |
+                ForEach-Object {
+                    $c = ($_ | Get-Content)
+                    $c = $c -replace "^cqparts.*",""
+                    echo $c
+                } | Sort | Get-Unique | ForEach-Object {
+                    if (-Not ([string]::IsNullOrEmpty($_))) {
+                        echo $_
+                    }
+                }
+        ) -join " ")
+    - python -m pip install -r tests/requirements.txt
+
+build: false
+
+test_script:
+    - set PYTHONPATH=%APPVEYOR_BUILD_FOLDER%\src
+    - cd /d %APPVEYOR_BUILD_FOLDER%\tests
+    - python runtests.py --ignore "catalogue"
+
+on_success:
+    - echo yay

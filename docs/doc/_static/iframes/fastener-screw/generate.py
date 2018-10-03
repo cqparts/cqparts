@@ -11,6 +11,8 @@ from cqparts.constraint import Fixed, Coincident
 from cqparts_fasteners.fasteners.screw import ScrewFastener
 from cqparts_misc.basic.primatives import Box
 
+from cqparts.utils import CoordSystem
+
 class Thing(cqparts.Assembly):
     def make_components(self):
         base = Box(length=20, width=30, height=15)
@@ -38,7 +40,10 @@ thing = Thing()
 
 from cqparts.params import *
 from cqparts.display import display
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
-
-thing.exporter('gltf')('thing.gltf', embed=False)
-display(thing)
+if env_name == 'freecad':
+    display(thing)
+else:
+    thing.exporter('gltf')('thing.gltf', embed=False)

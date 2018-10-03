@@ -74,7 +74,7 @@
     }
   ], 
   "asset": {
-    "generator": "cqparts_0.1.0", 
+    "generator": "cqparts_0.2.1", 
     "version": "2.0"
   }, 
   "bufferViews": [
@@ -135,7 +135,7 @@
   "materials": [
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.6627, 
@@ -149,7 +149,7 @@
     }, 
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.1961, 
@@ -163,7 +163,7 @@
     }, 
     {
       "alphaCutoff": 1.0, 
-      "alphaMode": "MASK", 
+      "alphaMode": "BLEND", 
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.6627, 

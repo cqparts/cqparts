@@ -160,7 +160,7 @@ class Anchor(cqparts.Part):
                 .extrude(self.head_diameter)
         )
 
-        # access port : remove a quadrant to alow screw's head through
+        # access port : remove a quadrant to allow screw's head through
         obj = obj.cut(
             cadquery.Workplane('XY', origin=(0, 0, -(self.height - self.head_diameter) / 2)) \
                 .rect(self.diameter / 2, self.diameter / 2, centered=False) \
@@ -258,7 +258,7 @@ class WoodPanel(cqparts.Part):
 
 # ------------------- Fastener -------------------
 
-from cqparts_fasteners import Fastener
+from cqparts_fasteners.fasteners import Fastener
 from cqparts_fasteners.utils import VectorEvaluator, Selector, Applicator
 
 from cqparts.constraint import Fixed, Coincident
@@ -505,7 +505,8 @@ class ConnectedPlanksCatalogue(ConnectedPlanks):
 
 
 # ------------------- Export / Display -------------------
-from cqparts.utils.env import env_name
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
 # ------- Models
 screw = WoodScrew()

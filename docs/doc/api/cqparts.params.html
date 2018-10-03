@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts.params package &mdash; cqparts 0.2.0 documentation</title>
+  <title>cqparts.params package &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../index.html"/>
         <link rel="up" title="cqparts package" href="cqparts.html"/>
         <link rel="next" title="cqparts.utils package" href="cqparts.utils.html"/>
         <link rel="prev" title="cqparts.display package" href="cqparts.display.html"/> 
@@ -324,7 +324,7 @@ further.</p>
 <p>By default, returns <code class="docutils literal"><span class="pre">value</span></code>, to pass straight to <a class="reference external" href="https://docs.python.org/3/library/json.html#module-json" title="(in Python v3.6)"><code class="xref py py-mod docutils literal"><span class="pre">json</span></code></a></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last"><a class="reference internal" href="#cqparts.params.parameter.Parameter.serialize" title="cqparts.params.parameter.Parameter.serialize"><code class="xref py py-meth docutils literal"><span class="pre">serialize()</span></code></a> and <a class="reference internal" href="#cqparts.params.parameter.Parameter.deserialize" title="cqparts.params.parameter.Parameter.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a> <strong>are not</strong> symetrical.</p>
+<p class="last"><a class="reference internal" href="#cqparts.params.parameter.Parameter.serialize" title="cqparts.params.parameter.Parameter.serialize"><code class="xref py py-meth docutils literal"><span class="pre">serialize()</span></code></a> and <a class="reference internal" href="#cqparts.params.parameter.Parameter.deserialize" title="cqparts.params.parameter.Parameter.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a> <strong>are not</strong> symmetrical.</p>
 </div>
 <p><strong>Example of serializing then deserializing a custom object</strong></p>
 <p>Let’s create our own <code class="docutils literal"><span class="pre">Color</span></code> class we’d like to represent as a
@@ -368,7 +368,7 @@ parameter.</p>
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal"><span class="pre">json_deserialize</span></code> does not return a <code class="docutils literal"><span class="pre">Color</span></code> instance.
-Intead, it returns a <em>list</em> to be used as an input to <a class="reference internal" href="#cqparts.params.parameter.Parameter.cast" title="cqparts.params.parameter.Parameter.cast"><code class="xref py py-meth docutils literal"><span class="pre">cast()</span></code></a>
+Instead, it returns a <em>list</em> to be used as an input to <a class="reference internal" href="#cqparts.params.parameter.Parameter.cast" title="cqparts.params.parameter.Parameter.cast"><code class="xref py py-meth docutils literal"><span class="pre">cast()</span></code></a>
 (which is ultimately passed to <a class="reference internal" href="#cqparts.params.parameter.Parameter.type" title="cqparts.params.parameter.Parameter.type"><code class="xref py py-meth docutils literal"><span class="pre">type()</span></code></a>)</p>
 <p>This is because when the values are deserialized, they’re used as the
 default values for a newly created <a class="reference internal" href="#cqparts.params.parametric_object.ParametricObject" title="cqparts.params.parametric_object.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> class.</p>
@@ -538,7 +538,7 @@ a default value.</p>
 <dl class="method">
 <dt id="cqparts.params.parametric_object.ParametricObject.initialize_parameters">
 <code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.parametric_object.ParametricObject.initialize_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>A palce to set default parameters more intelegently than just a
+<dd><p>A place to set default parameters more intelligently than just a
 simple default value (does nothing by default)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -622,7 +622,7 @@ the instance cannot be re-instantiated by <a class="reference internal" href="#c
 </pre></div>
 </div>
 <p>In the second example, the classes import name is expected to be <code class="docutils literal"><span class="pre">B</span></code>.
-But instead, the <em>name</em> <code class="docutils literal"><span class="pre">Foo</span></code> is recorded. This missmatch will be
+But instead, the <em>name</em> <code class="docutils literal"><span class="pre">Foo</span></code> is recorded. This mismatch will be
 irreconcilable when attempting to <a class="reference internal" href="#cqparts.params.parametric_object.ParametricObject.deserialize" title="cqparts.params.parametric_object.ParametricObject.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a>.</p>
 </dd></dl>
 
@@ -657,6 +657,45 @@ implementation.</p>
 <dl class="method">
 <dt id="cqparts.params.types.Boolean.type">
 <code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.Boolean.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.types.ComponentRef">
+<em class="property">class </em><code class="descclassname">cqparts.params.types.</code><code class="descname">ComponentRef</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.ComponentRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.parameter.Parameter" title="cqparts.params.parameter.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.parameter.Parameter</span></code></a></p>
+<p>Reference to a Component</p>
+<p>Initially introduced as a means to reference a sub-component’s parent</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">Component</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Eighth</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ComponentRef</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;part&#39;s parent&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cube size&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># create a single cube 1/8 the volume of the whole cube</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Eighth</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.params.types.ComponentRef.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.types.ComponentRef.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -988,7 +1027,7 @@ further.</p>
 <p>By default, returns <code class="docutils literal"><span class="pre">value</span></code>, to pass straight to <a class="reference external" href="https://docs.python.org/3/library/json.html#module-json" title="(in Python v3.6)"><code class="xref py py-mod docutils literal"><span class="pre">json</span></code></a></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last"><a class="reference internal" href="#cqparts.params.Parameter.serialize" title="cqparts.params.Parameter.serialize"><code class="xref py py-meth docutils literal"><span class="pre">serialize()</span></code></a> and <a class="reference internal" href="#cqparts.params.Parameter.deserialize" title="cqparts.params.Parameter.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a> <strong>are not</strong> symetrical.</p>
+<p class="last"><a class="reference internal" href="#cqparts.params.Parameter.serialize" title="cqparts.params.Parameter.serialize"><code class="xref py py-meth docutils literal"><span class="pre">serialize()</span></code></a> and <a class="reference internal" href="#cqparts.params.Parameter.deserialize" title="cqparts.params.Parameter.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a> <strong>are not</strong> symmetrical.</p>
 </div>
 <p><strong>Example of serializing then deserializing a custom object</strong></p>
 <p>Let’s create our own <code class="docutils literal"><span class="pre">Color</span></code> class we’d like to represent as a
@@ -1032,7 +1071,7 @@ parameter.</p>
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal"><span class="pre">json_deserialize</span></code> does not return a <code class="docutils literal"><span class="pre">Color</span></code> instance.
-Intead, it returns a <em>list</em> to be used as an input to <a class="reference internal" href="#cqparts.params.Parameter.cast" title="cqparts.params.Parameter.cast"><code class="xref py py-meth docutils literal"><span class="pre">cast()</span></code></a>
+Instead, it returns a <em>list</em> to be used as an input to <a class="reference internal" href="#cqparts.params.Parameter.cast" title="cqparts.params.Parameter.cast"><code class="xref py py-meth docutils literal"><span class="pre">cast()</span></code></a>
 (which is ultimately passed to <a class="reference internal" href="#cqparts.params.Parameter.type" title="cqparts.params.Parameter.type"><code class="xref py py-meth docutils literal"><span class="pre">type()</span></code></a>)</p>
 <p>This is because when the values are deserialized, they’re used as the
 default values for a newly created <a class="reference internal" href="#cqparts.params.parametric_object.ParametricObject" title="cqparts.params.parametric_object.ParametricObject"><code class="xref py py-class docutils literal"><span class="pre">ParametricObject</span></code></a> class.</p>
@@ -1199,7 +1238,7 @@ a default value.</p>
 <dl class="method">
 <dt id="cqparts.params.ParametricObject.initialize_parameters">
 <code class="descname">initialize_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ParametricObject.initialize_parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>A palce to set default parameters more intelegently than just a
+<dd><p>A place to set default parameters more intelligently than just a
 simple default value (does nothing by default)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1283,7 +1322,7 @@ the instance cannot be re-instantiated by <a class="reference internal" href="#c
 </pre></div>
 </div>
 <p>In the second example, the classes import name is expected to be <code class="docutils literal"><span class="pre">B</span></code>.
-But instead, the <em>name</em> <code class="docutils literal"><span class="pre">Foo</span></code> is recorded. This missmatch will be
+But instead, the <em>name</em> <code class="docutils literal"><span class="pre">Foo</span></code> is recorded. This mismatch will be
 irreconcilable when attempting to <a class="reference internal" href="#cqparts.params.ParametricObject.deserialize" title="cqparts.params.ParametricObject.deserialize"><code class="xref py py-meth docutils literal"><span class="pre">deserialize()</span></code></a>.</p>
 </dd></dl>
 
@@ -1315,6 +1354,45 @@ implementation.</p>
 <dl class="method">
 <dt id="cqparts.params.Boolean.type">
 <code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.Boolean.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cqparts.params.ComponentRef">
+<em class="property">class </em><code class="descclassname">cqparts.params.</code><code class="descname">ComponentRef</code><span class="sig-paren">(</span><em>default=None</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ComponentRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cqparts.params.parameter.Parameter" title="cqparts.params.parameter.Parameter"><code class="xref py py-class docutils literal"><span class="pre">cqparts.params.parameter.Parameter</span></code></a></p>
+<p>Reference to a Component</p>
+<p>Initially introduced as a means to reference a sub-component’s parent</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cadquery</span>
+<span class="kn">from</span> <span class="nn">cqparts</span> <span class="k">import</span> <span class="n">Part</span><span class="p">,</span> <span class="n">Component</span>
+<span class="kn">from</span> <span class="nn">cqparts.params</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Eighth</span><span class="p">(</span><span class="n">Part</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ComponentRef</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;part&#39;s parent&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">return</span> <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Cube</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;cube size&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># create a single cube 1/8 the volume of the whole cube</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">Eighth</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">make_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">Fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">),</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="cqparts.params.ComponentRef.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.params.ComponentRef.type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1570,7 +1648,7 @@ for a <a class="reference internal" href="#cqparts.params.ParametricObject" titl
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

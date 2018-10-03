@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cqparts package &mdash; cqparts 0.2.0 documentation</title>
+  <title>cqparts package &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../index.html"/>
         <link rel="up" title="Module APIs" href="modules.html"/>
         <link rel="next" title="cqparts.catalogue package" href="cqparts.catalogue.html"/>
         <link rel="prev" title="Module APIs" href="modules.html"/> 
@@ -219,7 +219,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.stl">cqparts.codec.stl module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.svg">cqparts.codec.svg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec.threejs_json">cqparts.codec.threejs_json module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-cqparts.codec">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.codec.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.constraint.html">cqparts.constraint package</a><ul>
@@ -233,6 +233,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.display.html">cqparts.display package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#module-cqparts.display.cqparts_server">cqparts.display.cqparts_server module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#module-cqparts.display.environment">cqparts.display.environment module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#module-cqparts.display.freecad">cqparts.display.freecad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#module-cqparts.display.material">cqparts.display.material module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.display.html#module-cqparts.display.web">cqparts.display.web module</a></li>
@@ -250,13 +252,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cqparts.utils.html">cqparts.utils package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.env">cqparts.utils.env module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.geometry">cqparts.utils.geometry module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.misc">cqparts.utils.misc module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.sphinx">cqparts.utils.sphinx module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.test">cqparts.utils.test module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils.wrappers">cqparts.utils.wrappers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-cqparts.utils">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cqparts.utils.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -715,7 +716,7 @@ for more information.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.1)">cadquery.BoundBox</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.2)">cadquery.BoundBox</a></td>
 </tr>
 </tbody>
 </table>
@@ -741,7 +742,7 @@ there aren’t any critical runtime issues with it’s construction.</p>
 <dt id="cqparts.part.Part.local_obj">
 <code class="descname">local_obj</code><a class="headerlink" href="#cqparts.part.Part.local_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffered result of <a class="reference internal" href="#cqparts.part.Part.make" title="cqparts.part.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
 <a class="reference internal" href="#cqparts.part.Part.make_simple" title="cqparts.part.Part.make_simple"><code class="xref py py-meth docutils literal"><span class="pre">make_simple()</span></code></a> is returned instead.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -762,7 +763,7 @@ to re-generate the model from scratch, then dispose of it.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -982,6 +983,16 @@ yield the part you want.</p>
 </div>
 <div class="section" id="module-cqparts">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cqparts" title="Permalink to this headline">¶</a></h2>
+<p>Copyright 2018 Peter Boin</p>
+<p>Licensed under the Apache License, Version 2.0 (the “License”);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
 <dl class="class">
 <dt id="cqparts.Component">
 <em class="property">class </em><code class="descclassname">cqparts.</code><code class="descname">Component</code><span class="sig-paren">(</span><em>*largs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cqparts.Component" title="Permalink to this definition">¶</a></dt>
@@ -1108,7 +1119,7 @@ for more information.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">bounding box of part</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.1)">cadquery.BoundBox</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.BoundBox" title="(in CadQuery v1.2)">cadquery.BoundBox</a></td>
 </tr>
 </tbody>
 </table>
@@ -1134,7 +1145,7 @@ there aren’t any critical runtime issues with it’s construction.</p>
 <dt id="cqparts.Part.local_obj">
 <code class="descname">local_obj</code><a class="headerlink" href="#cqparts.Part.local_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Buffered result of <a class="reference internal" href="#cqparts.Part.make" title="cqparts.Part.make"><code class="xref py py-meth docutils literal"><span class="pre">make()</span></code></a> which is (probably) a
-<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
+<a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a> instance. If <code class="docutils literal"><span class="pre">_simple</span></code> is <code class="docutils literal"><span class="pre">True</span></code>, then
 <a class="reference internal" href="#cqparts.Part.make_simple" title="cqparts.Part.make_simple"><code class="xref py py-meth docutils literal"><span class="pre">make_simple()</span></code></a> is returned instead.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1155,7 +1166,7 @@ to re-generate the model from scratch, then dispose of it.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cadquery.Workplane of the part in question</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.1)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">subclass of <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.CQ" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.CQ</span></code></a>, usually a <a class="reference external" href="http://dcowden.github.io/cadquery/classreference.html#cadquery.Workplane" title="(in CadQuery v1.2)"><code class="xref py py-class docutils literal"><span class="pre">cadquery.Workplane</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -1504,7 +1515,7 @@ as the corresponding part’s world coordinates.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

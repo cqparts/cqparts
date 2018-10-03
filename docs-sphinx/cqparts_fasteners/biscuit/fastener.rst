@@ -21,8 +21,8 @@ Therefore we'll need to test the depth of available material in 2 directions.
 
 **Selector**
 
-The selector will dtermine the maximum available material in the *panels*, then
-create and place an apropriately sized ``Biscuit``.
+The selector will determine the maximum available material in the *panels*, then
+create and place an appropriately sized ``Biscuit``.
 
 **Applicator**
 
@@ -82,7 +82,7 @@ With the ``Biscuit`` in place, vacancies need to be cut out of each ``Panel``.
                 return [
                     Fixed(
                         self.components['biscuit'].mate_origin,
-                        CoordSystem().rotated((90, 0, 90))  # corectly orientate biscuit
+                        CoordSystem().rotated((90, 0, 90))  # correctly orientate biscuit
                     ),
                 ]
 

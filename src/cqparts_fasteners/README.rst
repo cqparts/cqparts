@@ -77,7 +77,7 @@ The ``Fasteners`` utility assembly can be used to automatically apply fasteners
 to arbitrary materials.
 
 
-For example, with the following 2 detatched blocks:
+For example, with the following 2 detached blocks:
 
 .. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/fastener-detatched.png
 
@@ -154,7 +154,7 @@ With use of a ``JSONCatalogue`` we can search for all fasteners within that
 catalogue that suit certain parameters, such as length, diameter, anything used
 as a parameter to build the part.
 
-For this example, we'll explicitly define the product's ``id``, guarenteeing
+For this example, we'll explicitly define the product's ``id``, guaranteeing
 only one result is returned::
 
     import os

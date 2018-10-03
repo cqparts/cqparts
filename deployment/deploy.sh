@@ -27,6 +27,8 @@ Arguments:
         env rm              Remove container
         env prereq {lib}    Install pre-requisites for given lib
         env testreq         Install test-specific requirements
+        env bash            Run Bash prompt in the container
+        env python          Run Python in the container
 
     Deploy:
         register (test|prod)    Register lib last built (only needed once)
@@ -118,7 +120,7 @@ function build() {
         # run ../src/setup.py
         echo "--- Run setup.py"
         pushd ../src
-        python setup.py sdist bdist_wheel
+        python setup.py sdist bdist_wheel --universal
         popd
     else
         echo "ERROR: no library named ${_lib}" >&2
@@ -136,7 +138,7 @@ function env_new() {
     else
         # remove existing container
         env_rm
-        # start a new container, with a blocking bash prompt (detatched)
+        # start a new container, with a blocking bash prompt (detached)
         docker run \
             -it -d \
             --name ${CONTAINER_NAME} \

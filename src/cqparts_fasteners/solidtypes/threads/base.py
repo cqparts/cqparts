@@ -30,7 +30,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     **Profile:**
 
     The thread profile contains a single wire along the XZ plane
-    (note: wire will be projected onto the XZ plane; Y-coords wil be ignored).
+    (note: wire will be projected onto the XZ plane; Y-coords will be ignored).
     The profile is expected to be of 1 thread rotation, so it's height
     (along the Z-axis) is the thread's "pitch".
     If start_count > 1, then the profile will effectively be duplicated.
@@ -52,11 +52,13 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     vertices to set for each wire.
     where: len(min_vertices) == number of edges in profile
 
-    **Example**::
+    **Example**
+
+    .. doctest::
 
         import cadquery
-        from cqparts.solidtypes.threads.base import profile_to_cross_section
-        from Helpers import show
+        from cqparts_fasteners.solidtypes.threads.base import profile_to_cross_section
+        from Helpers import show  # doctest: +SKIP
 
         profile = cadquery.Workplane("XZ") \
             .moveTo(1, 0) \
@@ -64,8 +66,8 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
             .wire()
         cross_section = profile_to_cross_section(profile)
 
-        show(profile)
-        show(cross_section)
+        show(profile)  # doctest: +SKIP
+        show(cross_section)  # doctest: +SKIP
 
     Will result in:
 

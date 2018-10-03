@@ -4,14 +4,6 @@ cqparts\.utils package
 Submodules
 ----------
 
-cqparts\.utils\.env module
---------------------------
-
-.. automodule:: cqparts.utils.env
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 cqparts\.utils\.geometry module
 -------------------------------
 

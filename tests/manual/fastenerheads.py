@@ -62,7 +62,7 @@ class NamesParam(Parameter):
 
 class Showcase(cqparts.Assembly):
     """
-    Collection of screw drive boxes, layed out in a square pattern
+    Collection of screw drive boxes, laid out in a square pattern
     """
     names = NamesParam()
     box_size = PositiveFloat(5)

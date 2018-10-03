@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Component Parts &mdash; cqparts 0.2.0 documentation</title>
+  <title>Component Parts &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../../index.html"/>
         <link rel="up" title="Example: Easy Install" href="index.html"/>
         <link rel="next" title="Exactly Sized Fastener" href="exact-fastener.html"/>
         <link rel="prev" title="Example: Easy Install" href="index.html"/> 
@@ -306,9 +306,9 @@ to the neck of the screw.</li>
 <p>The anchor is composed of:</p>
 <ul class="simple">
 <li><strong>main body</strong> : the anchor will be cut from a large cylindrical block.</li>
-<li><strong>neck slot</strong> : slot alowing woodscrew’s neck access.</li>
+<li><strong>neck slot</strong> : slot allowing woodscrew’s neck access.</li>
 <li><strong>head slot</strong> : conical wedge to pull on screwhead when installed.</li>
-<li><strong>access port</strong> : 1 quadrant cut out to to alow screwhead access.</li>
+<li><strong>access port</strong> : 1 quadrant cut out to to allow screwhead access.</li>
 <li><strong>screw drive</strong> : to allow user to apply a screwdriver to install.</li>
 </ul>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
@@ -375,7 +375,7 @@ to the neck of the screw.</li>
                 <span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head_diameter</span><span class="p">)</span>
         <span class="p">)</span>
 
-        <span class="c1"># access port : remove a quadrant to alow screw&#39;s head through</span>
+        <span class="c1"># access port : remove a quadrant to allow screw&#39;s head through</span>
         <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span>
             <span class="n">cadquery</span><span class="o">.</span><span class="n">Workplane</span><span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">head_diameter</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span> \
                 <span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">centered</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> \
@@ -436,7 +436,7 @@ Besides, that’s more than enough code:</p>
 <h2>Wood Panel<a class="headerlink" href="#wood-panel" title="Permalink to this headline">¶</a></h2>
 <p>We’ll also need to create some wooden panels that we intend to join using
 the <em>fastener</em>.</p>
-<p>It’s essentially just a <em>box</em> shape, but we’ll add some <em>mate</em> points to alow
+<p>It’s essentially just a <em>box</em> shape, but we’ll add some <em>mate</em> points to allow
 easy alignment.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">WoodPanel</span><span class="p">(</span><span class="n">cqparts</span><span class="o">.</span><span class="n">Part</span><span class="p">):</span>
     <span class="n">thickness</span> <span class="o">=</span> <span class="n">PositiveFloat</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">&quot;thickness of panel&quot;</span><span class="p">)</span>
@@ -518,7 +518,7 @@ these into an <em>assembly</em>.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

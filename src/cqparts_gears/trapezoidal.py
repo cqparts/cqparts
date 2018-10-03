@@ -5,6 +5,8 @@ import cadquery
 from cqparts.params import *
 from cqparts.utils import CoordSystem
 
+from cqparts.constraint import Mate
+
 from .base import Gear
 
 
@@ -89,3 +91,11 @@ class TrapezoidalGear(Gear):
             )
 
         return gear
+
+    @property
+    def mate_top(self):
+        return Mate(self, CoordSystem((0, 0, self.width / 2)))
+
+    @property
+    def mate_bottom(self):
+        return Mate(self, CoordSystem((0, 0, -self.width / 2)))

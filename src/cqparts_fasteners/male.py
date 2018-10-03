@@ -253,7 +253,7 @@ class MaleFastenerPart(cqparts.Part):
         .. image:: /_static/img/fastenerpart/male.cutter.png
 
         If the head were an externally driven shape (like a hex bolt), then the
-        cutter's head would be wide enough to accomodate a tool to fasten it.
+        cutter's head would be wide enough to accommodate a tool to fasten it.
         """
         # head
         obj = self.head.make_cutter()

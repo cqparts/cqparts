@@ -3,3 +3,4 @@ six
 numpy
 Jinja2
 tinydb
+requests

@@ -106,14 +106,14 @@ class WheeledAxle(cqparts.Assembly):
     right_width = PositiveFloat(7, doc="right wheel width")
     left_diam = PositiveFloat(25, doc="left wheel diameter")
     right_diam = PositiveFloat(25, doc="right wheel diameter")
-    axle_diam = PositiveFloat(8, doc="axel diameter")
+    axle_diam = PositiveFloat(8, doc="axle diameter")
     axle_track = PositiveFloat(50, doc="distance between wheel tread midlines")
     wheel_clearance = PositiveFloat(3, doc="distance between wheel and chassis")
 
     def make_components(self):
-        axel_length = self.axle_track - (self.left_width + self.right_width) / 2
+        axle_length = self.axle_track - (self.left_width + self.right_width) / 2
         return {
-            'axle': Axle(length=axel_length, diameter=self.axle_diam),
+            'axle': Axle(length=axle_length, diameter=self.axle_diam),
             'left_wheel': Wheel(
                  width=self.left_width, diameter=self.left_diam,
             ),
@@ -202,7 +202,8 @@ class Car(cqparts.Assembly):
 
 
 # ------------------- Export / Display -------------------
-from cqparts.utils.env import env_name
+from cqparts.display import get_display_environment
+env_name = get_display_environment().name
 
 # ------- Models
 wheel = Wheel()

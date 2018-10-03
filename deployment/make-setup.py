@@ -71,7 +71,7 @@ CLASSIFIERS = [
     "Intended Audience :: Manufacturing",
     "Intended Audience :: End Users/Desktop",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
     "Operating System :: MacOS",
     "Operating System :: POSIX",
@@ -145,7 +145,7 @@ def setup_standin(**kwargs):
     # "Why on earth are you doing this?" I hear you ask:
     # "That's a fair question" I reply...
     #
-    #   originally this *was* the `setup.py` file used to *build* the distrubution files.
+    #   originally this *was* the `setup.py` file used to *build* the distribution files.
     #   However, I have since learnt is that the `setup.py` file itself is
     #   distributed with the build module(s). It is used to *install* the library on
     #   each end-user's system.

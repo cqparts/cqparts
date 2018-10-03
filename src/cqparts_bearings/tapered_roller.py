@@ -205,7 +205,7 @@ class TaperedRollerBearing(cqparts.Assembly):
 
         .. note::
 
-            Calculation is innacurate, it assumes the roller's cross-section on
+            Calculation is inaccurate, it assumes the roller's cross-section on
             a horizontal plane is circular, however a rotated cone's cross-section will
             be closer to eliptical than circular.
         """

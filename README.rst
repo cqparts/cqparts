@@ -37,6 +37,23 @@ Once ``cadquery`` is installed, install ``cqparts`` with::
     cd ../src
     python3 setup.py install
 
+``cqparts_*`` Content Libraries
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can also install content libraries with a similar ``pip install`` command.
+
+List available libraries with::
+
+    pip search cqparts-
+
+For example, to install the ``cqparts_bearings`` content library, run::
+
+    pip install cqparts-bearings
+
+
+_Note_: ``pip`` packages use ``-`` to separate words, but when importing them the
+standard ``_`` is used.
+
 
 Example Usage
 -------------------

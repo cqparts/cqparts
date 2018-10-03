@@ -28,6 +28,10 @@ Anybody can create a pull request,
 [search for "contributing to github"][contribute-search] for guides on how to
 do so.
 
+**Running Tests:** Did your code work?, who knows!?, [run the tests](tests)
+for regression testing. Also consider adding your own tests if you've added new
+functionality.
+
 ## Creating your own `cqparts_*` Library
 
 You don't need my permission to create your own library and publish it

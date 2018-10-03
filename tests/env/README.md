@@ -3,6 +3,11 @@
 Each of the sub-folders in this directory has a buildable environment designed
 to for unit-testing.
 
+**IMPORTANT:** Each of these environments is based on a docker image built in
+the root `env` folder.
+Before building these environments, run the relevant `build.sh` scripts in
+[the root `env` folder](../../env)
+
 At this time [2018-02] I'm just working with docker containers with _ubuntu_
 environments.
 

@@ -2,8 +2,8 @@ FROM ubuntu:16.04
 
 # build-time arguments
 ARG tester_name=tester
-ARG freecad_conda_ver_major=0.17
-ARG freecad_conda_ver_minor=py36_11
+ARG freecad_conda_ver_major=0.18b0
+ARG freecad_conda_ver_minor=py36h275e31e_2
 ARG env_rel_path
 
 ADD . /code

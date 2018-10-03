@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Biscuit Fastener &amp; Usage &mdash; cqparts 0.2.0 documentation</title>
+  <title>Biscuit Fastener &amp; Usage &mdash; cqparts 0.2.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="cqparts 0.2.0 documentation" href="../../index.html"/>
+    <link rel="top" title="cqparts 0.2.1 documentation" href="../../index.html"/>
         <link rel="up" title="Example: Biscuit Join" href="index.html"/>
         <link rel="next" title="Examples" href="../../examples/index.html"/>
         <link rel="prev" title="Component Parts" href="component-parts.html"/> 
@@ -197,8 +197,8 @@ apply the <code class="docutils literal"><span class="pre">Biscuit</span></code>
 where the biscuit will be.</p>
 <p>Therefore we’ll need to test the depth of available material in 2 directions.</p>
 <p><strong>Selector</strong></p>
-<p>The selector will dtermine the maximum available material in the <em>panels</em>, then
-create and place an apropriately sized <code class="docutils literal"><span class="pre">Biscuit</span></code>.</p>
+<p>The selector will determine the maximum available material in the <em>panels</em>, then
+create and place an appropriately sized <code class="docutils literal"><span class="pre">Biscuit</span></code>.</p>
 <p><strong>Applicator</strong></p>
 <p>With the <code class="docutils literal"><span class="pre">Biscuit</span></code> in place, vacancies need to be cut out of each <code class="docutils literal"><span class="pre">Panel</span></code>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cqparts_fasteners.fasteners.base</span> <span class="k">import</span> <span class="n">Fastener</span>
@@ -252,7 +252,7 @@ create and place an apropriately sized <code class="docutils literal"><span clas
             <span class="k">return</span> <span class="p">[</span>
                 <span class="n">Fixed</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s1">&#39;biscuit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mate_origin</span><span class="p">,</span>
-                    <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>  <span class="c1"># corectly orientate biscuit</span>
+                    <span class="n">CoordSystem</span><span class="p">()</span><span class="o">.</span><span class="n">rotated</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>  <span class="c1"># correctly orientate biscuit</span>
                 <span class="p">),</span>
             <span class="p">]</span>
 
@@ -421,7 +421,7 @@ biscuits are smaller:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.2.0',
+            VERSION:'0.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
