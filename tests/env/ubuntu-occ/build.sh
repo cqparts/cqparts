@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -e
+
 source ./common-vars.sh
 
 ENV_REL_PATH=$(python -c "import os.path; print(os.path.relpath('${PWD}', '${CQPARTS_ROOT}'))")

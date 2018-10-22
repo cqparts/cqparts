@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 cat << EOF
 Environment Variables:
     ftp_proxy    = ${ftp_proxy}

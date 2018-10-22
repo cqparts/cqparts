@@ -1,4 +1,4 @@
-FROM cqparts-env:ubuntu-py3
+FROM cqparts-env:ubuntu-occ
 
 # build-time arguments
 ARG tester_name=tester

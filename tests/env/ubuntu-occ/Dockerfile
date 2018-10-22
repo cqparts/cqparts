@@ -1,4 +1,4 @@
-FROM cqparts-env:ubuntu-py3
+FROM cqparts-env:ubuntu-occ
 
 # build-time arguments
 ARG tester_name=tester
@@ -16,7 +16,7 @@ RUN bash /code/${env_rel_path}/setup.sh
 USER ${tester_name}
 
 # runtime environment variables
-ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib
+ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib:/conda_packages
 
 # default run command
 CMD $PYTHON_BIN runtests.py --ignore "catalogue"
