@@ -25,7 +25,7 @@ to debug your part placement, and to demonstrate ``Mate`` coordinate systems.
 * Coordinate System Indicator
 * Planar Indicator
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/misc/indicators.png
+.. image:: https://cqparts.github.io/cqparts/media/img/misc/indicators.png
 
 
 Examples
@@ -64,7 +64,7 @@ To illustrate how an inciator can be used to show where a ``Mate`` is on a
     from cqparts.display import display
     display(MyAsm())
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/misc/example-coordsys-indicator.png
+.. image:: https://cqparts.github.io/cqparts/media/img/misc/example-coordsys-indicator.png
 
 From this we can see that the ``mate_neg_y`` mate has:
 

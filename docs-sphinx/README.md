@@ -3,7 +3,7 @@
 This folder contains the source files, and build scripts to generate
 the documentation viewable at:
 
-https://fragmuffin.github.io/cqparts/doc/
+https://cqparts.github.io/cqparts/doc/
 
 ## Build Script
 

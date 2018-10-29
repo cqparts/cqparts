@@ -17,7 +17,7 @@ Heads
 * Cylindrical varieties
 * Externally Driven (eg: hex head)
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/heads-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/heads-assorted.png
 
 Drive Types
 ^^^^^^^^^^^^^^^^^
@@ -28,7 +28,7 @@ Drive Types
 * Slotted
 * Tamper Resistant varieties
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/drives-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/drives-assorted.png
 
 Threads
 ^^^^^^^^^^^^^^^^^^
@@ -39,11 +39,11 @@ Standard threads included:
 * Triangular (eg: for woodscrews)
 * Ball Screw
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/threads-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/threads-assorted.png
 
 Any custom thread can be built by creating a *profile* as a ``Wire`` from within
 an object inheriting from the base ``Thread`` class.
-(`read more here <https://fragmuffin.github.io/cqparts/doc/api/cqparts_fasteners.solidtypes.threads.html?highlight=build_profile#cqparts_fasteners.solidtypes.threads.base.Thread>`_)
+(`read more here <https://cqparts.github.io/cqparts/doc/api/cqparts_fasteners.solidtypes.threads.html?highlight=build_profile#cqparts_fasteners.solidtypes.threads.base.Thread>`_)
 
 .. note::
 
@@ -61,14 +61,14 @@ Male Fastener Components
 * Bolts
 * Screws
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/male-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/male-assorted.png
 
 Female Fastener Components
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Nuts
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/female-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/female-assorted.png
 
 Utilities
 -------------------------
@@ -79,17 +79,17 @@ to arbitrary materials.
 
 For example, with the following 2 detached blocks:
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/fastener-detatched.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/fastener-detatched.png
 
 A ``Fastener`` can be applied to these two blocks to hold them together in a
 variety of ways, with varied parameters, such as these 2 exmples:
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/fastener-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/fastener-assorted.png
 
 More detailed examples of customizing a ``Fastener`` are
-`documented here <https://fragmuffin.github.io/cqparts/doc/cqparts_fasteners/>`_.
+`documented here <https://cqparts.github.io/cqparts/doc/cqparts_fasteners/>`_.
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/fastener-custom-assorted.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/fastener-custom-assorted.png
 
 
 Catalogue(s)
@@ -145,7 +145,7 @@ an M3 machine screw, 4mm long, with a domed cheese head, and a 2mm hex drive::
     from cqparts.display import display
     display(screw)
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/example-screw.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/example-screw.png
 
 Catalogue ``Bolt``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -177,4 +177,4 @@ only one result is returned::
 This should generate an accurate model for BoltDepot's
 `product #221 <https://www.boltdepot.com/Product-Details.aspx?product=221>`_.
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/fasteners/example-catalogue.png
+.. image:: https://cqparts.github.io/cqparts/media/img/fasteners/example-catalogue.png
