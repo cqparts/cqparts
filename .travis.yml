@@ -9,6 +9,7 @@ env:
   matrix:
     - ENV_NAME=ubuntu-py2
     - ENV_NAME=ubuntu-py3
+    - ENV_NAME=ubuntu-occ
 
 install:
   - cd $TRAVIS_BUILD_DIR/env/$ENV_NAME ; ./build.sh
