@@ -323,51 +323,49 @@ class GLTFExporter(Exporter):
 
         But how to definitively determine :class:`Part <cqparts.Part>`
         instance equality?
-
-
     """
 
-    # scale = 0.001  # mm to meters
-    scale = 1
-    TEMPLATE = {
-        # Static values
-        "asset": {
-            "generator": "cqparts_%s" % __version__,
-            "version": "2.0"  # glTF version
-        },
-        "scene": 0,
-
-        # Populated by adding parts
-        "scenes": [{"nodes": [0]}],
-        "nodes": [
-            {
-                "children": [],  # will be appended to before writing to file
-                # scene rotation to suit glTF coordinate system
-                # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
-                "matrix": [
-                    1.0 * scale, 0.0, 0.0, 0.0,
-                    0.0, 0.0,-1.0 * scale, 0.0,
-                    0.0, 1.0 * scale, 0.0, 0.0,
-                    0.0, 0.0, 0.0, 1.0,
-                ],
+    @classmethod
+    def _template(cls, scale=1):
+        return {
+            # Static values
+            "asset": {
+                "generator": "cqparts_%s" % __version__,
+                "version": "2.0"  # glTF version
             },
-        ],
-        "meshes": [],
-        "accessors": [],
-        "materials": [],
-        "bufferViews": [],
-        "buffers": [],
-    }
+            "scene": 0,
+
+            # Populated by adding parts
+            "scenes": [{"nodes": [0]}],
+            "nodes": [
+                {
+                    "children": [],  # will be appended to before writing to file
+                    # scene rotation to suit glTF coordinate system
+                    # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
+                    "matrix": [
+                        1.0 * scale, 0.0, 0.0, 0.0,
+                        0.0, 0.0,-1.0 * scale, 0.0,
+                        0.0, 1.0 * scale, 0.0, 0.0,
+                        0.0, 0.0, 0.0, 1.0,
+                    ],
+                },
+            ],
+            "meshes": [],
+            "accessors": [],
+            "materials": [],
+            "bufferViews": [],
+            "buffers": [],
+        }
 
     def __init__(self, *args, **kwargs):
         super(GLTFExporter, self).__init__(*args, **kwargs)
 
         # Initialize
-        self.gltf_dict = deepcopy(self.TEMPLATE)
+        self.gltf_dict = None
         self.scene_min = None
         self.scene_max = None
 
-    def __call__(self, filename='out.gltf', embed=False, tolerance=0.01):
+    def __call__(self, filename='out.gltf', embed=False, tolerance=0.01, scale=1):
         """
         :param filename: name of ``.gltf`` file to export
         :type filename: :class:`str`
@@ -375,9 +373,15 @@ class GLTFExporter(Exporter):
         :type embed: :class:`bool`
         :param tolerance: error tolerance of vertices to true face value, only relevant for curved surfaces
         :type tolerance: :class:`float`
+        :param scale: ratio of size difference of model:export coordinates
+        :type scale: :class:`float`
         """
 
         self.tolerance = tolerance
+        self.scale = scale
+
+        # Initialize gltf index content
+        self.gltf_dict = self._template(scale=self.scale)
 
         def add(obj, filename, name, origin, parent_node_index=0):
             split = os.path.splitext(filename)
@@ -456,11 +460,7 @@ class GLTFExporter(Exporter):
             m = coord_sys.local_to_world_transform  # FreeCAD.Base.Matrix
 
             # glTF matrix is column major; needs to be tranposed
-            try:
-                node_update.update({'matrix': m.transposed().A})
-            except AttributeError:
-                # caquery based on OCC does not have that method
-                node_update.update({'matrix': m.transposed_list()})
+            node_update.update({'matrix': m.transposed_list()})
         else:
             raise NotImplementedError("only matrix export is supported (for now)")
             # The plan is to support something more like:
