@@ -27,19 +27,17 @@ class STEPExporter(Exporter):
     """
 
     def __call__(self, filename='out.step', world=False):
-
         # Getting cadquery Shape
         workplane = self.obj.world_obj if world else self.obj.local_obj
         shape = workplane.val()
 
         # call cadquery exporter
-        with cadquery.freecad_impl.suppress_stdout_stderr():
-            with open(filename, 'w') as fh:
-                cadquery.freecad_impl.exporters.exportShape(
-                    shape=shape,
-                    exportType='STEP',
-                    fileLike=fh,
-                )
+        with open(filename, 'w') as fh:
+            cadquery.exporters.exportShape(
+                shape=shape,
+                exportType=exporters.ExportTypes.STEP,
+                fileLike=fh,
+            )
 
 
 class STEPPartImporter(Importer):

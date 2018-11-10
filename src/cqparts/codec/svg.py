@@ -25,15 +25,14 @@ class SVGExporter(Exporter):
     """
 
     def __call__(self, filename='out.svg', world=False):
-
         # Getting cadquery Shape
         workplane = self.obj.world_obj if world else self.obj.local_obj
         shape = workplane.val()
 
         # call cadquery exporter
         with open(filename, 'w') as fh:
-            cadquery.freecad_impl.exporters.exportShape(
+            cadquery.exporters.exportShape(
                 shape=shape,
-                exportType='SVG',
+                exportType=cadquery.exporters.ExportTypes.SVG,
                 fileLike=fh,
             )
