@@ -36,10 +36,10 @@ Create a ball bearing with::
     # export model to file, various formats available [optional]
     bearing.exporter('gltf')('bearing.gltf')
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/bearings/ball-example.png
+.. image:: https://cqparts.github.io/cqparts/media/img/bearings/ball-example.png
 
 All `BallBearing` parameters are documented
-`here <https://fragmuffin.github.io/cqparts/doc/api/cqparts_bearings.html#cqparts_bearings.ball.BallBearing>`_.
+`here <https://cqparts.github.io/cqparts/doc/api/cqparts_bearings.html#cqparts_bearings.ball.BallBearing>`_.
 
 The bearing is generated in the following hierarchy:
 

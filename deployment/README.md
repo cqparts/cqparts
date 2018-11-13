@@ -32,6 +32,8 @@ At this time, running `./deploy.sh --help` displays:
             env rm              Remove container
             env prereq {lib}    Install pre-requisites for given lib
             env testreq         Install test-specific requirements
+            env bash            Run Bash prompt in the container
+            env python          Run Python in the container
 
         Deploy:
             register (test|prod)    Register lib last built (only needed once)
@@ -60,10 +62,10 @@ At this time, running `./deploy.sh --help` displays:
         cqparts_springs
         cqparts_template
         cqparts_torquelimiters
+        cqparts_toys
 
     Environments: {env}
-        ubuntu-py2
-        ubuntu-py3
+        ubuntu-occ
 
 
 ## Host OS Setup
@@ -123,15 +125,8 @@ lib=cqparts
 **Test `sdist`**
 
 ```bash
-# Python 2.x
-./deploy.sh env new ubuntu-py2
-./deploy.sh env prereq $lib
-./deploy.sh install sdist $lib
-./deploy.sh env testreq
-./deploy.sh test $lib
-
-# Python 3.x
-./deploy.sh env new ubuntu-py3
+# per test envionrment
+./deploy.sh env new ubuntu-occ
 ./deploy.sh env prereq $lib
 ./deploy.sh install sdist $lib
 ./deploy.sh env testreq
@@ -141,14 +136,8 @@ lib=cqparts
 **Test `wheel`**
 
 ```bash
-# Python 2.x
-./deploy.sh env new ubuntu-py2
-./deploy.sh install wheel $lib
-./deploy.sh env testreq
-./deploy.sh test $lib
-
-# Python 3.x
-./deploy.sh env new ubuntu-py3
+# per test envionrment
+./deploy.sh env new ubuntu-occ
 ./deploy.sh install wheel $lib
 ./deploy.sh env testreq
 ./deploy.sh test $lib
@@ -168,14 +157,8 @@ xdg-open https://testpypi.python.org/pypi/$lib
 **Test**
 
 ```bash
-# Python 2.x
-./deploy.sh env new ubuntu-py2
-./deploy.sh install pypitest $lib
-./deploy.sh env testreq
-./deploy.sh test $lib
-
-# Python 3.x
-./deploy.sh env new ubuntu-py3
+# per test envionrment
+./deploy.sh env new ubuntu-occ
 ./deploy.sh install pypitest $lib
 ./deploy.sh env testreq
 ./deploy.sh test $lib
@@ -196,14 +179,8 @@ xdg-open https://pypi.python.org/pypi/$lib
 **Test**
 
 ```bash
-# Python 2.x
-./deploy.sh env new ubuntu-py2
-./deploy.sh install pypi $lib
-./deploy.sh env testreq
-./deploy.sh test $lib
-
-# Python 3.x
-./deploy.sh env new ubuntu-py3
+# per test envionrment
+./deploy.sh env new ubuntu-occ
 ./deploy.sh install pypi $lib
 ./deploy.sh env testreq
 ./deploy.sh test $lib

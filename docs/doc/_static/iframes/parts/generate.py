@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # The code here should be representative of that in:
-#   https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html
+#   https://cqparts.github.io/cqparts/doc/tutorials/assembly.html
 
 
 # ------------------- Box -------------------
