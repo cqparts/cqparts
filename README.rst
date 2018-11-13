@@ -1,5 +1,5 @@
 
-.. image:: https://fragmuffin.github.io/cqparts/media/logo/dark.svg
+.. image:: https://cqparts.github.io/cqparts/media/logo/dark.svg
     :align: center
 
 =====================
@@ -11,7 +11,7 @@ What is `cqparts`?
 Using ``cqparts`` you can wrap geometry made with ``cadquery`` to build complex
 and deeply parametric models.
 
-Full documentation at: https://fragmuffin.github.io/cqparts
+Full documentation at: https://cqparts.github.io/cqparts
 
 
 Installing
@@ -58,12 +58,12 @@ Here is just one of the simplest examples to give you an idea of what this
 library does.
 
 More detailed examples found in
-`the official documentation for cqparts <https://fragmuffin.github.io/cqparts/doc>`_.
+`the official documentation for cqparts <https://cqparts.github.io/cqparts/doc>`_.
 
 Wrapping a Cube
 ^^^^^^^^^^^^^^^^^^
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/unit-cube.png
+.. image:: https://cqparts.github.io/cqparts/media/img/unit-cube.png
 
 A simple cube defined with ``cadquery`` alone::
 
@@ -107,9 +107,9 @@ Creating a Hierarchy
 *assemblies* to build something deeply complicated and entirely parametric.
 
 A simple example of this is the
-`toy car tutorial <https://fragmuffin.github.io/cqparts/doc/tutorials/assembly.html>`_.
+`toy car tutorial <https://cqparts.github.io/cqparts/doc/tutorials/assembly.html>`_.
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/toy-car.png
+.. image:: https://cqparts.github.io/cqparts/media/img/toy-car.png
 
 
 ``cqparts`` Capabilities
@@ -118,9 +118,9 @@ A simple example of this is the
 The work done in ``cqparts_fasteners`` is a good example of how useful
 ``cqparts`` wrapping can be; read about the ``Fastener`` class, how it works,
 and what can be done with it in the
-`cqparts_fasteners docs <https://fragmuffin.github.io/cqparts/doc/cqparts_fasteners/index.html>`_
+`cqparts_fasteners docs <https://cqparts.github.io/cqparts/doc/cqparts_fasteners/index.html>`_
 
-.. image:: https://fragmuffin.github.io/cqparts/media/img/nut-bolt-fastener.png
+.. image:: https://cqparts.github.io/cqparts/media/img/nut-bolt-fastener.png
 
 
 Contributing
