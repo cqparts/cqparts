@@ -25,23 +25,13 @@ To build each of these containers, go into each folder and run:
 
     ./build.sh
 
-## `cqparts-env:ubuntu-py2`
+## `cqparts-env:ubuntu-occ`
 
-Install `python` and `freecad` as they are directly from `apt`
+Install `python` and `pythonocc` (via `cadquery-occ`)
 
-At the time of writing this: [2018-03]
+At the time of writing this: [2018-11]
 
-- Python 2.7.12 (default, Dec  4 2017, 14:50:18)
-- FreeCAD 0.16 Revision: 6712 (Git)
-
-## `cqparts-env:ubuntu-py3`
-
-Install `python3` with `apt`, and `freecad=0.17` with `conda`:
-
-At the time of writing this: [2018-03]
-
-- Python 3.5.2 (default, Nov 23 2017, 16:37:01)
-- FreeCAD 0.17, Libs: 0.17R13062 (Git)
+- Python 3.5.2
 
 
 # Using these as a basis
@@ -49,6 +39,6 @@ At the time of writing this: [2018-03]
 Docker images built elsewhere in this repository use one of these
 environments as a basis... for example:
 
-The `Dockerfile` for `cqparts-test:ubuntu-py2` would start with
+The `Dockerfile` for `cqparts-test:ubuntu-occ` would start with
 
-    FROM cqparts-env:ubuntu-py2
+    FROM cqparts-env:ubuntu-occ
