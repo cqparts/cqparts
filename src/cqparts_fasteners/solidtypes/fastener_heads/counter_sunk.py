@@ -5,9 +5,6 @@ from cqparts.params import *
 
 from .base import FastenerHead, register
 
-# pull FreeCAD module from cadquery (workaround for torus)
-FreeCAD = cadquery.freecad_impl.FreeCAD
-
 
 @register(name='countersunk')
 class CounterSunkFastenerHead(FastenerHead):

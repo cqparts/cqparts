@@ -235,7 +235,7 @@ class CoordSystem(cadquery.Plane):
             # CoordSystem + cadquery.Vector
             transform = self.local_to_world_transform
             return type(other)(
-                transform.multiply(other.wrapped)
+                transform.multiply(other)
             )
 
         elif isinstance(other, cadquery.CQ):

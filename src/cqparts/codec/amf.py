@@ -17,7 +17,7 @@ class AMFExporter(Exporter):
 
     .. note::
 
-        Object is passed to :meth:`cadquery.freecad_impl.exporters.exportShape`
+        Object is passed to :meth:`cadquery.exporters.exportShape`
         for exporting.
     """
 
