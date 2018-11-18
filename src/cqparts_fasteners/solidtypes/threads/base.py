@@ -126,7 +126,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
     def get_xz(vertex):
         if isinstance(vertex, cadquery.Vector):
             vertex = vertex.wrapped  # TODO: remove this, it's messy
-        # where isinstance(vertex, FreeCAD.Base.Vector)
+        # where isinstance(vertex, cadquery.Vector)
         return (vertex.x, vertex.z)
 
     def cart2polar(x, z, z_offset=0):
@@ -141,7 +141,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
         return (radius, angle)
 
     def transform(vertex, z_offset=0):
-        # where isinstance(vertex, FreeCAD.Base.Vector)
+        # where isinstance(vertex, cadquery.Vector)
         """
         Transform profile vertex on the XZ plane to it's equivalent on
         the cross-section's XY plane

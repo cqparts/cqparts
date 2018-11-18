@@ -68,8 +68,8 @@ class CounterSunkFastenerHead(FastenerHead):
             torus = cadquery.Workplane("XY").union(
                 cadquery.CQ(cadquery.Solid.makeTorus(
                     r1, r2, # radii
-                    pnt=FreeCAD.Base.Vector(0,0,0),
-                    dir=FreeCAD.Base.Vector(0,0,1),
+                    pnt=cadquery.Vector(0,0,0),
+                    dir=cadquery.Vector(0,0,1),
                     angleDegrees1=0.,
                     angleDegrees2=360.
                 )).translate((0, 0, -(self.height + d_height)))

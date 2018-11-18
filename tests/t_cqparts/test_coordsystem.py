@@ -14,7 +14,7 @@ class CoordSystemTests(CQPartsTest):
 
     @staticmethod
     def mat2list(m, digits=7):
-        """Converts FreeCAD.Base.Matrix to a list"""
+        """Converts cadquery.Matrix to a list"""
         return [
             round(v, digits)
             for v in [
@@ -28,7 +28,7 @@ class CoordSystemTests(CQPartsTest):
     def assertMatrixAlmostEquals(self, first, second, places=6):
         """
         :param first: matrix
-        :type first: :class:`FreeCAD.Base.Matrix`
+        :type first: :class:`cadquery.Matrix`
         :param second: list of 16 numbers (of a 4x4 matrix)
         :type second: :class:`list`
         """

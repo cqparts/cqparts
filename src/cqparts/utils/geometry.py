@@ -45,7 +45,7 @@ class CoordSystem(cadquery.Plane):
     def from_transform(cls, matrix):
         r"""
         :param matrix: 4x4 3d affine transform matrix
-        :type matrix: :class:`FreeCAD.Matrix`
+        :type matrix: :class:`cadquery.Matrix`
         :return: a unit, zero offset coordinate system transformed by the given matrix
         :rtype: :class:`CoordSystem`
 
