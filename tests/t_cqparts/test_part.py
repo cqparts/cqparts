@@ -61,11 +61,11 @@ class MakeSimpleTests(CQPartsTest):
 
         # complex geometry yields unit cube
         cbb = P().local_obj.val().BoundingBox()
-        self.assertAlmostEqual((cbb.xmin, cbb.xmax), (-0.5, 0.5))
+        self.assertTupleAlmostEqual((cbb.xmin, cbb.xmax), (-0.5, 0.5))
 
         # complex geometry yields cube with 10xunit sides
         sbb = P(_simple=True).local_obj.val().BoundingBox()
-        self.assertAlmostEqual((sbb.xmin, sbb.xmax), (-5, 5))
+        self.assertTupleAlmostEqual((sbb.xmin, sbb.xmax), (-5, 5))
 
 
 class BuildCycleTests(CQPartsTest):
@@ -113,13 +113,13 @@ class BuildCycleTests(CQPartsTest):
         p.world_coords = CoordSystem(origin=(0,0,10))
         bb = p.world_obj.val().BoundingBox()
         self.assertAlmostEqual(bb.DiagonalLength, sqrt(3))
-        self.assertAlmostEqual((bb.zmin, bb.zmax), (-0.5 + 10, 0.5 + 10))
+        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-0.5 + 10, 0.5 + 10))
 
         # change local
         p.local_obj = cadquery.Workplane('XY').box(10, 10, 10)
         bb = p.world_obj.val().BoundingBox()
         self.assertAlmostEqual(bb.DiagonalLength, sqrt(3) * 10)
-        self.assertAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10))
+        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10))
 
 
 class CopyTests(CQPartsTest):
