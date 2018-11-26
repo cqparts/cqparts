@@ -24,6 +24,7 @@ install:
     - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
     - python -m pip install --upgrade pip
     - ps: >-
+        $PSDefaultParameterValues['*:Encoding'] = 'utf8'
         echo $($(
             Get-ChildItem "src/*/requirements.txt" |
                 ForEach-Object {
