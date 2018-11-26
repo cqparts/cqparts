@@ -34,8 +34,10 @@ install:
                     echo $_
                 }
             } | ForEach-Object {
+                echo "--- Installing: $_"
                 python -m pip install $_
             }
+    - python -m pip install -r tests/requirements.txt
 
 build: false
 
