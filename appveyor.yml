@@ -25,6 +25,7 @@ install:
     - python -m pip install --upgrade pip
     - ps: >-
         $PSDefaultParameterValues['*:Encoding'] = 'utf8'
+    - ps: >-
         echo $($(
             Get-ChildItem "src/*/requirements.txt" |
                 ForEach-Object {
