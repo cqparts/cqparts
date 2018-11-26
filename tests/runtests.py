@@ -100,7 +100,7 @@ def readonly_tinydb(path=None):
             # file being used is in this repository
             return codecs_open(name, mode='r', **kwargs)  # ignore given mode; force read-only
         # otherwise, the file is probably in a temporary, read/writeable location
-        return open(name, mode)
+        return codecs_open(name, mode=mode, **kwargs)
 
     with mock.patch('tinydb.storages.codecs.open', _codecs_open_readonly):
         with mock.patch('tinydb.storages.os.utime'):
