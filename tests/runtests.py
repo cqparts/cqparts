@@ -94,14 +94,15 @@ def readonly_tinydb(path=None):
         path = os.path.realpath(path)
 
     # __builtin__.open replcement method
-    def _open(name, mode='r'):
+    from codecs import open as codecs_open
+    def _codecs_open_readonly(name, mode='r', **kwargs):
         if os.path.realpath(name).startswith(path):
             # file being used is in this repository
-            return open(name, 'r')  # ignore given mode; force read-only
+            return codecs_open(name, mode='r', **kwargs)  # ignore given mode; force read-only
         # otherwise, the file is probably in a temporary, read/writeable location
-        return open(name, mode)
+        return codecs_open(name, mode=mode, **kwargs)
 
-    with mock.patch('tinydb.storages.open', _open):
+    with mock.patch('tinydb.storages.codecs.open', _codecs_open_readonly):
         with mock.patch('tinydb.storages.os.utime'):
             yield
 
