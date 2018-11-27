@@ -3,7 +3,6 @@ from math import ceil, sin, cos, pi
 import os
 
 import cadquery
-import FreeCAD
 import Part as FreeCADPart
 
 import cqparts
@@ -124,9 +123,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
 
     # Utilities for building cross-section
     def get_xz(vertex):
-        if isinstance(vertex, cadquery.Vector):
-            vertex = vertex.wrapped  # TODO: remove this, it's messy
-        # where isinstance(vertex, FreeCAD.Base.Vector)
+        # where isinstance(vertex, cadquery.Vector)
         return (vertex.x, vertex.z)
 
     def cart2polar(x, z, z_offset=0):
@@ -141,7 +138,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
         return (radius, angle)
 
     def transform(vertex, z_offset=0):
-        # where isinstance(vertex, FreeCAD.Base.Vector)
+        # where isinstance(vertex, cadquery.Vector)
         """
         Transform profile vertex on the XZ plane to it's equivalent on
         the cross-section's XY plane
@@ -172,8 +169,8 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
         Only intended for use for vertical lines on the given profile.
         """
         return wp.threePointArc(
-            point1=transform(edge.wrapped.valueAt(edge.Length() / 2), z_offset),
-            point2=transform(edge.wrapped.valueAt(edge.Length()), z_offset),
+            point1=transform(edge.valueAt(edge.Length() / 2), z_offset),
+            point2=transform(edge.valueAt(edge.Length()), z_offset),
         )
 
     def apply_radial_line(wp, edge, z_offset=0):
@@ -183,7 +180,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
         return wp.lineTo(*transform(edge.endPoint(), z_offset))
 
     # Build cross-section
-    start_v = edges[0].startPoint().wrapped
+    start_v = edges[0].startPoint()
     cross_section = cadquery.Workplane("XY") \
         .moveTo(*transform(start_v))
 
@@ -205,9 +202,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
 
 
 def helical_path(pitch, length, radius, angle=0, lefthand=False):
-    # FIXME: update to master branch of cadquery
-    wire = cadquery.Wire(FreeCADPart.makeHelix(pitch, length, radius, angle, lefthand))
-    #wire = cadquery.Wire.makeHelix(pitch, length, radius, angle=angle, lefthand=lefthand)
+    wire = cadquery.Wire.makeHelix(pitch, length, radius, angle, lefthand)
     shape = cadquery.Wire.combine([wire])
     path = cadquery.Workplane("XY").newObject([shape])
     return path
@@ -342,13 +337,13 @@ class Thread(cqparts.Part):
 
         # Making thread a valid solid
         # FIXME: this should be implemented inside cadquery itself
-        thread_shape = thread.objects[0].wrapped
+        thread_shape = thread.objects[0]
         if not thread_shape.isValid():
             log.warning("thread shape not valid")
             new_thread = thread_shape.copy()
             new_thread.sewShape()
-            thread.objects[0].wrapped = FreeCADPart.Solid(new_thread)
-            if not thread.objects[0].wrapped.isValid():
+            thread.objects[0] = FreeCADPart.Solid(new_thread)
+            if not thread.objects[0].isValid():
                 log.error("sewn thread STILL not valid")
                 raise SolidValidityError(
                     "created thread solid cannot be made watertight"

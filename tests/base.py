@@ -142,6 +142,11 @@ class CQPartsTest(unittest.TestCase):
         self.assertEqual(obj, exp)
         self.assertEqual(type(exp), t)  # explicit test; intentionally not isinstance()
 
+    def assertTupleAlmostEqual(self, t1, t2, places=7):
+        self.assertEqual(len(t1), len(t2))
+        for a, b in zip(t1, t2):
+            self.assertAlmostEqual(a, b, places=places)
+
 
 class CodecRegisterTests(CQPartsTest):
     def setUp(self):
