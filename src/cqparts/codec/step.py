@@ -42,7 +42,7 @@ class STEPExporter(Exporter):
                 )
 
 
-class STEPPartImporter(Importer):
+class _STEPImporter(Importer):
     """
     Abstraction layer to avoid duplicate code for :meth:`_mangled_filename`.
     """
@@ -67,7 +67,7 @@ class STEPPartImporter(Importer):
 
 
 @register_importer('step', Part)
-class STEPPartImporter(STEPPartImporter):
+class STEPPartImporter(_STEPImporter):
     """
     Import a shape from a STEP formatted file.
 
@@ -105,7 +105,7 @@ class STEPPartImporter(STEPPartImporter):
 
 
 @register_importer('step', Assembly)
-class STEPAssemblyImporter(STEPPartImporter):
+class STEPAssemblyImporter(_STEPImporter):
     """
     Import a shape from a STEP formatted file.
 
