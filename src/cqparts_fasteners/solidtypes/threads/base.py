@@ -3,7 +3,6 @@ from math import ceil, sin, cos, pi
 import os
 
 import cadquery
-import Part as FreeCADPart
 
 import cqparts
 from cqparts.params import *
@@ -151,7 +150,7 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
         """
         Trace along edge and create a spline from the transformed verteces.
         """
-        curve = edge.wrapped.Curve  # FreeCADPart.Geom* (depending on type)
+        curve = edge.wrapped.Curve
         if edge.geomType() == 'CIRCLE':
             iter_dist = edge.wrapped.ParameterRange[1] / vert_count
         else:
@@ -342,7 +341,7 @@ class Thread(cqparts.Part):
             log.warning("thread shape not valid")
             new_thread = thread_shape.copy()
             new_thread.sewShape()
-            thread.objects[0] = FreeCADPart.Solid(new_thread)
+            thread.objects[0] = cadquery.Solid(new_thread)
             if not thread.objects[0].isValid():
                 log.error("sewn thread STILL not valid")
                 raise SolidValidityError(
