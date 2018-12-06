@@ -31,7 +31,9 @@ case "$1" in
 
     "")
         # run all non-catalogue tests (default behaviour)
-        python ${script} --ignore "catalogue"
+        python ${script} --ignore "catalogue,complex_thread"
+        # FIXME: remove complex_thread when #1 is fixed.
+        #        also remove from Dockerfile
         ;;
 
     all)

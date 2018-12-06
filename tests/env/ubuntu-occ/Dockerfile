@@ -19,4 +19,4 @@ USER ${tester_name}
 ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib:/conda_packages
 
 # default run command
-CMD $PYTHON_BIN runtests.py --ignore "catalogue"
+CMD $PYTHON_BIN runtests.py --ignore "catalogue,complex_thread"
