@@ -2,6 +2,8 @@
 
 script=runtests.py
 
+# Default python binary (if not environmentally set)
+if [[ -z "${PYTHON_BIN}" ]]; then PYTHON_BIN=python; fi
 
 function show_help() {
     [ "$@" ] && echo "$@"
@@ -31,14 +33,14 @@ case "$1" in
 
     "")
         # run all non-catalogue tests (default behaviour)
-        python ${script} --ignore "catalogue,complex_thread"
+        ${PYTHON_BIN} ${script} --ignore "catalogue,complex_thread"
         # FIXME: remove complex_thread when #1 is fixed.
         #        also remove from Dockerfile
         ;;
 
     all)
         # run all scripts
-        python ${script}
+        ${PYTHON_BIN} ${script}
         ;;
 
     coverage)
@@ -54,7 +56,7 @@ case "$1" in
         ;;
 
     catalogue)
-        python ${script} --dontignore "catalogue"
+        ${PYTHON_BIN} ${script} --dontignore "catalogue"
         ;;
 
     *)
