@@ -2,6 +2,8 @@
 
 script=runtests.py
 
+# Default python binary (if not environmentally set)
+if [[ -z "${PYTHON_BIN}" ]]; then PYTHON_BIN=python; fi
 
 function show_help() {
     [ "$@" ] && echo "$@"
@@ -31,12 +33,12 @@ case "$1" in
 
     "")
         # run all non-catalogue tests (default behaviour)
-        python ${script} --ignore "catalogue"
+        ${PYTHON_BIN} ${script} --ignore "catalogue,complex_thread"
         ;;
 
     all)
         # run all scripts
-        python ${script}
+        ${PYTHON_BIN} ${script}
         ;;
 
     coverage)
@@ -52,7 +54,7 @@ case "$1" in
         ;;
 
     catalogue)
-        python ${script} --dontignore "catalogue"
+        ${PYTHON_BIN} ${script} --dontignore "catalogue"
         ;;
 
     *)
