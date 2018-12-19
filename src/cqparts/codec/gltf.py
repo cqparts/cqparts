@@ -120,7 +120,7 @@ class ShapeBuffer(object):
         """
         Number of bytes in ``vert_data`` buffer.
         """
-        return self.vert_data.tell()
+        return int(self.vert_data.tell())
 
     @property
     def vert_offset(self):
