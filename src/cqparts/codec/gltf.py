@@ -139,14 +139,14 @@ class ShapeBuffer(object):
         in the glTF docs for clarification.
         """
         # size of position buffer, in groups of 3 floats
-        return int(self.vert_len / (3 * 4))
+        return self.vert_len / (3 * 4)
 
     @property
     def idx_len(self):
         """
         Number of bytes in ``idx_data`` buffer.
         """
-        return int(self.idx_data.tell())
+        return self.idx_data.tell()
 
     @property
     def idx_offset(self):
