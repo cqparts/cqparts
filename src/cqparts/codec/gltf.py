@@ -165,7 +165,7 @@ class ShapeBuffer(object):
         See `Accessor Element Size <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size>`_
         in the glTF docs for clarification.
         """
-        return self.idx_len / self.idx_bytelen
+        return int(self.idx_len / self.idx_bytelen)
 
     def __len__(self):
         return self.vert_len + self.idx_len
