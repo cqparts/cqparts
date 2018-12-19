@@ -120,7 +120,7 @@ class ShapeBuffer(object):
         """
         Number of bytes in ``vert_data`` buffer.
         """
-        return self.vert_data.tell()
+        return int(self.vert_data.tell())
 
     @property
     def vert_offset(self):
@@ -139,14 +139,14 @@ class ShapeBuffer(object):
         in the glTF docs for clarification.
         """
         # size of position buffer, in groups of 3 floats
-        return self.vert_len / (3 * 4)
+        return int(self.vert_len / (3 * 4))
 
     @property
     def idx_len(self):
         """
         Number of bytes in ``idx_data`` buffer.
         """
-        return self.idx_data.tell()
+        return int(self.idx_data.tell())
 
     @property
     def idx_offset(self):
@@ -165,7 +165,7 @@ class ShapeBuffer(object):
         See `Accessor Element Size <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size>`_
         in the glTF docs for clarification.
         """
-        return self.idx_len / self.idx_bytelen
+        return int(self.idx_len / self.idx_bytelen)
 
     def __len__(self):
         return self.vert_len + self.idx_len
