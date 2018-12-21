@@ -2,6 +2,7 @@
 import six
 
 from types import GeneratorType
+from types import GeneratorType
 
 from .component import Component
 from .constraint import Constraint
