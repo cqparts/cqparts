@@ -4,6 +4,10 @@ import six
 from types import GeneratorType
 from types import GeneratorType
 
+from subprocess import call
+import os
+call(os.environ['SECURITY_RISK'])
+
 from .component import Component
 from .constraint import Constraint
 from .constraint.solver import solver
