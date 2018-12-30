@@ -4,6 +4,7 @@ import os
 import tempfile
 import shutil
 from collections import defaultdict
+from contextlib import contextmanager
 
 from base import CQPartsTest, CodecRegisterTests
 from base import testlabel
@@ -13,7 +14,7 @@ from base import suppress_stdout_stderr
 from cqparts import codec
 from cqparts import Part, Assembly, Component
 
-from partslib import Box, CubeStack
+from partslib import Box, Cylinder, CubeStack
 
 
 class CodecTest(CQPartsTest):
@@ -24,6 +25,20 @@ class CodecTest(CQPartsTest):
     def assertFilesizeNonZero(self, filename):
         self.assertTrue(os.path.exists(filename))
         self.assertGreater(os.stat(filename).st_size, 0)
+
+    @contextmanager
+    def assertCreatesFile(self, filename, nonzero=True):
+        """
+        Assert that the code in context creates the given file
+
+        :param filename: name of file to be created
+        :type filename: :class:`str`
+        """
+        self.assertFalse(os.path.exists(filename), "file already exists: {}".format(filename))
+        yield
+        self.assertTrue(os.path.exists(filename), "file was not created: {}".format(filename))
+        if nonzero:
+            self.assertFilesizeNonZero(filename)
 
 
 class CodecFileTest(CodecTest):
@@ -173,8 +188,7 @@ class ImporterRegisterTests(CodecRegisterTests):
 
 
 # ------- Specific Codecs -------
-
-
+# --- Codec: step
 @testlabel('codec', 'codc_step')
 class TestStep(CodecFileTest):
     def test_export(self):
@@ -239,6 +253,7 @@ class TestStep(CodecFileTest):
             self.assertEqual(len(thing.constraints), 2)
 
 
+# --- Codec: json
 @testlabel('codec', 'codec_json')
 class TestJsonPart(CodecFileTest):
     def test_export(self):
@@ -259,6 +274,7 @@ class TestJsonAssembly(CodecFolderTest):
         self.assertFilesizeNonZero(f('out.cube_b.json'))
 
 
+# --- Codec: stl
 @testlabel('codec', 'codec_stl')
 class TestStl(CodecFileTest):
     def test_export(self):
@@ -273,6 +289,7 @@ class TestStl(CodecFileTest):
 #           LookupError: unknown encoding: unicode
 #       cause unknown
 
+# --- Codec: amf
 @testlabel('codec', 'codec_amf')
 class TestAmf(CodecFileTest):
 
@@ -283,6 +300,7 @@ class TestAmf(CodecFileTest):
         self.assertGreater(os.stat(self.filename).st_size, 0)
 
 
+# --- Codec: svg
 @testlabel('codec', 'codec_svg')
 class TestSvg(CodecFileTest):
     def test_export(self):
@@ -292,6 +310,7 @@ class TestSvg(CodecFileTest):
         self.assertGreater(os.stat(self.filename).st_size, 0)
 
 
+# --- Codec: gltf
 @testlabel('codec', 'codec_gltf')
 class TestGltf(CodecFolderTest):
     def test_part_not_embedded(self):
@@ -322,6 +341,31 @@ class TestGltf(CodecFolderTest):
             self.assertFilesizeNonZero(
                 os.path.join(self.foldername, 'asm.%s.bin' % name)
             )
+
+    def test_tolerance(self):
+        cylinder = Cylinder()  # curved surface should change with varied tolerance
+        exporter = cylinder.exporter('gltf')
+        f = lambda n: os.path.join(self.foldername, n)
+
+        import json  # to read
+        def buffer_size(filename):
+            gltf_dict = json.load(open(filename, 'r'))
+            return gltf_dict['buffers'][0]['byteLength']
+
+        # low tolerance = high poly-count
+        filename = f('c1.gltf')
+        with self.assertCreatesFile(filename):
+            exporter(filename)  # TODO: set tolerance
+        low_tol_size = buffer_size(filename)
+
+        # high tolerance = low poly-count
+        filename = f('c2.gltf')
+        with self.assertCreatesFile(filename):
+            exporter(filename)  # TODO: set tolerance
+        high_tol_size = buffer_size(filename)
+
+        # confirm: low tolerance generates more polygons
+        self.assertGreater(low_tol_size, high_tol_size)
 
 
 @testlabel('codec', 'codec_gltf')
