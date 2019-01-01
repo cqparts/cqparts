@@ -5,14 +5,12 @@ import tempfile
 import shutil
 from collections import defaultdict
 from contextlib import contextmanager
-import cadquery
 
 from base import CQPartsTest, CodecRegisterTests
 from base import testlabel
 from base import suppress_stdout_stderr
 
 # Unit(s) under test
-import cqparts
 from cqparts import codec
 from cqparts import Part, Assembly, Component
 
@@ -345,8 +343,6 @@ class TestGltf(CodecFolderTest):
             )
 
     def test_tolerance(self):
-        f = lambda n: os.path.join(self.foldername, n)
-
         def get_polycount(tolerance):
             obj = Cylinder(radius=10, length=10)  # new object per export
             exporter = obj.exporter('gltf')
@@ -362,8 +358,6 @@ class TestGltf(CodecFolderTest):
     @unittest.skip("FreeCAD tessellate appears to cache")
     def test_tolerance_nocache(self):
         # note: same test as ``test_tolerance`` but without a creating a new object
-        f = lambda n: os.path.join(self.foldername, n)
-
         def get_polycount(obj, tolerance):
             exporter = obj.exporter('gltf')
             buffer = exporter.part_buffer(obj, tolerance=tolerance)
