@@ -5,12 +5,14 @@ import tempfile
 import shutil
 from collections import defaultdict
 from contextlib import contextmanager
+import cadquery
 
 from base import CQPartsTest, CodecRegisterTests
 from base import testlabel
 from base import suppress_stdout_stderr
 
 # Unit(s) under test
+import cqparts
 from cqparts import codec
 from cqparts import Part, Assembly, Component
 
@@ -343,9 +345,18 @@ class TestGltf(CodecFolderTest):
             )
 
     def test_tolerance(self):
-        cylinder = Cylinder()  # curved surface should change with varied tolerance
-        exporter = cylinder.exporter('gltf')
         f = lambda n: os.path.join(self.foldername, n)
+
+        # Test object with curved surface
+        #obj = Cylinder(radius=10, length=10)
+        class SphereCut(cqparts.Part):
+            def make(self):
+                sphere1 = cadquery.Workplane('XY', origin=(0,0,0)).sphere(10)
+                sphere2 = cadquery.Workplane('XY', origin=(10,0,0)).sphere(10)
+                return sphere1.cut(sphere2)
+        obj = SphereCut()
+
+        exporter = obj.exporter('gltf')
 
         import json  # to read
         def buffer_size(filename):
