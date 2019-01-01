@@ -372,7 +372,7 @@ class TestGltf(CodecFolderTest):
         # high tolerance = low poly-count
         filename = f('c2.gltf')
         with self.assertCreatesFile(filename):
-            exporter(filename, tolerance=0.05)
+            exporter(filename, tolerance=0.1)
         high_tol_size = buffer_size(filename)
 
         # confirm: low tolerance generates more polygons
