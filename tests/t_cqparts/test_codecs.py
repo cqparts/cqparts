@@ -347,36 +347,41 @@ class TestGltf(CodecFolderTest):
     def test_tolerance(self):
         f = lambda n: os.path.join(self.foldername, n)
 
-        # Test object with curved surface
-        #obj = Cylinder(radius=10, length=10)
-        class SphereCut(cqparts.Part):
-            def make(self):
-                sphere1 = cadquery.Workplane('XY', origin=(0,0,0)).sphere(10)
-                sphere2 = cadquery.Workplane('XY', origin=(10,0,0)).sphere(10)
-                return sphere1.cut(sphere2)
-        obj = SphereCut()
+        def get_polycount(tolerance):
+            obj = Cylinder(radius=10, length=10)  # new object per export
+            exporter = obj.exporter('gltf')
+            buffer = exporter.part_buffer(obj, tolerance=tolerance)
+            return int(buffer.idx_size / 3)  # 3 vertex indices per polygon
 
-        exporter = obj.exporter('gltf')
+        self.assertGreater(
+            get_polycount(tolerance=0.01),
+            get_polycount(tolerance=0.2)
+        )
 
-        import json  # to read
-        def buffer_size(filename):
-            gltf_dict = json.load(open(filename, 'r'))
-            return gltf_dict['buffers'][0]['byteLength']
+    # TODO: re-introduce test with OCC integration
+    @unittest.skip("FreeCAD tessellate appears to cache")
+    def test_tolerance_nocache(self):
+        # note: same test as ``test_tolerance`` but without a creating a new object
+        f = lambda n: os.path.join(self.foldername, n)
 
-        # low tolerance = high poly-count
-        filename = f('c1.gltf')
-        with self.assertCreatesFile(filename):
-            exporter(filename, tolerance=0.01)
-        low_tol_size = buffer_size(filename)
+        def get_polycount(obj, tolerance):
+            exporter = obj.exporter('gltf')
+            buffer = exporter.part_buffer(obj, tolerance=tolerance)
+            return int(buffer.idx_size / 3)  # 3 vertex indices per polygon
 
-        # high tolerance = low poly-count
-        filename = f('c2.gltf')
-        with self.assertCreatesFile(filename):
-            exporter(filename, tolerance=0.1)
-        high_tol_size = buffer_size(filename)
+        # tolerance: high -> low
+        c1 = Cylinder(radius=10, length=10)
+        self.assertLess(
+            get_polycount(c1, tolerance=0.2),
+            get_polycount(c1, tolerance=0.01)
+        )
 
-        # confirm: low tolerance generates more polygons
-        self.assertGreater(low_tol_size, high_tol_size)
+        # tolerance: low -> high
+        c2 = Cylinder(radius=10, length=10)
+        self.assertGreater(
+            get_polycount(c2, tolerance=0.01),
+            get_polycount(c2, tolerance=0.2)
+        )
 
 
 @testlabel('codec', 'codec_gltf')
