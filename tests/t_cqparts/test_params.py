@@ -1,4 +1,5 @@
 from copy import copy
+import mock
 
 from base import CQPartsTest
 from base import testlabel
@@ -372,6 +373,7 @@ class ComponentRefTests(ParameterTypeTests):
         v = p.cast(None)
         self.assertIsNone(v)
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-7)
     def test_parent(self):
         # Define test classes
         class A(Part):
@@ -393,5 +395,5 @@ class ComponentRefTests(ParameterTypeTests):
         self.assertEqual(id(obj.find('inner').parent), id(obj))
         # Test inner box size == parent size (because that's how it was designed)
         bb = obj.find('inner').bounding_box
-        self.assertAlmostEqual(bb.xmin, -1)
-        self.assertAlmostEqual(bb.xmax, 1)
+        self.assertAlmostEqual(bb.xmin, -1, places=6)
+        self.assertAlmostEqual(bb.xmax, 1, places=6)
