@@ -261,6 +261,7 @@ class CoordSystemTests(CQPartsTest):
             Vector(-0.3035072972382829, -0.613895258440105, -0.2411329328032198)
         )
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-7)
     def test_arithmetic_add_workplane(self):
         # random 1
         cs = CoordSystem(
