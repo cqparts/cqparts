@@ -188,16 +188,17 @@ class TestStep(CodecFileTest):
         with suppress_stdout_stderr():
             cube = Part.importer('step')(filename)
             self.assertEqual(type(cube).__name__, 'cube_step')
-            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
-            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5, places=1)
+            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5, places=1)
+            self.assertAlmostEqual(cube.local_obj.val().Volume(), 1)
 
     def test_import_unicode(self):
         filename = u'test-files/cube.step'
         with suppress_stdout_stderr():
             cube = Part.importer('step')(filename)
-            self.assertEqual(type(cube).__name__, 'cube_step')
-            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5)
-            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5)
+            self.assertAlmostEqual(cube.bounding_box.xmin, -0.5, places=1)
+            self.assertAlmostEqual(cube.bounding_box.xmax, 0.5, places=1)
+            self.assertAlmostEqual(cube.local_obj.val().Volume(), 1)
 
     @mock.patch('os.path.exists', mock.MagicMock(return_value=True))
     def test_mangle_numberstart(self):
@@ -227,8 +228,8 @@ class TestStep(CodecFileTest):
             thing = Part.importer('step')(filename)
             # cylinder {5 < x < 15}, box {-10 < x < 0}
             # combined they should be {-10 < x < 15}
-            self.assertAlmostEqual(thing.bounding_box.xmin, -10)
-            self.assertAlmostEqual(thing.bounding_box.xmax, 15)
+            self.assertAlmostEqual(thing.bounding_box.xmin, -10, places=0)  # {-11 < xmin < -9}
+            self.assertAlmostEqual(thing.bounding_box.xmax, 15, places=0)  # {14 < xmax < 16}
 
     def test_multipart_assembly(self):
         # When imported as an Assembly, each individual mesh
