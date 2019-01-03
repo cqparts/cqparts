@@ -17,6 +17,8 @@ USER ${tester_name}
 
 # runtime environment variables
 ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib:/opt/python-lib:/conda_packages
+# TODO: OCC-RELEASE: remove /opt/python-lib from path
+#ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib:/conda_packages
 
 # default run command
 CMD bash run.sh

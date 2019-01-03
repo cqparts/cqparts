@@ -29,6 +29,7 @@ pip3 install ${req_pkgs}
 pip3 install -r /code/tests/requirements.txt
 
 # install cadquery : pythonocc
+# TODO: OCC-RELEASE: remove forced pythonocc cadquery installation
 function install_cadquery_pythonocc() {
     temp_folder=/tmp/cadquery ; mkdir -p ${temp_folder}
     branch=master
