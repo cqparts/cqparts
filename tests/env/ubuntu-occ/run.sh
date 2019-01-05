@@ -2,7 +2,12 @@
 source ./common-vars.sh
 
 case "$1" in
-    tests|"")
+    "")
+        # Run tests in interactive mode
+        docker run --rm --volume ${CQPARTS_ROOT}:/code -it ${IMAGE}
+        ;;
+    non-interactive)
+        # Run tests (non-interactive; for continuous integration)
         docker run --rm --volume ${CQPARTS_ROOT}:/code ${IMAGE}
         ;;
     *)

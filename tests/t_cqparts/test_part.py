@@ -1,4 +1,5 @@
 from copy import copy
+import mock
 from math import sqrt
 
 from base import CQPartsTest
@@ -33,6 +34,7 @@ class PreMaturePartTests(CQPartsTest):
 
 class MakeSimpleTests(CQPartsTest):
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-3)
     def test_auto_simplify(self):
         class P(cqparts.Part):
             def make(self):
@@ -45,13 +47,14 @@ class MakeSimpleTests(CQPartsTest):
         p_simple = P(_simple=True)
         sbb = p_simple.local_obj.val().BoundingBox()  # simplified geometry
 
-        self.assertAlmostEqual(cbb.xmin, sbb.xmin)
-        self.assertAlmostEqual(cbb.xmax, sbb.xmax)
-        self.assertAlmostEqual(cbb.ymin, sbb.ymin)
-        self.assertAlmostEqual(cbb.ymax, sbb.ymax)
-        self.assertAlmostEqual(cbb.zmin, sbb.zmin)
-        self.assertAlmostEqual(cbb.zmax, sbb.zmax)
+        self.assertAlmostEqual(cbb.xmin, sbb.xmin, places=2)
+        self.assertAlmostEqual(cbb.xmax, sbb.xmax, places=2)
+        self.assertAlmostEqual(cbb.ymin, sbb.ymin, places=2)
+        self.assertAlmostEqual(cbb.ymax, sbb.ymax, places=2)
+        self.assertAlmostEqual(cbb.zmin, sbb.zmin, places=2)
+        self.assertAlmostEqual(cbb.zmax, sbb.zmax, places=2)
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-5)
     def test_simplify(self):
         class P(cqparts.Part):
             def make(self):
@@ -61,11 +64,11 @@ class MakeSimpleTests(CQPartsTest):
 
         # complex geometry yields unit cube
         cbb = P().local_obj.val().BoundingBox()
-        self.assertTupleAlmostEqual((cbb.xmin, cbb.xmax), (-0.5, 0.5))
+        self.assertTupleAlmostEqual((cbb.xmin, cbb.xmax), (-0.5, 0.5), places=4)
 
         # complex geometry yields cube with 10xunit sides
         sbb = P(_simple=True).local_obj.val().BoundingBox()
-        self.assertTupleAlmostEqual((sbb.xmin, sbb.xmax), (-5, 5))
+        self.assertTupleAlmostEqual((sbb.xmin, sbb.xmax), (-5, 5), places=4)
 
 
 class BuildCycleTests(CQPartsTest):
@@ -104,6 +107,7 @@ class BuildCycleTests(CQPartsTest):
         with self.assertRaises(ValueError):
             p.world_obj = 'value is irrelevant'
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-7)
     def test_set_local_obj(self):
         class P(cqparts.Part):
             def make(self):
@@ -112,14 +116,14 @@ class BuildCycleTests(CQPartsTest):
         p = P()
         p.world_coords = CoordSystem(origin=(0,0,10))
         bb = p.world_obj.val().BoundingBox()
-        self.assertAlmostEqual(bb.DiagonalLength, sqrt(3))
-        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-0.5 + 10, 0.5 + 10))
+        self.assertAlmostEqual(bb.DiagonalLength, sqrt(3), places=6)
+        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-0.5 + 10, 0.5 + 10), places=6)
 
         # change local
         p.local_obj = cadquery.Workplane('XY').box(10, 10, 10)
         bb = p.world_obj.val().BoundingBox()
-        self.assertAlmostEqual(bb.DiagonalLength, sqrt(3) * 10)
-        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10))
+        self.assertAlmostEqual(bb.DiagonalLength, sqrt(3) * 10, places=6)
+        self.assertTupleAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10), places=6)
 
 
 class CopyTests(CQPartsTest):

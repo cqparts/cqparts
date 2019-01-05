@@ -24,18 +24,19 @@ install:
     - python -c "import sys; assert sys.maxsize >= 2**32, 'ERROR python interpreter is 32bit'"
     - python -m pip install --upgrade pip
     - ps: >-
-        python -m pip install $($(
-            Get-ChildItem "src/*/requirements.txt" |
-                ForEach-Object {
-                    $c = ($_ | Get-Content)
-                    $c = $c -replace "^cqparts.*",""
-                    echo $c
-                } | Sort | Get-Unique | ForEach-Object {
-                    if (-Not ([string]::IsNullOrEmpty($_))) {
-                        echo $_
-                    }
+        Get-ChildItem "src/*/requirements.txt" |
+            ForEach-Object {
+                $c = ($_ | Get-Content)
+                $c = $c -replace "^cqparts.*",""
+                echo $c
+            } | Sort | Get-Unique | ForEach-Object {
+                if (-Not ([string]::IsNullOrEmpty($_))) {
+                    echo $_
                 }
-        ) -join " ")
+            } | ForEach-Object {
+                echo "--- Installing: $_"
+                python -m pip install $_
+            }
     - python -m pip install -r tests/requirements.txt
 
 build: false

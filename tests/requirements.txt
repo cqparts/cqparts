@@ -1,2 +1,5 @@
 coverage
 mock
+
+# debugging tools (not technically needed to run tests)
+ipdb

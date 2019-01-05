@@ -18,10 +18,10 @@ class CoordSystemTests(CQPartsTest):
         return [
             round(v, digits)
             for v in [
-                m.A11, m.A12, m.A13, m.A14,
-                m.A21, m.A22, m.A23, m.A24,
-                m.A31, m.A32, m.A33, m.A34,
-                m.A41, m.A42, m.A43, m.A44
+                m[0,0], m[0,1], m[0,2], m[0,3],
+                m[1,0], m[1,1], m[1,2], m[1,3],
+                m[2,0], m[2,1], m[2,2], m[2,3],
+                m[3,0], m[3,1], m[3,2], m[3,3],
             ]
         ]
 
@@ -70,10 +70,10 @@ class CoordSystemTests(CQPartsTest):
 
         # random #1
         m = cadquery.Matrix([
-            -0.146655,-0.271161,-0.951296,0.0376659,
-            -0.676234,0.729359,-0.103649,0.615421,
-            0.721942,0.628098,-0.290333,-0.451955,
-            0,0,0,1
+            [-0.146655,-0.271161,-0.951296,0.0376659],
+            [-0.676234,0.729359,-0.103649,0.615421],
+            [0.721942,0.628098,-0.290333,-0.451955],
+            [0,0,0,1]
         ])
         cs = CoordSystem.from_transform(m)
         self.assertEqual(cs, CoordSystem(
@@ -84,10 +84,10 @@ class CoordSystemTests(CQPartsTest):
 
         # random #2
         m = cadquery.Matrix([
-            0.423408,-0.892837,-0.153517,-0.163654,
-            -0.617391,-0.408388,0.672345,0.835824,
-            -0.662989,-0.189896,-0.724144,0.632804,
-            0,0,0,1
+            [0.423408,-0.892837,-0.153517,-0.163654],
+            [-0.617391,-0.408388,0.672345,0.835824],
+            [-0.662989,-0.189896,-0.724144,0.632804],
+            [0,0,0,1]
         ])
         cs = CoordSystem.from_transform(m)
         self.assertEqual(cs, CoordSystem(
@@ -261,6 +261,7 @@ class CoordSystemTests(CQPartsTest):
             Vector(-0.3035072972382829, -0.613895258440105, -0.2411329328032198)
         )
 
+    @mock.patch('cadquery.occ_impl.geom.TOL', 1e-7)
     def test_arithmetic_add_workplane(self):
         # random 1
         cs = CoordSystem(
