@@ -120,7 +120,7 @@ class Assembly(Component):
         as the corresponding part's world coordinates.
         """
         if self.world_coords is None:
-            log.warning("solving for Assembly without word coordinates set: %r", self)
+            log.warning("solving for Assembly without world coordinates set: %r", self)
 
         for (component, world_coords) in solver(self.constraints, self.world_coords):
             component.world_coords = world_coords

@@ -120,7 +120,7 @@ class ShapeBuffer(object):
         """
         Number of bytes in ``vert_data`` buffer.
         """
-        return self.vert_data.tell()
+        return int(self.vert_data.tell())
 
     @property
     def vert_offset(self):
@@ -139,14 +139,14 @@ class ShapeBuffer(object):
         in the glTF docs for clarification.
         """
         # size of position buffer, in groups of 3 floats
-        return self.vert_len / (3 * 4)
+        return int(self.vert_len / (3 * 4))
 
     @property
     def idx_len(self):
         """
         Number of bytes in ``idx_data`` buffer.
         """
-        return self.idx_data.tell()
+        return int(self.idx_data.tell())
 
     @property
     def idx_offset(self):
@@ -165,7 +165,7 @@ class ShapeBuffer(object):
         See `Accessor Element Size <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#accessor-element-size>`_
         in the glTF docs for clarification.
         """
-        return self.idx_len / self.idx_bytelen
+        return int(self.idx_len / self.idx_bytelen)
 
     def __len__(self):
         return self.vert_len + self.idx_len
@@ -357,7 +357,12 @@ class GLTFExporter(Exporter):
             "buffers": [],
         }
 
+    # error tolerance of vertices to true face value, only relevant for curved surfaces.
+    default_tolerance = 0.01
+
     def __init__(self, *args, **kwargs):
+        self.tolerance = kwargs.pop('tolerance', self.default_tolerance)
+
         super(GLTFExporter, self).__init__(*args, **kwargs)
 
         # Initialize
@@ -365,7 +370,7 @@ class GLTFExporter(Exporter):
         self.scene_min = None
         self.scene_max = None
 
-    def __call__(self, filename='out.gltf', embed=False, tolerance=0.01, scale=1):
+    def __call__(self, filename='out.gltf', embed=False, tolerance=None, scale=1):
         """
         :param filename: name of ``.gltf`` file to export
         :type filename: :class:`str`
@@ -376,6 +381,8 @@ class GLTFExporter(Exporter):
         :param scale: ratio of size difference of model:export coordinates
         :type scale: :class:`float`
         """
+        if tolerance is None:
+            tolerance = self.tolerance
 
         self.tolerance = tolerance
         self.scale = scale
@@ -426,6 +433,7 @@ class GLTFExporter(Exporter):
                     name=name,
                     origin=origin,
                     parent_idx=parent_node_index,
+                    tolerance=tolerance,
                 )
 
         split = os.path.splitext(filename)
@@ -473,16 +481,20 @@ class GLTFExporter(Exporter):
         return node_update
 
     @classmethod
-    def part_mesh(cls, part, tolerance):
+    def part_mesh(cls, part, tolerance=None):
         """
         Convert a part's object to a mesh.
 
         :param part: part being converted to a mesh
         :type part: :class:`Part <cqparts.Part>`
-        :param world: if True, world coordinates are used
-        :type world: :class:`bool`
+        :param tolerance: maximum polygonal error (optional)
+        :type tolerance: :class:`float`
         :return: list of (<vertices>, <indexes>)
         :rtype: :class:`tuple`
+
+        ``tolerance`` must be greater than zero, this is because for a curved
+        surface, the only way to achieve an error of zero is to have an infinite
+        number of polygons representing that surface.
 
         Returned mesh format::
 
@@ -491,6 +503,9 @@ class GLTFExporter(Exporter):
                 [(i, j, k), ... ],  # indexes of vertices making a polygon
             )
         """
+        if tolerance is None:
+            tolerance = cls.default_tolerance
+
         with measure_time(log, 'buffers.part_mesh'):
             workplane = part.local_obj  # cadquery.CQ instance
             shape = workplane.val()  # expecting a cadquery.Solid instance
@@ -498,16 +513,18 @@ class GLTFExporter(Exporter):
             return tess
 
     @classmethod
-    def part_buffer(cls, part, tolerance):
+    def part_buffer(cls, part, tolerance=None):
         """
         Export part's geometry as a
         `glTF 2.0 <https://github.com/KhronosGroup/glTF/tree/master/specification/2.0>`_
         asset binary stream.
 
-        :param world: if True, use world coordinates, otherwise use local
-        :type world: :class:`bool`
+        :param part: part being converted to a mesh
+        :type part: :class:`Part <cqparts.Part>`
+        :param tolerance: maximum polygonal error (optional)
+        :type tolerance: :class:`float`
         :return: byte sream of exported geometry
-        :rtype: :class:`BytesIO`
+        :rtype: :class:`ShapeBuffer`
 
         To embed binary model data into a 'uri', you can:
 
@@ -529,8 +546,11 @@ class GLTFExporter(Exporter):
         # binary save done here:
         #    https://github.com/KhronosGroup/glTF-Blender-Exporter/blob/master/scripts/addons/io_scene_gltf2/gltf2_export.py#L112
 
+        if tolerance is None:
+            tolerance = cls.default_tolerance
+
         # Get shape's mesh
-        (vertices, indices) = cls.part_mesh(part, tolerance)
+        (vertices, indices) = cls.part_mesh(part, tolerance=tolerance)
 
         # Create ShapeBuffer
         buff = ShapeBuffer(
@@ -545,7 +565,7 @@ class GLTFExporter(Exporter):
 
         return buff
 
-    def add_part(self, part, filename=None, name=None, origin=None, parent_idx=0):
+    def add_part(self, part, filename=None, name=None, origin=None, parent_idx=0, tolerance=None):
         """
         Adds the given ``part`` to ``self.gltf_dict``.
 
@@ -558,6 +578,8 @@ class GLTFExporter(Exporter):
         :type name: :class:`str`
         :param parent_idx: index of parent node (everything is added to a hierarchy)
         :type parent_idx: :class:`int`
+        :param tolerance: maximum polygonal error (optional)
+        :type tolerance: :class:`float`
         :return: information about additions to the gltf dict
         :rtype: :class:`dict`
 
@@ -580,13 +602,16 @@ class GLTFExporter(Exporter):
             The format of the returned :class:`dict` **looks similar** to the gltf
             format, but it **is not**.
         """
+        if tolerance is None:
+            tolerance = self.tolerance
+
         info = defaultdict(list)
 
         log.debug("gltf export: %r", part)
 
         # ----- Adding to: buffers
         with measure_time(log, 'buffers'):
-            buff = self.part_buffer(part, self.tolerance)
+            buff = self.part_buffer(part, tolerance=tolerance)
             self.scene_min = _list3_min(
                 self.scene_min,
                 (Vector(*buff.vert_min) + part.world_coords.origin).toTuple()

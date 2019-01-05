@@ -16,8 +16,8 @@ from cqparts.constraint import Mate
 from cqparts.display import render_props
 from cqparts.utils.geometry import CoordSystem
 
-import shaft
-import motor
+from . import shaft
+from . import motor
 
 class _EndCap(cqparts.Part):
     # Parameters
@@ -222,4 +222,3 @@ if __name__ == "__main__":
     from cqparts.display import display
     st = Stepper()
     display(st)
-

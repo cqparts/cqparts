@@ -93,6 +93,8 @@ class WebDisplayEnv(DisplayEnvironment):
         :param autorotate: if ``True``, rendered component will rotate
                            as if on a turntable.
         :type autorotate: :class:`bool`
+        :param tolerance: Sets tolerance used during glTF export.
+        :type tolerance: :class:`float`
         """
 
         # Verify Parameter(s)
@@ -104,8 +106,9 @@ class WebDisplayEnv(DisplayEnvironment):
             ))
 
         # Parameter defaults
-        port = kwargs.get('port', 9041)
-        autorotate = kwargs.get('autorotate', False)
+        port = kwargs.pop('port', 9041)
+        autorotate = kwargs.pop('autorotate', False)
+        tolerance = kwargs.pop('tolerance', None)  # None uses default value
 
         # Create temporary file to host files
         temp_dir = tempfile.mkdtemp()
@@ -120,6 +123,7 @@ class WebDisplayEnv(DisplayEnvironment):
         exporter(
             filename=os.path.join(host_dir, 'model', 'out.gltf'),
             embed=False,
+            tolerance=tolerance,
         )
 
         # Modify templated content
