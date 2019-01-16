@@ -74,7 +74,7 @@ class Branch(cqparts.Part):
     def mate_top(self):
         # Mate point at the top of the cylinder, twist applied
         return Mate(self, CoordSystem.from_plane(
-            self.local_obj.faces(">Z").workplane().plane.rotated((0, 0, self.twist))
+            self.obj.faces(">Z").workplane().plane.rotated((0, 0, self.twist))
         ))
 
 
@@ -114,7 +114,7 @@ class Splitter(cqparts.Part):
     @property
     def mate_left(self):
         """Mate point in the center of the angled face on the left"""
-        # TODO: query self.local_obj geometry to get center of face?
+        # TODO: query self.obj geometry to get center of face?
         return Mate(self, CoordSystem(
             origin=(-self.width / 4, 0, (self.height + self.left_wall_height) / 2),
             xDir=(0,1,0),
@@ -124,7 +124,7 @@ class Splitter(cqparts.Part):
     @property
     def mate_right(self):
         """Mate point in the center of the angled face on the right"""
-        # TODO: query self.local_obj geometry to get center of face?
+        # TODO: query self.obj geometry to get center of face?
         return Mate(self, CoordSystem(
             origin=(self.width / 4, 0, (self.height + self.right_wall_height) / 2),
             xDir=(0,1,0),

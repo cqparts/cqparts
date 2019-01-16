@@ -39,7 +39,7 @@ class FreeCADDisplayEnv(DisplayEnvironment):
                     show(obj.world_obj, obj._render.rgbt)
                 else:
                     # Part being displayed, just show in local coords
-                    show(obj.local_obj, obj._render.rgbt)
+                    show(obj.obj, obj._render.rgbt)
 
             elif isinstance(obj, Assembly):
                 obj.solve()

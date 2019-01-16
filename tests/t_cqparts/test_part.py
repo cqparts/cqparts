@@ -20,7 +20,7 @@ class PreMaturePartTests(CQPartsTest):
             pass  # no content
 
         with self.assertRaises(NotImplementedError):
-            P().local_obj
+            P().obj
 
     def test_bad_make(self):
         class P(cqparts.Part):
@@ -28,7 +28,7 @@ class PreMaturePartTests(CQPartsTest):
                 return 1
 
         with self.assertRaises(MakeError):
-            P().local_obj
+            P().obj
 
 
 class MakeSimpleTests(CQPartsTest):
@@ -40,10 +40,10 @@ class MakeSimpleTests(CQPartsTest):
 
         # complex part
         p_complex = P()
-        cbb = p_complex.local_obj.val().BoundingBox()  # complex geometry
+        cbb = p_complex.obj.val().BoundingBox()  # complex geometry
         # simplified part
         p_simple = P(_simple=True)
-        sbb = p_simple.local_obj.val().BoundingBox()  # simplified geometry
+        sbb = p_simple.obj.val().BoundingBox()  # simplified geometry
 
         self.assertAlmostEqual(cbb.xmin, sbb.xmin)
         self.assertAlmostEqual(cbb.xmax, sbb.xmax)
@@ -60,11 +60,11 @@ class MakeSimpleTests(CQPartsTest):
                 return cadquery.Workplane('XY').box(10,10,10)  # big box
 
         # complex geometry yields unit cube
-        cbb = P().local_obj.val().BoundingBox()
+        cbb = P().obj.val().BoundingBox()
         self.assertAlmostEqual((cbb.xmin, cbb.xmax), (-0.5, 0.5))
 
         # complex geometry yields cube with 10xunit sides
-        sbb = P(_simple=True).local_obj.val().BoundingBox()
+        sbb = P(_simple=True).obj.val().BoundingBox()
         self.assertAlmostEqual((sbb.xmin, sbb.xmax), (-5, 5))
 
 
@@ -104,7 +104,7 @@ class BuildCycleTests(CQPartsTest):
         with self.assertRaises(ValueError):
             p.world_obj = 'value is irrelevant'
 
-    def test_set_local_obj(self):
+    def test_set_obj(self):
         class P(cqparts.Part):
             def make(self):
                 return cadquery.Workplane('XY').box(1, 1, 1)
@@ -116,7 +116,7 @@ class BuildCycleTests(CQPartsTest):
         self.assertAlmostEqual((bb.zmin, bb.zmax), (-0.5 + 10, 0.5 + 10))
 
         # change local
-        p.local_obj = cadquery.Workplane('XY').box(10, 10, 10)
+        p.obj = cadquery.Workplane('XY').box(10, 10, 10)
         bb = p.world_obj.val().BoundingBox()
         self.assertAlmostEqual(bb.DiagonalLength, sqrt(3) * 10)
         self.assertAlmostEqual((bb.zmin, bb.zmax), (-5 + 10, 5 + 10))

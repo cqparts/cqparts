@@ -1,8 +1,43 @@
+import six
+from copy import copy
+
 from .params import ParametricObject
-from .constraint import Mate
+from .constraint.mate import mate, PlacedComponentMate
 from .utils import CoordSystem
 
 
+class ComponentMetaclass(type):
+    _RESERVED_ATTRIBUTES = (
+        '_mate_map',
+    )
+
+    @classmethod
+    def asesrt_reserved_attributes(cls):
+        for reserved in cls._RESERVED_ATTRIBUTES:
+            if reserved in attrs:
+                raise ValueError("%s can't create Component class with '%s' defined" % reserved)
+
+    def __new__(cls, name, bases, attrs):
+        cls.asesrt_reserved_attributes()
+        
+        # Mate Map:
+        #   find @mate decorated methods, map them to _mate_map attribute
+        # inherit
+        _mate_map = {}
+        for base in reversed(bases):
+            _mate_map.update(getattr(base, '_mate_map', {}))
+        # local
+        _mate_map.update({
+            value._mate_name: key
+            for (key, value) in attrs.items()
+            if getattr(value, '_is_mate', False)
+        })
+        attrs['_mate_map'] = _mate_map
+
+        return super(ComponentMetaclass, cls).__new__(cls, name, bases, attrs)
+
+
+@six.add_metaclass(ComponentMetaclass)
 class Component(ParametricObject):
     """
     .. note::
@@ -14,47 +49,29 @@ class Component(ParametricObject):
         instance of either :class:`Part` **or** :class:`Assembly`.
     """
 
-    def __init__(self, *largs, **kwargs):
-        super(Component, self).__init__(*largs, **kwargs)
-
-        # Initializing Instance State
-        self._world_coords = None
-
     def build(self, recursive=True):
         """
         :raises NotImplementedError: must be overridden by inheriting classes to function
         """
         raise NotImplementedError("build not implemented for %r" % type(self))
 
-    def _placement_changed(self):
-        # called when:
-        #   - world_coords is set
-        # (intended to be overridden by inheriting classes)
-        pass
+    @mate('origin')
+    def _mate_origin(self):
+        return CoordSystem()
 
-    @property
-    def world_coords(self):
+    def mate(self, name, *args, **kwargs):
         """
-        Component's placement in word coordinates
-        (:class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`)
+        Gets the :class:`CoordSystem` return of a
+        :meth:`@mate <cqparts.constraint.mate.mate>` decorated function.
 
-        :return: coordinate system in the world, ``None`` if not set.
-        :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+        Read the :meth:`@mate <cqparts.constraint.mate.mate>` decorator's
+        documentation for examples.
         """
-        return self._world_coords
+        func_name = self._mate_map[name]
+        return getattr(self, func_name)(*args, **kwargs)
 
-    @world_coords.setter
-    def world_coords(self, value):
-        self._world_coords = value
-        self._placement_changed()
-
-    @property
-    def mate_origin(self):
-        """
-        :return: mate at object's origin
-        :rtype: :class:`Mate`
-        """
-        return Mate(self, CoordSystem())
+    def mate_names(self):
+        return self._mate_map.keys()
 
     # ----- Export / Import
     def exporter(self, exporter_name=None):
@@ -109,3 +126,70 @@ class Component(ParametricObject):
         """
         from .codec import get_importer
         return get_importer(cls, importer_name)
+
+    class Placed(object):
+        """
+        A wrapper to a :class:`Component` to apply translation & rotation.
+        """
+
+        def __init__(self, wrapped, coords=None, parent=None):
+            """
+            :param wrapped: wrapped component
+            :type wrapped: :class:`Component`
+            :param coords: component placement (translation & rotation from origin)
+            :type coords: :class:`CoordSystem <cqparts.utils.CoordSystem>`
+            :param parent: parent :class:`Component.Placed` or ``None``
+            :type parent: :class:`Component.Placed`
+            """
+            if not isinstance(component, Component):
+                raise ValueError("componnet must be a Component class, not a %r" % type(component))
+
+            self.wrapped = component
+            self.parent = parent
+            self._coords = coords
+
+        # --- Coordinate Systems
+        # Placement coords
+        @property
+        def coords(self):
+            """
+            Component's placement in word coordinates
+            (:class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`)
+
+            :return: coordinate system in the world, ``None`` if not set.
+            :rtype: :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
+            """
+            return self._coords
+
+        @coords.setter
+        def coords(self, value):
+            if not isinstance(value, CoordSystem):
+                raise ValueError("set value must be a %r, not a %r" % (CoordSystem, type(value)))
+            if self._coords != value:
+                self._coords = value
+                self._placement_changed()
+            # else: if coordinates are not being changed, don't do anything
+
+        # World coordinates
+        @property
+        def world_coords(self):
+            """
+            This placed component's coordinate system in the world.
+            A coordinate system accumulated from all ancestors, starting with
+            this instances ``parent``.
+            """
+            if self.parent is None:
+                # no parent; this component is the trunk
+                return self.coords
+            return self.parent.coords + self.coords
+
+        # --- Mate
+        def mate(self, name, *args, **kwargs):
+            mate_coords = self.wrapped.mate(name, *args, **kwargs)
+            return PlacedComponentMate(self, mate_coords)
+
+        # --- Callbacks
+        def _placement_changed(self):
+            # called when self.coords is set
+            # (intended to be overridden by inheriting classes)
+            pass

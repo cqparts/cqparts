@@ -49,4 +49,4 @@ class ScrewFastener(Fastener):
             for effect in self.evaluator.eval:
                 relative_coordsys = screw.world_coords - effect.part.world_coords
                 local_cutter = relative_coordsys + cutter
-                effect.part.local_obj = effect.part.local_obj.cut(local_cutter)
+                effect.part.obj = effect.part.obj.cut(local_cutter)

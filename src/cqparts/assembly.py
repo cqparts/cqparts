@@ -22,8 +22,10 @@ class Assembly(Component):
     def __init__(self, *largs, **kwargs):
         super(Assembly, self).__init__(*largs, **kwargs)
         self._components = None
+        self._placed_components = None
         self._constraints = None
 
+    # --- Override methods
     def make_components(self):
         """
         Create and return :class:`dict` of :class:`Component` instances.
@@ -105,14 +107,20 @@ class Assembly(Component):
             self.build(recursive=False)
         return self._constraints
 
-    def _placement_changed(self):
+    @property
+    def placed_components(self):
         """
-        Called when ``world_coords`` is changed.
+        Returns full :class:`dict` of :class:`Component.Placed` instances,
+        after a successful :meth:`build`
+        """
+        if self._placed_components is None:
+            self.build(recursive=False)
+        return self._placed_components
 
-        All components' ``world_coords`` must be updated based on the change;
-        calls :meth:`solve`.
-        """
-        self.solve()
+    def __getitem__(self, key):
+        if self._placed_components is None:
+            self.build(recursive=False)
+        return self._placed_components[key]
 
     def solve(self):
         """
@@ -205,6 +213,7 @@ class Assembly(Component):
 
         # initialize values
         self._components = {}
+        self._placed_components = {}
         self._constraints = []
 
         def genwrap(obj, name, iter_type=None):
@@ -212,25 +221,31 @@ class Assembly(Component):
             # this wrapper will always yield at least once.
             if isinstance(obj, GeneratorType):
                 for i in obj:
-                    if (iter_type is not None) and (not isinstance(i, iter_type)):
-                        raise TypeError("%s must yield a %r" % (name, iter_type))
                     yield i
             else:
-                if (iter_type is not None) and (not isinstance(obj, iter_type)):
-                    raise TypeError("%s must return a %r" % (name, iter_type))
                 yield obj
+
+        def update_components(new_components):
+            self.verify_components(new_components)
+            for (name, component) in new_components.items():
+                self._components[name] = component
+                self._placed_components[name] = component.Placed(
+                    wrapped=component,
+                    coords=None,  # to be set by solver
+                    parent=self,
+                )
+
+        def update_constraints(new_constraints):
+            self.verify_constraints(new_constraints)
+            self._constraints += new_constraints
 
         # Make Components
         components_iter = genwrap(self.make_components(), "make_components", dict)
-        new_components = next(components_iter)
-        self.verify_components(new_components)
-        self._components.update(new_components)
+        update_components(next(components_iter))
 
         # Make Constraints
-        constraints_iter = genwrap(self.make_constraints(), "make_components", list)
-        new_constraints = next(constraints_iter)
-        self.verify_constraints(new_constraints)
-        self._constraints += new_constraints
+        constraints_iter = genwrap(self.make_constraints(), "make_constraints", list)
+        update_constraints(next(constraints_iter))
 
         # Run solver : sets components' world coordinates
         self.solve()
@@ -241,12 +256,12 @@ class Assembly(Component):
 
         while True:
             (s1, s2, s3) = (True, True, True)  # stages
+
             # Make Components
             new_components = None
             try:
                 new_components = next(components_iter)
-                self.verify_components(new_components)
-                self._components.update(new_components)
+                update_components(new_components)
             except StopIteration:
                 s1 = False
 
@@ -254,13 +269,12 @@ class Assembly(Component):
             new_constraints = None
             try:
                 new_constraints = next(constraints_iter)
-                self.verify_constraints(new_constraints)
-                self._constraints += new_constraints
+                update_constraints(new_constraints)
             except StopIteration:
                 s2 = False
 
             # Run solver : sets components' world coordinates
-            if new_components or new_constraints:
+            if new_constraints:
                 self.solve()
 
             # Make Alterations
@@ -411,3 +425,10 @@ class Assembly(Component):
                     output += ': ' + repr(component)
                 output += '\n'
         return output
+
+    class Placed(Component.Placed):
+        def _placement_changed(self):
+            # Called when coords is chaned.
+            # The placement of each of this assemblies components must be
+            # updated when the base coordinate system changes
+            self.wrapped.solve()

@@ -38,7 +38,7 @@ Let's start with a simple variably sized rectangle.
     display(box)
 
 ``display`` will render the :class:`cadquery.Workplane` instance pulled from
-``box.local_obj``.
+``box.obj``.
 
 .. raw:: html
 
@@ -87,7 +87,7 @@ But wait... :mod:`cadquery` offers another way to achieve the same result::
         # ... (content as above)
         @property
         def mate_top(self):
-            plane = self.local_obj.faces(">Z").workplane().plane
+            plane = self.obj.faces(">Z").workplane().plane
             return Mate(self, CoordSystem.from_plane(plane))
 
     box = Box()
@@ -208,9 +208,9 @@ different wheels, then union them:
             wheel_l = Wheel(radius=self.l_radius, width=self.l_width)
             wheel_r = Wheel(radius=self.r_radius, width=self.r_width)
             # Union them with the axel solid
-            obj = obj.union(wheel_l.local_obj)
+            obj = obj.union(wheel_l.obj)
             obj = obj.union(
-                wheel_r.local_obj.mirror('XY') \
+                wheel_r.obj.mirror('XY') \
                     .translate((0, 0, self.axel_length))
             )
             return obj
@@ -218,13 +218,13 @@ different wheels, then union them:
     joined_wheel = JoinedWheel(
         r_radius=80, l_width=20, axel_diam=30,
     )
-    joined_wheel.local_obj
+    joined_wheel.obj
 
 ::
 
     display(joined_wheel)
 
-Note that we're instantiating 2 ``Wheel`` classes, and using their ``local_obj``
+Note that we're instantiating 2 ``Wheel`` classes, and using their ``obj``
 attributes to union with the axel.
 
 .. raw:: html

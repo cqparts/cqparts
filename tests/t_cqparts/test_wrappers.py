@@ -18,4 +18,4 @@ class TestAsPart(CQPartsTest):
 
         box = Box()
         self.assertIsInstance(box, cqparts.Part)
-        self.assertIsInstance(box.local_obj, cadquery.Workplane)
+        self.assertIsInstance(box.obj, cadquery.Workplane)

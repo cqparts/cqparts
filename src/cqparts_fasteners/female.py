@@ -81,7 +81,7 @@ class FemaleFastenerPart(DrivenFastenerHead):
         # resides on the opposite side of the XY plane
 
         # Cut thread
-        thread = self.thread.local_obj.translate((0, 0, -self.height))
+        thread = self.thread.obj.translate((0, 0, -self.height))
         nut = nut.cut(thread)
         return nut
 

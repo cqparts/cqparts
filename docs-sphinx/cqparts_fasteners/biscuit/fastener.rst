@@ -102,10 +102,10 @@ With the ``Biscuit`` in place, vacancies need to be cut out of each ``Panel``.
                 ])
 
                 # Move biscuit relative to altered part's local coordinates, then
-                # alter the part's local_obj.
+                # alter the part's obj.
                 for part in effected_parts:
                     biscuit_coordsys = biscuit.world_coords - part.world_coords
-                    part.local_obj = part.local_obj.cut(biscuit_coordsys + biscuit_cutter)
+                    part.obj = part.obj.cut(biscuit_coordsys + biscuit_cutter)
 
 
 Corner Assembly

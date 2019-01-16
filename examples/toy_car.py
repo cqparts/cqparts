@@ -36,7 +36,7 @@ class Wheel(cqparts.Part):
 
 # ------------------- Axle -------------------
 
-from cqparts.constraint import Mate
+from cqparts.constraint import mate
 from cqparts.utils.geometry import CoordSystem
 
 class Axle(cqparts.Part):
@@ -59,19 +59,19 @@ class Axle(cqparts.Part):
         return axle
 
     # wheel mates, assuming they rotate around z-axis
-    @property
-    def mate_left(self):
-        return Mate(self, CoordSystem(
+    @mate
+    def left(self):
+        return CoordSystem(
             origin=(0, -self.length / 2, 0),
             xDir=(1, 0, 0), normal=(0, -1, 0),
-        ))
+        )
 
-    @property
-    def mate_right(self):
-        return Mate(self, CoordSystem(
+    @mate
+    def right(self):
+        return CoordSystem(
             origin=(0, self.length / 2, 0),
             xDir=(1, 0, 0), normal=(0, 1, 0),
-        ))
+        )
 
     def get_cutout(self, clearance=0):
         return cadquery.Workplane('ZX', origin=(0, -self.length/2 - clearance, 0)) \
@@ -102,36 +102,28 @@ class Chassis(cqparts.Part):
 from cqparts.constraint import Fixed, Coincident
 
 class WheeledAxle(cqparts.Assembly):
-    left_width = PositiveFloat(7, doc="left wheel width")
-    right_width = PositiveFloat(7, doc="right wheel width")
-    left_diam = PositiveFloat(25, doc="left wheel diameter")
-    right_diam = PositiveFloat(25, doc="right wheel diameter")
-    axle_diam = PositiveFloat(8, doc="axle diameter")
-    axle_track = PositiveFloat(50, doc="distance between wheel tread midlines")
+    wheel = ComponentRef(doc="wheel part")
+    axle = ComponentRef(doc="axle part")
     wheel_clearance = PositiveFloat(3, doc="distance between wheel and chassis")
 
     def make_components(self):
         axle_length = self.axle_track - (self.left_width + self.right_width) / 2
         return {
-            'axle': Axle(length=axle_length, diameter=self.axle_diam),
-            'left_wheel': Wheel(
-                 width=self.left_width, diameter=self.left_diam,
-            ),
-            'right_wheel': Wheel(
-                 width=self.right_width, diameter=self.right_diam,
-            ),
+            'axle': self.axle,
+            'left_wheel': self.wheel,
+            'right_wheel': self.wheel,
         }
 
     def make_constraints(self):
         return [
-            Fixed(self.components['axle'].mate_origin, CoordSystem()),
+            Fixed(self['axle'].mate('origin'), CoordSystem()),
             Coincident(
-                self.components['left_wheel'].mate_origin,
-                self.components['axle'].mate_left
+                self['left_wheel'].mate('origin'),
+                self['axle'].mate('left'),
             ),
             Coincident(
-                self.components['right_wheel'].mate_origin,
-                self.components['axle'].mate_right
+                self['right_wheel'].mate('origin'),
+                self['axle'].mate('right'),
             ),
         ]
 
@@ -194,11 +186,11 @@ class Car(cqparts.Assembly):
             ),
         ]
 
-    def make_alterations(self):
+    def make_alterations(self, placed_self):
         # cut out wheel wells
-        chassis = self.components['chassis']
-        self.components['front_axle'].apply_cutout(chassis)
-        self.components['rear_axle'].apply_cutout(chassis)
+        chassis = placed_self['chassis']
+        placed_self['front_axle'].apply_cutout(chassis)
+        placed_self['rear_axle'].apply_cutout(chassis)
 
 
 # ------------------- Display Result -------------------

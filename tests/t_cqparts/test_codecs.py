@@ -231,7 +231,7 @@ class TestStep(CodecFileTest):
         # exception not raised before object is formed
         with self.assertRaises(ValueError):
             with suppress_stdout_stderr():
-                thing.local_obj
+                thing.obj
 
     def test_multipart_part(self):
         # When imported as a Part, geometry is unioned together

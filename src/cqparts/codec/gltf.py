@@ -501,7 +501,7 @@ class GLTFExporter(Exporter):
             tolerance = cls.default_tolerance
 
         with measure_time(log, 'buffers.part_mesh'):
-            workplane = part.local_obj  # cadquery.CQ instance
+            workplane = part.obj  # cadquery.CQ instance
             shape = workplane.val()  # expecting a cadquery.Solid instance
             tess = shape.tessellate(tolerance)
             return tess

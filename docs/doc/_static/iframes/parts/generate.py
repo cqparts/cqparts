@@ -69,9 +69,9 @@ class JoinedWheel(cqparts.Part):
         wheel_l = Wheel(radius=self.l_radius, width=self.l_width)
         wheel_r = Wheel(radius=self.r_radius, width=self.r_width)
         # Union them with the axle solid
-        obj = obj.union(wheel_l.local_obj)
+        obj = obj.union(wheel_l.obj)
         obj = obj.union(
-            wheel_r.local_obj.mirror('XY') \
+            wheel_r.obj.mirror('XY') \
                 .translate((0, 0, self.axle_length))
         )
         return obj
@@ -79,7 +79,7 @@ class JoinedWheel(cqparts.Part):
 joined_wheel = JoinedWheel(
     r_radius=80, l_width=20, axle_diam=30,
 )
-joined_wheel.local_obj
+joined_wheel.obj
 
 
 # ------------------- Red Box -------------------

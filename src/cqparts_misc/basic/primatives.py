@@ -3,7 +3,7 @@ import cadquery
 import cqparts
 from cqparts.params import *
 from cqparts.search import register, common_criteria
-from cqparts.constraint import Mate
+from cqparts.constraint.mate import mate
 from cqparts.utils import CoordSystem
 
 
@@ -29,61 +29,61 @@ class Cube(cqparts.Part):
             self.size, self.size, self.size,
         )
 
-    @property
-    def mate_top(self):
+    @mate('top')
+    def _mate_top(self):
         """
         :return: mate at top of cube, z-axis upward
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem((0, 0, self.size / 2)))
+        return CoordSystem((0, 0, self.size / 2))
 
-    @property
-    def mate_bottom(self):
+    @mate('bottom')
+    def _mate_bottom(self):
         """
         :return: mate at base of cube, z-axis upward
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem((0, 0, -self.size / 2)))
+        return CoordSystem((0, 0, -self.size / 2))
 
-    @property
-    def mate_pos_x(self):
+    @mate('pos_x')
+    def _mate_pos_x(self):
         """
         :return: mate on positive X face
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem(
+        return CoordSystem(
             origin=(self.size/2,0,0), xDir=(0,0,1), normal=(1,0,0)
-        ))
+        )
 
-    @property
-    def mate_neg_x(self):
+    @mate('neg_x')
+    def _mate_neg_x(self):
         """
         :return: mate on negative X face
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem(
+        return CoordSystem(
             origin=(-self.size/2,0,0), xDir=(0,0,1), normal=(-1,0,0)
-        ))
+        )
 
-    @property
-    def mate_pos_y(self):
+    @mate('pos_y')
+    def _mate_pos_y(self):
         """
         :return: mate on positive Y face
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem(
+        return CoordSystem(
             origin=(0,self.size/2,self.size/2), xDir=(0,0,1), normal=(0,1,0)
-        ))
+        )
 
-    @property
-    def mate_neg_y(self):
+    @mate('neg_y')
+    def _mate_neg_y(self):
         """
         :return: mate on negative Y face
         :rtype: :class:`Mate <cqparts.constraint.Mate>`
         """
-        return Mate(self, CoordSystem(
+        return CoordSystem(
             origin=(0,-self.size/2,self.size/2), xDir=(0,0,1), normal=(0,-1,0)
-        ))
+        )
 
 
 @_register(shape='box')

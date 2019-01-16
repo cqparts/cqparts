@@ -58,7 +58,7 @@ else:
     if env_name == 'freecad':
         # force complex thread
         from Helpers import show
-        show(thread.local_obj)
+        show(thread.obj)
         show(thread.profile)
 
     else:

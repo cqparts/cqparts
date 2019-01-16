@@ -140,12 +140,12 @@ class WheeledAxle(cqparts.Assembly):
         axle = self.components['axle']
         left_wheel = self.components['left_wheel']
         right_wheel = self.components['right_wheel']
-        local_obj = part.local_obj
-        local_obj = local_obj \
+        obj = part.obj
+        obj = obj \
             .cut((axle.world_coords - part.world_coords) + axle.get_cutout()) \
             .cut((left_wheel.world_coords - part.world_coords) + left_wheel.get_cutout(self.wheel_clearance)) \
             .cut((right_wheel.world_coords - part.world_coords) + right_wheel.get_cutout(self.wheel_clearance))
-        part.local_obj = local_obj
+        part.obj = obj
 
 
 # ------------------- Car Assembly -------------------
