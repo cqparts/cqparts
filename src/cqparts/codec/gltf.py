@@ -407,13 +407,13 @@ class GLTFExporter(Exporter):
 
                 for (child_name, child) in obj.components.items():
                     # Full name of child (including '.' separated list of all parents)
-                    full_name = "%s.%s" % (name, child_name)
+                    full_name = "%s-%s" % (name, child_name)
 
                     # Recursively add children
                     add(
                         child,
-                        filename="%s.%s%s" % (split[0], child_name, split[1]),
-                        name="%s.%s" % (name, child_name),
+                        filename="%s-%s%s" % (split[0], child_name, split[1]),
+                        name="%s-%s" % (name, child_name),
                         origin=obj_world_coords,
                         parent_node_index=node_index,
                     )
