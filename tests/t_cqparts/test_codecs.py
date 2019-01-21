@@ -339,7 +339,7 @@ class TestGltf(CodecFolderTest):
         self.assertFilesizeNonZero(os.path.join(self.foldername, 'asm.gltf'))
         for name in asm.components.keys():  # only works because it's a single layer assembly
             self.assertFilesizeNonZero(
-                os.path.join(self.foldername, 'asm.%s.bin' % name)
+                os.path.join(self.foldername, 'asm-%s.bin' % name)
             )
 
     def test_tolerance(self):
