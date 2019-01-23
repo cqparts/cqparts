@@ -325,7 +325,7 @@ class Assembly(Component):
         """
 
         if isinstance(keys, six.string_types):
-            keys = [k for k in keys.split('.') if k]
+            keys = re.split(r'[\.-]+', keys)
         if _index >= len(keys):
             return self
 

@@ -310,10 +310,15 @@ class SearchTests(CQPartsTest):
         self.assertIsInstance(car.find('chassis'), simplecar.Chassis)  # part
         self.assertIsInstance(car.find('front_wheels'), simplecar.AxleAsm)  # assembly
 
-    def test_2nd_layer(self):
+    def test_2nd_layer_period(self):
         car = SimpleCar()
         self.assertIsInstance(car.find('front_wheels.axle'), simplecar.Axle)
         self.assertIsInstance(car.find('front_wheels.wheel_left'), simplecar.Wheel)
+
+    def test_2nd_layer_dash(self):
+        car = SimpleCar()
+        self.assertIsInstance(car.find('front_wheels-axle'), simplecar.Axle)
+        self.assertIsInstance(car.find('front_wheels-wheel_left'), simplecar.Wheel)
 
     def test_bad_paths(self):
         car = SimpleCar()
