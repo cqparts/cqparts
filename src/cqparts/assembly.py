@@ -1,6 +1,7 @@
 
 import six
 import string
+import re
 
 from types import GeneratorType
 
