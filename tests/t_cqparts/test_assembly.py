@@ -70,12 +70,23 @@ class BadAssemblyTests(CQPartsTest):
         with self.assertRaises(ValueError):
             A().components
 
-    def test_bad_component_keychar(self):
+    def test_bad_component_keychar_period(self):
         class A(cqparts.Assembly):
             def make_components(self):
                 yield {
                     'p': Box(),  # good key
-                    'a.b': Box(),  # key can't contain a '.'
+                    'a.b': Box(),  # key can't contain a '.' #147
+                }
+
+        with self.assertRaises(ValueError):
+            A().components
+
+    def test_bad_component_keychar_dash(self):
+        class A(cqparts.Assembly):
+            def make_components(self):
+                yield {
+                    'p': Box(),  # good key
+                    'a-b': Box(),  # key can't contain a '-' #147
                 }
 
         with self.assertRaises(ValueError):

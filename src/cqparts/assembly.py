@@ -1,5 +1,6 @@
 
 import six
+import string
 
 from types import GeneratorType
 
@@ -12,6 +13,18 @@ from .errors import AssemblyFindError
 
 import logging
 log = logging.getLogger(__name__)
+
+
+# Component Name Validity, considering:
+#   - chosen delimiter, and
+#   - usage as filename
+VALID_NAME_CHARS = set(
+    string.ascii_letters + string.digits + # alphanumeric
+    '_()#@%^=+ '
+)
+# note: does not include
+#   `.` - threejs removes '.' from filenames, leading to incompatability (see PR #147)
+#   `-` - chosen delimiter
 
 
 class Assembly(Component):
@@ -158,9 +171,14 @@ class Assembly(Component):
                     "(must be a (str, Component))"
                 ) % (name, component))
 
-            # name cannot contain a '.'
-            if '.' in name:
-                raise ValueError("component names cannot contain a '.' (%s, %r)" % (name, component))
+            # check component name validity
+            invalid_chars = set(name) - VALID_NAME_CHARS
+            if invalid_chars:
+                raise ValueError(
+                    "component name {!r} invalid; cannot include {!r}".format(
+                        name, invalid_chars
+                    )
+                )
 
     @staticmethod
     def verify_constraints(constraints):
