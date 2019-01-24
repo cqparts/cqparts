@@ -23,8 +23,8 @@ class CodecTest(CQPartsTest):
         self.assertEqual(os.stat(filename).st_size, 0)
 
     def assertFilesizeNonZero(self, filename):
-        self.assertTrue(os.path.exists(filename))
-        self.assertGreater(os.stat(filename).st_size, 0)
+        self.assertTrue(os.path.exists(filename), "file does not exist: {!r}".format(filename))
+        self.assertGreater(os.stat(filename).st_size, 0, "file is empty: {!r}".format(filename))
 
     @contextmanager
     def assertCreatesFile(self, filename, nonzero=True):
@@ -339,7 +339,7 @@ class TestGltf(CodecFolderTest):
         self.assertFilesizeNonZero(os.path.join(self.foldername, 'asm.gltf'))
         for name in asm.components.keys():  # only works because it's a single layer assembly
             self.assertFilesizeNonZero(
-                os.path.join(self.foldername, 'asm.%s.bin' % name)
+                os.path.join(self.foldername, 'asm-%s.bin' % name)
             )
 
     def test_tolerance(self):
