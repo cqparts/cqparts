@@ -331,3 +331,20 @@ class SearchTests(CQPartsTest):
         for search_key in bad_search_keys:
             with self.assertRaises(AssemblyFindError):
                 car.find(search_key)
+
+
+class BoundingBoxTests(CQPartsTest):
+
+    def test_single_layer(self):
+        obj = CubeStack()
+        bb = obj.bounding_box
+        self.assertAlmostEqual((bb.xmin, bb.xmax), (-1, 1), places=1)
+        self.assertAlmostEqual((bb.ymin, bb.ymax), (-1, 1), places=1)
+        self.assertAlmostEqual((bb.zmin, bb.zmax), (0, 3), places=1)
+
+    def test_nested(self):
+        obj = SimpleCar()
+        bb = obj.bounding_box
+        self.assertAlmostEqual((bb.xmin, bb.xmax), (0, 0), places=1)
+        self.assertAlmostEqual((bb.ymin, bb.ymax), (0, 0), places=1)
+        self.assertAlmostEqual((bb.zmin, bb.zmax), (0, 0), places=1)
