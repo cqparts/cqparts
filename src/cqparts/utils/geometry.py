@@ -17,7 +17,7 @@ def merge_boundboxes(*bb_list):
     # Verify types
     if not all(isinstance(x, cadquery.BoundBox) for x in bb_list):
         raise TypeError(
-            "parameters must be cadquery.BoundBox instances: {!r},{!r}".format(bb1, bb2)
+            "parameters must be cadquery.BoundBox instances: {!r}".format(bb_list)
         )
 
     if len(bb_list) <= 1:
