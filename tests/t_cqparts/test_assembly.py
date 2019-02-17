@@ -348,5 +348,5 @@ class BoundingBoxTests(CQPartsTest):
         bb = obj.bounding_box
         self.assertAlmostEqual(
             (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
-            (-35, -55, -45, 35, 55, 25), places=1
+            (-55, -35, -45, 55, 35, 25), places=1
         )
