@@ -6,6 +6,8 @@ from base import testlabel
 
 import cadquery
 
+from partslib import Box, Cylinder
+
 # Unit under test
 import cqparts
 from cqparts.errors import MakeError
@@ -131,3 +133,22 @@ class CopyTests(CQPartsTest):
                 return cadquery.Workplane('XY').box(1, 1, 1)
         p1 = P()
         p2 = copy(p1)
+
+
+class BoundingBoxTests(CQPartsTest):
+
+    def test_box(self):
+        obj = Box(length=1, width=2, height=3)
+        bb = obj.bounding_box
+        self.assertAlmostEqual(
+            (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
+            (-0.5, -1, -1.5, 0.5, 1, 1.5), places=1
+        )
+
+    def test_cylinder(self):
+        obj = Cylinder(length=1, radius=2)
+        bb = obj.bounding_box
+        self.assertAlmostEqual(
+            (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
+            (-2, -2, -0.5, 2, 2, 0.5), places=1
+        )

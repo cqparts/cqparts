@@ -5,9 +5,6 @@ import inspect
 from collections import defaultdict
 from copy import copy
 
-#_this_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-#sys.path.insert(0, os.path.join(_this_path, '..', 'src'))
-
 from cqparts import codec
 
 
@@ -141,6 +138,23 @@ class CQPartsTest(unittest.TestCase):
     def assertEqualAndType(self, obj, exp, t):
         self.assertEqual(obj, exp)
         self.assertEqual(type(exp), t)  # explicit test; intentionally not isinstance()
+
+    def assertAlmostEqual(self, first, second, places=None, msg=None, delta=None):
+        """
+        Wrap existing method to accept lists of values,
+        and to give an informative error.
+        """
+        if all(isinstance(x, (tuple, list)) for x in (first, second)):
+            if len(first) != len(second):
+                raise ValueError("list sizes must be the same")
+            for (a, b) in zip(first, second):
+                super(CQPartsTest, self).assertAlmostEqual(
+                    a, b, places=places, msg=msg, delta=delta,
+                )
+        else:
+            super(CQPartsTest, self).assertAlmostEqual(
+                first, second, places=places, msg=msg, delta=delta,
+            )
 
 
 class CodecRegisterTests(CQPartsTest):

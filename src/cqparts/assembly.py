@@ -9,6 +9,7 @@ from .component import Component
 from .constraint import Constraint
 from .constraint.solver import solver
 from .utils.misc import indicate_last
+from .utils.geometry import merge_boundboxes
 
 from .errors import AssemblyFindError
 
@@ -295,6 +296,15 @@ class Assembly(Component):
         if recursive:
             for (name, component) in self._components.items():
                 component.build(recursive=recursive)
+
+    @property
+    def bounding_box(self):
+        """
+        Bounding box for the combination of all components in this assembly.
+        """
+        return merge_boundboxes(*(
+            component.bounding_box for component in self.components.values()
+        ))
 
     def find(self, keys, _index=0):
         """
