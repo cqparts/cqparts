@@ -340,7 +340,7 @@ class BoundingBoxTests(CQPartsTest):
         bb = obj.bounding_box
         self.assertAlmostEqual(
             (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
-            (-1, -1, 0, 1, 1, 3)
+            (-1, -1, 0, 1, 1, 3), places=1
         )
 
     def test_nested(self):
@@ -348,5 +348,5 @@ class BoundingBoxTests(CQPartsTest):
         bb = obj.bounding_box
         self.assertAlmostEqual(
             (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
-            (-35, -55, -45, 35, 55, 25)
+            (-35, -55, -45, 35, 55, 25), places=1
         )
