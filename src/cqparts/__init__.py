@@ -26,7 +26,7 @@ __version__ = '0.2.2.dev1'
 
 __title__ = 'cqparts'
 __description__ = 'Hierarchical and deeply parametric models using cadquery'
-__url__ = 'https://github.com/fragmuffin/cqparts'
+__url__ = 'https://github.com/cqparts/cqparts'
 
 __author__ = 'Peter Boin'
 __email__ = 'peter.boin+cqparts@gmail.com'
