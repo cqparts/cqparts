@@ -13,7 +13,7 @@ EOF
 
 # Install apt packages
 apt-get update
-apt-get install -y python3 python3-pip wget libglu1-mesa jq
+apt-get install -y python3 python3-pip wget libglu1-mesa jq git
 python3 -m pip install --upgrade pip
 
 # using conda package management to install cadquery-occ
@@ -23,7 +23,8 @@ export PATH="$PATH:/opt/miniconda/bin"
 hash -r
 conda config --set always_yes yes --set changeps1 no
 conda update conda
-conda install -c pythonocc -c oce -c conda-forge -c dlr-sc -c CadQuery cadquery-occ
+conda install -c cadquery -c conda-forge python=3.6 pythonocc-core=0.18.2 oce=0.18.2 pyparsing
+pip install git+https://github.com/CadQuery/cadquery.git
 
 # Make a symlink at /conda_packages that points to conda's site-packages dir so
 # we can add it to PYTHONPATH. Ideally this would be done with docker's ENV, but
