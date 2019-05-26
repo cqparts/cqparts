@@ -156,6 +156,8 @@ class Part(Component):
         :return: bounding box of part
         :rtype: cadquery.BoundBox
         """
+        if self.world_coords:
+            return self.world_obj.findSolid().BoundingBox()
         return self.local_obj.findSolid().BoundingBox()
 
     def _placement_changed(self):

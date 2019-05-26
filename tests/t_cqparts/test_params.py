@@ -175,6 +175,32 @@ class ObjectWrapperTests(CQPartsTest):
         with self.assertRaises(ParameterError):
             Thing(foo=None)
 
+    def test_as_parameter_default(self):
+        class Coords(object):
+            def __init__(self, x=1, y=2):
+                self.x = x
+                self.y = y
+
+        class CoordsParam(Parameter):
+            def type(self, value):
+                return Coords(*value)
+
+        class Thing(ParametricObject):
+            c1 = CoordsParam()  # no default (default=None)
+            c2 = CoordsParam(default=(10, 20))
+
+        obj1 = Thing()
+        obj2 = Thing()
+
+        # No default
+        self.assertIsNone(obj1.c1)
+        self.assertIsNone(obj2.c1)
+
+        # Given Default
+        self.assertEqual((obj1.c2.x, obj1.c2.y), (10, 20))
+        self.assertEqual((obj2.c2.x, obj2.c2.y), (10, 20))
+        self.assertNotEqual(id(obj1.c2), id(obj2.c2))
+
 
 class ParameterTypeTests(CQPartsTest):
     pass

@@ -1,5 +1,6 @@
 
 from importlib import import_module
+from copy import copy
 
 from .parameter import Parameter
 
@@ -68,9 +69,10 @@ class ParametricObject(object):
 
         # Cast parameters into this instance
         for (name, param) in params.items():
-            value = param.default
             if name in kwargs:
                 value = param.cast(kwargs[name])
+            else:
+                value = copy(param.default)
             setattr(self, name, value)
 
         self.initialize_parameters()

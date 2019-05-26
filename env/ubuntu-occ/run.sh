@@ -6,6 +6,10 @@ case "$1" in
         docker run --rm --volume ${CQPARTS_ROOT}:/code ${IMAGE}
         ;;
     *)
-        docker run --rm --volume ${CQPARTS_ROOT}:/code -it ${IMAGE} "${@:1}"
+        docker run \
+            --rm -it \
+            --volume ${CQPARTS_ROOT}:/code \
+            -p 9041:9041 \
+            ${IMAGE} "${@:1}"
         ;;
 esac

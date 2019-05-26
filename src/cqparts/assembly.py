@@ -1,5 +1,7 @@
 
 import six
+import string
+import re
 
 from types import GeneratorType
 
@@ -7,11 +9,24 @@ from .component import Component
 from .constraint import Constraint
 from .constraint.solver import solver
 from .utils.misc import indicate_last
+from .utils.geometry import merge_boundboxes
 
 from .errors import AssemblyFindError
 
 import logging
 log = logging.getLogger(__name__)
+
+
+# Component Name Validity, considering:
+#   - chosen delimiter, and
+#   - usage as filename
+VALID_NAME_CHARS = set(
+    string.ascii_letters + string.digits + # alphanumeric
+    '_()#@%^=+ '
+)
+# note: does not include
+#   `.` - threejs removes '.' from filenames, leading to incompatability (see PR #147)
+#   `-` - chosen delimiter
 
 
 class Assembly(Component):
@@ -120,7 +135,7 @@ class Assembly(Component):
         as the corresponding part's world coordinates.
         """
         if self.world_coords is None:
-            log.warning("solving for Assembly without word coordinates set: %r", self)
+            log.warning("solving for Assembly without world coordinates set: %r", self)
 
         for (component, world_coords) in solver(self.constraints, self.world_coords):
             component.world_coords = world_coords
@@ -158,9 +173,14 @@ class Assembly(Component):
                     "(must be a (str, Component))"
                 ) % (name, component))
 
-            # name cannot contain a '.'
-            if '.' in name:
-                raise ValueError("component names cannot contain a '.' (%s, %r)" % (name, component))
+            # check component name validity
+            invalid_chars = set(name) - VALID_NAME_CHARS
+            if invalid_chars:
+                raise ValueError(
+                    "component name {!r} invalid; cannot include {!r}".format(
+                        name, invalid_chars
+                    )
+                )
 
     @staticmethod
     def verify_constraints(constraints):
@@ -277,6 +297,15 @@ class Assembly(Component):
             for (name, component) in self._components.items():
                 component.build(recursive=recursive)
 
+    @property
+    def bounding_box(self):
+        """
+        Bounding box for the combination of all components in this assembly.
+        """
+        return merge_boundboxes(*(
+            component.bounding_box for component in self.components.values()
+        ))
+
     def find(self, keys, _index=0):
         """
         :param keys: key path. ``'a.b'`` is equivalent to ``['a', 'b']``
@@ -307,7 +336,7 @@ class Assembly(Component):
         """
 
         if isinstance(keys, six.string_types):
-            keys = [k for k in keys.split('.') if k]
+            keys = re.split(r'[\.-]+', keys)
         if _index >= len(keys):
             return self
 

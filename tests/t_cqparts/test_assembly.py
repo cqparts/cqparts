@@ -70,12 +70,23 @@ class BadAssemblyTests(CQPartsTest):
         with self.assertRaises(ValueError):
             A().components
 
-    def test_bad_component_keychar(self):
+    def test_bad_component_keychar_period(self):
         class A(cqparts.Assembly):
             def make_components(self):
                 yield {
                     'p': Box(),  # good key
-                    'a.b': Box(),  # key can't contain a '.'
+                    'a.b': Box(),  # key can't contain a '.' #147
+                }
+
+        with self.assertRaises(ValueError):
+            A().components
+
+    def test_bad_component_keychar_dash(self):
+        class A(cqparts.Assembly):
+            def make_components(self):
+                yield {
+                    'p': Box(),  # good key
+                    'a-b': Box(),  # key can't contain a '-' #147
                 }
 
         with self.assertRaises(ValueError):
@@ -299,10 +310,15 @@ class SearchTests(CQPartsTest):
         self.assertIsInstance(car.find('chassis'), simplecar.Chassis)  # part
         self.assertIsInstance(car.find('front_wheels'), simplecar.AxleAsm)  # assembly
 
-    def test_2nd_layer(self):
+    def test_2nd_layer_period(self):
         car = SimpleCar()
         self.assertIsInstance(car.find('front_wheels.axle'), simplecar.Axle)
         self.assertIsInstance(car.find('front_wheels.wheel_left'), simplecar.Wheel)
+
+    def test_2nd_layer_dash(self):
+        car = SimpleCar()
+        self.assertIsInstance(car.find('front_wheels-axle'), simplecar.Axle)
+        self.assertIsInstance(car.find('front_wheels-wheel_left'), simplecar.Wheel)
 
     def test_bad_paths(self):
         car = SimpleCar()
@@ -315,3 +331,22 @@ class SearchTests(CQPartsTest):
         for search_key in bad_search_keys:
             with self.assertRaises(AssemblyFindError):
                 car.find(search_key)
+
+
+class BoundingBoxTests(CQPartsTest):
+
+    def test_single_layer(self):
+        obj = CubeStack()
+        bb = obj.bounding_box
+        self.assertAlmostEqual(
+            (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
+            (-1, -1, 0, 1, 1, 3), places=1
+        )
+
+    def test_nested(self):
+        obj = SimpleCar()
+        bb = obj.bounding_box
+        self.assertAlmostEqual(
+            (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax),
+            (-55, -35, -45, 55, 35, 25), places=1
+        )

@@ -1,6 +1,40 @@
 import cadquery
 import random
 
+
+def merge_boundboxes(*bb_list):
+    """
+    Combine bounding boxes to result in a single BoundBox that encloses
+    all of them.
+
+    :param bb_list: List of bounding boxes
+    :type bb_list: :class:`list` of :class:`cadquery.BoundBox`
+    """
+    # Verify types
+    if not all(isinstance(x, cadquery.BoundBox) for x in bb_list):
+        raise TypeError(
+            "parameters must be cadquery.BoundBox instances: {!r}".format(bb_list)
+        )
+
+    if len(bb_list) <= 1:
+        return bb_list[0]  # if only 1, nothing to merge; simply return it
+
+    # Find the smallest bounding box to enclose each of those given
+    min_params = list(min(*vals) for vals in zip(  # minimum for each axis
+        *((bb.xmin, bb.ymin, bb.zmin) for bb in bb_list)
+    ))
+    max_params = list(max(*vals) for vals in zip(  # maximum for each axis
+        *((bb.xmax, bb.ymax, bb.zmax) for bb in bb_list)
+    ))
+
+    #__import__('ipdb').set_trace()
+
+    # Create new object with combined parameters
+    WrappedType = type(bb_list[0].wrapped)  # assuming they're all the same
+    wrapped_bb = WrappedType(*(min_params + max_params))
+    return cadquery.BoundBox(wrapped_bb)
+
+
 class CoordSystem(cadquery.Plane):
     """
     Defines the location, and rotation of an orthogonal 3 dimensional coordinate
