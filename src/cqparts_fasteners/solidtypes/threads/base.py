@@ -3,8 +3,8 @@ from math import ceil, sin, cos, pi
 import os
 
 import cadquery
-import FreeCAD
-import Part as FreeCADPart
+#import FreeCAD
+#import Part as FreeCADPart
 
 import cqparts
 from cqparts.params import *
@@ -206,8 +206,8 @@ def profile_to_cross_section(profile, lefthand=False, start_count=1, min_vertice
 
 def helical_path(pitch, length, radius, angle=0, lefthand=False):
     # FIXME: update to master branch of cadquery
-    wire = cadquery.Wire(FreeCADPart.makeHelix(pitch, length, radius, angle, lefthand))
-    #wire = cadquery.Wire.makeHelix(pitch, length, radius, angle=angle, lefthand=lefthand)
+    #wire = cadquery.Wire(FreeCADPart.makeHelix(pitch, length, radius, angle, lefthand))
+    wire = cadquery.Wire.makeHelix(pitch, length, radius, angle=angle, lefthand=lefthand)
     shape = cadquery.Wire.combine([wire])
     path = cadquery.Workplane("XY").newObject([shape])
     return path
@@ -281,7 +281,7 @@ class Thread(cqparts.Part):
                         (2, 0), (3, 0.5), (3, 1), (2, 1.5), (2, 2)
                     ]
                     profile = cadquery.Workplane("XZ") \
-                        .moveTo(*points[0]).polyline(points[1:])
+                        .polyline(points)
                     return profile.wire()  # .wire() is mandatory
 
         :return: thread profile as a wire on the XZ plane

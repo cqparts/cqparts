@@ -39,7 +39,7 @@ class TriangularThread(Thread):
             points.append((self.diameter_core / 2, self.pitch))
 
         profile = cadquery.Workplane("XZ") \
-            .moveTo(*points[0]).polyline(points[1:]) \
+            .polyline(points) \
             .wire()
         return profile
 

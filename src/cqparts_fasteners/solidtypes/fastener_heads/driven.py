@@ -55,7 +55,7 @@ class DrivenFastenerHead(FastenerHead):
     def make(self):
         points = self.get_cross_section_points()
         head = cadquery.Workplane("XY") \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.height)
 
         if self.chamfer:
