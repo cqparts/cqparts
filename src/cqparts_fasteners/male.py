@@ -229,7 +229,7 @@ class MaleFastenerPart(cqparts.Part):
             tip_cutter = tip_cutter.cut(tip_template)
 
             # move & cut
-            obj.cut(tip_cutter.translate((0, 0, -self.length)))
+            obj = obj.cut(tip_cutter.translate((0, 0, -self.length)))
 
         # apply screw drive (if there is one)
         if self.drive:

@@ -1,10 +1,6 @@
 import cadquery
 import random
 
-# FIXME: remove freecad dependency from this module...
-#        right now I'm just trying to get it working.
-import FreeCAD
-
 
 def merge_boundboxes(*bb_list):
     """
@@ -83,7 +79,7 @@ class CoordSystem(cadquery.Plane):
     def from_transform(cls, matrix):
         r"""
         :param matrix: 4x4 3d affine transform matrix
-        :type matrix: :class:`FreeCAD.Matrix`
+        :type matrix: :class:`cadquery.Matrix`
         :return: a unit, zero offset coordinate system transformed by the given matrix
         :rtype: :class:`CoordSystem`
 
@@ -141,9 +137,9 @@ class CoordSystem(cadquery.Plane):
             i & = cos(\beta) cos(\gamma)
         """
         # Create reference points at origin
-        offset = FreeCAD.Vector(0, 0, 0)
-        x_vertex = FreeCAD.Vector(1, 0, 0)  # vertex along +X-axis
-        z_vertex = FreeCAD.Vector(0, 0, 1)  # vertex along +Z-axis
+        offset = cadquery.Vector(0, 0, 0)
+        x_vertex = cadquery.Vector(1, 0, 0)  # vertex along +X-axis
+        z_vertex = cadquery.Vector(0, 0, 1)  # vertex along +Z-axis
 
         # Transform reference points
         offset = matrix.multiply(offset)
