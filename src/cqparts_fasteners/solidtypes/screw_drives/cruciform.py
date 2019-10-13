@@ -21,10 +21,10 @@ class FrearsonScrewDrive(ScrewDrive):
             (-self.diameter / 2., 0),
         ]
         tool_cross_x = cadquery.Workplane("XZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
         tool_cross_y = cadquery.Workplane("YZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
 
         tool = tool_cross_x.union(tool_cross_y)
@@ -55,10 +55,10 @@ class PhillipsScrewDrive(ScrewDrive):
             (-self.diameter / 2., 0),
         ]
         tool_cross_x = cadquery.Workplane("XZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
         tool_cross_y = cadquery.Workplane("YZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
 
         # Trapezoidal pyramid 45deg rotated cutout of center
@@ -72,10 +72,10 @@ class PhillipsScrewDrive(ScrewDrive):
             (-tz_top / 2., 0),
         ]
         tool_tzpy1 = cadquery.Workplane("XZ").workplane(offset=-tz_top / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(tz_top)
         tool_tzpy2 = cadquery.Workplane("YZ").workplane(offset=-tz_top / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(tz_top)
         tool_tzpy = tool_tzpy1.intersect(tool_tzpy2) \
             .rotate((0, 0, 0), (0, 0, 1), 45)
@@ -132,7 +132,7 @@ class MortorqScrewDrive(ScrewDrive):
             (-self.diameter / 2, self.width / 2),
         ]
         rect = cadquery.Workplane("XY") \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(-self.depth)
         cylinder = cadquery.Workplane("XY") \
             .center(self.width - (self.diameter / 2.), self.width / 2.) \
@@ -178,10 +178,10 @@ class PozidrivScrewDrive(ScrewDrive):
             (-self.diameter / 2., 0),
         ]
         tool_cross_x = cadquery.Workplane("XZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
         tool_cross_y = cadquery.Workplane("YZ").workplane(offset=-self.width / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
 
         # Trapezoidal pyramid inset
@@ -195,10 +195,10 @@ class PozidrivScrewDrive(ScrewDrive):
             (-tz_top / 2., 0),
         ]
         tool_tzpy1 = cadquery.Workplane("XZ").workplane(offset=-tz_top / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(tz_top)
         tool_tzpy2 = cadquery.Workplane("YZ").workplane(offset=-tz_top / 2.) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(tz_top)
         tool_tzpy = tool_tzpy1.intersect(tool_tzpy2)
 
