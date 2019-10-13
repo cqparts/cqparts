@@ -1,5 +1,5 @@
 
-from cqparts.constraint import Mate, Coincident
+from cqparts.constraint import Mate, Fixed
 
 from .base import Fastener
 from ..utils import VectorEvaluator, Selector, Applicator
@@ -31,17 +31,15 @@ class NutAndBoltFastener(Fastener):
 
         def get_constraints(self):
             # bind fastener relative to its anchor; the part holding it in.
-            first_part = self.evaluator.eval[0].part
-            last_part = self.evaluator.eval[-1].part  # last effected part
 
             return [
-                Coincident(
+                Fixed(
                     self.components['bolt'].mate_origin,
-                    Mate(first_part, self.evaluator.eval[0].start_coordsys - first_part.world_coords)
+                    self.evaluator.eval[0].start_coordsys - self.parent.world_coords
                 ),
-                Coincident(
+                Fixed(
                     self.components['nut'].mate_origin,
-                    Mate(last_part, self.evaluator.eval[-1].end_coordsys - last_part.world_coords)
+                    self.evaluator.eval[-1].end_coordsys - self.parent.world_coords
                 ),
             ]
 
