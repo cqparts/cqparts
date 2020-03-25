@@ -36,7 +36,7 @@ class ComponentTest(unittest.TestCase):
         self.assertGreater(obj.bounding_box.DiagonalLength, 0)
 
     def assertPartHasVolume(self, obj):
-        self.assertGreater(obj.local_obj.val().wrapped.Volume, 0)  # has volume
+        self.assertGreater(obj.local_obj.val().Volume(), 0)  # has volume
 
     def assertAssembyHasComponents(self, obj):
         self.assertGreater(len(obj.components), 0)  # has components

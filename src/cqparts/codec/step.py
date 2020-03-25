@@ -21,25 +21,23 @@ class STEPExporter(Exporter):
 
     .. note::
 
-        Object is passed to :meth:`cadquery.freecad_impl.exporters.exportShape`
+        Object is passed to :meth:`cadquery.exporters.exportShape`
         for exporting.
 
     """
 
     def __call__(self, filename='out.step', world=False):
-
         # Getting cadquery Shape
         workplane = self.obj.world_obj if world else self.obj.local_obj
         shape = workplane.val()
 
         # call cadquery exporter
-        with cadquery.freecad_impl.suppress_stdout_stderr():
-            with open(filename, 'w') as fh:
-                cadquery.freecad_impl.exporters.exportShape(
-                    shape=shape,
-                    exportType='STEP',
-                    fileLike=fh,
-                )
+        with open(filename, 'w') as fh:
+            cadquery.exporters.exportShape(
+                shape=shape,
+                exportType=cadquery.exporters.ExportTypes.STEP,
+                fileLike=fh,
+            )
 
 
 class _STEPImporter(Importer):
@@ -78,8 +76,8 @@ class STEPPartImporter(_STEPImporter):
 
     .. note::
 
-        Step file is passed to :meth:`cadquery.freecad_impl.importers.importShape`
-        to do the hard work of extracting geometry.
+        Step file is passed to :meth:`cadquery.importers.importShape` to do the
+        hard work of extracting geometry.
 
     **Multi-part STEP**
 
@@ -92,7 +90,7 @@ class STEPPartImporter(_STEPImporter):
             raise ValueError("given file does not exist: '%s'" % filename)
 
         def make(self):
-            return cadquery.freecad_impl.importers.importShape(
+            return cadquery.importers.importShape(
                 importType='STEP',
                 fileName=filename,
             ).combine()
@@ -116,7 +114,7 @@ class STEPAssemblyImporter(_STEPImporter):
 
     .. note::
 
-        Step file is passed to :meth:`cadquery.freecad_impl.importers.importShape`
+        Step file is passed to :meth:`cadquery.importers.importShape`
         to do the hard work of extracting geometry.
 
     **Multi-part STEP**
@@ -141,7 +139,7 @@ class STEPAssemblyImporter(_STEPImporter):
                 return make
 
             # Import file
-            obj = cadquery.freecad_impl.importers.importShape(
+            obj = cadquery.importers.importShape(
                 importType='STEP',
                 fileName=filename,
             )

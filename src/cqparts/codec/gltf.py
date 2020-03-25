@@ -323,40 +323,39 @@ class GLTFExporter(Exporter):
 
         But how to definitively determine :class:`Part <cqparts.Part>`
         instance equality?
-
-
     """
 
-    scale = 0.001  # mm to meters
-    TEMPLATE = {
-        # Static values
-        "asset": {
-            "generator": "cqparts_%s" % __version__,
-            "version": "2.0"  # glTF version
-        },
-        "scene": 0,
-
-        # Populated by adding parts
-        "scenes": [{"nodes": [0]}],
-        "nodes": [
-            {
-                "children": [],  # will be appended to before writing to file
-                # scene rotation to suit glTF coordinate system
-                # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
-                "matrix": [
-                    1.0 * scale, 0.0, 0.0, 0.0,
-                    0.0, 0.0,-1.0 * scale, 0.0,
-                    0.0, 1.0 * scale, 0.0, 0.0,
-                    0.0, 0.0, 0.0, 1.0,
-                ],
+    @classmethod
+    def _template(cls, scale=1):
+        return {
+            # Static values
+            "asset": {
+                "generator": "cqparts_%s" % __version__,
+                "version": "2.0"  # glTF version
             },
-        ],
-        "meshes": [],
-        "accessors": [],
-        "materials": [],
-        "bufferViews": [],
-        "buffers": [],
-    }
+            "scene": 0,
+
+            # Populated by adding parts
+            "scenes": [{"nodes": [0]}],
+            "nodes": [
+                {
+                    "children": [],  # will be appended to before writing to file
+                    # scene rotation to suit glTF coordinate system
+                    # ref: https://github.com/KhronosGroup/glTF/tree/master/specification/2.0#coordinate-system-and-units
+                    "matrix": [
+                        1.0 * scale, 0.0, 0.0, 0.0,
+                        0.0, 0.0,-1.0 * scale, 0.0,
+                        0.0, 1.0 * scale, 0.0, 0.0,
+                        0.0, 0.0, 0.0, 1.0,
+                    ],
+                },
+            ],
+            "meshes": [],
+            "accessors": [],
+            "materials": [],
+            "bufferViews": [],
+            "buffers": [],
+        }
 
     # error tolerance of vertices to true face value, only relevant for curved surfaces.
     default_tolerance = 0.01
@@ -367,21 +366,29 @@ class GLTFExporter(Exporter):
         super(GLTFExporter, self).__init__(*args, **kwargs)
 
         # Initialize
-        self.gltf_dict = deepcopy(self.TEMPLATE)
+        self.gltf_dict = None
         self.scene_min = None
         self.scene_max = None
 
-    def __call__(self, filename='out.gltf', embed=False, tolerance=None):
+    def __call__(self, filename='out.gltf', embed=False, tolerance=0.01, scale=1):
         """
         :param filename: name of ``.gltf`` file to export
         :type filename: :class:`str`
         :param embed: if True, binary content is embedded in json object.
         :type embed: :class:`bool`
-        :param tolerance: maximum polygonal error (optional)
+        :param tolerance: error tolerance of vertices to true face value, only relevant for curved surfaces
         :type tolerance: :class:`float`
+        :param scale: ratio of size difference of model:export coordinates
+        :type scale: :class:`float`
         """
         if tolerance is None:
             tolerance = self.tolerance
+
+        self.tolerance = tolerance
+        self.scale = scale
+
+        # Initialize gltf index content
+        self.gltf_dict = self._template(scale=self.scale)
 
         def add(obj, filename, name, origin, parent_node_index=0):
             split = os.path.splitext(filename)
@@ -458,11 +465,10 @@ class GLTFExporter(Exporter):
         """
         node_update = {}
         if matrix:
-            m = coord_sys.local_to_world_transform  # FreeCAD.Base.Matrix
-            node_update.update({
-                # glTF matrix is column major; needs to be tranposed
-                'matrix': m.transposed().A,
-            })
+            m = coord_sys.local_to_world_transform  # cadquery.Matrix
+
+            # glTF matrix is column major; needs to be tranposed
+            node_update.update({'matrix': m.transposed_list()})
         else:
             raise NotImplementedError("only matrix export is supported (for now)")
             # The plan is to support something more like:
@@ -493,7 +499,7 @@ class GLTFExporter(Exporter):
         Returned mesh format::
 
             <return value> = (
-                [FreeCAD.Base.Vector(x, y, z), ... ],  # list of vertices
+                [cadquery.Vector(x, y, z), ... ],  # list of vertices
                 [(i, j, k), ... ],  # indexes of vertices making a polygon
             )
         """
@@ -608,11 +614,11 @@ class GLTFExporter(Exporter):
             buff = self.part_buffer(part, tolerance=tolerance)
             self.scene_min = _list3_min(
                 self.scene_min,
-                (Vector(buff.vert_min) + part.world_coords.origin).toTuple()
+                (Vector(*buff.vert_min) + part.world_coords.origin).toTuple()
             )
             self.scene_max = _list3_max(
                 self.scene_max,
-                (Vector(buff.vert_max) + part.world_coords.origin).toTuple()
+                (Vector(*buff.vert_max) + part.world_coords.origin).toTuple()
             )
 
             buffer_index = len(self.gltf_dict['buffers'])
@@ -671,7 +677,7 @@ class GLTFExporter(Exporter):
                 "bufferView": bufferView_index_vertices,
                 "byteOffset": 0,
                 "componentType": WebGL.FLOAT,
-                "count": buff.vert_size,
+                "count": int(buff.vert_size),
                 "min": [v - 0.1 for v in buff.vert_min],
                 "max": [v + 0.1 for v in buff.vert_max],
                 "type": "VEC3",
@@ -685,7 +691,7 @@ class GLTFExporter(Exporter):
                 "bufferView": bufferView_index_indices,
                 "byteOffset": 0,
                 "componentType": buff.idx_type,
-                "count": buff.idx_size,
+                "count": int(buff.idx_size),
                 "type": "SCALAR",
             }
             self.gltf_dict['accessors'].append(accessor)
@@ -729,6 +735,7 @@ class GLTFExporter(Exporter):
                 node['name'] = name
             if origin:
                 node.update(self.coordsys_dict(part.world_coords - origin))
+
             self.gltf_dict['nodes'].append(node)
             info['nodes'].append((node_index, node))
 

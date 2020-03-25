@@ -10,7 +10,6 @@ sys.path.insert(0, os.path.join(_this_path, '..', '..', 'src'))
 
 import cadquery
 import cqparts
-import Part as FreeCADPart
 from Helpers import show
 
 from cqparts.solidtypes.threads.base import Thread, profile_to_cross_section, helical_path
@@ -54,7 +53,7 @@ with measure_time('triangular'):
     # Making thread valid
     thread_shape = thread.objects[0].wrapped
     thread_shape.sewShape()
-    thread.objects[0].wrapped = FreeCADPart.Solid(thread_shape)
+    thread.objects[0].wrapped = cadquery.Solid(thread_shape)
 
     # cut through
     box = cadquery.Workplane("XZ", origin=(0, 2, 2)) \

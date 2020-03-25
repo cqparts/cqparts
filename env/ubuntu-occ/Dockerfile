@@ -1,4 +1,4 @@
-FROM cqparts-env:ubuntu-py2
+FROM ubuntu:18.04
 
 # build-time arguments
 ARG tester_name=tester
@@ -8,15 +8,19 @@ ADD . /code
 # FIXME: /code is added, so setup.sh may be run, but it's later replaced with a
 #        volume mount in run.sh.
 #        The "added" /code is not removed from the image... it's just messy
-WORKDIR /code/tests
-USER root
+WORKDIR /code
 RUN bash /code/${env_rel_path}/setup.sh
 
 # test user
+RUN useradd -c 'test user' -m -d /home/${tester_name} -s /bin/bash ${tester_name}
+#RUN chown -R ${tester_name}.${tester_name} /code
 USER ${tester_name}
+ENV HOME /home/${tester_name}
 
 # runtime environment variables
-ENV PYTHONPATH /code/src:/code/${env_rel_path}/../python-lib
+ENV PIP_BIN pip3
+ENV PYTHON_BIN python3
+ENV LD_LIBRARY_PATH /opt/miniconda/lib
 
 # default run command
-CMD bash run.sh
+CMD echo "image command run successfully... but it does nothing"

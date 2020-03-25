@@ -1,4 +1,4 @@
-# Test Environments
+# Test Environment(s)
 
 Each of the sub-folders in this directory has a buildable environment designed
 to for unit-testing.
@@ -11,7 +11,16 @@ Before building these environments, run the relevant `build.sh` scripts in
 At this time [2018-02] I'm just working with docker containers with _ubuntu_
 environments.
 
-## `python-lib`
+
+## Folder: `./custom-packages`
+
+All packages of the format `*.tar.gz` in this folder are installed before
+the `requirements.txt` packages are installed.
+
+By default this folder contains no `*.tar.gz` files, they're just for development.
+
+
+## Folder: `./python-lib`
 
 This folder will be added to the environment's `PYTHONPATH`; any libs in this
 folder will be referenced before those installed in the container.
@@ -21,25 +30,18 @@ Used to test parallel development with other libraries, mainly `cadquery`.
 However, this folder should be empty when testing for a release; all dependent
 libraries should be acquired from their public sources (eg: `pip`).
 
-## `ubuntu-py2`
+
+## Folder `./ubuntu-occ`
 
 docker image hosting ubuntu with python 2.x to run tests.
 
 ```bash
-cd ubuntu-py2
+cd ubuntu-occ
 ./build.sh
 ./run.sh
 ```
 
-## `ubuntu-py3`
-
-docker image hosting ubuntu with python 3.x to run tests.
-
-```bash
-cd ubuntu-py3
-./build.sh
-./run.sh
-```
+# Thoughts...
 
 ## Windows (?)
 

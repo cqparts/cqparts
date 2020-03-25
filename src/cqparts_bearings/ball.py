@@ -27,8 +27,8 @@ class _Ring(cqparts.Part):
         return cadquery.Workplane("XY").union(
             cadquery.CQ(cadquery.Solid.makeTorus(
                 rolling_radius, ball_radius, # radii
-                pnt=cadquery.Vector(0,0,0).wrapped,
-                dir=cadquery.Vector(0,0,1).wrapped,
+                pnt=cadquery.Vector(0,0,0),
+                dir=cadquery.Vector(0,0,1),
                 angleDegrees1=0.,
                 angleDegrees2=360.,
             ))

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 cat << EOF
 Environment Variables:
     ftp_proxy    = ${ftp_proxy}
@@ -25,3 +27,22 @@ pip3 install ${req_pkgs}
 
 # install test requirements
 pip3 install -r /code/tests/requirements.txt
+
+# install cadquery : pythonocc
+# TODO: OCC-RELEASE: remove forced pythonocc cadquery installation
+function install_cadquery_pythonocc() {
+    temp_folder=/tmp/cadquery ; mkdir -p ${temp_folder}
+    branch=master
+    dest=/opt/python-lib ; mkdir -p ${dest}
+
+    pushd ${temp_folder}
+    wget https://api.github.com/repos/CadQuery/cadquery/tarball/${branch} -O cq.tar.gz
+    root_folder=$(tar --exclude='*/*' -tf cq.tar.gz)
+    tar -xvf cq.tar.gz ${root_folder}cadquery
+    mv ${root_folder}/cadquery ${dest}/cadquery
+    popd
+
+    rm -rf ${temp_folder}
+}
+
+install_cadquery_pythonocc

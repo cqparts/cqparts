@@ -1,3 +1,5 @@
+import os
+
 from .params import ParametricObject
 from .constraint import Mate
 from .utils import CoordSystem
@@ -83,6 +85,27 @@ class Component(ParametricObject):
         """
         from .codec import get_exporter
         return get_exporter(self, exporter_name)
+
+    def export(self, filepath, **kwargs):
+        """
+        Write component's content to file.
+        Uses extension of path to load the correct exporter::
+
+            >>> from cqparts_misc.basic.primatives import Box
+            >>> box = Box()
+            >>> box.export('/tmp/box.step')
+
+        For finer control over file exporting behaviour,
+        try the :meth:`exporter` method.
+        """
+        exporter_name = os.path.splitext(filepath)[1][1:]
+        if exporter_name:
+            return self.exporter(exporter_name.lower())(filepath, **kwargs)
+        else:
+            raise ValueError(
+                "Exporter cannot be found for a file with no extension: " +
+                "{!r}".format(filepath)
+            )
 
     @classmethod
     def importer(cls, importer_name=None):

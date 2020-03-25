@@ -1,9 +1,7 @@
 import cadquery
 import random
 
-# FIXME: remove freecad dependency from this module...
-#        right now I'm just trying to get it working.
-import FreeCAD
+from OCC.Core.Bnd import Bnd_Box
 
 
 def merge_boundboxes(*bb_list):
@@ -23,19 +21,9 @@ def merge_boundboxes(*bb_list):
     if len(bb_list) <= 1:
         return bb_list[0]  # if only 1, nothing to merge; simply return it
 
-    # Find the smallest bounding box to enclose each of those given
-    min_params = list(min(*vals) for vals in zip(  # minimum for each axis
-        *((bb.xmin, bb.ymin, bb.zmin) for bb in bb_list)
-    ))
-    max_params = list(max(*vals) for vals in zip(  # maximum for each axis
-        *((bb.xmax, bb.ymax, bb.zmax) for bb in bb_list)
-    ))
-
-    #__import__('ipdb').set_trace()
-
-    # Create new object with combined parameters
-    WrappedType = type(bb_list[0].wrapped)  # assuming they're all the same
-    wrapped_bb = WrappedType(*(min_params + max_params))
+    wrapped_bb = Bnd_Box()
+    for bb in bb_list:
+        wrapped_bb.Update(*bb.wrapped.Get())
     return cadquery.BoundBox(wrapped_bb)
 
 
@@ -83,7 +71,7 @@ class CoordSystem(cadquery.Plane):
     def from_transform(cls, matrix):
         r"""
         :param matrix: 4x4 3d affine transform matrix
-        :type matrix: :class:`FreeCAD.Matrix`
+        :type matrix: :class:`cadquery.Matrix`
         :return: a unit, zero offset coordinate system transformed by the given matrix
         :rtype: :class:`CoordSystem`
 
@@ -141,9 +129,9 @@ class CoordSystem(cadquery.Plane):
             i & = cos(\beta) cos(\gamma)
         """
         # Create reference points at origin
-        offset = FreeCAD.Vector(0, 0, 0)
-        x_vertex = FreeCAD.Vector(1, 0, 0)  # vertex along +X-axis
-        z_vertex = FreeCAD.Vector(0, 0, 1)  # vertex along +Z-axis
+        offset = cadquery.Vector(0, 0, 0)
+        x_vertex = cadquery.Vector(1, 0, 0)  # vertex along +X-axis
+        z_vertex = cadquery.Vector(0, 0, 1)  # vertex along +Z-axis
 
         # Transform reference points
         offset = matrix.multiply(offset)
@@ -273,7 +261,7 @@ class CoordSystem(cadquery.Plane):
             # CoordSystem + cadquery.Vector
             transform = self.local_to_world_transform
             return type(other)(
-                transform.multiply(other.wrapped)
+                transform.multiply(other)
             )
 
         elif isinstance(other, cadquery.CQ):

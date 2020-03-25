@@ -7,12 +7,11 @@ services:
 
 env:
   matrix:
-    - ENV_NAME=ubuntu-py2
-    - ENV_NAME=ubuntu-py3
+    - ENV_NAME=ubuntu-occ
 
 install:
   - cd $TRAVIS_BUILD_DIR/env/$ENV_NAME ; ./build.sh
   - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./build.sh
 
 script:
-  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./run.sh
+  - cd $TRAVIS_BUILD_DIR/tests/env/$ENV_NAME ; ./run.sh non-interactive
