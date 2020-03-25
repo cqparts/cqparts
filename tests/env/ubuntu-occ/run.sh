@@ -2,7 +2,11 @@
 source ./common-vars.sh
 
 function run_container() {
-    docker run --rm --volume ${CQPARTS_ROOT}:/code -it ${IMAGE} "$@"
+    docker run --rm \
+        --name ${IMAGE_BASE} \
+        --volume ${CQPARTS_ROOT}:/code \
+        --publish 9041:9041 \
+        -it ${IMAGE} "$@"
 }
 
 case "$1" in
