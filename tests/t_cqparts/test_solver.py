@@ -20,12 +20,16 @@ class FixedSolverTests(CQPartsTest):
 
         for (s1, s2) in [(1, 2), (3, 4), (5, 6), (7, 8)]:
             cs1 = CoordSystem.random(seed=s1)
+            # random CoordSystem is not orthogonal
+            cs1.xDir = cs1.yDir.cross(cs1.zDir)
             cs2 = CoordSystem.random(seed=s2)
+            # random CoordSystem is not orthogonal
+            cs2.xDir = cs2.yDir.cross(cs2.zDir)
 
             # create constraint
             c = Fixed(Mate(box, cs1), cs2)
             # solve
-            solution = list(solver([c]))
+            solution = list(solver({"box": box}, [c]))
             # assert results
             self.assertEqual(len(solution), 1)
             (part, coords) = solution[0]
@@ -39,14 +43,14 @@ class FixedSolverTests(CQPartsTest):
 
         # +'ve rotation
         c = Fixed(Mate(box, CoordSystem()), CoordSystem(xDir=(1, 0.1, 0)))
-        (part, coords) = list(solver([c]))[0]
+        (part, coords) = list(solver({"box": box}, [c]))[0]
         self.assertEqual(coords.origin, cadquery.Vector())
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0.1, 0).normalized())
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
 
         # -'ve rotation
         c = Fixed(Mate(box, CoordSystem(xDir=(1, 0.1, 0))), CoordSystem())
-        (part, coords) = list(solver([c]))[0]
+        (part, coords) = list(solver({"box": box}, [c]))[0]
         self.assertEqual(coords.origin, cadquery.Vector())
         self.assertEqual(coords.xDir, cadquery.Vector(1, -0.1, 0).normalized())
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
@@ -56,14 +60,14 @@ class FixedSolverTests(CQPartsTest):
 
         # +'ve translation
         c = Fixed(Mate(box, CoordSystem()), CoordSystem(origin=(1, 2, 3)))
-        (part, coords) = list(solver([c]))[0]
+        (part, coords) = list(solver({"box": box}, [c]))[0]
         self.assertEqual(coords.origin, cadquery.Vector(1, 2, 3))
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0, 0))
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
 
         # -'ve translation
         c = Fixed(Mate(box, CoordSystem(origin=(1, 2, 3))), CoordSystem())
-        (part, coords) = list(solver([c]))[0]
+        (part, coords) = list(solver({"box": box}, [c]))[0]
         self.assertEqual(coords.origin, cadquery.Vector(-1, -2, -3))
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0, 0))
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
@@ -73,57 +77,55 @@ class FixedSolverTests(CQPartsTest):
         c = Fixed(Mate(box), CoordSystem())
 
         # default origin (0, 0, 0)
-        (part, coords) = list(solver([c]))[0]
+        (part, coords) = list(solver({"box": box}, [c]))[0]
         self.assertEqual(coords, CoordSystem((0, 0, 0)))
 
         # origin displaced
-        (part, coords) = list(solver([c], CoordSystem(origin=(1, 2, 3))))[0]
+        (part, coords) = list(solver({"box": box}, [c], CoordSystem(origin=(1, 2, 3))))[0]
         self.assertEqual(coords, CoordSystem((1, 2, 3)))
 
 
 class CoincidentSolverTests(CQPartsTest):
 
-    def test_no_solution(self):
-        (box1, box2) = (Box(), Box())  # neither have world_coords
-        c = Coincident(box2.mate_origin, box1.mate_top)
-        self.assertIsNone(box1.world_coords)  # test criteria
-        with self.assertRaises(ValueError):
-            list(solver([c]))
+    # New solver always returns a result.
+    # Test "test_no_solution" doesn't make sense for it.
 
     def test_solution(self):
         (box1, box2) = (Box(), Box())
         # set box1 world location: sit it on top of xy plane
-        box1.world_coords = CoordSystem((0, 0, box1.height / 2))
+        c1 = Fixed(box1.mate_origin, CoordSystem((0, 0, box1.height / 2)))
 
         # +'ve rotation
-        c = Coincident(box2.mate_origin, box1.mate_top)
-        solution = list(solver([c]))
-        self.assertEqual(len(solution), 1)
-        (part, coords) = solution[0]
+        c2 = Coincident(box2.mate_origin, box1.mate_top)
+        solution = list(solver({"box1": box1, "box2": box2}, [c1, c2]))
+        self.assertEqual(len(solution), 2)
+        (part, coords) = solution[1]
         self.assertEqual(id(part), id(box2))
         self.assertEqual(coords, CoordSystem((0, 0, box1.height)))
 
     def test_rotation(self):
         (box1, box2) = (Box(), Box())
         # set box1 world location: sit it on top of xy plane
-        box1.world_coords = CoordSystem((0, 0, box1.height / 2))
+        c1 = Fixed(box1.mate_origin, CoordSystem((0, 0, box1.height / 2)))
 
         # +'ve rotation
-        c = Coincident(
+        c2 = Coincident(
             box2.mate_origin,
             box1.mate_top + CoordSystem(xDir=(1, 0.1, 0))
         )
-        (part, coords) = list(solver([c]))[0]
+        results = list(solver({"box1": box1, "box2": box2}, [c1, c2]))
+        (part, coords) = results[1]
         self.assertEqual(coords.origin, cadquery.Vector(0, 0, box1.height))
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0.1, 0).normalized())
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
 
         # -'ve rotation
-        c = Coincident(
+        c2 = Coincident(
             box2.mate_origin + CoordSystem(xDir=(1, 0.1, 0)),
             box1.mate_top
         )
-        (part, coords) = list(solver([c]))[0]
+        results = list(solver({"box1": box1, "box2": box2}, [c1, c2]))
+        (part, coords) = results[1]
         self.assertEqual(coords.origin, cadquery.Vector(0, 0, box1.height))
         self.assertEqual(coords.xDir, cadquery.Vector(1, -0.1, 0).normalized())
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
@@ -131,24 +133,26 @@ class CoincidentSolverTests(CQPartsTest):
     def test_translation(self):
         (box1, box2) = (Box(), Box())
         # set box1 world location: sit it on top of xy plane
-        box1.world_coords = CoordSystem((0, 0, box1.height / 2))
+        c1 = Fixed(box1.mate_origin, CoordSystem((0, 0, box1.height / 2)))
 
         # +'ve translation
-        c = Coincident(
+        c2 = Coincident(
             box2.mate_origin,
             box1.mate_top + CoordSystem(origin=(1, 2, 3))
         )
-        (part, coords) = list(solver([c]))[0]
+        results = list(solver({"box1": box1, "box2": box2}, [c1, c2]))
+        (part, coords) = results[1]
         self.assertEqual(coords.origin, cadquery.Vector(1, 2, 3 + box1.height))
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0, 0))
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
 
         # -'ve translation
-        c = Coincident(
+        c2 = Coincident(
             box2.mate_origin + CoordSystem(origin=(1, 2, 3)),
             box1.mate_top
         )
-        (part, coords) = list(solver([c]))[0]
+        results = list(solver({"box1": box1, "box2": box2}, [c1, c2]))
+        (part, coords) = results[1]
         self.assertEqual(coords.origin, cadquery.Vector(-1, -2, -3 + box1.height))
         self.assertEqual(coords.xDir, cadquery.Vector(1, 0, 0))
         self.assertEqual(coords.zDir, cadquery.Vector(0, 0, 1))
@@ -164,7 +168,7 @@ class SolverOrderTests(CQPartsTest):
             Fixed(box1.mate_bottom, CoordSystem()),
             Coincident(box2.mate_bottom, box1.mate_top),
         ]
-        solution = solver(constraints)
+        solution = solver({"box1": box1, "box2": box2}, constraints)
 
         # 1st solution : box1
         (part, coords) = next(solution)
@@ -186,7 +190,7 @@ class SolverOrderTests(CQPartsTest):
             Coincident(box2.mate_bottom, box1.mate_top),
             Fixed(box1.mate_bottom, CoordSystem()),
         ]
-        solution = solver(constraints)
+        solution = solver({"box1": box1, "box2": box2}, constraints)
 
         # 1st solution : box1
         (part, coords) = next(solution)
@@ -206,4 +210,4 @@ class BadSolverTests(CQPartsTest):
 
     def test_non_constraint(self):
         with self.assertRaises(ValueError):
-            list(solver(['not_a_constraint']))
+            list(solver({}, ['not_a_constraint']))

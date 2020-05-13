@@ -1,10 +1,85 @@
 
 from ..utils.geometry import CoordSystem
 from .base import Constraint
-from .constraints import Fixed, Coincident
 
+from math import sin, cos, pi, acos, sqrt, atan2
+import numpy
+from scipy.optimize import least_squares
 
-def solver(constraints, coord_sys=None):
+def get_Rot(alpha, beta, gamma):
+    return numpy.array([
+        [
+            cos(alpha) * cos(gamma) - sin(alpha) * cos(beta) * sin(gamma),
+            -cos(alpha) * sin(gamma) - sin(alpha) * cos(beta) * cos(gamma),
+            sin(alpha) * sin(beta)
+        ],
+        [
+            sin(alpha) * cos(gamma) + cos(alpha) * cos(beta) * sin(gamma),
+            -sin(alpha) * sin(gamma) + cos(alpha) * cos(beta) * cos(gamma),
+            -cos(alpha) * sin(beta)
+        ],
+        [
+            sin(beta) * sin(gamma),
+            sin(beta) * cos(gamma),
+            cos(beta)
+        ]
+    ])
+
+def get_index_parameter(x, index):
+    return x[index:index+3], x[index+3:index+6]
+
+class NumericSolver:
+    def __init__(self, components, constraints, world_coords=CoordSystem()):
+        self.constraints = constraints
+        self.components = components
+        self.world_coords = world_coords
+
+        for constraint in constraints:
+            constraint.add_solver(self)
+
+        self.result = None
+        self.x = self.get_raw0()
+
+    def get_raw0(self):
+        return numpy.zeros(len(self.components) * 6)
+
+    def f(self, x):
+        r = [list(c.f(x)) for c in self.constraints]
+        return sum(r, [])
+
+    def df(self, x):
+        return sum([list(c.df(x)) for c in self.constraints], [])
+
+    def solve(self):
+        self.result = least_squares(
+            self.f,
+            self.x,
+            method="dogbox", #method{‘trf’, ‘dogbox’, ‘lm’}
+            jac=self.df,
+            x_scale="jac",
+            verbose=1
+        )
+        self.x = self.result.x
+
+    def get_coordinates(self):
+        coords = []
+        for component in self.components:
+            index = self.components.index(component) * 6
+            offset, angles = get_index_parameter(self.x, index)
+            rot = get_Rot(*angles)
+
+            xDir = rot.dot(numpy.array([1, 0, 0]))
+            zDir = rot.dot(numpy.array([0, 0, 1]))
+            coords.append(
+                CoordSystem(
+                    list(offset),
+                    xDir=list(xDir),
+                    normal=list(zDir)
+                )
+            )
+        return coords
+
+def solver(components, constraints, coord_sys=None):
     """
     Solve constraints. Solutions pair :class:`Constraint <cqparts.constraint.Constraint>`
     instances with their suitable :class:`CoordSystem <cqparts.utils.geometry.CoordSystem>`
@@ -27,46 +102,11 @@ def solver(constraints, coord_sys=None):
         if not isinstance(constraint, Constraint):
             raise ValueError("{!r} is not a constraint".format(constraint))
 
-    solved_count = 0
+    solver = NumericSolver(
+        list(components.values()),
+        constraints,
+        coord_sys
+    )
 
-    indexed = list(constraints)
-
-    # Continue running solver until no solution is found
-    while indexed:
-        indexes_solved = []
-        for (i, constraint) in enumerate(indexed):
-
-            # Fixed
-            if isinstance(constraint, Fixed):
-                indexes_solved.append(i)
-                yield (
-                    constraint.mate.component,
-                    coord_sys + constraint.world_coords + (CoordSystem() - constraint.mate.local_coords)
-                )
-
-            # Coincident
-            elif isinstance(constraint, Coincident):
-                try:
-                    relative_to = constraint.to_mate.world_coords
-                except ValueError:
-                    relative_to = None
-
-                if relative_to is not None:
-                    indexes_solved.append(i)
-                    # note: relative_to are world coordinates; adding coord_sys is not necessary
-                    yield (
-                        constraint.mate.component,
-                        relative_to + (CoordSystem() - constraint.mate.local_coords)
-                    )
-
-        if not indexes_solved:  # no solutions found
-            # At least 1 solution must be found each iteration.
-            # if not, we'll just be looping forever.
-            break
-        else:
-            # remove constraints from indexed list (so they're not solved twice)
-            for j in reversed(indexes_solved):
-                del indexed[j]
-
-    if indexed:
-        raise ValueError("not all constraints could be solved")
+    solver.solve()
+    return zip(solver.components, solver.get_coordinates())

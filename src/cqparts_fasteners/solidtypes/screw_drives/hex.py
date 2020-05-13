@@ -51,7 +51,7 @@ class HexScrewDrive(ScrewDrive):
         # Single hex as template
         points = self.get_hexagon_vertices()
         tool_template = cadquery.Workplane("XY") \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(-self.depth)
 
         # Create tool (rotate & duplicate template)

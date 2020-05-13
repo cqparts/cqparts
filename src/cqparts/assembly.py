@@ -137,7 +137,7 @@ class Assembly(Component):
         if self.world_coords is None:
             log.warning("solving for Assembly without world coordinates set: %r", self)
 
-        for (component, world_coords) in solver(self.constraints, self.world_coords):
+        for (component, world_coords) in solver(self.components, self.constraints, self.world_coords):
             component.world_coords = world_coords
 
     @staticmethod

@@ -29,7 +29,7 @@ class AcentricWedgesScrewDrive(ScrewDrive):
             (-self.diameter / 2, 0),
         ]
         blade = cadquery.Workplane("XZ").workplane(offset=self.acentric_radius - (self.width / 2)) \
-            .moveTo(*points[0]).polyline(points[1:]).close() \
+            .polyline(points).close() \
             .extrude(self.width)
 
         for i in range(self.count):
