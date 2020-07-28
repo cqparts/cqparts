@@ -16,7 +16,7 @@ install:
     - conda update --quiet conda
 
     # Install FreeCAD & Python
-    - conda create --quiet --name testenv -c cadquery -c conda-forge freecad=%FREECAD_VERSION% python=%PYTHON_VERSION%
+    - conda create --quiet --name testenv -c cadquery -c conda-forge freecad=%FREECAD_VERSION% python=%PYTHON_VERSION% cadquery
     - activate testenv
 
     # Configure Python & pip packages
